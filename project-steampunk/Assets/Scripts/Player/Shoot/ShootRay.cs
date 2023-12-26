@@ -8,6 +8,7 @@ public class ShootRay : MonoBehaviour
     [SerializeField] private Camera cam;
     //[SerializeField] private float maxDistance;
     [SerializeField] private LayerMask enemyLayer;
+    [SerializeField] private LayerMask effectLayer;
     [SerializeField] RecoilShake recoilShake;
 
     public float recoilDuration;
@@ -32,7 +33,7 @@ public class ShootRay : MonoBehaviour
 
             animator.SetBool("shoot", true);
             if (Physics.Raycast(cam.transform.position, cam.transform.forward,
-                out RaycastHit hitObject))
+                out RaycastHit hitObject, Mathf.Infinity, effectLayer))
             {
                 var direction = new Vector3(hitObject.point.x, hitObject.point.y, hitObject.point.z);
                 Instantiate(hitEffectPrefab, direction, Quaternion.identity);
