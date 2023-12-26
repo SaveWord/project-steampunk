@@ -1,0 +1,298 @@
+using System.Collections;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class PlayerMove : MonoBehaviour
+{
+    //move data
+    [Header("Переменные перемещения")]
+    [SerializeField] private float speed;
+    [SerializeField] private float jumpForce;
+    [SerializeField] private float mouseSense;
+
+
+    [Header("Переменные детекта ground")]
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private Transform dotGround;
+    [SerializeField] private float verticalDamping = 0.5f;
+
+    [SerializeField] private Transform debugRayHit;
+
+    private float xRotation;
+    private Camera cam;
+    private Rigidbody rb;
+    private ActionPrototypePlayer inputActions;
+    private bool isGrounded;
+
+    //state player movement
+    //private State state;
+
+    //hook data 
+    /*[Header("Тайминги хука")]
+    [SerializeField] private float distanceHook;
+    [SerializeField] private float timeNextHook;//перезарядка крюк кошки
+    private Vector3 hookPosition;
+    private float timerHook;
+    */
+
+    //dash data
+    [Header("Dash переменные")]
+    [SerializeField] private int layerIgnore; //игнорирование коллизии слоя
+    [SerializeField] private float dashSpeed;
+    [SerializeField] private float dashTimeLimit;//время рывка
+    [SerializeField] private float dashCooldown;//время перезарядки рывка
+    private float dashTimer;
+
+    //tackle data
+    [Header("Переменные подката")]
+    [SerializeField] private float tackleSpeed;
+    [SerializeField] private float tackleTimeLimit;//время подката
+    [SerializeField] private float tackleCooldown;//время перезарядки подката
+    [SerializeField] private float scaleY;
+
+    private int doubleJump;
+
+    //wallRunning
+    /*
+    [Header("Переменные бега по стене")]
+    [SerializeField] private float wallMoveTime;
+    [SerializeField] private float wallRayRange;
+    [SerializeField] private LayerMask wallLayer;
+    private float wallRunDetect;
+    private bool wallRight;
+    private bool wallLeft;
+    */
+
+    //kick
+    [Header("Переменные пинка")]
+    [SerializeField] private float maxDistanceKick;
+    [SerializeField] private float kickForce;
+    [SerializeField] private LayerMask enemyLayer;
+
+    [SerializeField] private GameObject spheres;
+
+   /* private enum State
+    {
+        Normal,
+        //Sprint,
+        //HookShotFly,
+        //WallRuning
+
+    }
+   */
+    private void Awake()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        rb = GetComponent<Rigidbody>();
+        inputActions = new ActionPrototypePlayer();
+        inputActions.Player.Enable();
+        cam = GameObject.FindAnyObjectByType<Camera>();
+        //state = State.Normal;
+    }
+    private void Update()
+    {
+        //Debug.Log(IsGrounded());
+        IsGrounded();
+        //Debug.Log(sprintTimer); 
+    }
+    private void FixedUpdate()
+    {
+        Debug.DrawRay(cam.transform.position, cam.transform.forward * maxDistanceKick,
+                Color.red);
+        Vector2 inputMove = inputActions.Player.Move.ReadValue<Vector2>();
+        Vector2 inputLook = inputActions.Player.Look.ReadValue<Vector2>();
+        rb.velocity += Vector3.up * Physics.gravity.y * verticalDamping;
+        Rotation(inputLook);
+        Move(inputMove);
+        //WallRunningState();
+       /* switch (state)
+        {
+            default:
+            case State.Normal:
+                
+                break;
+            case State.HookShotFly:
+                HandleHookMovement();
+                Rotation(inputLook);
+                break;
+            case State.WallRuning:
+                WallRunningMovement();
+                Rotation(inputLook);
+                break;
+        }
+       */
+    }
+
+    //Movement
+    private void Move(Vector2 inputMove)
+    {
+        Vector3 move = transform.right * inputMove.x + transform.forward * inputMove.y;
+        rb.velocity = new Vector3(move.x * speed, rb.velocity.y, move.z * speed);
+        
+    }
+    private void Rotation(Vector2 inputLook)
+    {
+        float xLook = inputLook.x * mouseSense;
+        float yLook = inputLook.y * mouseSense;
+
+        xRotation -= yLook;
+        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+
+        cam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+
+        transform.Rotate(Vector3.up * xLook);
+    }
+
+    public void Dash(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started)
+        {
+            if (dashTimer <= Time.time)
+            {
+                dashTimer = Time.time + dashCooldown;
+                StartCoroutine(DashCoroutine());
+            }
+        }
+    }
+    IEnumerator DashCoroutine()
+    {
+        float oldSpeed;
+        oldSpeed = speed;
+        speed = dashSpeed;
+        Physics.IgnoreLayerCollision(gameObject.layer, layerIgnore, true);
+        yield return new WaitForSeconds(dashTimeLimit);
+        Physics.IgnoreLayerCollision(gameObject.layer, layerIgnore, false);
+        speed = oldSpeed;
+
+    }
+
+    //подкат
+    public void Tackle(InputAction.CallbackContext context) 
+    {
+        if(context.phase == InputActionPhase.Started && (rb.velocity.x > 0 || rb.velocity.z >0.01))
+        {
+            StartCoroutine(TackleCoroutine());
+        }
+    }
+    IEnumerator TackleCoroutine()
+    {
+        float oldSpeed;
+        float oldScale;
+        oldSpeed = speed;
+        oldScale = transform.localScale.y;
+        transform.localScale = new Vector3(transform.localScale.x,scaleY,transform.localScale.z);
+        yield return new WaitForSeconds(tackleTimeLimit);
+        transform.localScale = new Vector3(transform.localScale.x, oldScale, transform.localScale.z);
+        speed = oldSpeed;
+    }
+    public void Jump(InputAction.CallbackContext context)
+    {
+        Debug.Log(doubleJump);
+        if (context.phase == InputActionPhase.Started && IsGrounded() == true)
+        {
+            doubleJump = 1;
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
+        else if (doubleJump == 1 && context.phase == InputActionPhase.Started)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            doubleJump = 0;
+        }
+    }
+
+    private bool IsGrounded()
+    {
+        float sphereRadius = 1f;
+        isGrounded = Physics.CheckSphere(dotGround.position, sphereRadius, groundLayer);
+        return isGrounded;
+    }
+    //hookShot
+    /*
+    public void HandleHookShot(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started && timerHook <= Time.time)
+        {
+            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, distanceHook))
+            {
+                timerHook = Time.time + timeNextHook;
+                debugRayHit.position = hit.point;
+                hookPosition = hit.point;
+                state = State.HookShotFly;
+            }
+
+        }
+
+    }
+    private void HandleHookMovement()
+    {
+        float hookSpeedMin = 10f;
+        float hookSpeedMax = 40f;
+        float speedHook = Mathf.Clamp(Vector3.Distance(transform.position, hookPosition), hookSpeedMin,
+            hookSpeedMax);
+        float speedHookMultiplie = 2f;
+        Vector3 hookShootDir = (hookPosition - transform.position).normalized;
+        rb.velocity = hookShootDir * speedHook * speedHookMultiplie;
+        if (Vector3.Distance(transform.position, hookPosition) < 1f)
+        {
+            state = State.Normal;
+        }
+        if (inputActions.Player.HookShot.phase == InputActionPhase.Started)
+        {
+            state = State.Normal;
+            rb.velocity = Vector3.zero;
+        }
+    }
+    */
+
+
+    //ground check
+
+    //wall run
+   /* private void WallRunningState()
+    {
+        wallRight = Physics.Raycast(transform.position, transform.right, wallRayRange, wallLayer);
+        wallLeft = Physics.Raycast(transform.position, -transform.right, wallRayRange, wallLayer);
+        if ((wallRight || wallLeft) && rb.velocity.y > 0f && !IsGrounded())
+        {
+            state = State.WallRuning;
+            wallRunDetect = Time.time + wallMoveTime;
+        }
+    }
+    private void WallRunningMovement()
+    {
+        if (wallRunDetect > Time.time)
+        {
+
+            Vector2 inputWallMove = inputActions.Player.WallRun.ReadValue<Vector2>();
+            Vector3 moveWall = transform.right * inputWallMove.x + transform.forward * inputWallMove.y;
+            rb.velocity = new Vector3(moveWall.x * speed, 0, moveWall.z * speed);
+            rb.useGravity = false;
+        }
+        if (wallRunDetect < Time.time || (!wallLeft && !wallRight) ||
+            rb.velocity.x == 0)
+        {
+            state = State.Normal;
+            rb.useGravity = true;
+        }
+
+    }
+   */
+
+    //hit leg (kick)
+    public void Kick(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started)
+        {
+            if (Physics.Raycast(cam.transform.position, cam.transform.forward,
+                out RaycastHit hit, maxDistanceKick, enemyLayer))
+            {
+                hit.collider.GetComponent<Rigidbody>().
+                    AddForce(((hit.collider.transform.position - transform.position).normalized)
+                    * kickForce,ForceMode.Impulse);
+            }
+        }
+    }
+
+}

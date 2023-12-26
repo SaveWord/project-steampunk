@@ -1,0 +1,39 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+
+public class DamageTakenEffect : MonoBehaviour
+{
+    [SerializeField] private float _vignetteIntensity = 0;
+     Volume _volume;
+    private Vignette _vignette;
+
+    void Start()
+    {
+        //_volume = GetComponent<Volume>();
+        Volume volume = gameObject.GetComponent<Volume>();
+        if (volume.profile.TryGet<Vignette>(out _vignette))
+
+            if (!_vignette)
+            Debug.Log("set up vignette");
+        else _vignette.intensity.Override(0f);
+    }
+
+    public IEnumerator TakeDamageEffect()
+    {
+        _vignetteIntensity = 0.4f;
+        _vignette.intensity.Override(0.4f);
+        yield return new WaitForSeconds(0.4f);
+        while (_vignetteIntensity > 0)
+        {
+            _vignetteIntensity -= 0.01f;
+            if (_vignetteIntensity < 0) _vignetteIntensity = 0;
+            _vignette.intensity.Override(_vignetteIntensity);
+            yield return new WaitForSeconds(0.1f);
+
+        }
+        yield break;
+    }
+}
