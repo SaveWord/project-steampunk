@@ -16,7 +16,6 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private Transform dotGround;
     [SerializeField] private float verticalDamping = 0.5f;
 
-    [SerializeField] private Transform debugRayHit;
 
     private float xRotation;
     private Camera cam;
@@ -28,6 +27,7 @@ public class PlayerMove : MonoBehaviour
     //private State state;
 
     //hook data 
+    //[SerializeField] private Transform debugRayHit; //дебаг для хука
     /*[Header("Тайминги хука")]
     [SerializeField] private float distanceHook;
     [SerializeField] private float timeNextHook;//перезарядка крюк кошки
@@ -42,13 +42,14 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float dashTimeLimit;//время рывка
     [SerializeField] private float dashCooldown;//время перезарядки рывка
     private float dashTimer;
+    
 
     //tackle data
     [Header("Переменные подката")]
     [SerializeField] private float tackleSpeed;
     [SerializeField] private float tackleTimeLimit;//время подката
     [SerializeField] private float tackleCooldown;//время перезарядки подката
-    [SerializeField] private float scaleY;
+    [SerializeField] private float scaleY;//изменение transformPlayer, переделать на коллайдеры
 
     private int doubleJump;
 
@@ -191,7 +192,6 @@ public class PlayerMove : MonoBehaviour
         Debug.Log(doubleJump);
         if (context.phase == InputActionPhase.Started && IsGrounded() == true)
         {
-            doubleJump = 1;
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
         else if (doubleJump == 1 && context.phase == InputActionPhase.Started)
@@ -206,6 +206,7 @@ public class PlayerMove : MonoBehaviour
     {
         float sphereRadius = 1f;
         isGrounded = Physics.CheckSphere(dotGround.position, sphereRadius, groundLayer);
+        if(isGrounded == true) { doubleJump = 1; }
         return isGrounded;
     }
     //hookShot
