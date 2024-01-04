@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
-using Object = System.Object;
 
 // Notes
 // 1. What a finite state machine is

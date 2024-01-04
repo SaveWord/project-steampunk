@@ -1,4 +1,6 @@
+using UnityEngine;
+
 public interface IAttackTarget 
 {
-    public void GetPosition();
+    public Vector3 GetPosition();
 }
