@@ -141,6 +141,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 885209363350498988, guid: 9e2d0a61ac957f441abd57ebcaf00247,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1102847444222960081, guid: 9e2d0a61ac957f441abd57ebcaf00247,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -200,6 +205,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264708397185170256, guid: 9e2d0a61ac957f441abd57ebcaf00247,
+        type: 3}
+      propertyPath: propsHP
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3378408127865704373, guid: 9e2d0a61ac957f441abd57ebcaf00247,
+        type: 3}
+      propertyPath: m_Value
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3378408127865704373, guid: 9e2d0a61ac957f441abd57ebcaf00247,
+        type: 3}
+      propertyPath: m_MaxValue
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -381,6 +401,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1084067485743364265, guid: 23fe6acfbeb261b41bd6fde9090664a0,
+        type: 3}
+      propertyPath: damage
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 1084067485743364265, guid: 23fe6acfbeb261b41bd6fde9090664a0,
         type: 3}
       propertyPath: enemyLayer.m_Bits
