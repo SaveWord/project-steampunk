@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerMove : MonoBehaviour
 {
+    private Animator animatorPlayer;
+
     //move data
     [Header("Переменные перемещения")]
     [SerializeField] private float speed;
@@ -50,7 +52,8 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float tackleTimeLimit;//время подката
     [SerializeField] private float tackleCooldown;//время перезарядки подката
     [SerializeField] private float scaleY;//изменение transformPlayer, переделать на коллайдеры
-
+    private CapsuleCollider [] capsuleColliders;
+   
     private int doubleJump;
 
     //wallRunning
@@ -83,9 +86,11 @@ public class PlayerMove : MonoBehaviour
    */
     private void Awake()
     {
+        capsuleColliders = GetComponents<CapsuleCollider>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         rb = GetComponent<Rigidbody>();
+        animatorPlayer = GetComponent<Animator>();
         inputActions = new ActionPrototypePlayer();
         inputActions.Player.Enable();
         cam = GameObject.FindAnyObjectByType<Camera>();
@@ -181,11 +186,21 @@ public class PlayerMove : MonoBehaviour
         float oldSpeed;
         float oldScale;
         oldSpeed = speed;
-        oldScale = transform.localScale.y;
-        transform.localScale = new Vector3(transform.localScale.x,scaleY,transform.localScale.z);
-        yield return new WaitForSeconds(tackleTimeLimit);
-        transform.localScale = new Vector3(transform.localScale.x, oldScale, transform.localScale.z);
+        oldScale = capsuleColliders[0].height;
+        capsuleColliders[0].height = 1.5f;
+        capsuleColliders[1].height = capsuleColliders[0].height + 0.25f;
+        animatorPlayer.SetBool("tackle",true);
+        yield return new WaitUntil(() => animatorPlayer.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+        capsuleColliders[0].height = oldScale;
+        capsuleColliders[1].height = capsuleColliders[0].height + 0.25f;
+        animatorPlayer.SetBool("tackle", false);
         speed = oldSpeed;
+
+
+        //oldScale = transform.localScale.y;
+        //transform.localScale = new Vector3(transform.localScale.x,scaleY,transform.localScale.z);
+        //yield return new WaitForSeconds(tackleTimeLimit);
+        //transform.localScale = new Vector3(transform.localScale.x, oldScale, transform.localScale.z);
     }
     public void Jump(InputAction.CallbackContext context)
     {
