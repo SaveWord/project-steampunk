@@ -44,6 +44,11 @@ public class ShootRay : MonoBehaviour
                 out RaycastHit hit, Mathf.Infinity,enemyLayer))
             {
                 // Instantiate(hitEffectPrefab, new Vector3(hit.point.x, hit.point.y, hit.point.z), Quaternion.identity);
+                if(hit.collider != null && hit.collider.CompareTag("props")) 
+                {
+                    hit.collider.TryGetComponent(out IDamageableProps damageableProps);
+                    damageableProps?.GetDamage(damage);
+                }
                 hit.collider.TryGetComponent(out IDamageable damageable);
                 damageable?.GetDamage(damage);
             }

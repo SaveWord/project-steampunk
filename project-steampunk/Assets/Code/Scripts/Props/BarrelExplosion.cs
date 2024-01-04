@@ -2,19 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class BarrelExplosion : EnemyGetDamage
+public class BarrelExplosion : MonoBehaviour,IDamageableProps
 {
     [SerializeField] private float damage;
     [SerializeField] private float rangeExplosion;
+    [SerializeField] private float propsHP;
     private ParticleSystem explosionParticle;
-    private void Awake()
+    public Slider sliderHP;
+    private Canvas canvas;
+    private  void Start()
     {
-        
-    }
-    protected override void Start()
-    {
-        base.Start();
+        canvas = GetComponentInChildren<Canvas>();
+        canvas.worldCamera = Camera.main;
+        sliderHP.value = propsHP;
+        sliderHP.gameObject.SetActive(false);
         explosionParticle = GetComponentInChildren<ParticleSystem>();
     }
 
@@ -32,12 +35,12 @@ public class BarrelExplosion : EnemyGetDamage
             }
         }
     }
-    public override void GetDamage(float damage)
+    public  void GetDamage(float damage)
     {
-        enemyHP -= damage;
-        sliderHP.value = enemyHP;
+        propsHP -= damage;
+        sliderHP.value = propsHP;
         StartCoroutine(HPView());
-        if (enemyHP <= 0)
+        if (propsHP <= 0)
         {
             GiveDamageIfDie();
             StartCoroutine(DestroyBarrel());
@@ -48,6 +51,12 @@ public class BarrelExplosion : EnemyGetDamage
         explosionParticle.Play();
         yield return new WaitForSeconds(0.5f);
         Destroy(gameObject);
+    }
+    private IEnumerator HPView()
+    {
+        sliderHP.gameObject.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        sliderHP.gameObject.SetActive(false);
     }
     private void OnDrawGizmos()
     {
