@@ -187,6 +187,7 @@ public class PlayerMove : MonoBehaviour
         float oldScale;
         oldSpeed = speed;
         oldScale = capsuleColliders[0].height;
+        speed = tackleSpeed;
         capsuleColliders[0].height = 1.5f;
         capsuleColliders[1].height = capsuleColliders[0].height + 0.25f;
         animatorPlayer.SetBool("tackle",true);
