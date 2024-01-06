@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7889830208725990730}
   - component: {fileID: 1003942593483315377}
   - component: {fileID: 2657811509178704071}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rev_korpus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 7428305401684710143}
   - component: {fileID: 7092478709120243772}
   - component: {fileID: 2325457759999758046}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rev_bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -189,7 +189,7 @@ GameObject:
   - component: {fileID: 4080881380666323125}
   - component: {fileID: 7703967402499498242}
   - component: {fileID: 3080215145215232032}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rev_kurok
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -272,7 +272,7 @@ GameObject:
   - component: {fileID: 8906283696835292871}
   - component: {fileID: 4586968444652836700}
   - component: {fileID: 6022118878466629589}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: gillz.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -356,7 +356,7 @@ GameObject:
   - component: {fileID: 5780432416340641421}
   - component: {fileID: 5045424933971475209}
   - component: {fileID: 8333949120704103687}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: gillz.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -440,7 +440,7 @@ GameObject:
   - component: {fileID: 3005407714398581644}
   - component: {fileID: 4207828187726224776}
   - component: {fileID: 6687022764878339588}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: revolver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -502,16 +502,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
-  maxDistance: 20
   enemyLayer:
     serializedVersion: 2
     m_Bits: 4096
+  effectLayer:
+    serializedVersion: 2
+    m_Bits: 0
   recoilShake: {fileID: 0}
   recoilDuration: 0.1
   recoilMagnitude: 3
   damage: 0.2
-  hitEffectPrefab: {fileID: 6192724089161036641, guid: e8d90def7ce1b3c468918f7bb0b22260, type: 3}
-  stateWeapon: 0
+  hitEffectPrefab: {fileID: 6192724089161036641, guid: e8d90def7ce1b3c468918f7bb0b22260,
+    type: 3}
 --- !u!1 &8428260060547169821
 GameObject:
   m_ObjectHideFlags: 0
@@ -523,7 +525,7 @@ GameObject:
   - component: {fileID: 4927987971187642272}
   - component: {fileID: 953988785639071314}
   - component: {fileID: 2761998998811998353}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: gillz
   m_TagString: Untagged
   m_Icon: {fileID: 0}
