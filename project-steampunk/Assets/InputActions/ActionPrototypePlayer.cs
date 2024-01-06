@@ -97,7 +97,7 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -226,7 +226,7 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
                     ""name"": """",
                     ""id"": ""cc77e0fe-314f-4c2d-9eed-cc0217f80ace"",
                     ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""PickOrThrow"",
