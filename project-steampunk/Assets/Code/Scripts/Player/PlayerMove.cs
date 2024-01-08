@@ -51,7 +51,6 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float tackleSpeed;//скорость подката
     [SerializeField] private float tackleSpeedSubtraction; // уменьшение скорости при долгом зажатии подката
     [SerializeField] private float tackleTimeLimit;//время подката
-    [SerializeField] private float tackleCooldown;//время перезарядки подката
     [SerializeField] private float colliderHeight;//высота коллайдера во время подката
     private CapsuleCollider[] capsuleColliders;
 
