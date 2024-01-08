@@ -44,16 +44,17 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float dashTimeLimit;//время рывка
     [SerializeField] private float dashCooldown;//время перезарядки рывка
     private float dashTimer;
-    
+
 
     //tackle data
     [Header("Переменные подката")]
-    [SerializeField] private float tackleSpeed;
+    [SerializeField] private float tackleSpeed;//скорость подката
+    [SerializeField] private float tackleSpeedSubtraction; // уменьшение скорости при долгом зажатии подката
     [SerializeField] private float tackleTimeLimit;//время подката
     [SerializeField] private float tackleCooldown;//время перезарядки подката
-    [SerializeField] private float scaleY;//изменение transformPlayer, переделать на коллайдеры
-    private CapsuleCollider [] capsuleColliders;
-   
+    [SerializeField] private float colliderHeight;//высота коллайдера во время подката
+    private CapsuleCollider[] capsuleColliders;
+
     private int doubleJump;
 
     //wallRunning
@@ -75,15 +76,15 @@ public class PlayerMove : MonoBehaviour
 
     [SerializeField] private GameObject spheres;
 
-   /* private enum State
-    {
-        Normal,
-        //Sprint,
-        //HookShotFly,
-        //WallRuning
+    /* private enum State
+     {
+         Normal,
+         //Sprint,
+         //HookShotFly,
+         //WallRuning
 
-    }
-   */
+     }
+    */
     private void Awake()
     {
         capsuleColliders = GetComponents<CapsuleCollider>();
@@ -98,9 +99,8 @@ public class PlayerMove : MonoBehaviour
     }
     private void Update()
     {
-        //Debug.Log(IsGrounded());
         IsGrounded();
-        //Debug.Log(sprintTimer); 
+        //Debug.Log("Скорость по X " + rb.velocity.x); 
     }
     private void FixedUpdate()
     {
@@ -112,22 +112,22 @@ public class PlayerMove : MonoBehaviour
         Rotation(inputLook);
         Move(inputMove);
         //WallRunningState();
-       /* switch (state)
-        {
-            default:
-            case State.Normal:
-                
-                break;
-            case State.HookShotFly:
-                HandleHookMovement();
-                Rotation(inputLook);
-                break;
-            case State.WallRuning:
-                WallRunningMovement();
-                Rotation(inputLook);
-                break;
-        }
-       */
+        /* switch (state)
+         {
+             default:
+             case State.Normal:
+
+                 break;
+             case State.HookShotFly:
+                 HandleHookMovement();
+                 Rotation(inputLook);
+                 break;
+             case State.WallRuning:
+                 WallRunningMovement();
+                 Rotation(inputLook);
+                 break;
+         }
+        */
     }
 
     //Movement
@@ -135,7 +135,7 @@ public class PlayerMove : MonoBehaviour
     {
         Vector3 move = transform.right * inputMove.x + transform.forward * inputMove.y;
         rb.velocity = new Vector3(move.x * speed, rb.velocity.y, move.z * speed);
-        
+
     }
     private void Rotation(Vector2 inputLook)
     {
@@ -174,33 +174,36 @@ public class PlayerMove : MonoBehaviour
     }
 
     //подкат
-    public void Tackle(InputAction.CallbackContext context) 
+    public void Tackle(InputAction.CallbackContext context)
     {
-        if(context.phase == InputActionPhase.Started && (rb.velocity.x > 0 || rb.velocity.z >0.01))
+        if (Mathf.Abs(rb.velocity.x) > 0.01)
         {
-            StartCoroutine(TackleCoroutine());
+            StartCoroutine(TackleCoroutine(context));
         }
     }
-    IEnumerator TackleCoroutine()
+    IEnumerator TackleCoroutine(InputAction.CallbackContext contextCoroutine)
     {
         float oldSpeed;
         float oldScale;
         oldSpeed = speed;
         oldScale = capsuleColliders[0].height;
         speed = tackleSpeed;
-        capsuleColliders[0].height = 1.5f;
-        capsuleColliders[1].height = capsuleColliders[0].height + 0.25f;
-        animatorPlayer.SetBool("tackle",true);
-        yield return new WaitUntil(() => animatorPlayer.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+        while (contextCoroutine.performed)
+        {
+            speed -= (speed > 0) ? tackleSpeedSubtraction : 0f;
+            capsuleColliders[0].height = colliderHeight;
+            capsuleColliders[1].height = capsuleColliders[0].height + 0.25f;
+            animatorPlayer.SetBool("tackle", true);
+            yield return new WaitForSeconds(tackleTimeLimit);
+        }
+        speed = oldSpeed;
         capsuleColliders[0].height = oldScale;
         capsuleColliders[1].height = capsuleColliders[0].height + 0.25f;
         animatorPlayer.SetBool("tackle", false);
-        speed = oldSpeed;
 
 
         //oldScale = transform.localScale.y;
         //transform.localScale = new Vector3(transform.localScale.x,scaleY,transform.localScale.z);
-        //yield return new WaitForSeconds(tackleTimeLimit);
         //transform.localScale = new Vector3(transform.localScale.x, oldScale, transform.localScale.z);
     }
     public void Jump(InputAction.CallbackContext context)
@@ -222,7 +225,7 @@ public class PlayerMove : MonoBehaviour
     {
         float sphereRadius = 1f;
         isGrounded = Physics.CheckSphere(dotGround.position, sphereRadius, groundLayer);
-        if(isGrounded == true) { doubleJump = 1; }
+        if (isGrounded == true) { doubleJump = 1; }
         return isGrounded;
     }
     //hookShot
@@ -267,35 +270,35 @@ public class PlayerMove : MonoBehaviour
     //ground check
 
     //wall run
-   /* private void WallRunningState()
-    {
-        wallRight = Physics.Raycast(transform.position, transform.right, wallRayRange, wallLayer);
-        wallLeft = Physics.Raycast(transform.position, -transform.right, wallRayRange, wallLayer);
-        if ((wallRight || wallLeft) && rb.velocity.y > 0f && !IsGrounded())
-        {
-            state = State.WallRuning;
-            wallRunDetect = Time.time + wallMoveTime;
-        }
-    }
-    private void WallRunningMovement()
-    {
-        if (wallRunDetect > Time.time)
-        {
+    /* private void WallRunningState()
+     {
+         wallRight = Physics.Raycast(transform.position, transform.right, wallRayRange, wallLayer);
+         wallLeft = Physics.Raycast(transform.position, -transform.right, wallRayRange, wallLayer);
+         if ((wallRight || wallLeft) && rb.velocity.y > 0f && !IsGrounded())
+         {
+             state = State.WallRuning;
+             wallRunDetect = Time.time + wallMoveTime;
+         }
+     }
+     private void WallRunningMovement()
+     {
+         if (wallRunDetect > Time.time)
+         {
 
-            Vector2 inputWallMove = inputActions.Player.WallRun.ReadValue<Vector2>();
-            Vector3 moveWall = transform.right * inputWallMove.x + transform.forward * inputWallMove.y;
-            rb.velocity = new Vector3(moveWall.x * speed, 0, moveWall.z * speed);
-            rb.useGravity = false;
-        }
-        if (wallRunDetect < Time.time || (!wallLeft && !wallRight) ||
-            rb.velocity.x == 0)
-        {
-            state = State.Normal;
-            rb.useGravity = true;
-        }
+             Vector2 inputWallMove = inputActions.Player.WallRun.ReadValue<Vector2>();
+             Vector3 moveWall = transform.right * inputWallMove.x + transform.forward * inputWallMove.y;
+             rb.velocity = new Vector3(moveWall.x * speed, 0, moveWall.z * speed);
+             rb.useGravity = false;
+         }
+         if (wallRunDetect < Time.time || (!wallLeft && !wallRight) ||
+             rb.velocity.x == 0)
+         {
+             state = State.Normal;
+             rb.useGravity = true;
+         }
 
-    }
-   */
+     }
+    */
 
     //hit leg (kick)
     public void Kick(InputAction.CallbackContext context)
@@ -307,7 +310,7 @@ public class PlayerMove : MonoBehaviour
             {
                 hit.collider.GetComponent<Rigidbody>().
                     AddForce(((hit.collider.transform.position - transform.position).normalized)
-                    * kickForce,ForceMode.Impulse);
+                    * kickForce, ForceMode.Impulse);
             }
         }
     }
