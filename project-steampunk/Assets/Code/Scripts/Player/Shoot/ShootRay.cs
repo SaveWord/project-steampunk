@@ -14,12 +14,14 @@ public class ShootRay : MonoBehaviour
     public float recoilDuration;
     public float recoilMagnitude;
     public float damage;
-    private Animator animator;
+    private Animator animatorWeapon;
+    private Animator animatorRightArm;
     public GameObject hitEffectPrefab;
 
     private void Start()
     {
-        animator = GetComponent<Animator>();
+        animatorWeapon = GetComponent<Animator>();
+        animatorRightArm = transform.root.GetComponentInChildren<Animator>();
     }
     private void Update()
     {
@@ -31,7 +33,8 @@ public class ShootRay : MonoBehaviour
         if (context.phase == InputActionPhase.Started)
         {
 
-            animator.SetBool("shoot", true);
+            animatorWeapon.SetBool("shoot", true);//анимация поворота барабана и курка
+            animatorRightArm.SetBool("recoilArm", true);//анимация отдачи руки
             if (Physics.Raycast(cam.transform.position, cam.transform.forward,
                 out RaycastHit hitObject, Mathf.Infinity, effectLayer))
             {
@@ -55,7 +58,8 @@ public class ShootRay : MonoBehaviour
         }
         else if (context.phase == InputActionPhase.Canceled)
         {
-            animator.SetBool("shoot", false);
+            animatorWeapon.SetBool("shoot", false);//анимация поворота барабана и курка
+            animatorRightArm.SetBool("recoilArm", false);//анимация отдачи руки
         }
     }
 

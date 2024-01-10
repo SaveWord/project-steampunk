@@ -648,21 +648,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1084067485743364265, guid: 23fe6acfbeb261b41bd6fde9090664a0,
-        type: 3}
-      propertyPath: damage
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 1084067485743364265, guid: 23fe6acfbeb261b41bd6fde9090664a0,
-        type: 3}
-      propertyPath: enemyLayer.m_Bits
-      value: 576
-      objectReference: {fileID: 0}
-    - target: {fileID: 4198561511002070407, guid: 23fe6acfbeb261b41bd6fde9090664a0,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4198561511002070407, guid: 23fe6acfbeb261b41bd6fde9090664a0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -718,15 +703,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerPrefab
       objectReference: {fileID: 0}
-    - target: {fileID: 7156392628840655530, guid: 23fe6acfbeb261b41bd6fde9090664a0,
+    - target: {fileID: 7533879354713038470, guid: 23fe6acfbeb261b41bd6fde9090664a0,
         type: 3}
-      propertyPath: colliderHeight
-      value: 1.5
+      propertyPath: m_LocalPosition.x
+      value: 0.342
       objectReference: {fileID: 0}
-    - target: {fileID: 7156392628840655530, guid: 23fe6acfbeb261b41bd6fde9090664a0,
+    - target: {fileID: 7533879354713038470, guid: 23fe6acfbeb261b41bd6fde9090664a0,
         type: 3}
-      propertyPath: tackleSpeedSubtraction
-      value: 5
+      propertyPath: m_LocalPosition.z
+      value: 1.311
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -938,7 +923,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.042755604, y: 0.059867144, z: -1.4228919}
-  m_LocalScale: {x: 100, y: 1, z: 100}
+  m_LocalScale: {x: 500, y: 1, z: 500}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

@@ -11,6 +11,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
     [SerializeField] private float mouseSense;
+    [SerializeField] private float smoothAnimations;
 
 
     [Header("Переменные детекта ground")]
@@ -90,7 +91,7 @@ public class PlayerMove : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         rb = GetComponent<Rigidbody>();
-        animatorPlayer = GetComponent<Animator>();
+        animatorPlayer = GetComponentInChildren<Animator>();
         inputActions = new ActionPrototypePlayer();
         inputActions.Player.Enable();
         cam = GameObject.FindAnyObjectByType<Camera>();
@@ -106,6 +107,8 @@ public class PlayerMove : MonoBehaviour
         Debug.DrawRay(cam.transform.position, cam.transform.forward * maxDistanceKick,
                 Color.red);
         Vector2 inputMove = inputActions.Player.Move.ReadValue<Vector2>();
+        animatorPlayer.SetFloat("moveX",inputMove.x,smoothAnimations,Time.deltaTime);
+        animatorPlayer.SetFloat("moveY",inputMove.y, smoothAnimations,Time.deltaTime);
         Vector2 inputLook = inputActions.Player.Look.ReadValue<Vector2>();
         rb.velocity += Vector3.up * Physics.gravity.y * verticalDamping;
         Rotation(inputLook);
@@ -142,7 +145,7 @@ public class PlayerMove : MonoBehaviour
         float yLook = inputLook.y * mouseSense;
 
         xRotation -= yLook;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        xRotation = Mathf.Clamp(xRotation, -60f, 60f);
 
         cam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
 
@@ -211,6 +214,7 @@ public class PlayerMove : MonoBehaviour
         if (context.phase == InputActionPhase.Started && IsGrounded() == true)
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            animatorPlayer.SetBool("isJump",true);
         }
         else if (doubleJump == 1 && context.phase == InputActionPhase.Started)
         {
@@ -218,12 +222,15 @@ public class PlayerMove : MonoBehaviour
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             doubleJump = 0;
         }
+        if (context.phase == InputActionPhase.Canceled)
+            animatorPlayer.SetBool("isJump",false);
     }
 
     private bool IsGrounded()
     {
         float sphereRadius = 1f;
         isGrounded = Physics.CheckSphere(dotGround.position, sphereRadius, groundLayer);
+        animatorPlayer.SetBool("isGrounded", isGrounded);
         if (isGrounded == true) { doubleJump = 1; }
         return isGrounded;
     }
