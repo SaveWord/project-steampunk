@@ -46,7 +46,7 @@ public class EnemyShoot : MonoBehaviour
         newBullet.transform.localPosition = new Vector3(0, 0, 0); 
         newBullet.transform.LookAt(targetPosition);
         //newBullet.transform.LookAt(targetPosition + AimMiss(missEnemy));
-        newBullet.GetComponent<bulletMove>().BulletMove();
+        //newBullet.GetComponent<bulletMove>().BulletMove();
 
     }
     //private float TimeWay()
