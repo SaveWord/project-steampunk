@@ -145,7 +145,7 @@ public class PlayerMove : MonoBehaviour
         float yLook = inputLook.y * mouseSense;
 
         xRotation -= yLook;
-        xRotation = Mathf.Clamp(xRotation, -60f, 60f);
+        xRotation = Mathf.Clamp(xRotation, -60f, 55.5f);
 
         cam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
 
