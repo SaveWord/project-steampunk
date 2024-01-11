@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.InputSystem;
+using Unity.VisualScripting;
 
 public class pickUp : MonoBehaviour
 {
@@ -22,6 +23,24 @@ public class pickUp : MonoBehaviour
 
     private bool hold = false;
     [SerializeField] private LineRenderer trajectoryLine;
+
+
+    Vector3 origin;
+    Vector3 direction;
+    float maxDistance = 15f;
+    //int layerMask = DefaultRaycastLayers;
+    QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal;
+
+    int maxIterations = 50;
+    float initialRadius = 0.01f;
+    Outline script;
+    private GameObject AimedAt;
+    private bool HandsBusy = false;
+
+    private void Start()
+    {
+        
+    }
     void Update()
     {
        if (hold) {
@@ -32,6 +51,45 @@ public class pickUp : MonoBehaviour
             Vector3 playerPosition = playerTransform.position;
             ShowTrajectory(playerPosition, genVelocity);
        }
+
+        origin = cam.transform.position;
+        direction = cam.transform.forward;
+
+        for (int i = 0; i < maxIterations; i++)
+        {
+            if (script != null)
+            {
+                script.Turnoff();
+            }
+            AimedAt = null;
+
+
+            float radius = initialRadius * (i + 0.1f); 
+
+            RaycastHit hit;
+
+            if (Physics.SphereCast(origin, radius, direction, out hit, maxDistance, shereLayer, queryTriggerInteraction))
+            {
+                //Debug.Log($"SphereCast hit at radius {radius}: {hit.collider.gameObject.name}");
+                script = hit.collider.gameObject.GetComponent<Outline>();
+                AimedAt = hit.collider.gameObject;
+                if (script != null)
+                {
+                    script.Turnon();
+                }
+                break;
+            }
+            else
+            {
+                if (script != null)
+                {
+                    script.Turnoff();
+                }
+                AimedAt = null;
+                //Debug.Log($"No collision at radius {radius}");
+            }
+        }
+
     }
     void ShowTrajectory(Vector3 playerPos, Vector3 speed)
     {
@@ -48,33 +106,45 @@ public class pickUp : MonoBehaviour
     public void PickIt(InputAction.CallbackContext context)
     {
         RaycastHit hit;
-        if (!heldItem)
+        if (AimedAt&&!HandsBusy)
         {
-            //Debug.Log("hilding nothing");
-            
-            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, pickupDistance, shereLayer))
+            Debug.Log("hilding nothing");
+            AimedAt.GetComponent<Rigidbody>().isKinematic = true;
+            AimedAt.transform.SetParent(holdPosition);
+            AimedAt.transform.localPosition = Vector3.zero;
+            canDrop = false;
+            StartCoroutine(EnableDropDelay(0.5f));
+            blowUp myScriptReference = AimedAt.GetComponent<blowUp>();
+            if (myScriptReference != null)
             {
-                //Debug.Log("hit layer");
-                Debug.DrawRay(cam.transform.position, cam.transform.forward * pickupDistance, Color.red);
-                if (hit.collider.CompareTag(itemTag))
-                {
-                    //Debug.Log("phase " + context.phase);
-                    heldItem = hit.collider.gameObject;
-                    heldItem.GetComponent<Rigidbody>().isKinematic = true;
-                    heldItem.transform.SetParent(holdPosition);
-                    heldItem.transform.localPosition = Vector3.zero;
-                    canDrop = false;
-                    StartCoroutine(EnableDropDelay(0.5f));
-
-                    blowUp myScriptReference = heldItem.GetComponent<blowUp>();
-                    if (myScriptReference != null)
-                    {
-                        myScriptReference.Blow();
-                    }
-                }
+                myScriptReference.Blow();
             }
+            HandsBusy = true;
+            heldItem = AimedAt;
+
+            //if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, pickupDistance, shereLayer))
+            //{
+            //    //Debug.Log("hit layer");
+            //    Debug.DrawRay(cam.transform.position, cam.transform.forward * pickupDistance, Color.red);
+            //    if (hit.collider.CompareTag(itemTag))
+            //    {
+            //        //Debug.Log("phase " + context.phase);
+            //        heldItem = hit.collider.gameObject;
+            //        heldItem.GetComponent<Rigidbody>().isKinematic = true;
+            //        heldItem.transform.SetParent(holdPosition);
+            //        heldItem.transform.localPosition = Vector3.zero;
+            //        canDrop = false;
+            //        StartCoroutine(EnableDropDelay(0.5f));
+
+            //        blowUp myScriptReference = heldItem.GetComponent<blowUp>();
+            //        if (myScriptReference != null)
+            //        {
+            //            myScriptReference.Blow();
+            //        }
+            //    }
+            //}
         }
-        else if(canDrop)
+        else if(canDrop&& HandsBusy)
         {
             Debug.Log("phase " + context.phase);
             if (context.performed)
@@ -100,9 +170,11 @@ public class pickUp : MonoBehaviour
             if (throwForce > MaxthrowForce) { throwForce = MaxthrowForce; }
             heldItem.GetComponent<Rigidbody>().isKinematic = false;
             heldItem.transform.SetParent(null);
+            Debug.Log("hERE");
             heldItem.GetComponent<Rigidbody>().AddForce(cam.transform.forward * throwForce, ForceMode.VelocityChange);
 
             heldItem = null;
+            HandsBusy = false;
             throwForce = 1f;
         }
     }
