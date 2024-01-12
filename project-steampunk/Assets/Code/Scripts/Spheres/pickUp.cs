@@ -13,7 +13,8 @@ public class pickUp : MonoBehaviour
     [SerializeField] private Camera cam;
     [SerializeField] private LayerMask shereLayer;
     private bool canDrop = true;
-    [SerializeField] private float throwForce = 4f;
+    [SerializeField] private float StartthrowForce = 1f;
+    private float throwForce;
     [SerializeField] private float MaxthrowForce = 140f;
     [SerializeField] private Transform playerTransform;
 
@@ -37,14 +38,21 @@ public class pickUp : MonoBehaviour
     private GameObject AimedAt;
     private bool HandsBusy = false;
 
+    [SerializeField] private bool ChargeOn;
+
     private void Start()
     {
-        
+        if (!ChargeOn)
+        {
+            StartthrowForce = MaxthrowForce;
+        }
+        throwForce = StartthrowForce;
     }
     void Update()
     {
        if (hold) {
-            throwForce += 0.08f;
+            if (ChargeOn) { throwForce += 0.08f; }
+            
             Debug.Log(throwForce);
             if(throwForce > MaxthrowForce) { throwForce = MaxthrowForce; }
             Vector3 genVelocity = cam.transform.forward * throwForce;
@@ -168,6 +176,7 @@ public class pickUp : MonoBehaviour
         {
             //throwForce = Mathf.Min(throwForce, MaxthrowForce);
             if (throwForce > MaxthrowForce) { throwForce = MaxthrowForce; }
+            //if (!ChargeOn) { throwForce = MaxthrowForce; }
             heldItem.GetComponent<Rigidbody>().isKinematic = false;
             heldItem.transform.SetParent(null);
             Debug.Log("hERE");
@@ -175,7 +184,7 @@ public class pickUp : MonoBehaviour
 
             heldItem = null;
             HandsBusy = false;
-            throwForce = 1f;
+            throwForce = StartthrowForce;
         }
     }
 
