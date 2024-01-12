@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Cinemachine;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class PlayerMove : MonoBehaviour
 
 
     private float xRotation;
-    private Camera cam;
+    private CinemachineVirtualCamera cam;
     private Rigidbody rb;
     private ActionPrototypePlayer inputActions;
     private bool isGrounded;
@@ -94,7 +95,7 @@ public class PlayerMove : MonoBehaviour
         animatorPlayer = GetComponentInChildren<Animator>();
         inputActions = new ActionPrototypePlayer();
         inputActions.Player.Enable();
-        cam = GameObject.FindAnyObjectByType<Camera>();
+        cam = GameObject.FindAnyObjectByType<CinemachineVirtualCamera>();
         //state = State.Normal;
     }
     private void Update()
@@ -111,8 +112,8 @@ public class PlayerMove : MonoBehaviour
         animatorPlayer.SetFloat("moveY",inputMove.y, smoothAnimations,Time.deltaTime);
         Vector2 inputLook = inputActions.Player.Look.ReadValue<Vector2>();
         rb.velocity += Vector3.up * Physics.gravity.y * verticalDamping;
-        Rotation(inputLook);
         Move(inputMove);
+        Rotation(inputLook);
         //WallRunningState();
         /* switch (state)
          {
@@ -133,12 +134,6 @@ public class PlayerMove : MonoBehaviour
     }
 
     //Movement
-    private void Move(Vector2 inputMove)
-    {
-        Vector3 move = transform.right * inputMove.x + transform.forward * inputMove.y;
-        rb.velocity = new Vector3(move.x * speed, rb.velocity.y, move.z * speed);
-
-    }
     private void Rotation(Vector2 inputLook)
     {
         float xLook = inputLook.x * mouseSense;
@@ -150,6 +145,11 @@ public class PlayerMove : MonoBehaviour
         cam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
 
         transform.Rotate(Vector3.up * xLook);
+    }
+    private void Move(Vector2 inputMove)
+    {
+        Vector3 move = transform.right * inputMove.x + transform.forward * inputMove.y;
+        rb.velocity = new Vector3(move.x * speed, rb.velocity.y, move.z * speed);
     }
 
     public void Dash(InputAction.CallbackContext context)
