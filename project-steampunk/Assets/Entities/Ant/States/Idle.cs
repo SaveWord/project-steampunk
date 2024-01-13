@@ -1,24 +1,28 @@
 using UnityEngine;
 
-public class Idle : IState
+namespace Enemies.AntStates
 {
-    public Color GizmoColor()
+    public class Idle : IState
     {
-        return Color.gray;
-    }
+        public Color GizmoColor()
+        {
+            return Color.gray;
+        }
 
-    public void OnEnter()
-    {
+        public void OnEnter()
+        {
+            return;
+        }
 
-    }
+        public void OnExit()
+        {
+            return;
+        }
 
-    public void OnExit()
-    {
-
-    }
-
-    public void Tick()
-    {
-
+        public void Tick()
+        {
+            return;
+        }
     }
 }
+

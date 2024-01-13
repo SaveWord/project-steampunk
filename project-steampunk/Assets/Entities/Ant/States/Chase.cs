@@ -6,17 +6,25 @@ namespace Enemies.AntStates
     public class Chase : IState
     {
         private NavMeshAgent _nMeshAgent;
-        private AttackTargetDetector _aTargetDetector;
+        private ITargetHolder _targetHolder;
 
-        public Chase(NavMeshAgent nMeshAgent, AttackTargetDetector targetDetector)
+        public Chase(NavMeshAgent nMeshAgent, ITargetHolder targetHolder)
         {
             _nMeshAgent = nMeshAgent;
-            _aTargetDetector = targetDetector;
+            _targetHolder = targetHolder;
         }
 
         public Color GizmoColor()
         {
-            return Color.red;
+            return Color.yellow;
+        }
+
+        public void Tick()
+        {
+            var target = _targetHolder.GetTarget();
+
+            if (target != null)
+                _nMeshAgent.SetDestination(target.GetPosition());
         }
 
         public void OnEnter()
@@ -29,12 +37,5 @@ namespace Enemies.AntStates
             _nMeshAgent.enabled = false;
         }
 
-        public void Tick()
-        {
-            var target = _aTargetDetector.GetTarget();
-
-            if(target != null)
-                _nMeshAgent.SetDestination(target.GetPosition());
-        }
     }
 }

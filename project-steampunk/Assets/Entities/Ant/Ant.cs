@@ -9,26 +9,38 @@ namespace Enemies
     {
         private void Awake()
         {
-            var _aTargetDetector = gameObject.AddComponent<AttackTargetDetector>();
-            var _navMeshAgent = GetComponent<NavMeshAgent>();
-
             _stateMachine = new StateMachine();
 
-            var idle = new Idle();
-            var chase = new Chase(_navMeshAgent, _aTargetDetector);
+            var _targetDetector = gameObject.AddComponent<TargetDetector>();
+            var _targetAttacker = gameObject.AddComponent<TargetAttacker>();
+            var _navMeshAgent = GetComponent<NavMeshAgent>();
 
-            _stateMachine.AddTransition(idle, chase, TargetAvailable());
-            _stateMachine.AddTransition(chase, idle, TargetNotAvailable());
+            var idle = new Idle();
+            var chase = new Chase(_navMeshAgent, _targetDetector);
+            var attack = new Attack(_targetDetector, _targetAttacker);
+
+            _stateMachine.AddTransition(idle, attack, TargetAvailable());
+            _stateMachine.AddTransition(chase, attack, TargetAvailable());
+            _stateMachine.AddTransition(attack, chase, TargetNotAvailable());
+
+            Func<bool> TargetAvailable() => () => _targetDetector.IsTargetAvailable();
+            Func<bool> TargetNotAvailable() => () => !_targetDetector.IsTargetAvailable();
 
             _stateMachine.SetState(idle);
-
-            Func<bool> TargetAvailable() => () => _aTargetDetector.IsTargetAvailable();
-            Func<bool> TargetNotAvailable() => () => !_aTargetDetector.IsTargetAvailable();
         }
 
         private void Update()
         {
             _stateMachine.Tick();
+        }
+
+        private void OnDrawGizmos()
+        {
+            if (Application.isPlaying)
+            {
+                Gizmos.color = _stateMachine.GetGizmoColor();
+                Gizmos.DrawSphere(transform.position + Vector3.up * 2, 0.5f);
+            }
         }
     }
 }
