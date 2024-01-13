@@ -82,7 +82,7 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Trackle"",
+                    ""name"": ""Tackle"",
                     ""type"": ""Button"",
                     ""id"": ""1728b823-1802-4f35-b82f-4b6eb2b8e6a9"",
                     ""expectedControlType"": ""Button"",
@@ -218,7 +218,7 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Trackle"",
+                    ""action"": ""Tackle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -246,7 +246,7 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
         m_Player_Kick = m_Player.FindAction("Kick", throwIfNotFound: true);
-        m_Player_Trackle = m_Player.FindAction("Trackle", throwIfNotFound: true);
+        m_Player_Tackle = m_Player.FindAction("Tackle", throwIfNotFound: true);
         m_Player_PickOrThrow = m_Player.FindAction("PickOrThrow", throwIfNotFound: true);
     }
 
@@ -315,7 +315,7 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
     private readonly InputAction m_Player_Dash;
     private readonly InputAction m_Player_Shoot;
     private readonly InputAction m_Player_Kick;
-    private readonly InputAction m_Player_Trackle;
+    private readonly InputAction m_Player_Tackle;
     private readonly InputAction m_Player_PickOrThrow;
     public struct PlayerActions
     {
@@ -327,7 +327,7 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
         public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
         public InputAction @Kick => m_Wrapper.m_Player_Kick;
-        public InputAction @Trackle => m_Wrapper.m_Player_Trackle;
+        public InputAction @Tackle => m_Wrapper.m_Player_Tackle;
         public InputAction @PickOrThrow => m_Wrapper.m_Player_PickOrThrow;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
@@ -356,9 +356,9 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
             @Kick.started += instance.OnKick;
             @Kick.performed += instance.OnKick;
             @Kick.canceled += instance.OnKick;
-            @Trackle.started += instance.OnTrackle;
-            @Trackle.performed += instance.OnTrackle;
-            @Trackle.canceled += instance.OnTrackle;
+            @Tackle.started += instance.OnTackle;
+            @Tackle.performed += instance.OnTackle;
+            @Tackle.canceled += instance.OnTackle;
             @PickOrThrow.started += instance.OnPickOrThrow;
             @PickOrThrow.performed += instance.OnPickOrThrow;
             @PickOrThrow.canceled += instance.OnPickOrThrow;
@@ -384,9 +384,9 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
             @Kick.started -= instance.OnKick;
             @Kick.performed -= instance.OnKick;
             @Kick.canceled -= instance.OnKick;
-            @Trackle.started -= instance.OnTrackle;
-            @Trackle.performed -= instance.OnTrackle;
-            @Trackle.canceled -= instance.OnTrackle;
+            @Tackle.started -= instance.OnTackle;
+            @Tackle.performed -= instance.OnTackle;
+            @Tackle.canceled -= instance.OnTackle;
             @PickOrThrow.started -= instance.OnPickOrThrow;
             @PickOrThrow.performed -= instance.OnPickOrThrow;
             @PickOrThrow.canceled -= instance.OnPickOrThrow;
@@ -415,7 +415,7 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
         void OnDash(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
         void OnKick(InputAction.CallbackContext context);
-        void OnTrackle(InputAction.CallbackContext context);
+        void OnTackle(InputAction.CallbackContext context);
         void OnPickOrThrow(InputAction.CallbackContext context);
     }
 }

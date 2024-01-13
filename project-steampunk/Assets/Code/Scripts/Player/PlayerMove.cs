@@ -14,6 +14,10 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float mouseSense;
     [SerializeField] private float smoothAnimations;
 
+    [Header("Cinemachine Virtual Cameras")]
+    [SerializeField] private CinemachineVirtualCamera cam;
+    [SerializeField] private CinemachineVirtualCamera camTackle;
+
 
     [Header("Переменные детекта ground")]
     [SerializeField] private LayerMask groundLayer;
@@ -21,8 +25,8 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float verticalDamping = 0.5f;
 
 
+
     private float xRotation;
-    private CinemachineVirtualCamera cam;
     private Rigidbody rb;
     private ActionPrototypePlayer inputActions;
     private bool isGrounded;
@@ -55,6 +59,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float tackleTimeLimit;//время подката
     [SerializeField] private float colliderHeight;//высота коллайдера во время подката
     private CapsuleCollider[] capsuleColliders;
+    private bool tackleActive;
 
     private int doubleJump;
 
@@ -95,7 +100,6 @@ public class PlayerMove : MonoBehaviour
         animatorPlayer = GetComponentInChildren<Animator>();
         inputActions = new ActionPrototypePlayer();
         inputActions.Player.Enable();
-        cam = GameObject.FindAnyObjectByType<CinemachineVirtualCamera>();
         //state = State.Normal;
     }
     private void Update()
@@ -140,10 +144,13 @@ public class PlayerMove : MonoBehaviour
         float yLook = inputLook.y * mouseSense;
 
         xRotation -= yLook;
-        xRotation = Mathf.Clamp(xRotation, -60f, 55.5f);
+        xRotation = Mathf.Clamp(xRotation, -55.5f, 55.5f);
 
-        cam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-
+     
+        if (tackleActive)
+            camTackle.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        else
+            cam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         transform.Rotate(Vector3.up * xLook);
     }
     private void Move(Vector2 inputMove)
@@ -178,7 +185,7 @@ public class PlayerMove : MonoBehaviour
     //подкат
     public void Tackle(InputAction.CallbackContext context)
     {
-        if (Mathf.Abs(rb.velocity.x) > 0.01)
+        if (inputActions.Player.Move.ReadValue<Vector2>().y > 0)
         {
             StartCoroutine(TackleCoroutine(context));
         }
@@ -192,16 +199,22 @@ public class PlayerMove : MonoBehaviour
         speed = tackleSpeed;
         while (contextCoroutine.performed)
         {
+            tackleActive = true;
             speed -= (speed > 0) ? tackleSpeedSubtraction : 0f;
             capsuleColliders[0].height = colliderHeight;
             capsuleColliders[1].height = capsuleColliders[0].height + 0.25f;
             animatorPlayer.SetBool("tackle", true);
+            cam.enabled = false;
+            camTackle.enabled = true;
             yield return new WaitForSeconds(tackleTimeLimit);
         }
         speed = oldSpeed;
         capsuleColliders[0].height = oldScale;
         capsuleColliders[1].height = capsuleColliders[0].height + 0.25f;
         animatorPlayer.SetBool("tackle", false);
+        tackleActive = false;
+        cam.enabled = true;
+        camTackle.enabled = false;
 
 
         //oldScale = transform.localScale.y;
