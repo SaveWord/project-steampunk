@@ -32,7 +32,7 @@ public class pickUp : MonoBehaviour
     //int layerMask = DefaultRaycastLayers;
     QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal;
 
-    int maxIterations = 50;
+    [SerializeField] private int AimRadiusIterations = 70;
     float initialRadius = 0.01f;
     Outline script;
     private GameObject AimedAt;
@@ -63,7 +63,7 @@ public class pickUp : MonoBehaviour
         origin = cam.transform.position;
         direction = cam.transform.forward;
 
-        for (int i = 0; i < maxIterations; i++)
+        for (int i = 0; i < AimRadiusIterations; i++)
         {
             if (script != null)
             {
@@ -117,40 +117,34 @@ public class pickUp : MonoBehaviour
         if (AimedAt&&!HandsBusy)
         {
             Debug.Log("hilding nothing");
-            AimedAt.GetComponent<Rigidbody>().isKinematic = true;
-            AimedAt.transform.SetParent(holdPosition);
-            AimedAt.transform.localPosition = Vector3.zero;
-            canDrop = false;
-            StartCoroutine(EnableDropDelay(0.5f));
-            blowUp myScriptReference = AimedAt.GetComponent<blowUp>();
-            if (myScriptReference != null)
+            if (context.canceled)
             {
-                myScriptReference.Blow();
+                AimedAt.GetComponent<Rigidbody>().isKinematic = true;
+                AimedAt.transform.SetParent(holdPosition);
+                AimedAt.transform.localPosition = Vector3.zero;
+                canDrop = false;
+                StartCoroutine(EnableDropDelay(0.5f));
+                blowUp myScriptReference = AimedAt.GetComponent<blowUp>();
+                if (myScriptReference != null)
+                {
+                    myScriptReference.Blow();
+                }
+                HandsBusy = true;
+                heldItem = AimedAt;
             }
-            HandsBusy = true;
-            heldItem = AimedAt;
-
-            //if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, pickupDistance, shereLayer))
+            //AimedAt.GetComponent<Rigidbody>().isKinematic = true;
+            //AimedAt.transform.SetParent(holdPosition);
+            //AimedAt.transform.localPosition = Vector3.zero;
+            //canDrop = false;
+            //StartCoroutine(EnableDropDelay(0.5f));
+            //blowUp myScriptReference = AimedAt.GetComponent<blowUp>();
+            //if (myScriptReference != null)
             //{
-            //    //Debug.Log("hit layer");
-            //    Debug.DrawRay(cam.transform.position, cam.transform.forward * pickupDistance, Color.red);
-            //    if (hit.collider.CompareTag(itemTag))
-            //    {
-            //        //Debug.Log("phase " + context.phase);
-            //        heldItem = hit.collider.gameObject;
-            //        heldItem.GetComponent<Rigidbody>().isKinematic = true;
-            //        heldItem.transform.SetParent(holdPosition);
-            //        heldItem.transform.localPosition = Vector3.zero;
-            //        canDrop = false;
-            //        StartCoroutine(EnableDropDelay(0.5f));
-
-            //        blowUp myScriptReference = heldItem.GetComponent<blowUp>();
-            //        if (myScriptReference != null)
-            //        {
-            //            myScriptReference.Blow();
-            //        }
-            //    }
+            //    myScriptReference.Blow();
             //}
+            //HandsBusy = true;
+            //heldItem = AimedAt;
+
         }
         else if(canDrop&& HandsBusy)
         {
