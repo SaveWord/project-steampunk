@@ -1,14 +1,22 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Cinemachine;
 
 public class PlayerMove : MonoBehaviour
 {
+    private Animator animatorPlayer;
+
     //move data
     [Header("Переменные перемещения")]
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
     [SerializeField] private float mouseSense;
+    [SerializeField] private float smoothAnimations;
+
+    [Header("Cinemachine Virtual Cameras")]
+    [SerializeField] private CinemachineVirtualCamera cam;
+    [SerializeField] private CinemachineVirtualCamera camTackle;
 
 
     [Header("Переменные детекта ground")]
@@ -17,8 +25,8 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float verticalDamping = 0.5f;
 
 
+
     private float xRotation;
-    private Camera cam;
     private Rigidbody rb;
     private ActionPrototypePlayer inputActions;
     private bool isGrounded;
@@ -42,14 +50,16 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float dashTimeLimit;//время рывка
     [SerializeField] private float dashCooldown;//время перезарядки рывка
     private float dashTimer;
-    
+
 
     //tackle data
     [Header("Переменные подката")]
-    [SerializeField] private float tackleSpeed;
+    [SerializeField] private float tackleSpeed;//скорость подката
+    [SerializeField] private float tackleSpeedSubtraction; // уменьшение скорости при долгом зажатии подката
     [SerializeField] private float tackleTimeLimit;//время подката
-    [SerializeField] private float tackleCooldown;//время перезарядки подката
-    [SerializeField] private float scaleY;//изменение transformPlayer, переделать на коллайдеры
+    [SerializeField] private float colliderHeight;//высота коллайдера во время подката
+    private CapsuleCollider[] capsuleColliders;
+    private bool tackleActive;
 
     private int doubleJump;
 
@@ -72,77 +82,81 @@ public class PlayerMove : MonoBehaviour
 
     [SerializeField] private GameObject spheres;
 
-   /* private enum State
-    {
-        Normal,
-        //Sprint,
-        //HookShotFly,
-        //WallRuning
+    /* private enum State
+     {
+         Normal,
+         //Sprint,
+         //HookShotFly,
+         //WallRuning
 
-    }
-   */
+     }
+    */
     private void Awake()
     {
+        capsuleColliders = GetComponents<CapsuleCollider>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         rb = GetComponent<Rigidbody>();
+        animatorPlayer = GetComponentInChildren<Animator>();
         inputActions = new ActionPrototypePlayer();
         inputActions.Player.Enable();
-        cam = GameObject.FindAnyObjectByType<Camera>();
         //state = State.Normal;
     }
     private void Update()
     {
-        //Debug.Log(IsGrounded());
         IsGrounded();
-        //Debug.Log(sprintTimer); 
+        //Debug.Log("Скорость по X " + rb.velocity.x); 
     }
     private void FixedUpdate()
     {
         Debug.DrawRay(cam.transform.position, cam.transform.forward * maxDistanceKick,
                 Color.red);
         Vector2 inputMove = inputActions.Player.Move.ReadValue<Vector2>();
+        animatorPlayer.SetFloat("moveX",inputMove.x,smoothAnimations,Time.deltaTime);
+        animatorPlayer.SetFloat("moveY",inputMove.y, smoothAnimations,Time.deltaTime);
         Vector2 inputLook = inputActions.Player.Look.ReadValue<Vector2>();
         rb.velocity += Vector3.up * Physics.gravity.y * verticalDamping;
-        Rotation(inputLook);
         Move(inputMove);
+        Rotation(inputLook);
         //WallRunningState();
-       /* switch (state)
-        {
-            default:
-            case State.Normal:
-                
-                break;
-            case State.HookShotFly:
-                HandleHookMovement();
-                Rotation(inputLook);
-                break;
-            case State.WallRuning:
-                WallRunningMovement();
-                Rotation(inputLook);
-                break;
-        }
-       */
+        /* switch (state)
+         {
+             default:
+             case State.Normal:
+
+                 break;
+             case State.HookShotFly:
+                 HandleHookMovement();
+                 Rotation(inputLook);
+                 break;
+             case State.WallRuning:
+                 WallRunningMovement();
+                 Rotation(inputLook);
+                 break;
+         }
+        */
     }
 
     //Movement
-    private void Move(Vector2 inputMove)
-    {
-        Vector3 move = transform.right * inputMove.x + transform.forward * inputMove.y;
-        rb.velocity = new Vector3(move.x * speed, rb.velocity.y, move.z * speed);
-        
-    }
     private void Rotation(Vector2 inputLook)
     {
         float xLook = inputLook.x * mouseSense;
         float yLook = inputLook.y * mouseSense;
 
         xRotation -= yLook;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        xRotation = Mathf.Clamp(xRotation, -55.5f, 55.5f);
 
-        cam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-
+     
+        if (tackleActive)
+            camTackle.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        else
+            cam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         transform.Rotate(Vector3.up * xLook);
+    }
+    private void Move(Vector2 inputMove)
+    {
+        Vector3 move = transform.right * inputMove.x + transform.forward * inputMove.y;
+        rb.velocity = new Vector3(move.x * speed, rb.velocity.y, move.z * speed);
     }
 
     public void Dash(InputAction.CallbackContext context)
@@ -169,23 +183,43 @@ public class PlayerMove : MonoBehaviour
     }
 
     //подкат
-    public void Tackle(InputAction.CallbackContext context) 
+    public void Tackle(InputAction.CallbackContext context)
     {
-        if(context.phase == InputActionPhase.Started && (rb.velocity.x > 0 || rb.velocity.z >0.01))
+        if (inputActions.Player.Move.ReadValue<Vector2>().y > 0)
         {
-            StartCoroutine(TackleCoroutine());
+            StartCoroutine(TackleCoroutine(context));
         }
     }
-    IEnumerator TackleCoroutine()
+    IEnumerator TackleCoroutine(InputAction.CallbackContext contextCoroutine)
     {
         float oldSpeed;
         float oldScale;
         oldSpeed = speed;
-        oldScale = transform.localScale.y;
-        transform.localScale = new Vector3(transform.localScale.x,scaleY,transform.localScale.z);
-        yield return new WaitForSeconds(tackleTimeLimit);
-        transform.localScale = new Vector3(transform.localScale.x, oldScale, transform.localScale.z);
+        oldScale = capsuleColliders[0].height;
+        speed = tackleSpeed;
+        while (contextCoroutine.performed)
+        {
+            tackleActive = true;
+            speed -= (speed > 0) ? tackleSpeedSubtraction : 0f;
+            capsuleColliders[0].height = colliderHeight;
+            capsuleColliders[1].height = capsuleColliders[0].height + 0.25f;
+            animatorPlayer.SetBool("tackle", true);
+            cam.enabled = false;
+            camTackle.enabled = true;
+            yield return new WaitForSeconds(tackleTimeLimit);
+        }
         speed = oldSpeed;
+        capsuleColliders[0].height = oldScale;
+        capsuleColliders[1].height = capsuleColliders[0].height + 0.25f;
+        animatorPlayer.SetBool("tackle", false);
+        tackleActive = false;
+        cam.enabled = true;
+        camTackle.enabled = false;
+
+
+        //oldScale = transform.localScale.y;
+        //transform.localScale = new Vector3(transform.localScale.x,scaleY,transform.localScale.z);
+        //transform.localScale = new Vector3(transform.localScale.x, oldScale, transform.localScale.z);
     }
     public void Jump(InputAction.CallbackContext context)
     {
@@ -193,6 +227,7 @@ public class PlayerMove : MonoBehaviour
         if (context.phase == InputActionPhase.Started && IsGrounded() == true)
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            animatorPlayer.SetBool("isJump",true);
         }
         else if (doubleJump == 1 && context.phase == InputActionPhase.Started)
         {
@@ -200,13 +235,16 @@ public class PlayerMove : MonoBehaviour
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             doubleJump = 0;
         }
+        if (context.phase == InputActionPhase.Canceled)
+            animatorPlayer.SetBool("isJump",false);
     }
 
     private bool IsGrounded()
     {
         float sphereRadius = 1f;
         isGrounded = Physics.CheckSphere(dotGround.position, sphereRadius, groundLayer);
-        if(isGrounded == true) { doubleJump = 1; }
+        animatorPlayer.SetBool("isGrounded", isGrounded);
+        if (isGrounded == true) { doubleJump = 1; }
         return isGrounded;
     }
     //hookShot
@@ -251,35 +289,35 @@ public class PlayerMove : MonoBehaviour
     //ground check
 
     //wall run
-   /* private void WallRunningState()
-    {
-        wallRight = Physics.Raycast(transform.position, transform.right, wallRayRange, wallLayer);
-        wallLeft = Physics.Raycast(transform.position, -transform.right, wallRayRange, wallLayer);
-        if ((wallRight || wallLeft) && rb.velocity.y > 0f && !IsGrounded())
-        {
-            state = State.WallRuning;
-            wallRunDetect = Time.time + wallMoveTime;
-        }
-    }
-    private void WallRunningMovement()
-    {
-        if (wallRunDetect > Time.time)
-        {
+    /* private void WallRunningState()
+     {
+         wallRight = Physics.Raycast(transform.position, transform.right, wallRayRange, wallLayer);
+         wallLeft = Physics.Raycast(transform.position, -transform.right, wallRayRange, wallLayer);
+         if ((wallRight || wallLeft) && rb.velocity.y > 0f && !IsGrounded())
+         {
+             state = State.WallRuning;
+             wallRunDetect = Time.time + wallMoveTime;
+         }
+     }
+     private void WallRunningMovement()
+     {
+         if (wallRunDetect > Time.time)
+         {
 
-            Vector2 inputWallMove = inputActions.Player.WallRun.ReadValue<Vector2>();
-            Vector3 moveWall = transform.right * inputWallMove.x + transform.forward * inputWallMove.y;
-            rb.velocity = new Vector3(moveWall.x * speed, 0, moveWall.z * speed);
-            rb.useGravity = false;
-        }
-        if (wallRunDetect < Time.time || (!wallLeft && !wallRight) ||
-            rb.velocity.x == 0)
-        {
-            state = State.Normal;
-            rb.useGravity = true;
-        }
+             Vector2 inputWallMove = inputActions.Player.WallRun.ReadValue<Vector2>();
+             Vector3 moveWall = transform.right * inputWallMove.x + transform.forward * inputWallMove.y;
+             rb.velocity = new Vector3(moveWall.x * speed, 0, moveWall.z * speed);
+             rb.useGravity = false;
+         }
+         if (wallRunDetect < Time.time || (!wallLeft && !wallRight) ||
+             rb.velocity.x == 0)
+         {
+             state = State.Normal;
+             rb.useGravity = true;
+         }
 
-    }
-   */
+     }
+    */
 
     //hit leg (kick)
     public void Kick(InputAction.CallbackContext context)
@@ -291,7 +329,7 @@ public class PlayerMove : MonoBehaviour
             {
                 hit.collider.GetComponent<Rigidbody>().
                     AddForce(((hit.collider.transform.position - transform.position).normalized)
-                    * kickForce,ForceMode.Impulse);
+                    * kickForce, ForceMode.Impulse);
             }
         }
     }
