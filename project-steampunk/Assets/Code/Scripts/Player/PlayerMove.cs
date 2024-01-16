@@ -82,6 +82,9 @@ public class PlayerMove : MonoBehaviour
 
     [SerializeField] private GameObject spheres;
 
+    //add shoot and reload new input system
+    private ShootRay eventsShoot;
+
     /* private enum State
      {
          Normal,
@@ -93,13 +96,18 @@ public class PlayerMove : MonoBehaviour
     */
     private void Awake()
     {
+        
         capsuleColliders = GetComponents<CapsuleCollider>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         rb = GetComponent<Rigidbody>();
         animatorPlayer = GetComponentInChildren<Animator>();
+        eventsShoot = GetComponentInChildren<ShootRay>();
         inputActions = new ActionPrototypePlayer();
         inputActions.Player.Enable();
+        inputActions.Player.Shoot.started += context => eventsShoot.Shoot(context);
+        inputActions.Player.Shoot.canceled += context => eventsShoot.Shoot(context);
+        inputActions.Player.Reload.started += context => eventsShoot.Reload(context);
         //state = State.Normal;
     }
     private void Update()

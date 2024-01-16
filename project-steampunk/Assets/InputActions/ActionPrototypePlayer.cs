@@ -91,9 +91,9 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""PickOrThrow"",
+                    ""name"": ""Reload"",
                     ""type"": ""Button"",
-                    ""id"": ""1d0e5583-7515-4e34-8473-f081f323d981"",
+                    ""id"": ""a3c4f639-d71d-48bb-9bd5-5afe2516c97f"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -224,12 +224,12 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
                 },
                 {
                     ""name"": """",
-                    ""id"": ""cc77e0fe-314f-4c2d-9eed-cc0217f80ace"",
-                    ""path"": ""<Mouse>/rightButton"",
+                    ""id"": ""f5e54614-4d84-4e44-9960-1e1248fe4155"",
+                    ""path"": ""<Keyboard>/r"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""PickOrThrow"",
+                    ""action"": ""Reload"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -247,7 +247,7 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
         m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
         m_Player_Kick = m_Player.FindAction("Kick", throwIfNotFound: true);
         m_Player_Tackle = m_Player.FindAction("Tackle", throwIfNotFound: true);
-        m_Player_PickOrThrow = m_Player.FindAction("PickOrThrow", throwIfNotFound: true);
+        m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -316,7 +316,7 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
     private readonly InputAction m_Player_Shoot;
     private readonly InputAction m_Player_Kick;
     private readonly InputAction m_Player_Tackle;
-    private readonly InputAction m_Player_PickOrThrow;
+    private readonly InputAction m_Player_Reload;
     public struct PlayerActions
     {
         private @ActionPrototypePlayer m_Wrapper;
@@ -328,7 +328,7 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
         public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
         public InputAction @Kick => m_Wrapper.m_Player_Kick;
         public InputAction @Tackle => m_Wrapper.m_Player_Tackle;
-        public InputAction @PickOrThrow => m_Wrapper.m_Player_PickOrThrow;
+        public InputAction @Reload => m_Wrapper.m_Player_Reload;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -359,9 +359,9 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
             @Tackle.started += instance.OnTackle;
             @Tackle.performed += instance.OnTackle;
             @Tackle.canceled += instance.OnTackle;
-            @PickOrThrow.started += instance.OnPickOrThrow;
-            @PickOrThrow.performed += instance.OnPickOrThrow;
-            @PickOrThrow.canceled += instance.OnPickOrThrow;
+            @Reload.started += instance.OnReload;
+            @Reload.performed += instance.OnReload;
+            @Reload.canceled += instance.OnReload;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -387,9 +387,9 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
             @Tackle.started -= instance.OnTackle;
             @Tackle.performed -= instance.OnTackle;
             @Tackle.canceled -= instance.OnTackle;
-            @PickOrThrow.started -= instance.OnPickOrThrow;
-            @PickOrThrow.performed -= instance.OnPickOrThrow;
-            @PickOrThrow.canceled -= instance.OnPickOrThrow;
+            @Reload.started -= instance.OnReload;
+            @Reload.performed -= instance.OnReload;
+            @Reload.canceled -= instance.OnReload;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -416,6 +416,6 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
         void OnShoot(InputAction.CallbackContext context);
         void OnKick(InputAction.CallbackContext context);
         void OnTackle(InputAction.CallbackContext context);
-        void OnPickOrThrow(InputAction.CallbackContext context);
+        void OnReload(InputAction.CallbackContext context);
     }
 }
