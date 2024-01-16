@@ -29,7 +29,7 @@ public class HealthPoint : MonoBehaviour, IDamageable
         }
 
     }
-
+    
 
     public void Status(string state)
     {

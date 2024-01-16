@@ -46,6 +46,9 @@ public class ShootRay : MonoBehaviour
                 // Instantiate(hitEffectPrefab, new Vector3(hit.point.x, hit.point.y, hit.point.z), Quaternion.identity);
                 hit.collider.TryGetComponent(out IDamageable damageable);
                 damageable?.GetDamage(damage);
+
+                hit.collider.TryGetComponent(out enemy_health dama);
+                dama?.TakeDamage(damage);
             }
         }
         else if (context.phase == InputActionPhase.Canceled)
