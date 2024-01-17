@@ -8,63 +8,33 @@ public class enemy_health : health_abstract
     private string state;
     private bool immovable;
     private Vector3 playerPosition;
+
+    private float jumpForce;
+    [SerializeField] private Rigidbody rb;
     private void OnTriggerEnter(Collider other)
     {
-        //Debug.Log("enter!");
-        Debug.Log(other.tag);
         if (other.CompareTag("bullet")||other.CompareTag("killzone"))
         {
-            mineHP -= other.gameObject.GetComponent<damage_interface>().getDamage();
-            UpdateHealth();
-            Debug.Log(mineHP);
             state = other.gameObject.GetComponent<damage_interface>().getstate();
-            float totalTime = other.gameObject.GetComponent<damage_interface>().gettime();
-            if(totalTime > 0)
-            {
-                StartCoroutine(TakePeriodicDamage(totalTime, other.gameObject.GetComponent<damage_interface>().getDamage()));
-            }
+            Debug.Log(state);
             switch (state)
             {
                 case "frozen":
                     playerPosition = transform.position;
-                    immovable = true; 
+                    immovable = true;
+                    Debug.Log(false);
+                    break;
+                case "jump":
+                    jumpForce = other.gameObject.GetComponent<damage_interface>().getDamage();
+                    rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                    Debug.Log(true);
                     break;
                 default: break;
 
             }
         }
-
-        //if (other.CompareTag("killzone"))
-        //{
-        //    BlowArea killZone = other.GetComponent<BlowArea>();
-        //    if (killZone.isfrozen())
-        //    {
-        //        initialPosition = transform.position;
-        //        frozeen = true;
-        //    }
-        //    else
-        //    {
-        //        frozeen = false;
-        //    }
-        //    if (killZone.liftUp() > 0)
-        //    {
-        //        wasAgentEnabled = agent.enabled;
-        //        agent.enabled = false;
-        //        isJumping = true;
-        //        initialPosition = transform.position;
-        //        Debug.Log("lify!");
-        //        jumpSpeed = killZone.liftUp();
-        //        jumpHeight = jumpSpeed / 2;
-
-        //    }
-        //    if (killZone != null)
-        //    {
-        //        damageAmount = killZone.getDamdge();
-        //    }
-        //    Debug.Log(damageAmount);
-        //}
     }
-    public void TakeDamage(float dama)
+    public override void TakeDamage(float dama)
     {
         mineHP -= dama;
         UpdateHealth();
@@ -72,25 +42,9 @@ public class enemy_health : health_abstract
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("killzone"))
+        if (immovable)
         {
-            if (immovable)
-            {
-                transform.position = playerPosition;
-            }
-        }
-    }
-
-    private IEnumerator TakePeriodicDamage(float totalTime, float damage)
-    {
-        float elapsedTime = 0f;
-
-        while (elapsedTime < totalTime)
-        {
-            TakeDamage(damage);
-            mineHP -= damage;
-            yield return new WaitForSeconds(1f);
-            elapsedTime += 3f;
+            transform.position = playerPosition;
         }
     }
 }

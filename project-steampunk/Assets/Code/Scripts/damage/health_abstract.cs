@@ -25,4 +25,8 @@ public abstract class health_abstract: MonoBehaviour
             Destroy(gameObject);
         }
     }
+    public virtual void TakeDamage(float dama)
+    {
+
+    }
 }

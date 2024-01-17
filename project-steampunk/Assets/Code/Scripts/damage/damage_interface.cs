@@ -6,5 +6,4 @@ public interface damage_interface
 {
     float getDamage();
     string getstate();
-    float gettime();
 }
