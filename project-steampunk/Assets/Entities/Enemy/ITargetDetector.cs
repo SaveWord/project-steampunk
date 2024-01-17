@@ -1,4 +1,4 @@
-public interface ITargetHolder 
+public interface ITargetDetector 
 {
    public ITarget GetTarget();
 }

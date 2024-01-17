@@ -1,32 +1,49 @@
 using Enemies;
+using Enemies.Attacks.AttackUnits;
 using System.Collections;
 using UnityEngine;
 
 public class TargetAttacker : MonoBehaviour, ITargetAttacker
 {
-    private bool _isReady;
+    [SerializeField] private AttackUnit _attackUnit;
+    [SerializeField] private Transform _attackSpawnPoint;
+    [SerializeField] private int _maxBlockedAttaksCount = 3;
+
+    private bool _readyToAttack;
 
     private void Awake()
     {
-        _isReady = true;
+        _readyToAttack = true;
+        _attackUnit.AttackSpawnPoint = _attackSpawnPoint;
+    }
+
+    public void SetAttackUnit(AttackUnit attackUnit)
+    {
+        _attackUnit = attackUnit;
     }
 
     public void Attack(ITarget target)
     {
-        if (_isReady)
+        transform.LookAt(target.GetPosition());
+
+        if (_readyToAttack)
         {
-            Debug.Log("Attack");
+            _attackUnit.Attack(target);
             StartCoroutine(Reload());
         }
     }
 
-    private IEnumerator Reload()
+    public bool ShouldChangePosition()
     {
-        _isReady = false;
-        yield return new WaitForSeconds(2f);
-        _isReady = true;
+        return _attackUnit.BlockedAttacksCount >= _maxBlockedAttaksCount;
     }
 
-    
+    private IEnumerator Reload()
+    {
+        _readyToAttack = false;
+        yield return new WaitForSeconds(2f);
+        _readyToAttack = true;
+    }
+   
 
 }

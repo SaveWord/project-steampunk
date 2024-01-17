@@ -2,8 +2,10 @@ using UnityEngine;
 
 namespace Enemies
 {
-    public class TargetDetector : MonoBehaviour, ITargetHolder
+    public class TargetDetector : MonoBehaviour, ITargetDetector
     {
+        [SerializeField] private LayerMask _viewMask;
+
         private ITarget _target;
         private SphereCollider _collider;
 
@@ -34,7 +36,7 @@ namespace Enemies
 
         private bool IsTargetVisible()
         {
-            if (_target != null && Physics.Linecast(transform.position, _target.GetPosition(), out RaycastHit hitInfo))
+            if (_target != null && Physics.Linecast(transform.position, _target.GetPosition(), out RaycastHit hitInfo, ~_viewMask))
             {                
                 if (hitInfo.collider.gameObject.GetInstanceID() == _target.GetTargetID())
                 {

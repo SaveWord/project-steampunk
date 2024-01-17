@@ -6,9 +6,9 @@ namespace Enemies.AntStates
     public class Chase : IState
     {
         private NavMeshAgent _nMeshAgent;
-        private ITargetHolder _targetHolder;
+        private ITargetDetector _targetHolder;
 
-        public Chase(NavMeshAgent nMeshAgent, ITargetHolder targetHolder)
+        public Chase(NavMeshAgent nMeshAgent, ITargetDetector targetHolder)
         {
             _nMeshAgent = nMeshAgent;
             _targetHolder = targetHolder;

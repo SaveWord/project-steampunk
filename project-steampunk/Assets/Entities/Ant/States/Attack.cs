@@ -4,10 +4,10 @@ namespace Enemies.AntStates
 {
     public class Attack : IState
     {
-        ITargetHolder _targetHolder;
+        ITargetDetector _targetHolder;
         ITargetAttacker _targetAttacker;
 
-        public Attack(ITargetHolder targetHolder, ITargetAttacker targetAttacker)
+        public Attack(ITargetDetector targetHolder, ITargetAttacker targetAttacker)
         {
             _targetHolder = targetHolder;
             _targetAttacker = targetAttacker;
