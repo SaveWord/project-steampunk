@@ -1,12 +1,9 @@
 using UnityEngine;
-using UnityEngine.Events;
 
-namespace Enemies.Attacks
+namespace Enemies.Bullets
 {
     public class Bullet : MonoBehaviour
     {
-        [HideInInspector] public UnityEvent<float> OnDestroy;
-
         [SerializeField] private float _damage;
         [SerializeField] private float _lifeTime;
         [SerializeField] private float _speed;
@@ -31,10 +28,9 @@ namespace Enemies.Attacks
             if (_timeOnFly >= _lifeTime)
                 SelfDestroy();
         }
+
         private void SelfDestroy()
         {
-            OnDestroy?.Invoke(_timeOnFly);
-            OnDestroy.RemoveAllListeners();
             Destroy(gameObject);
         }
 

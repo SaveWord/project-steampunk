@@ -1,4 +1,6 @@
 using UnityEngine;
+using Enemies.Bullets;
+using Unity.VisualScripting;
 
 namespace Enemies.Attacks.AttackUnits
 {
@@ -11,23 +13,19 @@ namespace Enemies.Attacks.AttackUnits
         [SerializeField] private Bullet _bullet;
         [SerializeField] private float _allowableBlockTime = 0.5f;
 
+        private ProjectileCast _projectile;
+
         public void Attack(ITarget target)
         {
             var bullet = Instantiate(_bullet);
 
             bullet.transform.position = AttackSpawnPoint.position;
-            bullet.OnDestroy.AddListener(GetAttackStatistic);
             bullet.StartFly(target.GetPosition());
         }
 
-        private void GetAttackStatistic(float flyTime)
+        private void SetUpProjectileCast()
         {
-            if(flyTime < _allowableBlockTime)
-                BlockedAttacksCount++;
-            else
-                BlockedAttacksCount = 0;
-            Debug.Log("BlockedAttackCount = " + BlockedAttacksCount);
+            _projectile.AddComponent<Collider>();
         }
-
     }
 }

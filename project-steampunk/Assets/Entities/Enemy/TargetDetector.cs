@@ -5,6 +5,7 @@ namespace Enemies
     public class TargetDetector : MonoBehaviour, ITargetDetector
     {
         [SerializeField] private LayerMask _viewMask;
+        [SerializeField] private float _visionRadius = 20f;
 
         private ITarget _target;
         private SphereCollider _collider;
@@ -13,7 +14,7 @@ namespace Enemies
         {
             _collider = gameObject.AddComponent<SphereCollider>();
             _collider.isTrigger = true;
-            _collider.radius = 20f;
+            _collider.radius = _visionRadius;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -36,14 +37,35 @@ namespace Enemies
 
         private bool IsTargetVisible()
         {
-            if (_target != null && Physics.Linecast(transform.position, _target.GetPosition(), out RaycastHit hitInfo, ~_viewMask))
+            if (_target != null && SphereCastAll(out RaycastHit hitInfo))
             {                
                 if (hitInfo.collider.gameObject.GetInstanceID() == _target.GetTargetID())
                 {
-                    Debug.DrawRay(transform.position, (_target.GetPosition() - transform.position) * hitInfo.distance, Color.yellow);
                     return true;
                 }
             }
+            return false;
+        }
+
+        private bool LineCast(out RaycastHit hitInfo)
+        {
+            Debug.DrawRay(transform.position, (_target.GetPosition() - transform.position) * 100, Color.yellow);
+            return Physics.Linecast(transform.position, _target.GetPosition(), out hitInfo, ~_viewMask);
+        }
+
+        private bool SphereCastAll(out RaycastHit hitInfo)
+        {
+            var hits = Physics.SphereCastAll(transform.position, 1f, _target.GetPosition() - transform.position, 100, ~_viewMask);
+
+            Debug.DrawRay(transform.position, (_target.GetPosition() - transform.position) * 100, Color.yellow);
+
+            if (hits.Length != 0) 
+            {
+                hitInfo = hits[0];
+                return true;
+            }
+
+            hitInfo = default;
             return false;
         }
 

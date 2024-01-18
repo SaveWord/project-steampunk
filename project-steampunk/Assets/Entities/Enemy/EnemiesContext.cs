@@ -1,5 +1,5 @@
-using Enemies.Attacks;
 using UnityEngine;
+using Enemies.Bullets;
 
 namespace Enemies
 {

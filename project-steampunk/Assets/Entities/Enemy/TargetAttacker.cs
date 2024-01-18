@@ -7,9 +7,10 @@ public class TargetAttacker : MonoBehaviour, ITargetAttacker
 {
     [SerializeField] private AttackUnit _attackUnit;
     [SerializeField] private Transform _attackSpawnPoint;
-    [SerializeField] private int _maxBlockedAttaksCount = 3;
+    [SerializeField] private float _reloadTime = 2f;
 
     private bool _readyToAttack;
+
 
     private void Awake()
     {
@@ -35,13 +36,13 @@ public class TargetAttacker : MonoBehaviour, ITargetAttacker
 
     public bool ShouldChangePosition()
     {
-        return _attackUnit.BlockedAttacksCount >= _maxBlockedAttaksCount;
+        return true;
     }
 
     private IEnumerator Reload()
     {
         _readyToAttack = false;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(_reloadTime);
         _readyToAttack = true;
     }
    
