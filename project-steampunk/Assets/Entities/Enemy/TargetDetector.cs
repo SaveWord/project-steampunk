@@ -47,12 +47,6 @@ namespace Enemies
             return false;
         }
 
-        private bool LineCast(out RaycastHit hitInfo)
-        {
-            Debug.DrawRay(transform.position, (_target.GetPosition() - transform.position) * 100, Color.yellow);
-            return Physics.Linecast(transform.position, _target.GetPosition(), out hitInfo, ~_viewMask);
-        }
-
         private bool SphereCastAll(out RaycastHit hitInfo)
         {
             var hits = Physics.SphereCastAll(transform.position, 1f, _target.GetPosition() - transform.position, 100, ~_viewMask);
@@ -75,8 +69,8 @@ namespace Enemies
 
             for(int i = 1; i < hits.Length; i++)
             {
-                if(Vector3.Distance(transform.position, hits[i].point) < 
-                   Vector3.Distance(transform.position, closestHit.point))
+                if(Vector3.Distance(transform.position, hits[i].collider.transform.position) < 
+                   Vector3.Distance(transform.position, closestHit.collider.transform.position))
                 {
                     closestHit = hits[i];
                 }

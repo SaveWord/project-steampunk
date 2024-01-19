@@ -1,18 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class MoveSet : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void Dash()
     {
-        
-    }
+        //Vector3 randomDirection = Random.insideUnitSphere * walkRadius;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        //randomDirection += transform.position;
+        //NavMeshHit hit;
+        //NavMesh.SamplePosition(randomDirection, out hit, walkRadius, 1);
+        //Vector3 finalPosition = hit.position;
     }
 }
