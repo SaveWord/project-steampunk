@@ -11,9 +11,6 @@ namespace Enemies.Attacks.AttackUnits
         public Transform AttackSpawnPoint;
 
         [SerializeField] private Bullet _bullet;
-        [SerializeField] private float _allowableBlockTime = 0.5f;
-
-        private ProjectileCast _projectile;
 
         public void Attack(ITarget target)
         {
@@ -21,11 +18,6 @@ namespace Enemies.Attacks.AttackUnits
 
             bullet.transform.position = AttackSpawnPoint.position;
             bullet.StartFly(target.GetPosition());
-        }
-
-        private void SetUpProjectileCast()
-        {
-            _projectile.AddComponent<Collider>();
         }
     }
 }

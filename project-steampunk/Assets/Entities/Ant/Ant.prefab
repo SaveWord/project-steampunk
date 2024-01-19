@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7112912124800285534}
-  m_Layer: 0
-  m_Name: ShootPoint
+  m_Layer: 6
+  m_Name: AttackSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 281023365437216095}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.9}
+  m_LocalPosition: {x: 0, y: 0, z: 1.96}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -46,7 +46,9 @@ GameObject:
   - component: {fileID: 7441831430284930765}
   - component: {fileID: 3864355450087123795}
   - component: {fileID: 1319516900230879011}
-  m_Layer: 0
+  - component: {fileID: 838175693787506389}
+  - component: {fileID: 2821480590633300266}
+  m_Layer: 6
   m_Name: Ant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -206,7 +208,35 @@ MonoBehaviour:
   _enemyStats:
     _hp: 100
     _moveSpeed: 5
-    _visionRadius: 20
     _timeBeforeReposition: 2
-    _reloadTime: 2
+--- !u!114 &838175693787506389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4192851761297416250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0d7d31acf5fd6345acbc78b608a5c91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   _attackUnit: {fileID: 11400000, guid: 3c47451312299ac4fb034582c9008f98, type: 2}
+  _attackSpawnPoint: {fileID: 7112912124800285534}
+  _reloadTime: 0.2
+--- !u!114 &2821480590633300266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4192851761297416250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77c9f09eedd7c1e4fb522669b237baf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _viewMask:
+    serializedVersion: 2
+    m_Bits: 576
+  _visionRadius: 20

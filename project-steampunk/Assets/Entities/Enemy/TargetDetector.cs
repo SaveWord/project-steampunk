@@ -61,12 +61,28 @@ namespace Enemies
 
             if (hits.Length != 0) 
             {
-                hitInfo = hits[0];
+                hitInfo = FindClosestHit(hits);
                 return true;
             }
 
             hitInfo = default;
             return false;
+        }
+
+        private RaycastHit FindClosestHit(RaycastHit[] hits)
+        {
+            var closestHit = hits[0];
+
+            for(int i = 1; i < hits.Length; i++)
+            {
+                if(Vector3.Distance(transform.position, hits[i].point) < 
+                   Vector3.Distance(transform.position, closestHit.point))
+                {
+                    closestHit = hits[i];
+                }
+            }
+
+            return closestHit;
         }
 
         public ITarget GetTarget()
