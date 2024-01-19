@@ -6,13 +6,14 @@ using TMPro;
 
 public class ShootRay : MonoBehaviour
 {
-    
+
     [SerializeField] private Camera cam;
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private LayerMask effectLayer;
     [SerializeField] RecoilShake recoilShake;
 
     [SerializeField] private int maxPatrons;
+    [SerializeField] private float waitBeforeReload;
     private int patrons;
     private TextMeshProUGUI patronsText;
 
@@ -65,19 +66,31 @@ public class ShootRay : MonoBehaviour
                 damageable?.GetDamage(damage);
             }
         }
-        else if (context.canceled)
+        if (patrons == 0)
+        {
+            Reload(context);
+        }
+        if (context.canceled)
         {
             animatorWeapon.SetBool("shoot", false);//анимация поворота барабана и курка
         }
-        
+
     }
     public void Reload(InputAction.CallbackContext context)
     {
-        if(context.started)
+        if (context.started && patrons < maxPatrons)
         {
-            patrons = maxPatrons;
-            patronsText.text = patrons.ToString();
+            StartCoroutine(ReloadCoroutine());
         }
+    }
+    IEnumerator ReloadCoroutine()
+    {
+        animatorWeapon.SetBool("shoot", false);
+        animatorWeapon.SetBool("reload", true);
+        yield return new WaitForSeconds(waitBeforeReload);
+        animatorWeapon.SetBool("reload", false);
+        patrons = maxPatrons;
+        patronsText.text = patrons.ToString();
     }
 
 }
