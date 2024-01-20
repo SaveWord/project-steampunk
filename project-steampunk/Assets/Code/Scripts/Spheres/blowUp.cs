@@ -31,8 +31,10 @@ public class blowUp : MonoBehaviour
                 Quaternion spawnRotation = transform.rotation;
                 //GameObject spawnedObject = Instantiate(area, spawnPosition, spawnRotation);
                 GameObject spawnedObject = Instantiate(area, spawnPosition, spawnRotation);
+                PicketUp = false;
                 //spawnedObject.transform.parent = transform;
                 //PicketUp = false;
+                Debug.Log("Destroy");
                 Destroy(gameObject);
             }
         }

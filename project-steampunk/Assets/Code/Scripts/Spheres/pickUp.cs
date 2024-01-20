@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.InputSystem;
+using Unity.VisualScripting;
 
 public class pickUp : MonoBehaviour
 {
@@ -11,42 +13,154 @@ public class pickUp : MonoBehaviour
     [SerializeField] private Camera cam;
     [SerializeField] private LayerMask shereLayer;
     private bool canDrop = true;
-    [SerializeField] private float throwForce = 40f;
+    [SerializeField] private float StartthrowForce = 1f;
+    private float throwForce;
+    [SerializeField] private float MaxthrowForce = 140f;
+    [SerializeField] private Transform playerTransform;
+
+
+    private bool isCharging = false;
+    private float chargingTime = 0f;
+
+    private bool hold = false;
+    [SerializeField] private LineRenderer trajectoryLine;
+
+
+    Vector3 origin;
+    Vector3 direction;
+    float maxDistance = 15f;
+    //int layerMask = DefaultRaycastLayers;
+    QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal;
+
+    [SerializeField] private int AimRadiusIterations = 70;
+    float initialRadius = 0.01f;
+    Outline script;
+    private GameObject AimedAt;
+    private bool HandsBusy = false;
+
+    [SerializeField] private bool ChargeOn;
+
+    private void Start()
+    {
+        if (!ChargeOn)
+        {
+            StartthrowForce = MaxthrowForce;
+        }
+        throwForce = StartthrowForce;
+    }
     void Update()
     {
-       
-    }
+       if (hold) {
+            if (ChargeOn) { throwForce += 0.08f; }
+            
+            Debug.Log(throwForce);
+            if(throwForce > MaxthrowForce) { throwForce = MaxthrowForce; }
+            Vector3 genVelocity = cam.transform.forward * throwForce;
+            Vector3 playerPosition = playerTransform.position;
+            ShowTrajectory(playerPosition, genVelocity);
+       }
 
-    public void PickIt()
-    {
-        RaycastHit hit;
-        if (!heldItem)
+        origin = cam.transform.position;
+        direction = cam.transform.forward;
+
+        for (int i = 0; i < AimRadiusIterations; i++)
         {
-            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, pickupDistance, shereLayer))
+            if (script != null)
             {
-                Debug.DrawRay(cam.transform.position, cam.transform.forward * pickupDistance, Color.red);
-                if (hit.collider.CompareTag(itemTag))
-                {
-                    heldItem = hit.collider.gameObject;
-                    var itemInStash = Instantiate(heldItem, new Vector3(heldItem.transform.position.x, heldItem.transform.position.y, heldItem.transform.position.z), Quaternion.identity);
-                    itemInStash.transform.SetParent(GameObject.Find("Spheres").transform);
-                    heldItem.GetComponent<Rigidbody>().isKinematic = true;
-                    heldItem.transform.SetParent(holdPosition);
-                    heldItem.transform.localPosition = Vector3.zero;
-                    canDrop = false;
-                    StartCoroutine(EnableDropDelay(0.5f));
+                script.Turnoff();
+            }
+            AimedAt = null;
 
-                    blowUp myScriptReference = heldItem.GetComponent<blowUp>();
-                    if (myScriptReference != null)
-                    {
-                        myScriptReference.Blow();
-                    }
+
+            float radius = initialRadius * (i + 0.1f); 
+
+            RaycastHit hit;
+
+            if (Physics.SphereCast(origin, radius, direction, out hit, maxDistance, shereLayer, queryTriggerInteraction))
+            {
+                //Debug.Log($"SphereCast hit at radius {radius}: {hit.collider.gameObject.name}");
+                script = hit.collider.gameObject.GetComponent<Outline>();
+                AimedAt = hit.collider.gameObject;
+                if (script != null)
+                {
+                    script.Turnon();
                 }
+                break;
+            }
+            else
+            {
+                if (script != null)
+                {
+                    script.Turnoff();
+                }
+                AimedAt = null;
+                //Debug.Log($"No collision at radius {radius}");
             }
         }
-        else if(canDrop)
+
+    }
+    void ShowTrajectory(Vector3 playerPos, Vector3 speed)
+    {
+        Vector3[] points = new Vector3[100];
+        trajectoryLine.positionCount = points.Length;
+        for (int i = 0; i < points.Length; i++)
         {
-            DropItem();
+            float time = i * 0.1f;
+            points[i] = playerPos + speed * time + 0.5f * Physics.gravity * time * time;
+        }
+        trajectoryLine.SetPositions(points);
+    }
+    //InputAction.CallbackContext context
+    public void PickIt(InputAction.CallbackContext context)
+    {
+        RaycastHit hit;
+        if (AimedAt&&!HandsBusy)
+        {
+            Debug.Log("hilding nothing");
+            if (context.canceled)
+            {
+                AimedAt.GetComponent<Rigidbody>().isKinematic = true;
+                AimedAt.transform.SetParent(holdPosition);
+                AimedAt.transform.localPosition = Vector3.zero;
+                canDrop = false;
+                StartCoroutine(EnableDropDelay(0.5f));
+                blowUp myScriptReference = AimedAt.GetComponent<blowUp>();
+                if (myScriptReference != null)
+                {
+                    myScriptReference.Blow();
+                }
+                HandsBusy = true;
+                heldItem = AimedAt;
+            }
+            //AimedAt.GetComponent<Rigidbody>().isKinematic = true;
+            //AimedAt.transform.SetParent(holdPosition);
+            //AimedAt.transform.localPosition = Vector3.zero;
+            //canDrop = false;
+            //StartCoroutine(EnableDropDelay(0.5f));
+            //blowUp myScriptReference = AimedAt.GetComponent<blowUp>();
+            //if (myScriptReference != null)
+            //{
+            //    myScriptReference.Blow();
+            //}
+            //HandsBusy = true;
+            //heldItem = AimedAt;
+
+        }
+        else if(canDrop&& HandsBusy)
+        {
+            Debug.Log("phase " + context.phase);
+            if (context.performed)
+            {
+                hold = true;
+                trajectoryLine.enabled = true;
+            }
+            else { hold = false; }
+            if (context.canceled)
+            {
+                trajectoryLine.enabled = false;
+                DropItem();
+            }
+            
         }
     }
 
@@ -54,10 +168,17 @@ public class pickUp : MonoBehaviour
     {
         if (heldItem != null)
         {
+            //throwForce = Mathf.Min(throwForce, MaxthrowForce);
+            if (throwForce > MaxthrowForce) { throwForce = MaxthrowForce; }
+            //if (!ChargeOn) { throwForce = MaxthrowForce; }
             heldItem.GetComponent<Rigidbody>().isKinematic = false;
             heldItem.transform.SetParent(null);
-            heldItem.GetComponent<Rigidbody>().AddForce(cam.transform.forward * throwForce, ForceMode.Impulse);
+            Debug.Log("hERE");
+            heldItem.GetComponent<Rigidbody>().AddForce(cam.transform.forward * throwForce, ForceMode.VelocityChange);
+
             heldItem = null;
+            HandsBusy = false;
+            throwForce = StartthrowForce;
         }
     }
 

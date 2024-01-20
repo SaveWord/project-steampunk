@@ -54,6 +54,9 @@ public class ShootRay : MonoBehaviour
                 }
                 hit.collider.TryGetComponent(out IDamageable damageable);
                 damageable?.GetDamage(damage);
+
+                hit.collider.TryGetComponent(out enemy_health dama);
+                dama?.TakeDamage(damage);
             }
         }
         else if (context.phase == InputActionPhase.Canceled)
