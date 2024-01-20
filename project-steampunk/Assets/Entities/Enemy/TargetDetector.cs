@@ -4,8 +4,9 @@ namespace Enemies
 {
     public class TargetDetector : MonoBehaviour, ITargetDetector
     {
+        [Header("Basics")]
         [SerializeField] private LayerMask _viewMask;
-        [SerializeField] private float _visionRadius = 20f;
+        [SerializeField] private float _detectionRadius = 20f;
 
         private ITarget _target;
         private SphereCollider _collider;
@@ -14,7 +15,7 @@ namespace Enemies
         {
             _collider = gameObject.AddComponent<SphereCollider>();
             _collider.isTrigger = true;
-            _collider.radius = _visionRadius;
+            _collider.radius = _detectionRadius;
         }
 
         private void OnTriggerEnter(Collider other)

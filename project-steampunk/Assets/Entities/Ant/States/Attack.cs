@@ -6,11 +6,13 @@ namespace Enemies.AntStates
     {
         ITargetDetector _targetHolder;
         ITargetAttacker _targetAttacker;
+        AntMover _antMover;
 
-        public Attack(ITargetDetector targetHolder, ITargetAttacker targetAttacker)
+        public Attack(ITargetDetector targetHolder, ITargetAttacker targetAttacker, AntMover antMover)
         {
             _targetHolder = targetHolder;
             _targetAttacker = targetAttacker;
+            _antMover = antMover;
         }
 
         public Color GizmoColor()
@@ -23,7 +25,10 @@ namespace Enemies.AntStates
             var _target = _targetHolder.GetTarget();
 
             if (_target != null)
+            {
+                _antMover.Dash();
                 _targetAttacker.Attack(_target);
+            }
         }
 
         public void OnEnter()

@@ -4,10 +4,12 @@ namespace Enemies.Bullets
 {
     public class Bullet : MonoBehaviour
     {
+        public ITarget Target;
+
+        [Header("Basics")]
         [SerializeField] private float _damage;
         [SerializeField] private float _lifeTime;
         [SerializeField] private float _speed;
-        [SerializeField] private int _collisionReactionLayer;
 
         private Rigidbody _rBody;
         private float _timeOnFly;
@@ -36,7 +38,7 @@ namespace Enemies.Bullets
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.gameObject.layer == _collisionReactionLayer)
+            if (collision.gameObject.GetInstanceID() == Target.GetTargetID())
             {
                 var damageable = collision.gameObject.GetComponent<IDamageable>();
                 damageable.GetDamage(_damage);

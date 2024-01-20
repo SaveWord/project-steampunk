@@ -5,16 +5,17 @@ using UnityEngine;
 
 public class TargetAttacker : MonoBehaviour, ITargetAttacker
 {
+    [Header("Basics")]
     [SerializeField] private AttackUnit _attackUnit;
     [SerializeField] private Transform _attackSpawnPoint;
     [SerializeField] private float _reloadTime = 2f;
 
-    private bool _readyToAttack;
+    private bool _isAttackCharged;
 
 
     private void Awake()
     {
-        _readyToAttack = true;
+        _isAttackCharged = true;
         _attackUnit.AttackSpawnPoint = _attackSpawnPoint;
     }
 
@@ -27,23 +28,18 @@ public class TargetAttacker : MonoBehaviour, ITargetAttacker
     {
         transform.LookAt(target.GetPosition());
 
-        if (_readyToAttack)
+        if (_isAttackCharged)
         {
             _attackUnit.Attack(target);
             StartCoroutine(Reload());
         }
     }
 
-    public bool ShouldChangePosition()
-    {
-        return true;
-    }
-
     private IEnumerator Reload()
     {
-        _readyToAttack = false;
+        _isAttackCharged = false;
         yield return new WaitForSeconds(_reloadTime);
-        _readyToAttack = true;
+        _isAttackCharged = true;
     }
    
 

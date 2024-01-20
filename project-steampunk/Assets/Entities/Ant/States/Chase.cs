@@ -6,11 +6,13 @@ namespace Enemies.AntStates
     public class Chase : IState
     {
         private NavMeshAgent _nMeshAgent;
-        private ITargetDetector _targetHolder;
+        private AntMover _antMover;
+        private ITargetDetector _targetHolder;      
 
-        public Chase(NavMeshAgent nMeshAgent, ITargetDetector targetHolder)
+        public Chase(NavMeshAgent nMeshAgent, AntMover antMover, ITargetDetector targetHolder)
         {
             _nMeshAgent = nMeshAgent;
+            _antMover = antMover;
             _targetHolder = targetHolder;
         }
 
@@ -24,17 +26,17 @@ namespace Enemies.AntStates
             var target = _targetHolder.GetTarget();
 
             if (target != null)
-                _nMeshAgent.SetDestination(target.GetPosition());
+                _antMover.MoveToTarget(target);
         }
 
         public void OnEnter()
         {
-            _nMeshAgent.enabled = true;
+            return;
         }
 
         public void OnExit()
         {
-            _nMeshAgent.enabled = false;
+            return;
         }
 
     }
