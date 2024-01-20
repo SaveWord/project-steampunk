@@ -12,7 +12,6 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
     [SerializeField] private float mouseSense;
-    [SerializeField] private float smoothAnimations;
 
     [Header("Cinemachine Virtual Cameras")]
     [SerializeField] private CinemachineVirtualCamera cam;
@@ -82,6 +81,9 @@ public class PlayerMove : MonoBehaviour
 
     [SerializeField] private GameObject spheres;
 
+    //add shoot and reload new input system
+    private ShootRay eventsShoot;
+
     /* private enum State
      {
          Normal,
@@ -93,13 +95,18 @@ public class PlayerMove : MonoBehaviour
     */
     private void Awake()
     {
+        
         capsuleColliders = GetComponents<CapsuleCollider>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         rb = GetComponent<Rigidbody>();
         animatorPlayer = GetComponentInChildren<Animator>();
+        eventsShoot = GetComponentInChildren<ShootRay>();
         inputActions = new ActionPrototypePlayer();
         inputActions.Player.Enable();
+        inputActions.Player.Shoot.started += context => eventsShoot.Shoot(context);
+        inputActions.Player.Shoot.canceled += context => eventsShoot.Shoot(context);
+        inputActions.Player.Reload.started += context => eventsShoot.Reload(context);
         //state = State.Normal;
     }
     private void Update()
@@ -112,8 +119,6 @@ public class PlayerMove : MonoBehaviour
         Debug.DrawRay(cam.transform.position, cam.transform.forward * maxDistanceKick,
                 Color.red);
         Vector2 inputMove = inputActions.Player.Move.ReadValue<Vector2>();
-        animatorPlayer.SetFloat("moveX",inputMove.x,smoothAnimations,Time.deltaTime);
-        animatorPlayer.SetFloat("moveY",inputMove.y, smoothAnimations,Time.deltaTime);
         Vector2 inputLook = inputActions.Player.Look.ReadValue<Vector2>();
         rb.velocity += Vector3.up * Physics.gravity.y * verticalDamping;
         Move(inputMove);
@@ -203,7 +208,6 @@ public class PlayerMove : MonoBehaviour
             speed -= (speed > 0) ? tackleSpeedSubtraction : 0f;
             capsuleColliders[0].height = colliderHeight;
             capsuleColliders[1].height = capsuleColliders[0].height + 0.25f;
-            animatorPlayer.SetBool("tackle", true);
             cam.enabled = false;
             camTackle.enabled = true;
             yield return new WaitForSeconds(tackleTimeLimit);
@@ -211,7 +215,6 @@ public class PlayerMove : MonoBehaviour
         speed = oldSpeed;
         capsuleColliders[0].height = oldScale;
         capsuleColliders[1].height = capsuleColliders[0].height + 0.25f;
-        animatorPlayer.SetBool("tackle", false);
         tackleActive = false;
         cam.enabled = true;
         camTackle.enabled = false;
@@ -227,7 +230,6 @@ public class PlayerMove : MonoBehaviour
         if (context.phase == InputActionPhase.Started && IsGrounded() == true)
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            animatorPlayer.SetBool("isJump",true);
         }
         else if (doubleJump == 1 && context.phase == InputActionPhase.Started)
         {
@@ -235,15 +237,12 @@ public class PlayerMove : MonoBehaviour
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             doubleJump = 0;
         }
-        if (context.phase == InputActionPhase.Canceled)
-            animatorPlayer.SetBool("isJump",false);
     }
 
     private bool IsGrounded()
     {
         float sphereRadius = 1f;
         isGrounded = Physics.CheckSphere(dotGround.position, sphereRadius, groundLayer);
-        animatorPlayer.SetBool("isGrounded", isGrounded);
         if (isGrounded == true) { doubleJump = 1; }
         return isGrounded;
     }
