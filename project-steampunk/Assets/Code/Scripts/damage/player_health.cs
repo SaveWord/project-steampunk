@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class player_health : health_abstract
 {
@@ -14,14 +15,14 @@ public class player_health : health_abstract
     {
         if (isDead)
         {
-            transform.position = playerPosition;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
     private void OnTriggerEnter(Collider other)
     {
-        //Debug.Log("enter!");
+        //Debug.Log("boom!");
         //Debug.Log(other.tag);
-        if (other.CompareTag("bullet"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Projectiles"))
         {
             mineHP -= other.gameObject.GetComponent<damage_interface>().getDamage();
             UpdateHealth();

@@ -966,7 +966,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c30ab9c9963ca7c46a6ccf413c69c2f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mineHP: 1
+  mineHP: 50
   healthSlider: {fileID: 855906136}
   destructable: 0
 --- !u!114 &532491708 stripped
@@ -1531,9 +1531,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
-  m_WholeNumbers: 0
-  m_Value: 1
+  m_MaxValue: 50
+  m_WholeNumbers: 1
+  m_Value: 50
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1555,7 +1555,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 707.7, y: 487}
+  m_AnchoredPosition: {x: 707.7, y: 1985}
   m_SizeDelta: {x: 400, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &897286562
@@ -1895,7 +1895,7 @@ PrefabInstance:
     - target: {fileID: 6781564368511711766, guid: 23fe6acfbeb261b41bd6fde9090664a0,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8124969302694561174, guid: 23fe6acfbeb261b41bd6fde9090664a0,
         type: 3}

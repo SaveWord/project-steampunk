@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class shortCircuit_damage : MonoBehaviour, damage_interface
+public class discharge_damage : MonoBehaviour, damage_interface
 {
     [SerializeField] private float _damage = 0.3f;
 [SerializeField] private float timerR = 20f;
