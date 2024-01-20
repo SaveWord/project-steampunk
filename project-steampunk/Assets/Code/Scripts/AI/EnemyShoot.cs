@@ -40,11 +40,11 @@ public class EnemyShoot : MonoBehaviour
     }
     private void ShootBullet()
     {
-        bullet.GetComponent<bulletMove>().speed = bulletSpeed;
-        GameObject newBullet = Instantiate(bullet, positionRespawnBullet);
-        Physics.IgnoreCollision(newBullet.GetComponent<Collider>(), GetComponent<Collider>());
-        newBullet.transform.localPosition = new Vector3(0, 0, 0); 
-        newBullet.transform.LookAt(targetPosition);
+        //bullet.GetComponent<Bullet>().speed = bulletSpeed;
+        //GameObject newBullet = Instantiate(bullet, positionRespawnBullet);
+        //Physics.IgnoreCollision(newBullet.GetComponent<Collider>(), GetComponent<Collider>());
+        //newBullet.transform.localPosition = new Vector3(0, 0, 0); 
+        //newBullet.transform.LookAt(targetPosition);
         //newBullet.transform.LookAt(targetPosition + AimMiss(missEnemy));
         //newBullet.GetComponent<bulletMove>().BulletMove();
 
