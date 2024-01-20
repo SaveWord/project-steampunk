@@ -103,6 +103,7 @@ public class pickUp : MonoBehaviour
     {
         Vector3[] points = new Vector3[100];
         trajectoryLine.positionCount = points.Length;
+        trajectoryLine.material = new Material(Shader.Find("Legacy Shaders/Particles/Alpha Blended Premultiply"));
         for (int i = 0; i < points.Length; i++)
         {
             float time = i * 0.1f;
