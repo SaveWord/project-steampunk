@@ -7,7 +7,8 @@ public class pickUp : MonoBehaviour
 {
     [SerializeField] private string itemTag = "sphere";
     [SerializeField] private float pickupDistance = 15.0f; 
-    [SerializeField] private Transform holdPosition; 
+    [SerializeField] private Transform holdPosition;
+    //[SerializeField] private GameObject holdP;
     private GameObject heldItem; 
 
     [SerializeField] private Camera cam;
@@ -17,6 +18,8 @@ public class pickUp : MonoBehaviour
     private float throwForce;
     [SerializeField] private float MaxthrowForce = 140f;
     [SerializeField] private Transform playerTransform;
+    [SerializeField] private Transform throwplayerTransform;
+    //[SerializeField] private GameObject throwplayer;
 
 
     private bool isCharging = false;
@@ -56,7 +59,7 @@ public class pickUp : MonoBehaviour
             Debug.Log(throwForce);
             if(throwForce > MaxthrowForce) { throwForce = MaxthrowForce; }
             Vector3 genVelocity = cam.transform.forward * throwForce;
-            Vector3 playerPosition = playerTransform.position;
+            Vector3 playerPosition = throwplayerTransform.position;
             ShowTrajectory(playerPosition, genVelocity);
        }
 
@@ -148,11 +151,15 @@ public class pickUp : MonoBehaviour
         }
         else if(canDrop&& HandsBusy)
         {
-            Debug.Log("phase " + context.phase);
+            
+            //heldItem.transform.SetParent(throwplayerTransform);
+            //heldItem.transform.localPosition = Vector3.zero;
             if (context.performed)
             {
                 hold = true;
                 trajectoryLine.enabled = true;
+                //heldItem.transform.localScale = new Vector3(0.81f, 0.65f, 0f);
+                
             }
             else { hold = false; }
             if (context.canceled)
@@ -168,10 +175,14 @@ public class pickUp : MonoBehaviour
     {
         if (heldItem != null)
         {
-            //throwForce = Mathf.Min(throwForce, MaxthrowForce);
+            heldItem.transform.SetParent(throwplayerTransform);
+            heldItem.transform.localPosition = Vector3.zero;
             if (throwForce > MaxthrowForce) { throwForce = MaxthrowForce; }
             //if (!ChargeOn) { throwForce = MaxthrowForce; }
             heldItem.GetComponent<Rigidbody>().isKinematic = false;
+            //heldItem.transform.localScale = new Vector3(0.806f, 0.712f, 0f);
+            //heldItem.transform.SetParent(throwplayerTransform);
+            //heldItem.transform.localScale = new Vector3(0.806f, 0.712f, 0f);
             heldItem.transform.SetParent(null);
             Debug.Log("hERE");
             heldItem.GetComponent<Rigidbody>().AddForce(cam.transform.forward * throwForce, ForceMode.VelocityChange);
