@@ -6934,6 +6934,7 @@ GameObject:
   m_Component:
   - component: {fileID: 984124602}
   - component: {fileID: 984124601}
+  - component: {fileID: 984124603}
   m_Layer: 5
   m_Name: health
   m_TagString: Untagged
@@ -7013,6 +7014,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 160, y: 41.75}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &984124603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 984124600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8b5765c2a7ab0b43bebe12f4901336a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healthSlider: {fileID: 0}
 --- !u!1001 &1046788684
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23760,6 +23774,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ant
       objectReference: {fileID: 0}
+    - target: {fileID: 4192851761297416250, guid: 4685e132e5a463a4b877f45ac55ddfbd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6066312006235517064, guid: 4685e132e5a463a4b877f45ac55ddfbd,
         type: 3}
       propertyPath: _dasher._dashForce
@@ -23801,10 +23820,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4192851761297416250, guid: 4685e132e5a463a4b877f45ac55ddfbd,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6882226525852686614}
-    - targetCorrespondingSourceObject: {fileID: 4192851761297416250, guid: 4685e132e5a463a4b877f45ac55ddfbd,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 6882226525852686613}
     - targetCorrespondingSourceObject: {fileID: 4192851761297416250, guid: 4685e132e5a463a4b877f45ac55ddfbd,
         type: 3}
@@ -23817,41 +23832,25 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6882226525852686608}
   m_PrefabAsset: {fileID: 0}
---- !u!54 &6882226525852686610 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 7441831430284930765, guid: 4685e132e5a463a4b877f45ac55ddfbd,
-    type: 3}
-  m_PrefabInstance: {fileID: 6882226525852686608}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6882226525852686611 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4192851761297416250, guid: 4685e132e5a463a4b877f45ac55ddfbd,
     type: 3}
   m_PrefabInstance: {fileID: 6882226525852686608}
   m_PrefabAsset: {fileID: 0}
---- !u!136 &6882226525852686612
-CapsuleCollider:
+--- !u!114 &6882226525852686612
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6882226525852686611}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ea888751f5ba1249b431e29e558b051, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathParticlePrefab: {fileID: 0}
 --- !u!114 &6882226525852686613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23861,26 +23860,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6882226525852686611}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0109542ad2c0cfc4b8a6af7efa37f3be, type: 3}
+  m_Script: {fileID: 11500000, guid: 9a32c832d3fe41d4cb8378b6e39620e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mineHP: 90
-  healthSlider: {fileID: 984124601}
-  destructable: 1
-  rb: {fileID: 6882226525852686610}
---- !u!114 &6882226525852686614
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6882226525852686611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25c1bf329c3b9d746b7ffc42456aeaf0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _damage: 20
+  _maxHp: 100
+  _currentHp: 0
+  _invulnerable: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

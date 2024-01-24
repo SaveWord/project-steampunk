@@ -38,13 +38,21 @@ namespace Enemies.Bullets
 
         private void OnCollisionEnter(Collision collision)
         {
+            Debug.Log(collision.gameObject.GetInstanceID());
             if (collision.gameObject.GetInstanceID() == Target.GetTargetID())
             {
-                var damageable = collision.gameObject.GetComponent<IDamageable>();
-                damageable.GetDamage(_damage);
+                DealDamage(collision.gameObject);
             }
-
             SelfDestroy();
+        }
+
+        private void DealDamage(GameObject target)
+        {
+            //var damageable = target.GetComponent<IHealth>();
+           // damageable.TakeDamage(_damage);
+            target.TryGetComponent(out IHealth damageable);
+                damageable?.TakeDamage(_damage);
+            Debug.Log("attack from bullet");
         }
 
         public void StartFly(Vector3 flyEndPoint)

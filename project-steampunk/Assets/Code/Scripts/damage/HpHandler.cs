@@ -6,22 +6,23 @@ using System;
 public class HpHandler: MonoBehaviour, IHealth
 {
     [SerializeField]
-    private int _maxHp = 100;
+    private float _maxHp = 100f;
     [SerializeField]
-    private int _currentHp;
+    private float _currentHp;
     [SerializeField]
     private bool _invulnerable = false;
 
     public float CurrentHp { get { return (float)_currentHp; } }
 
     public event Action<float> OnHPChanged = delegate { };
+    public event Action OnDied = delegate { };
 
     private void Start()
     {
         _currentHp = _maxHp;
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(float amount)
     {
         if (!_invulnerable)
         {
@@ -37,7 +38,7 @@ public class HpHandler: MonoBehaviour, IHealth
         }
     }
 
-    public void Heal(int amount)
+    public void Heal(float amount)
     {
         if (amount <= 0)
             throw new ArgumentOutOfRangeException("Invalid Heal amount specified: " + amount);
@@ -52,14 +53,13 @@ public class HpHandler: MonoBehaviour, IHealth
 
     private void Die()
     {
-        //OnDied();
-        GameObject.Destroy(this.gameObject);
+        OnDied();
+        Debug.Log("died");
     }
 
     //if needed blood particle
 
     /*[SerializeField] private ParticleSystem deathParticlePrefab;
-    public event Action OnDied = delegate { };
     private void Start()
     {
         GetComponent<IHealth>().OnDied += PlayDeathParticle;

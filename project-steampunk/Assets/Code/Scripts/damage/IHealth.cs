@@ -5,7 +5,8 @@ using UnityEngine;
 public interface IHealth
 {
     event System.Action<float> OnHPChanged;
+    event System.Action OnDied;
     float CurrentHp { get; }
-    void TakeDamage(int amount);
-    void Heal(int amount);
+    void TakeDamage(float amount);
+    void Heal(float amount);
 }

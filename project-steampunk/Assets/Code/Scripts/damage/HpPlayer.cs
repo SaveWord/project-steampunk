@@ -5,38 +5,50 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class player_health : health_abstract
+public class HpPlayer : MonoBehaviour, ITarget
 {
     //[SerializeField] private Transform playerTransform;
     private Vector3 playerPosition;
     private bool isDead;
+ [SerializeField] private DamageTakenEffect damageEffect;
 
-    void Update()
+    public int GetTargetID()
     {
-        if (isDead)
+        return gameObject.GetInstanceID();
+    }
+
+    public Vector3 GetPosition()
+    {
+        return transform.position;
+    }
+    /*
+    public void GetDamage(float damage)
+    {
+        if (timeNextAttack < Time.time)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        //Debug.Log("boom!");
-        //Debug.Log(other.tag);
-        if (other.gameObject.layer == LayerMask.NameToLayer("Projectiles"))
-        {
-            mineHP -= other.gameObject.GetComponent<damage_interface>().getDamage();
-            UpdateHealth();
-            //Debug.Log(mineHP);
+            timeNextAttack = Time.time + timeIntervalAttack;
+            hp -= damage;
+            StartCoroutine(damageEffect.TakeDamageEffect());
+            hpUI.fillAmount = hp;
+            if (hp <= 0.01)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
         }
 
     }
-
-    protected override void Die()
+    */
+    private void Start()
     {
-        Console.WriteLine("Implementation in the derived class.");
-        playerPosition = transform.position;
-        isDead = true;
+        GetComponent<IHealth>().OnDied += HandleEnemyDied;
     }
 
+    private void HandleEnemyDied()
+    {
+       // var deathparticle = Instantiate(deathParticlePrefab, transform.position, transform.rotation);
+        //animation of death
+        //Destroy(deathparticle, 4f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
     
 }

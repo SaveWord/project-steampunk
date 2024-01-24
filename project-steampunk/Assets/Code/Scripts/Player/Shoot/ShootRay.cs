@@ -59,14 +59,16 @@ public class ShootRay : MonoBehaviour
             {
                 // Instantiate(hitEffectPrefab, new Vector3(hit.point.x, hit.point.y, hit.point.z), Quaternion.identity);
 
-                hit.collider.TryGetComponent(out IDamageableProps damageableProps);
-                damageableProps?.GetDamage(damage);
+                //hit.collider.TryGetComponent(out IDamageableProps damageableProps);
+                //damageableProps?.GetDamage(damage);
 
-                hit.collider.TryGetComponent(out IDamageable damageable);
-                damageable?.GetDamage(damage);
+                //hit.collider.TryGetComponent(out IDamageable damageable1);
+                //damageable1?.GetDamage(damage);
 
-                hit.collider.TryGetComponent(out enemy_health dama);
-                dama?.TakeDamage(damage);
+
+                ///DealDamage
+                hit.collider.TryGetComponent(out IHealth damageable);
+                damageable?.TakeDamage(damage);
             }
         }
         if (patrons == 0)
@@ -77,8 +79,8 @@ public class ShootRay : MonoBehaviour
         {
             animatorWeapon.SetBool("shoot", false);//анимация поворота барабана и курка
         }
-
     }
+
     public void Reload(InputAction.CallbackContext context)
     {
         if (context.started && patrons < maxPatrons)
