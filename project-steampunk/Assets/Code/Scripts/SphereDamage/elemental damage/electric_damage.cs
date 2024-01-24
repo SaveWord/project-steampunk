@@ -47,16 +47,17 @@ public class electric_damage : MonoBehaviour, damage_interface
         }
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerStay(Collider collider)
     {
-        other.gameObject.TryGetComponent(out health_abstract health);
+        collider.TryGetComponent(out IHealth damageable);
         damageTimer += Time.deltaTime;
         if (damageTimer >= damageInterval)
         {
-            health?.TakeDamage(_damage);
+            damageable?.TakeDamage(_damage);
             damageTimer = 0f;
         }
     }
+
     public float gettime()
     {
         return timerR;

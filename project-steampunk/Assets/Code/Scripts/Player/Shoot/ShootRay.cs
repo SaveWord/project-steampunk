@@ -23,6 +23,18 @@ public class ShootRay : MonoBehaviour
     private Animator animatorWeapon;
     private Animator animatorRightArm;
     public GameObject hitEffectPrefab;
+    private ActionPrototypePlayer inputActions;
+    private ShootRay eventsShoot;
+
+    private void Awake()
+    {
+        eventsShoot = GetComponentInChildren<ShootRay>();
+        inputActions = new ActionPrototypePlayer();
+        inputActions.Player.Enable();
+        inputActions.Player.Shoot.started += context => eventsShoot.Shoot(context);
+        inputActions.Player.Shoot.canceled += context => eventsShoot.Shoot(context);
+        inputActions.Player.Reload.started += context => eventsShoot.Reload(context);
+    }
 
     private void Start()
     {
@@ -33,12 +45,12 @@ public class ShootRay : MonoBehaviour
         patronsText.text = patrons.ToString();
     }
 
-
     private void Update()
     {
         Debug.DrawRay(cam.transform.position, cam.transform.forward,
                  Color.red);
     }
+
     public void Shoot(InputAction.CallbackContext context)
     {
         if (context.started && patrons > 0)
@@ -46,30 +58,7 @@ public class ShootRay : MonoBehaviour
             patrons--;
             patronsText.text = patrons.ToString();
             animatorWeapon.SetBool("shoot", true);//анимация поворота барабана и курка
-            if (Physics.Raycast(cam.transform.position, cam.transform.forward,
-                out RaycastHit hitObject, Mathf.Infinity, effectLayer))
-            {
-                var direction = new Vector3(hitObject.point.x, hitObject.point.y, hitObject.point.z);
-                Instantiate(hitEffectPrefab, direction, Quaternion.identity);
-                StartCoroutine(recoilShake.Shake(recoilDuration, recoilMagnitude));
-            }
-
-            if (Physics.Raycast(cam.transform.position, cam.transform.forward,
-                out RaycastHit hit, Mathf.Infinity, enemyLayer))
-            {
-                // Instantiate(hitEffectPrefab, new Vector3(hit.point.x, hit.point.y, hit.point.z), Quaternion.identity);
-
-                //hit.collider.TryGetComponent(out IDamageableProps damageableProps);
-                //damageableProps?.GetDamage(damage);
-
-                //hit.collider.TryGetComponent(out IDamageable damageable1);
-                //damageable1?.GetDamage(damage);
-
-
-                ///DealDamage
-                hit.collider.TryGetComponent(out IHealth damageable);
-                damageable?.TakeDamage(damage);
-            }
+            ShootRaycast();
         }
         if (patrons == 0)
         {
@@ -81,6 +70,30 @@ public class ShootRay : MonoBehaviour
         }
     }
 
+    private void ShootRaycast()
+    {
+        if (Physics.Raycast(cam.transform.position, cam.transform.forward,
+                out RaycastHit hit, Mathf.Infinity, enemyLayer))
+        {
+            // DealDamage
+            hit.collider.TryGetComponent(out IHealth damageable);
+            damageable?.TakeDamage(damage);
+        }
+        else if (Physics.Raycast(cam.transform.position, cam.transform.forward,
+            out RaycastHit hitObject, Mathf.Infinity, effectLayer))
+        {
+            var direction = new Vector3(hitObject.point.x, hitObject.point.y, hitObject.point.z);
+            HitParticle(direction);
+        }
+    }
+
+    private void HitParticle(Vector3 direction)
+    {
+        // Instantiate(hitEffectPrefab, new Vector3(hit.point.x, hit.point.y, hit.point.z), Quaternion.identity);
+        Instantiate(hitEffectPrefab, direction, Quaternion.identity);
+        StartCoroutine(recoilShake.Shake(recoilDuration, recoilMagnitude));
+    }
+
     public void Reload(InputAction.CallbackContext context)
     {
         if (context.started && patrons < maxPatrons)
@@ -88,6 +101,7 @@ public class ShootRay : MonoBehaviour
             StartCoroutine(ReloadCoroutine());
         }
     }
+
     IEnumerator ReloadCoroutine()
     {
         animatorWeapon.SetBool("shoot", false);

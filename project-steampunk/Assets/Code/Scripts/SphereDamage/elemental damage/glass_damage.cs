@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class lava_damage : MonoBehaviour, damage_interface
+public class glass_damage : MonoBehaviour, damage_interface
 {
-    [SerializeField] private float _damage = 0.4f;
-    [SerializeField] private float timerR = 7f;
+    [SerializeField] private float _damage = 0f;
+    [SerializeField] private float timerR = 20f;
     [SerializeField] private float damageInterval = 2f;
     private float damageTimer = 0f;
 
@@ -15,7 +15,7 @@ public class lava_damage : MonoBehaviour, damage_interface
     }
     public string getstate()
     {
-        return "";
+        return "frozen";
     }
     void Update()
     {
@@ -32,7 +32,7 @@ public class lava_damage : MonoBehaviour, damage_interface
 
     private void OnTriggerStay(Collider other)
     {
-        other.gameObject.TryGetComponent(out health_abstract health);
+        other.gameObject.TryGetComponent(out IHealth health);
         damageTimer += Time.deltaTime;
         if (damageTimer >= damageInterval)
         {
@@ -40,5 +40,8 @@ public class lava_damage : MonoBehaviour, damage_interface
             damageTimer = 0f;
         }
     }
+    public float gettime()
+    {
+        return timerR;
+    }
 }
-

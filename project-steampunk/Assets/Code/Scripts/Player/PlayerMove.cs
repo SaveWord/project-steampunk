@@ -17,13 +17,10 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera cam;
     [SerializeField] private CinemachineVirtualCamera camTackle;
 
-
     [Header("Переменные детекта ground")]
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Transform dotGround;
     [SerializeField] private float verticalDamping = 0.5f;
-
-
 
     private float xRotation;
     private Rigidbody rb;
@@ -82,7 +79,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private GameObject spheres;
 
     //add shoot and reload new input system
-    private ShootRay eventsShoot;
+    
 
     /* private enum State
      {
@@ -93,27 +90,24 @@ public class PlayerMove : MonoBehaviour
 
      }
     */
+
     private void Awake()
     {
-        
         capsuleColliders = GetComponents<CapsuleCollider>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         rb = GetComponent<Rigidbody>();
-        animatorPlayer = GetComponentInChildren<Animator>();
-        eventsShoot = GetComponentInChildren<ShootRay>();
         inputActions = new ActionPrototypePlayer();
         inputActions.Player.Enable();
-        inputActions.Player.Shoot.started += context => eventsShoot.Shoot(context);
-        inputActions.Player.Shoot.canceled += context => eventsShoot.Shoot(context);
-        inputActions.Player.Reload.started += context => eventsShoot.Reload(context);
         //state = State.Normal;
     }
+
     private void Update()
     {
         IsGrounded();
         //Debug.Log("Скорость по X " + rb.velocity.x); 
     }
+
     private void FixedUpdate()
     {
         Debug.DrawRay(cam.transform.position, cam.transform.forward * maxDistanceKick,
@@ -158,6 +152,7 @@ public class PlayerMove : MonoBehaviour
             cam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         transform.Rotate(Vector3.up * xLook);
     }
+
     private void Move(Vector2 inputMove)
     {
         Vector3 move = transform.right * inputMove.x + transform.forward * inputMove.y;
@@ -175,6 +170,7 @@ public class PlayerMove : MonoBehaviour
             }
         }
     }
+
     IEnumerator DashCoroutine()
     {
         float oldSpeed;
@@ -195,6 +191,7 @@ public class PlayerMove : MonoBehaviour
             StartCoroutine(TackleCoroutine(context));
         }
     }
+
     IEnumerator TackleCoroutine(InputAction.CallbackContext contextCoroutine)
     {
         float oldSpeed;
@@ -224,6 +221,7 @@ public class PlayerMove : MonoBehaviour
         //transform.localScale = new Vector3(transform.localScale.x,scaleY,transform.localScale.z);
         //transform.localScale = new Vector3(transform.localScale.x, oldScale, transform.localScale.z);
     }
+
     public void Jump(InputAction.CallbackContext context)
     {
         Debug.Log(doubleJump);
@@ -246,6 +244,22 @@ public class PlayerMove : MonoBehaviour
         if (isGrounded == true) { doubleJump = 1; }
         return isGrounded;
     }
+
+    //hit leg (kick)
+    public void Kick(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started)
+        {
+            if (Physics.Raycast(cam.transform.position, cam.transform.forward,
+                out RaycastHit hit, maxDistanceKick, enemyLayer))
+            {
+                hit.collider.GetComponent<Rigidbody>().
+                    AddForce(((hit.collider.transform.position - transform.position).normalized)
+                    * kickForce, ForceMode.Impulse);
+            }
+        }
+    }
+
     //hookShot
     /*
     public void HandleHookShot(InputAction.CallbackContext context)
@@ -317,20 +331,5 @@ public class PlayerMove : MonoBehaviour
 
      }
     */
-
-    //hit leg (kick)
-    public void Kick(InputAction.CallbackContext context)
-    {
-        if (context.phase == InputActionPhase.Started)
-        {
-            if (Physics.Raycast(cam.transform.position, cam.transform.forward,
-                out RaycastHit hit, maxDistanceKick, enemyLayer))
-            {
-                hit.collider.GetComponent<Rigidbody>().
-                    AddForce(((hit.collider.transform.position - transform.position).normalized)
-                    * kickForce, ForceMode.Impulse);
-            }
-        }
-    }
 
 }

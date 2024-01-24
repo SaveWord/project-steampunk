@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 6179243419552856336}
   - component: {fileID: 4711670341991536723}
   - component: {fileID: 3788468970783187279}
-  - component: {fileID: 1739092780604898309}
   - component: {fileID: 3702707721913410569}
   m_Layer: 0
   m_Name: electroZone
@@ -137,22 +136,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1739092780604898309
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5131400765082636460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e45c166368291f4e803b27ab357903c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageAmount: 0.1
-  timerR: 6
-  frozenStatus: 0
-  liftForce: 0
 --- !u!114 &3702707721913410569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,8 +148,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 714ad8e5d08c7994693178d3dc48a445, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 1
-  timerR: 6
+  _damage: 20
+  timerR: 1
   damageInterval: 1
 --- !u!1001 &2820176395236834141
 PrefabInstance:

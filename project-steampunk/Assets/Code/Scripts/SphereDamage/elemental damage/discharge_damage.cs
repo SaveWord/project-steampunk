@@ -33,7 +33,7 @@ private void OnTriggerEnter(Collider other)
 
 private void OnTriggerStay(Collider other)
 {
-    other.gameObject.TryGetComponent(out health_abstract health);
+    other.gameObject.TryGetComponent(out IHealth health);
     damageTimer += Time.deltaTime;
     if (damageTimer >= damageInterval)
     {

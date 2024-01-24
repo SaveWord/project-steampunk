@@ -10,9 +10,9 @@ public class HpEnemy : MonoBehaviour
     private Vector3 playerPosition;
 
     private float jumpForce;
-    //[SerializeField] private Rigidbody rb;
+    [SerializeField] private Rigidbody rb;
 
-    /*  private void OnTriggerEnter(Collider other)
+      private void OnTriggerEnter(Collider other)
       {
           if (other.CompareTag("bullet")||other.CompareTag("killzone"))
           {
@@ -42,7 +42,7 @@ public class HpEnemy : MonoBehaviour
           {
               transform.position = playerPosition;
           }
-      } */
+      } 
 
     //[SerializeField] private ParticleSystem deathParticlePrefab;
 

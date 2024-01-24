@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class HpPlayer : MonoBehaviour, ITarget
+public class Player : MonoBehaviour, ITarget
 {
     //[SerializeField] private Transform playerTransform;
     private Vector3 playerPosition;
