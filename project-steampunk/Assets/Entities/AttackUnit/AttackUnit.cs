@@ -3,11 +3,9 @@ using Enemies.Bullets;
 
 namespace Enemies.Attacks.AttackUnits
 {
-    [CreateAssetMenu(menuName = "AttackUnits/AttackUnit")]
-    public class AttackUnit : ScriptableObject
+    public class AttackUnit : MonoBehaviour
     {
         public Transform AttackSpawnPoint;
-
         [SerializeField] private Bullet _bullet;
 
         public void Attack(ITarget target)
