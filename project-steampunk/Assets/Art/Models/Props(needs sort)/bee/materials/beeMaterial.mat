@@ -28,17 +28,14 @@ Material:
   - _EMISSION
   - _HALFTONESHAPE_CUSTOM
   - _METALLICSPECGLOSSMAP
-  - _NORMALMAP
-  - _OCCLUSIONMAP
   - _OUTLINE
   - _TOON_SHADING_ON
   m_InvalidKeywords:
-  - _HAFTONESHAPES_STRIPE
   - _STEPVIARAMPTEXTURE_ON
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2050
+  m_CustomRenderQueue: 2049
   stringTagMap:
     IgnoreProjection: False
     RenderType: Opaque
@@ -172,7 +169,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 3bda4dd0d3afe1e498f7e03042a8496c, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskMap:
@@ -516,7 +513,7 @@ Material:
     - _PPDPrimitiveWidth: 1
     - _Parallax: 0.005
     - _QueueControl: -1
-    - _QueueOffset: 0
+    - _QueueOffset: 1
     - _RIMLIGHTING: 0
     - _ReceiveShadows: 1
     - _ReceivesSSR: 1
@@ -531,7 +528,7 @@ Material:
     - _RimLight_FeatherOff: 0
     - _RimLight_InsideMask: 0.0001
     - _RimLight_Power: 0.1
-    - _RimPower: 0.697
+    - _RimPower: 0
     - _Rotate_EmissiveUV: 0
     - _Rotate_MatCapUV: 0
     - _Rotate_NormalMapForMatCapUV: 0
@@ -554,12 +551,12 @@ Material:
     - _SpecClipMaskScale: 1
     - _SpecColor_1: 0.1
     - _SpecFalloff: 0
-    - _SpecShadowStrength: 0
+    - _SpecShadowStrength: 1
     - _SpecShadowStrenth: 1
     - _SpecularAAScreenSpaceVariance: 0.1
     - _SpecularAAThreshold: 0.2
     - _SpecularClipStrength: 0
-    - _SpecularFalloff: 0.5
+    - _SpecularFalloff: 1
     - _SpecularHighlights: 1
     - _SpecularOcclusionMode: 1
     - _SpecularSize: 1
@@ -677,7 +674,7 @@ Material:
     - _RimLightColor: {r: 1, g: 1, b: 1, a: 1}
     - _RimLightMaskColor: {r: 1, g: 0, b: 1, a: 1}
     - _SecondShadeMaskColor: {r: 0, g: 0, b: 1, a: 1}
-    - _ShadowColor: {r: 0, g: 0, b: 0, a: 0.7}
+    - _ShadowColor: {r: 0, g: 0, b: 0, a: 0.8}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpherizeNormalOrigin: {r: 0, g: 0, b: 0, a: 0}
