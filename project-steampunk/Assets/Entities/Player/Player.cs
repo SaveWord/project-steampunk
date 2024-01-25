@@ -40,10 +40,10 @@ public class Player : MonoBehaviour, ITarget
     */
     private void Start()
     {
-        GetComponent<IHealth>().OnDied += HandleEnemyDied;
+        GetComponent<IHealth>().OnDied += HandlePlayerDied;
     }
 
-    private void HandleEnemyDied()
+    private void HandlePlayerDied()
     {
        // var deathparticle = Instantiate(deathParticlePrefab, transform.position, transform.rotation);
         //animation of death

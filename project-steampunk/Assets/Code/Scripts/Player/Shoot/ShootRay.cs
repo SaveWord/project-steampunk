@@ -14,6 +14,7 @@ public class ShootRay : MonoBehaviour
 
     [SerializeField] private int maxPatrons;
     [SerializeField] private float waitBeforeReload;
+
     private int patrons;
     private TextMeshProUGUI patronsText;
 
@@ -23,18 +24,7 @@ public class ShootRay : MonoBehaviour
     private Animator animatorWeapon;
     private Animator animatorRightArm;
     public GameObject hitEffectPrefab;
-    private ActionPrototypePlayer inputActions;
-    private ShootRay eventsShoot;
-
-    private void Awake()
-    {
-        eventsShoot = GetComponentInChildren<ShootRay>();
-        inputActions = new ActionPrototypePlayer();
-        inputActions.Player.Enable();
-        inputActions.Player.Shoot.started += context => eventsShoot.Shoot(context);
-        inputActions.Player.Shoot.canceled += context => eventsShoot.Shoot(context);
-        inputActions.Player.Reload.started += context => eventsShoot.Reload(context);
-    }
+    [SerializeField] private ParticleSystem deathParticlePrefab;
 
     private void Start()
     {
@@ -72,19 +62,29 @@ public class ShootRay : MonoBehaviour
 
     private void ShootRaycast()
     {
+       
         if (Physics.Raycast(cam.transform.position, cam.transform.forward,
-                out RaycastHit hit, Mathf.Infinity, enemyLayer))
+            out RaycastHit hitObject, Mathf.Infinity))
         {
-            // DealDamage
-            hit.collider.TryGetComponent(out IHealth damageable);
-            damageable?.TakeDamage(damage);
+            if (((1 << hitObject.transform.gameObject.layer) & enemyLayer) != 0)
+            {
+                // DealDamage
+                hitObject.collider.TryGetComponent(out IHealth damageable);
+                damageable?.TakeDamage(damage);
+                HitSuccessfulParticle(hitObject.transform.gameObject);
+            }
+            else
+            {
+                var direction = new Vector3(hitObject.point.x, hitObject.point.y, hitObject.point.z);
+                HitParticle(direction);
+            }
         }
-        else if (Physics.Raycast(cam.transform.position, cam.transform.forward,
-            out RaycastHit hitObject, Mathf.Infinity, effectLayer))
-        {
-            var direction = new Vector3(hitObject.point.x, hitObject.point.y, hitObject.point.z);
-            HitParticle(direction);
-        }
+        
+    }
+    private void HitSuccessfulParticle(GameObject point)
+    {
+        var deathparticle = Instantiate(deathParticlePrefab, point.transform.position, point.transform.rotation);
+        Destroy(deathparticle, 2f);
     }
 
     private void HitParticle(Vector3 direction)

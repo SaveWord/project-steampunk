@@ -11,6 +11,7 @@ public class HpEnemy : MonoBehaviour
 
     private float jumpForce;
     [SerializeField] private Rigidbody rb;
+    [SerializeField] private ParticleSystem deathParticlePrefab;
 
       private void OnTriggerEnter(Collider other)
       {
@@ -44,8 +45,6 @@ public class HpEnemy : MonoBehaviour
           }
       } 
 
-    //[SerializeField] private ParticleSystem deathParticlePrefab;
-
     private void Start()
     {
         GetComponent<IHealth>().OnDied += HandleEnemyDied;
@@ -53,9 +52,9 @@ public class HpEnemy : MonoBehaviour
 
     private void HandleEnemyDied()
     {
-        //var deathparticle = Instantiate(deathParticlePrefab, transform.position, transform.rotation);
+        var deathparticle = Instantiate(deathParticlePrefab, transform.position, transform.rotation);
         //animation of death
-       // Destroy(deathparticle, 4f);
+        Destroy(deathparticle, 4f);
         GameObject.Destroy(this.gameObject);
     }
 
