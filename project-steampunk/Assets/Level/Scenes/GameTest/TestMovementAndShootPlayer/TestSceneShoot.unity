@@ -2499,33 +2499,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &4554227780703293255
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4743153325834643403}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9c3f297c92aeaa48ad455c5e68133d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cam: {fileID: 1301282295550026857}
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 576
-  effectLayer:
-    serializedVersion: 2
-    m_Bits: 321
-  recoilShake: {fileID: 3987196647882444771}
-  maxPatrons: 6
-  waitBeforeReload: 0.5
-  recoilDuration: 0.1
-  recoilMagnitude: 3
-  damage: 30
-  hitEffectPrefab: {fileID: 6192724089161036641, guid: e8d90def7ce1b3c468918f7bb0b22260,
-    type: 3}
 --- !u!1 &4582078441217867119
 GameObject:
   m_ObjectHideFlags: 0
@@ -2605,8 +2578,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6392025075709667688}
-  - component: {fileID: 4554227780703293255}
   - component: {fileID: 5581491822470194769}
+  - component: {fileID: 6392025075709667689}
   m_Layer: 10
   m_Name: revolver
   m_TagString: Untagged
@@ -36825,6 +36798,20 @@ Transform:
   - {fileID: 7899262876750131429}
   m_Father: {fileID: 8673006352093428447}
   m_LocalEulerAnglesHint: {x: 176.816, y: 106.088, z: 173.95}
+--- !u!114 &6392025075709667689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4743153325834643403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8ec63fbd9cb02b4d8f9471c18c2b592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponParametrs:
+  - {fileID: 11400000, guid: 02158e44d11b8634f9fadf2847d6ac0e, type: 2}
 --- !u!1 &6394673321625438389
 GameObject:
   m_ObjectHideFlags: 0
@@ -37665,10 +37652,10 @@ MonoBehaviour:
   itemTag: sphere
   pickupDistance: 15
   holdPosition: {fileID: 8124969301473616001}
-  cam: {fileID: 0}
+  cam: {fileID: 1301282295550026857}
   shereLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4096
   StartthrowForce: 1
   MaxthrowForce: 140
   playerTransform: {fileID: 0}

@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static IWeapon;
 
-public abstract class MainDecorator : IWeapon
+public abstract class MainDecorator : MonoBehaviour,IWeapon
 {
     protected IWeapon weapon;
     protected float maxPatrons;
@@ -14,10 +13,6 @@ public abstract class MainDecorator : IWeapon
     public MainDecorator(IWeapon MainDecorator)
     {
         MainDecorator = weapon;
-    }
-    public virtual void Start()
-    {
-        maxPatrons = Patrons;
     }
     public virtual float Damage
     {
@@ -53,13 +48,8 @@ public abstract class MainDecorator : IWeapon
     {
         weapon.Shoot(context);
     }
-    public virtual void Reload(InputAction.CallbackContext context)
+    public async virtual void Reload(InputAction.CallbackContext context)
     {
         weapon.Reload(context);
-    }
-    public virtual IEnumerator ReloadCoroutine()
-    {
-        
-        yield return new WaitForSeconds(ReloadSpeed);
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static IWeapon;
@@ -24,10 +25,7 @@ public class ParametrsUpdateDecorator : MainDecorator
         _updateReload = updateReload;
         _updatePatrons = updatePatrons;
         _updateWeaponType = updateWeaponType;
-    }
-    public override void Start()
-    {
-        base.Start();
+        maxPatrons = updatePatrons;
     }
     public override float Damage
     {
@@ -50,7 +48,7 @@ public class ParametrsUpdateDecorator : MainDecorator
     public override float Patrons
     {
         get { return _updatePatrons; }
-        set { }
+        set { _updatePatrons = value; }
     }
 
     public override WeaponTypeDamage AttackType
@@ -69,10 +67,11 @@ public class ParametrsUpdateDecorator : MainDecorator
         {
             Patrons--;
             Debug.Log(Patrons);
-            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
+            Debug.DrawRay(Camera.main.transform.localPosition, Camera.main.transform.forward, Color.blue);
+            if (Physics.Raycast(Camera.main.transform.localPosition, Camera.main.transform.forward,
                 out RaycastHit hit, Range, enemyLayer))
             {
-
+                Debug.Log("hit");
                 hit.collider.TryGetComponent(out IDamageableProps damageableProps);
                 damageableProps?.GetDamage(Damage);
 
@@ -88,17 +87,14 @@ public class ParametrsUpdateDecorator : MainDecorator
             Reload(context);
         }
     }
-    public override void Reload(InputAction.CallbackContext context)
+    public async override void Reload(InputAction.CallbackContext context)
     {
         if (context.started && Patrons < maxPatrons)
         {
-           ReloadCoroutine();
+            Debug.Log("Activate");
+            await Task.Delay((int)ReloadSpeed * 1000);
+            Debug.Log("Deactivate");
+            Patrons = maxPatrons;
         }
-    }
-    public override IEnumerator ReloadCoroutine()
-    {
-      
-        yield return new WaitForSeconds(ReloadSpeed);
-        Patrons = maxPatrons;
     }
 }

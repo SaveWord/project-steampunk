@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,13 +20,8 @@ public interface IWeapon
     {
 
     }
-    public void Reload(InputAction.CallbackContext context)
+    public async void Reload(InputAction.CallbackContext context)
     {
-
-    }
-    IEnumerator ReloadCoroutine()
-    {
-
-        yield return new WaitForSeconds(ReloadSpeed);
+        await Task.Delay((int)ReloadSpeed * 1000);
     }
 }
