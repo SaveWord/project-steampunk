@@ -120,12 +120,9 @@ public class PlayerMove : MonoBehaviour
     private void Update()
     {
         IsGrounded();
-        //Debug.Log("Скорость по X " + rb.velocity.x); 
     }
     private void FixedUpdate()
     {
-        Debug.DrawRay(cam.transform.position, cam.transform.forward * maxDistanceKick,
-                Color.red);
         Vector2 inputMove = inputActions.Player.Move.ReadValue<Vector2>();
         Vector2 inputLook = inputActions.Player.Look.ReadValue<Vector2>();
         rb.velocity += Vector3.up * Physics.gravity.y * verticalDamping;

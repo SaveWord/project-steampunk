@@ -22,6 +22,6 @@ public interface IWeapon
     }
     public async void Reload(InputAction.CallbackContext context)
     {
-        await Task.Delay((int)ReloadSpeed * 1000);
+        
     }
 }

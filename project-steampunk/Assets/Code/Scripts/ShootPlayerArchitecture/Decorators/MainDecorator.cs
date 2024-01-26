@@ -48,7 +48,7 @@ public abstract class MainDecorator : MonoBehaviour,IWeapon
     {
         weapon.Shoot(context);
     }
-    public async virtual void Reload(InputAction.CallbackContext context)
+    public async  virtual void Reload(InputAction.CallbackContext context)
     {
         weapon.Reload(context);
     }

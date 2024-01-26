@@ -13,8 +13,8 @@ public class ParametrsUpdateDecorator : MainDecorator
     private float _updateReload;
     private float _updatePatrons;
     private WeaponTypeDamage _updateWeaponType;
-    LayerMask _updateEnemyLayer;
-
+    private LayerMask _updateEnemyLayer; 
+    private bool isReload;
     public ParametrsUpdateDecorator(IWeapon weapon, float updateDamage,
         float updateRange, float updateReload, float updatePatrons,
         IWeapon.WeaponTypeDamage updateWeaponType, LayerMask mask) : base(weapon)
@@ -25,6 +25,7 @@ public class ParametrsUpdateDecorator : MainDecorator
         _updateReload = updateReload;
         _updatePatrons = updatePatrons;
         _updateWeaponType = updateWeaponType;
+        _updateEnemyLayer = mask;
         maxPatrons = updatePatrons;
     }
     public override float Damage
@@ -66,12 +67,10 @@ public class ParametrsUpdateDecorator : MainDecorator
         if (context.started && Patrons > 0)
         {
             Patrons--;
-            Debug.Log(Patrons);
-            Debug.DrawRay(Camera.main.transform.localPosition, Camera.main.transform.forward, Color.blue);
-            if (Physics.Raycast(Camera.main.transform.localPosition, Camera.main.transform.forward,
+            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
                 out RaycastHit hit, Range, enemyLayer))
             {
-                Debug.Log("hit");
+                
                 hit.collider.TryGetComponent(out IDamageableProps damageableProps);
                 damageableProps?.GetDamage(Damage);
 
@@ -89,10 +88,12 @@ public class ParametrsUpdateDecorator : MainDecorator
     }
     public async override void Reload(InputAction.CallbackContext context)
     {
-        if (context.started && Patrons < maxPatrons)
+        if (context.started && Patrons < maxPatrons && isReload == false)
         {
             Debug.Log("Activate");
-            await Task.Delay((int)ReloadSpeed * 1000);
+            isReload = true;
+           await Task.Delay((int)ReloadSpeed * 1000);
+            isReload = false;
             Debug.Log("Deactivate");
             Patrons = maxPatrons;
         }
