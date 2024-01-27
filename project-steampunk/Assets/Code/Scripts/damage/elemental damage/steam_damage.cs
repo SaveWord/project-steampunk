@@ -16,5 +16,12 @@ public class steam_damage : MonoBehaviour, damage_interface
     {
         return "jump";
     }
-    
+    void Update()
+    {
+        timerR -= Time.deltaTime;
+        if (timerR < 0)
+        {
+            Destroy(gameObject);
+        }
+    }
 }
