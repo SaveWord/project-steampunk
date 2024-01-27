@@ -30,6 +30,7 @@ public class WeaponController : MonoBehaviour
     }
     public void Shoot(InputAction.CallbackContext context)
     {
+        Debug.Log(weapon.Patrons);
         weapon.Shoot(context);
     }
     public async void Reload(InputAction.CallbackContext context)
