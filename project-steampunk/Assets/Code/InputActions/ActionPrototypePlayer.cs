@@ -107,6 +107,42 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SwitchFire"",
+                    ""type"": ""Button"",
+                    ""id"": ""9429e25c-4b69-45c3-98e3-9bfc922ef0c0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SwitchElectro"",
+                    ""type"": ""Button"",
+                    ""id"": ""62a8ef36-fe9b-4490-9d3a-2aa04666c35f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SwitchEarth"",
+                    ""type"": ""Button"",
+                    ""id"": ""7a8338fb-bb21-4458-b11f-f975768075f0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SwitchWater"",
+                    ""type"": ""Button"",
+                    ""id"": ""2a5302fb-720e-45f2-be28-2d028e928cd6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -252,6 +288,50 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
                     ""action"": ""Reload"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""88593db5-b02b-4146-8bcb-5fd629c29815"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchFire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""247dab4f-9867-4ba3-8579-b494ae7bdfe3"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchElectro"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""38ea31fb-0c4c-44d5-bfae-8f73902afc64"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchEarth"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""af5ae5d1-c31d-4dbc-9108-a3f93b432af7"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchWater"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -269,6 +349,10 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
         m_Player_Tackle = m_Player.FindAction("Tackle", throwIfNotFound: true);
         m_Player_PickOrThrow = m_Player.FindAction("PickOrThrow", throwIfNotFound: true);
         m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
+        m_Player_SwitchFire = m_Player.FindAction("SwitchFire", throwIfNotFound: true);
+        m_Player_SwitchElectro = m_Player.FindAction("SwitchElectro", throwIfNotFound: true);
+        m_Player_SwitchEarth = m_Player.FindAction("SwitchEarth", throwIfNotFound: true);
+        m_Player_SwitchWater = m_Player.FindAction("SwitchWater", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -339,6 +423,10 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
     private readonly InputAction m_Player_Tackle;
     private readonly InputAction m_Player_PickOrThrow;
     private readonly InputAction m_Player_Reload;
+    private readonly InputAction m_Player_SwitchFire;
+    private readonly InputAction m_Player_SwitchElectro;
+    private readonly InputAction m_Player_SwitchEarth;
+    private readonly InputAction m_Player_SwitchWater;
     public struct PlayerActions
     {
         private @ActionPrototypePlayer m_Wrapper;
@@ -352,6 +440,10 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
         public InputAction @Tackle => m_Wrapper.m_Player_Tackle;
         public InputAction @PickOrThrow => m_Wrapper.m_Player_PickOrThrow;
         public InputAction @Reload => m_Wrapper.m_Player_Reload;
+        public InputAction @SwitchFire => m_Wrapper.m_Player_SwitchFire;
+        public InputAction @SwitchElectro => m_Wrapper.m_Player_SwitchElectro;
+        public InputAction @SwitchEarth => m_Wrapper.m_Player_SwitchEarth;
+        public InputAction @SwitchWater => m_Wrapper.m_Player_SwitchWater;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -388,6 +480,18 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
             @Reload.started += instance.OnReload;
             @Reload.performed += instance.OnReload;
             @Reload.canceled += instance.OnReload;
+            @SwitchFire.started += instance.OnSwitchFire;
+            @SwitchFire.performed += instance.OnSwitchFire;
+            @SwitchFire.canceled += instance.OnSwitchFire;
+            @SwitchElectro.started += instance.OnSwitchElectro;
+            @SwitchElectro.performed += instance.OnSwitchElectro;
+            @SwitchElectro.canceled += instance.OnSwitchElectro;
+            @SwitchEarth.started += instance.OnSwitchEarth;
+            @SwitchEarth.performed += instance.OnSwitchEarth;
+            @SwitchEarth.canceled += instance.OnSwitchEarth;
+            @SwitchWater.started += instance.OnSwitchWater;
+            @SwitchWater.performed += instance.OnSwitchWater;
+            @SwitchWater.canceled += instance.OnSwitchWater;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -419,6 +523,18 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
             @Reload.started -= instance.OnReload;
             @Reload.performed -= instance.OnReload;
             @Reload.canceled -= instance.OnReload;
+            @SwitchFire.started -= instance.OnSwitchFire;
+            @SwitchFire.performed -= instance.OnSwitchFire;
+            @SwitchFire.canceled -= instance.OnSwitchFire;
+            @SwitchElectro.started -= instance.OnSwitchElectro;
+            @SwitchElectro.performed -= instance.OnSwitchElectro;
+            @SwitchElectro.canceled -= instance.OnSwitchElectro;
+            @SwitchEarth.started -= instance.OnSwitchEarth;
+            @SwitchEarth.performed -= instance.OnSwitchEarth;
+            @SwitchEarth.canceled -= instance.OnSwitchEarth;
+            @SwitchWater.started -= instance.OnSwitchWater;
+            @SwitchWater.performed -= instance.OnSwitchWater;
+            @SwitchWater.canceled -= instance.OnSwitchWater;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -447,5 +563,9 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
         void OnTackle(InputAction.CallbackContext context);
         void OnPickOrThrow(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
+        void OnSwitchFire(InputAction.CallbackContext context);
+        void OnSwitchElectro(InputAction.CallbackContext context);
+        void OnSwitchEarth(InputAction.CallbackContext context);
+        void OnSwitchWater(InputAction.CallbackContext context);
     }
 }

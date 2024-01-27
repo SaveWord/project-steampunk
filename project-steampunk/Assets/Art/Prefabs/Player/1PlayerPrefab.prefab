@@ -646,6 +646,7 @@ Transform:
   m_Children:
   - {fileID: 2703874846899345473}
   - {fileID: 3298380667143514324}
+  - {fileID: 2231556093915624972}
   - {fileID: 4824066355873876488}
   - {fileID: 7777826672808449869}
   - {fileID: 5201445314806832954}
@@ -861,6 +862,70 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 1337b473-fa2f-481f-855c-a311d94ba19e
     m_ActionName: Player/Reload[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7655551453688082709}
+        m_TargetAssemblyTypeName: pickUp, Assembly-CSharp
+        m_MethodName: SwitchFire
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9429e25c-4b69-45c3-98e3-9bfc922ef0c0
+    m_ActionName: Player/SwitchFire[/Keyboard/1]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7655551453688082709}
+        m_TargetAssemblyTypeName: pickUp, Assembly-CSharp
+        m_MethodName: SwitchElectro
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 62a8ef36-fe9b-4490-9d3a-2aa04666c35f
+    m_ActionName: Player/SwitchElectro[/Keyboard/2]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7655551453688082709}
+        m_TargetAssemblyTypeName: pickUp, Assembly-CSharp
+        m_MethodName: SwitchEarth
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 7a8338fb-bb21-4458-b11f-f975768075f0
+    m_ActionName: Player/SwitchEarth[/Keyboard/3]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7655551453688082709}
+        m_TargetAssemblyTypeName: pickUp, Assembly-CSharp
+        m_MethodName: SwitchWater
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 2a5302fb-720e-45f2-be28-2d028e928cd6
+    m_ActionName: Player/SwitchWater[/Keyboard/4]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -938,7 +1003,11 @@ MonoBehaviour:
   StartthrowForce: 2
   MaxthrowForce: 20
   playerTransform: {fileID: 3298380667143514324}
-  throwplayerTransform: {fileID: 7334542370020916821}
+  throwplayerTransform: {fileID: 2231556093915624972}
+  Firesp: {fileID: 8631114840215745107, guid: 8c78b32ef1443d342818b2a8d791f4eb, type: 3}
+  ElectSp: {fileID: 9201723160832516253, guid: 6d50a5778a9cd1d4aa2c7fc2c621eafa, type: 3}
+  EarthSp: {fileID: 1778851560126847093, guid: 226a2a30314d17641a0606ed59ccb680, type: 3}
+  WaterSp: {fileID: 7041372915599004530, guid: 24d7316d4b5c41d4f99a5bcc8994ff7c, type: 3}
   trajectoryLine: {fileID: 8219500649691853785}
   AimRadiusIterations: 70
   ChargeOn: 0
@@ -12536,6 +12605,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4741735149873991268}
   m_CullTransparentMesh: 1
+--- !u!1 &4773364790855498032
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2231556093915624972}
+  m_Layer: 7
+  m_Name: throw
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2231556093915624972
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4773364790855498032}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.404, y: 0.903, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7334542370020916821}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4875898616272916527
 GameObject:
   m_ObjectHideFlags: 0
