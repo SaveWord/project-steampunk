@@ -1,46 +1,45 @@
 using Enemies;
-using Enemies.Attacks.AttackUnits;
+using Enemies.Attacks.Attacks;
 using System.Collections;
 using UnityEngine;
 
 public class TargetAttacker : MonoBehaviour, ITargetAttacker
 {
     [Header("Basics")]
-    [SerializeField] private AttackUnit _attackUnit;
-    [SerializeField] private Transform _attackSpawnPoint;
+    [SerializeField] private RangeAttack _attack;
+    [SerializeField] private Transform _attackSpot;
     [SerializeField] private float _reloadTime = 2f;
 
-    private bool _isAttackCharged;
+    private bool _OnReload;
 
 
     private void Awake()
     {
-        _isAttackCharged = true;
-        _attackUnit = Instantiate(_attackUnit, transform);
-        _attackUnit.AttackSpawnPoint = _attackSpawnPoint;
+        _OnReload = true;
+        _attack = Instantiate(_attack, transform);
     }
 
-    public void SetAttackUnit(AttackUnit attackUnit)
+    public void SetAttack(RangeAttack attack)
     {
-        _attackUnit = attackUnit;
+        _attack = attack;
     }
 
     public void Attack(ITarget target)
     {
         transform.LookAt(target.GetPosition());
 
-        if (_isAttackCharged)
+        if (!_attack.Activated && _OnReload)
         {
-            _attackUnit.Attack(target);
+            _attack.Activate(target, _attackSpot);
             StartCoroutine(Reload());
         }
     }
 
     private IEnumerator Reload()
     {
-        _isAttackCharged = false;
+        _OnReload = false;
         yield return new WaitForSeconds(_reloadTime);
-        _isAttackCharged = true;
+        _OnReload = true;
     }
    
 

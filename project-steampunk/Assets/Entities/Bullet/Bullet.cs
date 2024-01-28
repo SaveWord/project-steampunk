@@ -55,9 +55,9 @@ namespace Enemies.Bullets
             Debug.Log("attack from bullet");
         }
 
-        public void StartFly(Vector3 flyEndPoint)
+        public void StartFly(Vector3 direction)
         {
-            transform.LookAt(flyEndPoint);
+            transform.LookAt(direction);
             _rBody.velocity = transform.forward * _speed;
         }
     }
