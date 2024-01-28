@@ -139,12 +139,16 @@ MonoBehaviour:
     m_Bits: 64
   effectLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2368
   recoilShake: {fileID: 0}
+  maxPatrons: 0
+  waitBeforeReload: 0
   recoilDuration: 0.1
   recoilMagnitude: 3
   damage: 0.2
   hitEffectPrefab: {fileID: 6192724089161036641, guid: e8d90def7ce1b3c468918f7bb0b22260,
+    type: 3}
+  deathParticlePrefab: {fileID: 198104090543139058, guid: 4430919f14c50f84085d287cbcb2c30e,
     type: 3}
 --- !u!1 &4583277731513002714
 GameObject:

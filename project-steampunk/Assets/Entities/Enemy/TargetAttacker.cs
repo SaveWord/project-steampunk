@@ -16,6 +16,7 @@ public class TargetAttacker : MonoBehaviour, ITargetAttacker
     private void Awake()
     {
         _isAttackCharged = true;
+        _attackUnit = Instantiate(_attackUnit, transform);
         _attackUnit.AttackSpawnPoint = _attackSpawnPoint;
     }
 
