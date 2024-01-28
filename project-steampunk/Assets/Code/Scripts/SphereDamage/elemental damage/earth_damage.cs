@@ -39,7 +39,6 @@ public class earth_damage : MonoBehaviour, damage_interface
             if (fire != null)
             {
                 Vector3 spawnPosition = transform.position;
-                spawnPosition.y = -1.75f;
                 Quaternion spawnRotation = Quaternion.Euler(0, 0, 0);
                 transform.rotation = spawnRotation;
 
