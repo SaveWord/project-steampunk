@@ -7,6 +7,7 @@ public class hitMarkEnemy : MonoBehaviour
     [SerializeField] private GameObject standardCross;
     [SerializeField] private GameObject redCross;
     [SerializeField] private LayerMask enemyLayer;
+    [SerializeField] private WeaponTypeScriptableObj weaponParametrs;
 
     // Start is called before the first frame update
     void Start()
@@ -17,7 +18,7 @@ public class hitMarkEnemy : MonoBehaviour
     void Update()
     {
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
-                out RaycastHit hit,Mathf.Infinity,enemyLayer, QueryTriggerInteraction.Ignore))
+                out RaycastHit hit,weaponParametrs.range,enemyLayer, QueryTriggerInteraction.Ignore))
         {
                 redCross.gameObject.SetActive(true);
                 standardCross.gameObject.SetActive(false);      
