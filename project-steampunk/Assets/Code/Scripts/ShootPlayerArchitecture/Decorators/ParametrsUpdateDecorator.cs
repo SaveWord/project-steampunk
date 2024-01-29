@@ -68,17 +68,17 @@ public class ParametrsUpdateDecorator : MainDecorator
         {
             Patrons--;
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
-                out RaycastHit hit, Range, enemyLayer))
+                out RaycastHit hit, Range, enemyLayer, QueryTriggerInteraction.Ignore))
             {
                 
                 hit.collider.TryGetComponent(out IDamageableProps damageableProps);
                 damageableProps?.GetDamage(Damage);
 
-                hit.collider.TryGetComponent(out IDamageable damageable);
-                damageable?.GetDamage(Damage);
+                hit.collider.TryGetComponent(out IHealth damageable);
+                damageable?.TakeDamage(Damage);
 
-                hit.collider.TryGetComponent(out enemy_health dama);
-                dama?.TakeDamage(Damage);
+                //hit.collider.TryGetComponent(out enemy_health dama);
+                //dama?.TakeDamage(Damage);
             }
         }
         if (Patrons == 0)

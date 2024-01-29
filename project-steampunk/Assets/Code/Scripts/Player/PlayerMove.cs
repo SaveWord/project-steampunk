@@ -59,6 +59,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float colliderHeight;//высота коллайдера во время подката
     private CapsuleCollider[] capsuleColliders;
     private bool tackleActive;
+    private float oldSpeed;
 
     private int doubleJump;
 
@@ -84,16 +85,6 @@ public class PlayerMove : MonoBehaviour
     //add shoot and reload new input system
     private ShootRay eventsShoot;
     private WeaponController eventsWeaponShoot;
-
-    /* private enum State
-     {
-         Normal,
-         //Sprint,
-         //HookShotFly,
-         //WallRuning
-
-     }
-    */
     private void Awake()
     {
         
@@ -102,20 +93,17 @@ public class PlayerMove : MonoBehaviour
         Cursor.visible = false;
         rb = GetComponent<Rigidbody>();
         animatorPlayer = GetComponentInChildren<Animator>();
-        //eventsShoot = GetComponentInChildren<ShootRay>();
-        eventsWeaponShoot = GetComponentInChildren<WeaponController>();
         inputActions = new ActionPrototypePlayer();
         inputActions.Player.Enable();
+        //eventsShoot = GetComponentInChildren<ShootRay>();
+        //eventsWeaponShoot = GetComponentInChildren<WeaponController>();
         //inputActions.Player.Shoot.started += context => eventsShoot.Shoot(context);
         //inputActions.Player.Shoot.canceled += context => eventsShoot.Shoot(context);
         //inputActions.Player.Reload.started += context => eventsShoot.Reload(context);
-        inputActions.Player.Shoot.started += context => eventsWeaponShoot.Shoot(context);
-        inputActions.Player.Shoot.canceled += context => eventsWeaponShoot.Shoot(context);
-        inputActions.Player.Reload.started += context => eventsWeaponShoot.Reload(context);
+        //inputActions.Player.Shoot.started += context => eventsWeaponShoot.Shoot(context);
+        //inputActions.Player.Shoot.canceled += context => eventsWeaponShoot.Shoot(context);
+        //inputActions.Player.Reload.started += context => eventsWeaponShoot.Reload(context);
 
-
-
-        //state = State.Normal;
     }
     private void Update()
     {
@@ -128,23 +116,12 @@ public class PlayerMove : MonoBehaviour
         rb.velocity += Vector3.up * Physics.gravity.y * verticalDamping;
         Move(inputMove);
         Rotation(inputLook);
-        //WallRunningState();
-        /* switch (state)
-         {
-             default:
-             case State.Normal:
-
-                 break;
-             case State.HookShotFly:
-                 HandleHookMovement();
-                 Rotation(inputLook);
-                 break;
-             case State.WallRuning:
-                 WallRunningMovement();
-                 Rotation(inputLook);
-                 break;
-         }
-        */
+        Debug.Log(inputMove);
+        if ((inputMove.y < 0 || inputMove.x!=0) && tackleActive == true )
+        {
+            rb.velocity = new Vector3((inputMove.y < 0) ? 
+                -rb.velocity.x : rb.velocity.x ,rb.velocity.y,0);
+        }
     }
 
     //Movement
@@ -182,7 +159,7 @@ public class PlayerMove : MonoBehaviour
     }
     IEnumerator DashCoroutine()
     {
-        float oldSpeed;
+        
         oldSpeed = speed;
         speed = dashSpeed;
         Physics.IgnoreLayerCollision(gameObject.layer, layerIgnore, true);
@@ -223,11 +200,6 @@ public class PlayerMove : MonoBehaviour
         tackleActive = false;
         cam.enabled = true;
         camTackle.enabled = false;
-
-
-        //oldScale = transform.localScale.y;
-        //transform.localScale = new Vector3(transform.localScale.x,scaleY,transform.localScale.z);
-        //transform.localScale = new Vector3(transform.localScale.x, oldScale, transform.localScale.z);
     }
     public void Jump(InputAction.CallbackContext context)
     {

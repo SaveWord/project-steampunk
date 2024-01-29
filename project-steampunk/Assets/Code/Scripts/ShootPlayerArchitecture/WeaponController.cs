@@ -6,12 +6,28 @@ using UnityEngine.InputSystem;
 public class WeaponController : MonoBehaviour
 {
     private IWeapon weapon;
+    private ActionPrototypePlayer inputShoot;
     [SerializeField] private WeaponTypeScriptableObj[] weaponParametrs;
     [SerializeField]private WeaponType weaponType;
     enum WeaponType
     {
         Revolver,
         Shotgun
+    }
+    private void OnEnable()
+    {
+        inputShoot = new ActionPrototypePlayer();
+        inputShoot.Enable();
+        inputShoot.Player.Shoot.started += context => Shoot(context);
+        //inputShoot.Player.Shoot.canceled += context => Shoot(context);
+        inputShoot.Player.Reload.started += context => Reload(context);
+    }
+    private void OnDisable()
+    {
+        inputShoot.Disable();
+        inputShoot.Player.Shoot.started -= context => Shoot(context);
+        //inputShoot.Player.Shoot.canceled -= context => Shoot(context);
+        inputShoot.Player.Reload.started -= context => Reload(context);
     }
     private void Start()
     {
