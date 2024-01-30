@@ -15,6 +15,7 @@ public class HpHandler: MonoBehaviour, IHealth
     public float CurrentHp { get { return (float)_currentHp; } }
 
     public event Action<float> OnHPChanged = delegate { };
+    public event Action<float> OnTakenDamage = delegate { };
     public event Action OnDied = delegate { };
 
     private void Start()
@@ -32,6 +33,7 @@ public class HpHandler: MonoBehaviour, IHealth
             _currentHp -= amount;
 
             OnHPChanged(CurrentHp);
+            OnTakenDamage(amount);
 
             if (_currentHp <= 0)
                 Die();

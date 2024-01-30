@@ -7,10 +7,10 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour, ITarget
 {
-    //[SerializeField] private Transform playerTransform;
     private Vector3 playerPosition;
     private bool isDead;
- [SerializeField] private DamageTakenEffect damageEffect;
+    [SerializeField] 
+    private DamageTakenEffect damageEffect;
 
     public int GetTargetID()
     {
@@ -21,33 +21,21 @@ public class Player : MonoBehaviour, ITarget
     {
         return transform.position;
     }
-    /*
-    public void GetDamage(float damage)
+    
+    public void HandlePlayerDamage(float damage)
     {
-        if (timeNextAttack < Time.time)
-        {
-            timeNextAttack = Time.time + timeIntervalAttack;
-            hp -= damage;
-            StartCoroutine(damageEffect.TakeDamageEffect());
-            hpUI.fillAmount = hp;
-            if (hp <= 0.01)
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            }
-        }
-
+        StartCoroutine(damageEffect.TakeDamageEffect());
     }
-    */
     private void Start()
     {
+        isDead = false;
         GetComponent<IHealth>().OnDied += HandlePlayerDied;
+        GetComponent<IHealth>().OnTakenDamage += HandlePlayerDamage;
     }
 
     private void HandlePlayerDied()
     {
-       // var deathparticle = Instantiate(deathParticlePrefab, transform.position, transform.rotation);
-        //animation of death
-        //Destroy(deathparticle, 4f);
+        isDead = true;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     

@@ -1349,7 +1349,7 @@ GameObject:
   - component: {fileID: 1753714033842941013}
   - component: {fileID: 4155126454713361731}
   - component: {fileID: 4752963457498187450}
-  m_Layer: 7
+  m_Layer: 1
   m_Name: DamageTakenEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1384,7 +1384,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsGlobal: 1
-  priority: 0
+  priority: 100
   blendDistance: 0
   weight: 1
   sharedProfile: {fileID: 11400000, guid: dd2970c45aca0b3479b636943f533aa1, type: 2}
@@ -2446,6 +2446,26 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 1337b473-fa2f-481f-855c-a311d94ba19e
     m_ActionName: Player/Reload[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9429e25c-4b69-45c3-98e3-9bfc922ef0c0
+    m_ActionName: Player/SwitchFire[/Keyboard/1]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 62a8ef36-fe9b-4490-9d3a-2aa04666c35f
+    m_ActionName: Player/SwitchElectro[/Keyboard/2]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7a8338fb-bb21-4458-b11f-f975768075f0
+    m_ActionName: Player/SwitchEarth[/Keyboard/3]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2a5302fb-720e-45f2-be28-2d028e928cd6
+    m_ActionName: Player/SwitchWater[/Keyboard/4]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 25ed69ab-212e-4197-a76f-396f911dedb4
+    m_ActionName: UI/SenseESCBuild[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -2463,7 +2483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40c238a0699e5c24e83b030300844ef1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageEffect: {fileID: 0}
+  damageEffect: {fileID: 4752963457498187450}
 --- !u!54 &2457550576654130283
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2775,7 +2795,7 @@ Transform:
   m_GameObject: {fileID: 8560192967534812942}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.79100037, z: 0.157}
+  m_LocalPosition: {x: 0, y: 0.79100037, z: 0.15699959}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2864,7 +2884,7 @@ MonoBehaviour:
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 3
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 1
