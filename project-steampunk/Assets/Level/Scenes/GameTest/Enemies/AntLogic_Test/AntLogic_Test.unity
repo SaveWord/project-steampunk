@@ -123,6 +123,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &93015821 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7112912124800285534, guid: 4685e132e5a463a4b877f45ac55ddfbd,
+    type: 3}
+  m_PrefabInstance: {fileID: 930936430}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &703044824
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,10 +243,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 815541616}
-  - component: {fileID: 815541615}
   - component: {fileID: 815541614}
   - component: {fileID: 815541613}
   - component: {fileID: 815541617}
+  - component: {fileID: 815541618}
   m_Layer: 7
   m_Name: Dummy
   m_TagString: Untagged
@@ -298,18 +304,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 815541612}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &815541615
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 815541612}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1114396b062bd884fa3dfe664bdfaed3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &815541616
 Transform:
   m_ObjectHideFlags: 0
@@ -348,6 +342,18 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &815541618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 815541612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1114396b062bd884fa3dfe664bdfaed3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &845942928
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,6 +467,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 838175693787506389, guid: 4685e132e5a463a4b877f45ac55ddfbd,
+        type: 3}
+      propertyPath: _attack
+      value: 
+      objectReference: {fileID: 7535649719867759211, guid: 839a1b29ac62751499d6005f280dc1ce,
+        type: 3}
+    - target: {fileID: 838175693787506389, guid: 4685e132e5a463a4b877f45ac55ddfbd,
+        type: 3}
+      propertyPath: _attackSpot
+      value: 
+      objectReference: {fileID: 93015821}
     - target: {fileID: 2264502304362597117, guid: 4685e132e5a463a4b877f45ac55ddfbd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -551,6 +568,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4685e132e5a463a4b877f45ac55ddfbd, type: 3}
+--- !u!4 &1323117680 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7112912124800285534, guid: 4685e132e5a463a4b877f45ac55ddfbd,
+    type: 3}
+  m_PrefabInstance: {fileID: 6882226525852686608}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1420923428
 GameObject:
   m_ObjectHideFlags: 0
@@ -824,7 +847,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 2ba641189b620bb4c800a9031e611f41, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 97442096f840d0d4381aceb5f2fb9041, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &1540243706
 GameObject:
@@ -1139,6 +1162,17 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 838175693787506389, guid: 4685e132e5a463a4b877f45ac55ddfbd,
         type: 3}
+      propertyPath: _attack
+      value: 
+      objectReference: {fileID: 7535649719867759211, guid: 839a1b29ac62751499d6005f280dc1ce,
+        type: 3}
+    - target: {fileID: 838175693787506389, guid: 4685e132e5a463a4b877f45ac55ddfbd,
+        type: 3}
+      propertyPath: _attackSpot
+      value: 
+      objectReference: {fileID: 1323117680}
+    - target: {fileID: 838175693787506389, guid: 4685e132e5a463a4b877f45ac55ddfbd,
+        type: 3}
       propertyPath: _attackUnit
       value: 
       objectReference: {fileID: 4302849273096772063, guid: 542cd35b45cd323449d4499fa6733a9c,
@@ -1202,6 +1236,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _dasher._dashForce
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6066312006235517064, guid: 4685e132e5a463a4b877f45ac55ddfbd,
+        type: 3}
+      propertyPath: _dasher._dashHeight
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6066312006235517064, guid: 4685e132e5a463a4b877f45ac55ddfbd,
         type: 3}

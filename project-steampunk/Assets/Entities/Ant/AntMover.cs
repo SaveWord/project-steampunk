@@ -10,8 +10,7 @@ namespace Enemies
     {
         [Header("Basics")]
         [SerializeField] private float _moveSpeed = 5f;
-
-        [SerializeField] private Dasher _dasher;
+        [SerializeField] private Dash _dash;
 
         private NavMeshAgent _nMeshAgent;
         private Rigidbody _rBody;
@@ -24,8 +23,8 @@ namespace Enemies
 
         public void Dash()
         {
-            if (_dasher.IsDashCharged)
-                _dasher.Dash(ToggleControlToRBody);
+            if (_dash.IsDashCharged)
+                _dash.MakeDash(ToggleControlToRBody);
         }
 
         private void ToggleControlToRBody()
@@ -52,7 +51,7 @@ namespace Enemies
         {
             _nMeshAgent = GetComponent<NavMeshAgent>();
             _rBody = GetComponent<Rigidbody>();
-            _dasher = new Dasher(_rBody, this);
+            _dash = new Dash(_rBody, this);
         }
 
     }

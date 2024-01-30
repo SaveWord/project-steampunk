@@ -7,44 +7,45 @@ using Random = UnityEngine.Random;
 namespace Enemies.AntMoves
 {
     [Serializable]
-    public class Dasher
+    public class Dash
     {
         public bool IsDashCharged { get{ return _isDashCharged;} private set { } }
 
         [SerializeField] private float _dashMinCooldown = 2f;
         [SerializeField] private float _dashMaxCooldown = 10f;
-        [SerializeField] private float _dashForce = 15f;
+        [SerializeField] private float _dashForce = 15f;      
+        [Range(0,1)][SerializeField] private float _dashHeight = 0.5f;
 
-        private MonoBehaviour _dashDoer;
-        private Rigidbody _rBody;
+        private MonoBehaviour _actor;
+        private Rigidbody _actorRBody;
         private bool _isDashCharged = false;
 
-        public Dasher(Rigidbody rBody, MonoBehaviour dashDoer)
+        public Dash(Rigidbody _actorRBody, MonoBehaviour _actor)
         {
-            _rBody = rBody;
-            _dashDoer = dashDoer;
+            this._actorRBody = _actorRBody;
+            this._actor = _actor;
 
             ReloadDash();
         }
 
-        public void Dash(Action DoOnStart)
+        public void MakeDash(Action DoBeforeDash)
         {
-            DoOnStart();
-            _rBody.AddForce(GetDashDirection().normalized * _dashForce, ForceMode.Impulse);
+            DoBeforeDash();
+            _actorRBody.AddForce(GetDashDirection().normalized * _dashForce, ForceMode.Impulse);
             ReloadDash();
         }
 
         private Vector3 GetDashDirection()
         {
-            var direction = _rBody.transform.right * (Random.Range(0, 2) * 2 - 1);
+            var direction = _actorRBody.transform.right * (Random.Range(0, 2) * 2 - 1);
 
-            direction.y = 0.5f;
+            direction.y = _dashHeight;
             return direction;
         }
 
         public void ReloadDash()
         {
-            _dashDoer.StartCoroutine(ReloadDashCoroutine());
+            _actor.StartCoroutine(ReloadDashCoroutine());
         }
 
         private IEnumerator ReloadDashCoroutine()
