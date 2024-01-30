@@ -312,6 +312,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "UI",
+            "id": "0355e5b9-62fa-44e1-895b-32ba0b4398e8",
+            "actions": [
+                {
+                    "name": "SenseESCBuild",
+                    "type": "Button",
+                    "id": "25ed69ab-212e-4197-a76f-396f911dedb4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "7df22e06-d891-4606-8ba6-c1ceefabbb38",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SenseESCBuild",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
