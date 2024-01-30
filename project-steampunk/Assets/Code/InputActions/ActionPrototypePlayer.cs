@@ -334,6 +334,34 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""UI"",
+            ""id"": ""0355e5b9-62fa-44e1-895b-32ba0b4398e8"",
+            ""actions"": [
+                {
+                    ""name"": ""SenseESCBuild"",
+                    ""type"": ""Button"",
+                    ""id"": ""25ed69ab-212e-4197-a76f-396f911dedb4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""7df22e06-d891-4606-8ba6-c1ceefabbb38"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SenseESCBuild"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -353,6 +381,9 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
         m_Player_SwitchElectro = m_Player.FindAction("SwitchElectro", throwIfNotFound: true);
         m_Player_SwitchEarth = m_Player.FindAction("SwitchEarth", throwIfNotFound: true);
         m_Player_SwitchWater = m_Player.FindAction("SwitchWater", throwIfNotFound: true);
+        // UI
+        m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
+        m_UI_SenseESCBuild = m_UI.FindAction("SenseESCBuild", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -552,6 +583,52 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // UI
+    private readonly InputActionMap m_UI;
+    private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
+    private readonly InputAction m_UI_SenseESCBuild;
+    public struct UIActions
+    {
+        private @ActionPrototypePlayer m_Wrapper;
+        public UIActions(@ActionPrototypePlayer wrapper) { m_Wrapper = wrapper; }
+        public InputAction @SenseESCBuild => m_Wrapper.m_UI_SenseESCBuild;
+        public InputActionMap Get() { return m_Wrapper.m_UI; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
+        public void AddCallbacks(IUIActions instance)
+        {
+            if (instance == null || m_Wrapper.m_UIActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_UIActionsCallbackInterfaces.Add(instance);
+            @SenseESCBuild.started += instance.OnSenseESCBuild;
+            @SenseESCBuild.performed += instance.OnSenseESCBuild;
+            @SenseESCBuild.canceled += instance.OnSenseESCBuild;
+        }
+
+        private void UnregisterCallbacks(IUIActions instance)
+        {
+            @SenseESCBuild.started -= instance.OnSenseESCBuild;
+            @SenseESCBuild.performed -= instance.OnSenseESCBuild;
+            @SenseESCBuild.canceled -= instance.OnSenseESCBuild;
+        }
+
+        public void RemoveCallbacks(IUIActions instance)
+        {
+            if (m_Wrapper.m_UIActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IUIActions instance)
+        {
+            foreach (var item in m_Wrapper.m_UIActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_UIActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public UIActions @UI => new UIActions(this);
     public interface IPlayerActions
     {
         void OnMove(InputAction.CallbackContext context);
@@ -567,5 +644,9 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
         void OnSwitchElectro(InputAction.CallbackContext context);
         void OnSwitchEarth(InputAction.CallbackContext context);
         void OnSwitchWater(InputAction.CallbackContext context);
+    }
+    public interface IUIActions
+    {
+        void OnSenseESCBuild(InputAction.CallbackContext context);
     }
 }

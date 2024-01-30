@@ -12,6 +12,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
     [SerializeField] private float mouseSense;
+    public float MouseSense { get { return mouseSense;} set { mouseSense = value; } }
 
     [Header("Cinemachine Virtual Cameras")]
     [SerializeField] private CinemachineVirtualCamera cam;

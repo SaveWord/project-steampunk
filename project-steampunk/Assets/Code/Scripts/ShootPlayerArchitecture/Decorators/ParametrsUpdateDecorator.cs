@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static IWeapon;
@@ -8,16 +9,24 @@ using static IWeapon;
 public class ParametrsUpdateDecorator : MainDecorator
 {
     private IWeapon _weapon;
+    //parametrs weapon
     private float _updateDamage;
     private float _updateRange;
     private float _updateReload;
     private float _updatePatrons;
     private WeaponTypeDamage _updateWeaponType;
-    private LayerMask _updateEnemyLayer; 
+    private LayerMask _updateEnemyLayer;
+    //effects and ui value
+    private GameObject _vfxShootPrefab;
+    private TextMeshProUGUI _patronsText;
     private bool isReload;
+
+
+    //constructor
     public ParametrsUpdateDecorator(IWeapon weapon, float updateDamage,
         float updateRange, float updateReload, float updatePatrons,
-        IWeapon.WeaponTypeDamage updateWeaponType, LayerMask mask) : base(weapon)
+        IWeapon.WeaponTypeDamage updateWeaponType, LayerMask mask,
+        GameObject vfxShootPrefab, TextMeshProUGUI patronsText) : base(weapon)
     {
         _weapon = weapon;
         _updateDamage = updateDamage;
@@ -27,7 +36,13 @@ public class ParametrsUpdateDecorator : MainDecorator
         _updateWeaponType = updateWeaponType;
         _updateEnemyLayer = mask;
         maxPatrons = updatePatrons;
+        
+        //effect parametrs
+        _vfxShootPrefab = vfxShootPrefab;
+        _patronsText = patronsText;
     }
+
+    //properties
     public override float Damage
     {
         get { return _updateDamage; }
@@ -62,11 +77,14 @@ public class ParametrsUpdateDecorator : MainDecorator
         get {return _updateEnemyLayer;}
         set { }
     }
+
+    //methods decorator shoot and reload logic
     public override void Shoot(InputAction.CallbackContext context)
     {
-        if (context.started && Patrons > 0)
+        if ((context.started || context.performed) && Patrons > 0)
         {
             Patrons--;
+            _patronsText.text = Patrons.ToString();
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
                 out RaycastHit hit, Range, enemyLayer, QueryTriggerInteraction.Ignore))
             {
@@ -79,6 +97,13 @@ public class ParametrsUpdateDecorator : MainDecorator
 
                 //hit.collider.TryGetComponent(out enemy_health dama);
                 //dama?.TakeDamage(Damage);
+
+              
+            }
+            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
+               out RaycastHit hitVfx, Range, Physics.AllLayers, QueryTriggerInteraction.Ignore))
+            {
+                var newVfxShoot = Instantiate(_vfxShootPrefab, hitVfx.point, Quaternion.identity);
             }
         }
         if (Patrons == 0)
@@ -96,6 +121,7 @@ public class ParametrsUpdateDecorator : MainDecorator
             isReload = false;
             Debug.Log("Deactivate");
             Patrons = maxPatrons;
+            _patronsText.text = Patrons.ToString();
         }
     }
 }
