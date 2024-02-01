@@ -16,8 +16,6 @@ Material:
   - _HALFTONESHAPE_DOT
   - _METALLICSPECGLOSSMAP
   - _NORMALMAP
-  - _SPECULARHIGHLIGHTS_OFF
-  - _TOON_SHADING_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -180,13 +178,13 @@ Material:
     - _RimLightSmoothness: 0
     - _RimPower: 0.55
     - _SizeFalloff: 0
-    - _Smoothness: 0
+    - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecClipMaskScale: 1
     - _SpecShadowStrength: 1
     - _SpecularClipStrength: 0
     - _SpecularFalloff: 1
-    - _SpecularHighlights: 0
+    - _SpecularHighlights: 1
     - _SpecularSize: 1
     - _SpherizeNormalEnabled: 0
     - _SrcBlend: 1
@@ -196,12 +194,12 @@ Material:
     - _StepViaRampTexture: 0
     - _Surface: 0
     - _ToonBlending: 0.5
-    - _ToonEnabled: 1
+    - _ToonEnabled: 0
     - _UseRampColor: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 0.6, g: 0.6, b: 0.6, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FaceFrontDirection: {r: 0, g: 0, b: 1, a: 0}
