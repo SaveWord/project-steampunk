@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static IWeapon;
+using UnityEngine.UI;
 
 public class ParametrsUpdateDecorator : MainDecorator
 {
@@ -95,10 +96,7 @@ public class ParametrsUpdateDecorator : MainDecorator
                 hit.collider.TryGetComponent(out IHealth damageable);
                 damageable?.TakeDamage(Damage);
 
-                //hit.collider.TryGetComponent(out enemy_health dama);
-                //dama?.TakeDamage(Damage);
-
-              
+                ShowDamage(Damage + "");
             }
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
                out RaycastHit hitVfx, Range, Physics.AllLayers, QueryTriggerInteraction.Ignore))
@@ -111,6 +109,24 @@ public class ParametrsUpdateDecorator : MainDecorator
             Reload(context);
         }
     }
+
+    private void ShowDamage(string message)
+    {
+        var _floatingMessage = (GameObject)Resources.Load("FloatingMessage", typeof(GameObject));
+        Debug.Log("show damage");
+        if (_floatingMessage)
+        {
+            var notice = Instantiate(_floatingMessage, new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z), UnityEngine.Quaternion.Euler(new Vector3(0, 0, 0)));
+            notice.GetComponent<TextMeshPro>().text = message;
+            notice.transform.parent = GameObject.Find("Main Camera").transform;
+            notice.transform.localRotation = UnityEngine.Quaternion.Euler(new Vector3(0, 0, 0));
+            float randomisedPosition = (Random.Range(0.0f, 0.9f) * 2 - 1) / 3;
+            Debug.Log("pos" + randomisedPosition);
+            notice.transform.localPosition = new Vector3(randomisedPosition, 0, 3);
+
+        }
+    }
+
     public async override void Reload(InputAction.CallbackContext context)
     {
         if (context.started && Patrons < maxPatrons && isReload == false)
