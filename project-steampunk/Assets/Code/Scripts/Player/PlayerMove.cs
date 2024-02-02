@@ -145,6 +145,7 @@ public class PlayerMove : MonoBehaviour
     {
         Vector3 move = transform.right * inputMove.x + transform.forward * inputMove.y;
         rb.velocity = new Vector3(move.x * speed, rb.velocity.y, move.z * speed);
+        animatorPlayer.SetFloat("speed",inputMove.magnitude,0.1f,Time.deltaTime);
     }
 
     public void Dash(InputAction.CallbackContext context)
@@ -187,6 +188,9 @@ public class PlayerMove : MonoBehaviour
         speed = tackleSpeed;
         while (contextCoroutine.performed)
         {
+            animatorPlayer.SetBool("slide", true);
+
+
             tackleActive = true;
             speed -= (speed > 0) ? tackleSpeedSubtraction : 0f;
             capsuleColliders[0].height = colliderHeight;
@@ -201,19 +205,29 @@ public class PlayerMove : MonoBehaviour
         tackleActive = false;
         cam.enabled = true;
         camTackle.enabled = false;
+
+
+        animatorPlayer.SetBool("slide", false);
     }
     public void Jump(InputAction.CallbackContext context)
     {
         Debug.Log(doubleJump);
-        if (context.phase == InputActionPhase.Started && IsGrounded() == true)
+        if (context.phase == InputActionPhase.Started && IsGrounded() == true 
+            && tackleActive == false)
         {
+            animatorPlayer.SetBool("jump", true);
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
         else if (doubleJump == 1 && context.phase == InputActionPhase.Started)
         {
+            animatorPlayer.SetBool("jump", true);
             rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             doubleJump = 0;
+        }
+        if(context.phase == InputActionPhase.Canceled)
+        {
+            animatorPlayer.SetBool("jump", false);
         }
     }
 

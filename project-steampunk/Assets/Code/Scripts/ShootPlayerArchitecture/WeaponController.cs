@@ -11,6 +11,8 @@ public class WeaponController : MonoBehaviour
     private TextMeshProUGUI patronsText;
     [SerializeField] private WeaponTypeScriptableObj[] weaponParametrs;
     [SerializeField] private WeaponType weaponType;
+    private Animator animatorArms;
+    private Animator animatorWeapon;
     enum WeaponType
     {
         Revolver,
@@ -18,11 +20,13 @@ public class WeaponController : MonoBehaviour
     }
     private void OnEnable()
     {
+        animatorArms =transform.root.GetComponentInChildren<Animator>();
+        animatorWeapon = GetComponent<Animator>();
         inputShoot = new ActionPrototypePlayer();
         inputShoot.Enable();
         inputShoot.Player.Shoot.started += context => Shoot(context);
         inputShoot.Player.Shoot.performed += context => Shoot(context);
-        //inputShoot.Player.Shoot.canceled += context => Shoot(context);
+        inputShoot.Player.Shoot.canceled += context => Shoot(context);
         inputShoot.Player.Reload.started += context => Reload(context);
     }
     private void OnDisable()
@@ -30,7 +34,7 @@ public class WeaponController : MonoBehaviour
         inputShoot.Disable();
         inputShoot.Player.Shoot.started -= context => Shoot(context);
         inputShoot.Player.Shoot.performed -= context => Shoot(context);
-        //inputShoot.Player.Shoot.canceled -= context => Shoot(context);
+        inputShoot.Player.Shoot.canceled -= context => Shoot(context);
         inputShoot.Player.Reload.started -= context => Reload(context);
     }
     private void Start()
@@ -43,7 +47,7 @@ public class WeaponController : MonoBehaviour
                     weaponParametrs[0].range, weaponParametrs[0].reloadSpeed,
                     weaponParametrs[0].patrons, weaponParametrs[0].attackType,
                     weaponParametrs[0].enemyLayer,
-                    weaponParametrs[0].vfxShootPrefab, patronsText);
+                    weaponParametrs[0].vfxShootPrefab, patronsText, animatorArms, animatorWeapon);
                 break;
             case WeaponType.Shotgun:
 
@@ -59,6 +63,11 @@ public class WeaponController : MonoBehaviour
         {
             StartCoroutine(ShootCoroutine(context));
 
+        }
+        if(context.canceled) 
+        {
+            animatorArms.SetBool("shoot", false);
+            animatorWeapon.SetBool("shoot", false);
         }
     }
     IEnumerator ShootCoroutine(InputAction.CallbackContext context)

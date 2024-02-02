@@ -20,13 +20,16 @@ public class ParametrsUpdateDecorator : MainDecorator
     private GameObject _vfxShootPrefab;
     private TextMeshProUGUI _patronsText;
     private bool isReload;
+    private Animator _animator;
+    private Animator _animatorWeapon;
 
 
     //constructor
     public ParametrsUpdateDecorator(IWeapon weapon, float updateDamage,
         float updateRange, float updateReload, float updatePatrons,
         IWeapon.WeaponTypeDamage updateWeaponType, LayerMask mask,
-        GameObject vfxShootPrefab, TextMeshProUGUI patronsText) : base(weapon)
+        GameObject vfxShootPrefab, TextMeshProUGUI patronsText,
+        Animator animator, Animator animatorWeapon) : base(weapon)
     {
         _weapon = weapon;
         _updateDamage = updateDamage;
@@ -40,6 +43,8 @@ public class ParametrsUpdateDecorator : MainDecorator
         //effect parametrs
         _vfxShootPrefab = vfxShootPrefab;
         _patronsText = patronsText;
+        _animator = animator;
+        _animatorWeapon = animatorWeapon;
     }
 
     //properties
@@ -83,6 +88,8 @@ public class ParametrsUpdateDecorator : MainDecorator
     {
         if ((context.started || context.performed) && Patrons > 0)
         {
+            _animator.SetBool("shoot",true);
+            _animatorWeapon.SetBool("shoot", true);
             Patrons--;
             _patronsText.text = Patrons.ToString();
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
@@ -117,8 +124,12 @@ public class ParametrsUpdateDecorator : MainDecorator
         {
             Debug.Log("Activate");
             isReload = true;
-           await Task.Delay((int)ReloadSpeed * 1000);
+            _animator.SetBool("reload", true);
+            _animatorWeapon.SetBool("reload", true);
+            await Task.Delay((int)ReloadSpeed * 1000);
             isReload = false;
+            _animator.SetBool("reload", false);
+            _animatorWeapon.SetBool("reload", false);
             Debug.Log("Deactivate");
             Patrons = maxPatrons;
             _patronsText.text = Patrons.ToString();
