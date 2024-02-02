@@ -18,11 +18,12 @@ public abstract class health_abstract: MonoBehaviour
         }
     }
 
-    protected virtual void Die()
+    public virtual void Die()
     {
         if(destructable)
         {
             Destroy(gameObject);
+
         }
     }
     public virtual void TakeDamage(float dama)

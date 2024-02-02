@@ -11,6 +11,8 @@ public class enemy_health : health_abstract
 
     private float jumpForce;
     [SerializeField] private Rigidbody rb;
+    [SerializeField] private controlarrow arrawScript;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("bullet")||other.CompareTag("killzone"))
@@ -40,6 +42,12 @@ public class enemy_health : health_abstract
         UpdateHealth();
         Debug.Log(mineHP);
     }
+    public override void Die()
+    {
+        arrawScript.Die();
+        Destroy(gameObject);
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (immovable)

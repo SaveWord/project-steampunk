@@ -31,7 +31,7 @@ public class player_health : health_abstract
 
     }
 
-    protected override void Die()
+    public override void Die()
     {
         Console.WriteLine("Implementation in the derived class.");
         playerPosition = transform.position;
