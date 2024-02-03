@@ -49,6 +49,7 @@ GameObject:
   - component: {fileID: 838175693787506389}
   - component: {fileID: 2821480590633300266}
   - component: {fileID: 6066312006235517064}
+  - component: {fileID: 5772412100464889537}
   m_Layer: 6
   m_Name: Ant
   m_TagString: Untagged
@@ -206,7 +207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52d519e0a40b0d748a18284fe8350704, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyStats:
+  _stats:
     _hp: 100
     _timeBeforeReposition: 2
 --- !u!114 &838175693787506389
@@ -221,9 +222,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0d7d31acf5fd6345acbc78b608a5c91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackUnit: {fileID: 4302849273096772063, guid: 542cd35b45cd323449d4499fa6733a9c,
-    type: 3}
-  _attackSpawnPoint: {fileID: 7112912124800285534}
+  _attack: {fileID: 0}
+  _attackSpot: {fileID: 0}
   _reloadTime: 0.2
 --- !u!114 &2821480590633300266
 MonoBehaviour:
@@ -254,7 +254,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 5
-  _dasher:
-    _dashMinCooldown: 3
-    _dashMaxCooldown: 8
-    _dashForce: 8
+  _dash:
+    _dashMinCooldown: 0
+    _dashMaxCooldown: 0
+    _dashForce: 0
+    _dashHeight: 0
+--- !u!114 &5772412100464889537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4192851761297416250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c3dc7101835364459a42c66bb879364, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  imageArrow: {fileID: 7151490074343138010, guid: ccb0759479fd6ba4fbfa830b1cbd4296,
+    type: 3}
+  radarRadius: -200

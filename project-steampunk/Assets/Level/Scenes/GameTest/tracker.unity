@@ -12134,6 +12134,74 @@ RectTransform:
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1001 &1391051125
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2264502304362597117, guid: 4685e132e5a463a4b877f45ac55ddfbd,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 2264502304362597117, guid: 4685e132e5a463a4b877f45ac55ddfbd,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.44
+      objectReference: {fileID: 0}
+    - target: {fileID: 2264502304362597117, guid: 4685e132e5a463a4b877f45ac55ddfbd,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 15.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2264502304362597117, guid: 4685e132e5a463a4b877f45ac55ddfbd,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2264502304362597117, guid: 4685e132e5a463a4b877f45ac55ddfbd,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2264502304362597117, guid: 4685e132e5a463a4b877f45ac55ddfbd,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2264502304362597117, guid: 4685e132e5a463a4b877f45ac55ddfbd,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2264502304362597117, guid: 4685e132e5a463a4b877f45ac55ddfbd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2264502304362597117, guid: 4685e132e5a463a4b877f45ac55ddfbd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2264502304362597117, guid: 4685e132e5a463a4b877f45ac55ddfbd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4192851761297416250, guid: 4685e132e5a463a4b877f45ac55ddfbd,
+        type: 3}
+      propertyPath: m_Name
+      value: Ant (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4685e132e5a463a4b877f45ac55ddfbd, type: 3}
 --- !u!1 &1425121694
 GameObject:
   m_ObjectHideFlags: 0
@@ -22316,6 +22384,16 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1301282294591013246, guid: 23fe6acfbeb261b41bd6fde9090664a0,
+        type: 3}
+      propertyPath: field of view
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 1301282294591013246, guid: 23fe6acfbeb261b41bd6fde9090664a0,
+        type: 3}
+      propertyPath: far clip plane
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 4198561511002070407, guid: 23fe6acfbeb261b41bd6fde9090664a0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -22486,6 +22564,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -54.600098
       objectReference: {fileID: 0}
+    - target: {fileID: 8673006350837866440, guid: 23fe6acfbeb261b41bd6fde9090664a0,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8673006350837866440, guid: 23fe6acfbeb261b41bd6fde9090664a0,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.79100037
+      objectReference: {fileID: 0}
     - target: {fileID: 8739162749919594975, guid: 23fe6acfbeb261b41bd6fde9090664a0,
         type: 3}
       propertyPath: cam
@@ -22619,6 +22707,8 @@ MonoBehaviour:
   mineHP: 10000
   healthSlider: {fileID: 1140655204}
   destructable: 1
+  playerPosition: {x: 0, y: 0, z: 0}
+  isDead: 0
 --- !u!120 &1676149899
 LineRenderer:
   serializedVersion: 2
@@ -24177,6 +24267,10 @@ MonoBehaviour:
   mineHP: 90
   healthSlider: {fileID: 984124601}
   destructable: 1
+  state: 
+  immovable: 0
+  playerPosition: {x: 0, y: 0, z: 0}
+  jumpForce: 0
   rb: {fileID: 6882226525852686610}
   arrawScript: {fileID: 6882226525852686615}
 --- !u!114 &6882226525852686614
@@ -24231,6 +24325,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 2087953933}
   - {fileID: 1540243707}
+  - {fileID: 1391051125}
   - {fileID: 6882226525852686608}
   - {fileID: 815541616}
   - {fileID: 2027765778}

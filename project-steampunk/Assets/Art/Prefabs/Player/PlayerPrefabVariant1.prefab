@@ -2230,6 +2230,41 @@ Transform:
   - {fileID: 5616786293906180829}
   m_Father: {fileID: 3655082576404212963}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1625323984721577654
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5159005017712019828}
+  m_Layer: 7
+  m_Name: arrows
+  m_TagString: arrows
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &5159005017712019828
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1625323984721577654}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8494860496967012732}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1669552890189621018
 GameObject:
   m_ObjectHideFlags: 0
@@ -4404,6 +4439,7 @@ RectTransform:
   - {fileID: 4207600658929438255}
   - {fileID: 3002121664653728520}
   - {fileID: 5016367011181974495}
+  - {fileID: 5159005017712019828}
   m_Father: {fileID: 4624126133116368174}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -9917,6 +9953,26 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 1337b473-fa2f-481f-855c-a311d94ba19e
     m_ActionName: Player/Reload[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9429e25c-4b69-45c3-98e3-9bfc922ef0c0
+    m_ActionName: Player/SwitchFire[/Keyboard/1]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 62a8ef36-fe9b-4490-9d3a-2aa04666c35f
+    m_ActionName: Player/SwitchElectro[/Keyboard/2]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7a8338fb-bb21-4458-b11f-f975768075f0
+    m_ActionName: Player/SwitchEarth[/Keyboard/3]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2a5302fb-720e-45f2-be28-2d028e928cd6
+    m_ActionName: Player/SwitchWater[/Keyboard/4]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 25ed69ab-212e-4197-a76f-396f911dedb4
+    m_ActionName: UI/SenseESCBuild[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

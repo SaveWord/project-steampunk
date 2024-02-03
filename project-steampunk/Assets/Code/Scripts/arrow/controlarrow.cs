@@ -37,6 +37,7 @@ public class controlarrow : MonoBehaviour
 
             float radians = Mathf.Deg2Rad * (angleToTarget);
             //Debug.Log(radians);
+
             float x = Mathf.Sin(radians) * radarRadius;
             float y = Mathf.Cos(radians) * radarRadius;
 
