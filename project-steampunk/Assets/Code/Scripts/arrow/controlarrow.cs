@@ -72,7 +72,7 @@ public class controlarrow : MonoBehaviour
     {
         if (_arrow != null)
         {
-            _arrow.GetComponent<Image>().color = Color.gray;
+            _arrow.GetComponent<Image>().color = Color.yellow;
         }
     }
 

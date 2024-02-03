@@ -19,7 +19,7 @@ public class Win : MonoBehaviour
         }
         if (allNull)
         {
-            Destroy(gameObject);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 
