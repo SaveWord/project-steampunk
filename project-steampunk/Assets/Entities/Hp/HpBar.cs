@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HpBar: MonoBehaviour
+public class HpBar : MonoBehaviour
 {
     [SerializeField] private Slider _healthSlider;
     private Camera playerCamera;
     private bool fullHp = true;
+    private ITarget player;
     private void Start()
     {
         playerCamera = Camera.main;
         GetComponentInParent<IHealth>().OnHPChanged += HandleHPSliderChanged;
-        var player = GetComponentInParent<ITarget>();
+        player = GetComponentInParent<ITarget>();
         if (player !=null)
             _healthSlider = GetComponentInChildren<Slider>();
     }
@@ -48,7 +49,7 @@ public class HpBar: MonoBehaviour
     }
     private void HpBarRotation()
     {
-        if (!fullHp && _healthSlider)
+        if (player == null && _healthSlider)
         {
             _healthSlider.transform.LookAt(_healthSlider.transform.position +
                 playerCamera.transform.rotation * Vector3.forward,
