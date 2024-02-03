@@ -10,6 +10,7 @@ public class HpEnemy : MonoBehaviour
     private Vector3 playerPosition;
 
     private float jumpForce;
+    private Animator _animator;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private ParticleSystem deathParticlePrefab;
 
@@ -48,14 +49,16 @@ public class HpEnemy : MonoBehaviour
     private void Start()
     {
         GetComponent<IHealth>().OnDied += HandleEnemyDied;
+        _animator = GetComponentInChildren<Animator>();
     }
 
     private void HandleEnemyDied()
     {
         var deathparticle = Instantiate(deathParticlePrefab, transform.position, transform.rotation);
         //animation of death
+        _animator.SetBool("isDead", true);
         Destroy(deathparticle, 4f);
-        GameObject.Destroy(this.gameObject);
+        GameObject.Destroy(this.gameObject,1f);
     }
 
  

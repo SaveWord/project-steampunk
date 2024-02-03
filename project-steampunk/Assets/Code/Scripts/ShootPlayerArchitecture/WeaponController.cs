@@ -20,7 +20,7 @@ public class WeaponController : MonoBehaviour
     }
     private void OnEnable()
     {
-        animatorArms =transform.root.GetComponentInChildren<Animator>();
+        animatorArms = transform.root.GetComponentInChildren<Animator>();
         animatorWeapon = GetComponent<Animator>();
         inputShoot = new ActionPrototypePlayer();
         inputShoot.Enable();

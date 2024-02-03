@@ -36,7 +36,7 @@ public class HpBar : MonoBehaviour
     private void HandleEnemySliderShow()
     {
         var hpCanvas = (GameObject)Resources.Load("EnemyHealth", typeof(GameObject));
-        if (hpCanvas)
+        if (hpCanvas && player == null)
         {
             var canvasObject = Instantiate(hpCanvas, new Vector3(playerCamera.transform.position.x,
                 playerCamera.transform.position.y,

@@ -15,17 +15,22 @@ namespace Enemies
         private NavMeshAgent _nMeshAgent;
         private Rigidbody _rBody;
         private controlarrow _controlarrow;
+        private Animator _animator;
 
         public void MoveToTarget(ITarget target)
         {
             if (_nMeshAgent.enabled)
             {
                 _nMeshAgent.SetDestination(target.GetPosition());
+
+                _animator.SetBool("isRunning", true);
+
                 _controlarrow.ChangeColorToGray();
                 _controlarrow.Show();
             }
             else
             {
+                _animator.SetBool("isRunning", false);
                 _controlarrow.Hide();
             }
                 
@@ -54,7 +59,7 @@ namespace Enemies
 
         private void OnCollisionStay(Collision collision)
         {
-            if (collision.collider.tag == "Ground" && !_nMeshAgent.enabled)
+            if (collision.collider.transform.gameObject.layer == 8 && !_nMeshAgent.enabled)
                 ToggleControlToNavMesh();
         }
 
@@ -65,6 +70,8 @@ namespace Enemies
             
             _dash = new Dash(_rBody, this);
             _controlarrow = GetComponent<controlarrow>();
+
+            _animator = GetComponentInChildren<Animator>();
         }
 
     }
