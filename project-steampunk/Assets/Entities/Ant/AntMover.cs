@@ -14,11 +14,22 @@ namespace Enemies
 
         private NavMeshAgent _nMeshAgent;
         private Rigidbody _rBody;
+        private controlarrow _controlarrow;
 
         public void MoveToTarget(ITarget target)
         {
-            if(_nMeshAgent.enabled)
+            if (_nMeshAgent.enabled)
+            {
                 _nMeshAgent.SetDestination(target.GetPosition());
+                _controlarrow.ChangeColorToGray();
+                _controlarrow.Show();
+            }
+            else
+            {
+                _controlarrow.Hide();
+            }
+                
+
         }
 
         public void Dash()
@@ -51,7 +62,12 @@ namespace Enemies
         {
             _nMeshAgent = GetComponent<NavMeshAgent>();
             _rBody = GetComponent<Rigidbody>();
+<<<<<<< HEAD
             _dash = new Dash(_rBody, this);
+=======
+            _dasher = new Dasher(_rBody, this);
+            _controlarrow = GetComponent<controlarrow>();
+>>>>>>> enemytracker
         }
 
     }

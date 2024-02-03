@@ -10,12 +10,14 @@ namespace Enemies
 
         private ITarget _target;
         private SphereCollider _collider;
+        private controlarrow _controlarrow;
 
         private void Awake()
         {
             _collider = gameObject.AddComponent<SphereCollider>();
             _collider.isTrigger = true;
             _collider.radius = _detectionRadius;
+            _controlarrow = GetComponent<controlarrow>();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -42,9 +44,12 @@ namespace Enemies
             {                
                 if (hitInfo.collider.gameObject.GetInstanceID() == _target.GetTargetID())
                 {
+                    _controlarrow.Show();
+                    _controlarrow.ChangeColorToRed();
                     return true;
                 }
             }
+            _controlarrow.Hide();
             return false;
         }
 
@@ -57,9 +62,10 @@ namespace Enemies
             if (hits.Length != 0) 
             {
                 hitInfo = FindClosestHit(hits);
+                //_controlarrow.ChangeColorToRed();
                 return true;
             }
-
+            //_controlarrow.ChangeColorToGray();
             hitInfo = default;
             return false;
         }
@@ -74,14 +80,16 @@ namespace Enemies
                    Vector3.Distance(transform.position, closestHit.collider.transform.position))
                 {
                     closestHit = hits[i];
+                    
                 }
-            }
 
+            }
             return closestHit;
         }
 
         public ITarget GetTarget()
         {
+            
             return _target;
         }
     }
