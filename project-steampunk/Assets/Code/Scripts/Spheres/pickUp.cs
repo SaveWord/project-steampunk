@@ -142,13 +142,13 @@ public class pickUp : MonoBehaviour
         if (context.performed)
         {
             hold = true;
-            //trajectoryLine.enabled = true;
+            trajectoryLine.enabled = true;
 
         }
         else { hold = false; }
         if (context.canceled)
         {
-            //trajectoryLine.enabled = false;
+            trajectoryLine.enabled = false;
             Vector3 spawnPosition = transform.position;
             Quaternion spawnRotation = transform.rotation;
             heldItem = Instantiate(ChoosenSp, spawnPosition, spawnRotation);

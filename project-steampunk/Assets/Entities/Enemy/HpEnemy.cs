@@ -57,8 +57,8 @@ public class HpEnemy : MonoBehaviour
         var deathparticle = Instantiate(deathParticlePrefab, transform.position, transform.rotation);
         //animation of death
         _animator.SetBool("isDead", true);
-        Destroy(deathparticle, 4f);
-        GameObject.Destroy(this.gameObject,2f);
+        Destroy(deathparticle, 1f);
+        GameObject.Destroy(this.gameObject,1f);
     }
 
  
