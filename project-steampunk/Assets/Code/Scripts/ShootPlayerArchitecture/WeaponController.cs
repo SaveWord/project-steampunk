@@ -75,7 +75,7 @@ public class WeaponController : MonoBehaviour
         while (context.performed)
         {
             yield return new WaitForSeconds(0.5f);
-            Debug.Log(context);
+            //Debug.Log(context);
             weapon.Shoot(context);
         }
     }
