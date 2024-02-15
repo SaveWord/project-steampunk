@@ -43,7 +43,9 @@ public class WeaponController : MonoBehaviour
         switch (weaponType)
         {
             case WeaponType.Revolver:
-                weapon = new ParametrsUpdateDecorator(weapon, weaponParametrs[0].damage,
+                weapon = new ParametrsUpdateDecorator(weapon, 
+                    weaponParametrs[0].lastFire, weaponParametrs[0].fireRate,
+                    weaponParametrs[0].damage,
                     weaponParametrs[0].range, weaponParametrs[0].reloadSpeed,
                     weaponParametrs[0].patrons, weaponParametrs[0].attackType,
                     weaponParametrs[0].enemyLayer,
@@ -62,7 +64,6 @@ public class WeaponController : MonoBehaviour
         if (context.performed)
         {
             StartCoroutine(ShootCoroutine(context));
-
         }
         if(context.canceled) 
         {
@@ -74,9 +75,9 @@ public class WeaponController : MonoBehaviour
     {
         while (context.performed)
         {
-            yield return new WaitForSeconds(0.5f);
-            Debug.Log(context);
+            yield return new WaitForSeconds(0.6f);
             weapon.Shoot(context);
+            Debug.Log(context);
         }
     }
     public async void Reload(InputAction.CallbackContext context)

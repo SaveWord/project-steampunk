@@ -11,6 +11,8 @@ public class ParametrsUpdateDecorator : MainDecorator
 {
     private IWeapon _weapon;
     //parametrs weapon
+    private float _updateLastShoot;
+    private float _updateFireRate;
     private float _updateDamage;
     private float _updateRange;
     private float _updateReload;
@@ -26,12 +28,16 @@ public class ParametrsUpdateDecorator : MainDecorator
 
 
     //constructor
-    public ParametrsUpdateDecorator(IWeapon weapon, float updateDamage,
+    public ParametrsUpdateDecorator(IWeapon weapon, float updateLastShoot, float updateFireRate,
+        float updateDamage,
         float updateRange, float updateReload, float updatePatrons,
         IWeapon.WeaponTypeDamage updateWeaponType, LayerMask mask,
         GameObject vfxShootPrefab, TextMeshProUGUI patronsText,
         Animator animator, Animator animatorWeapon) : base(weapon)
     {
+        _updateLastShoot = updateLastShoot;
+        _updateFireRate = updateFireRate;
+
         _weapon = weapon;
         _updateDamage = updateDamage;
         _updateRange = updateRange;
@@ -40,7 +46,7 @@ public class ParametrsUpdateDecorator : MainDecorator
         _updateWeaponType = updateWeaponType;
         _updateEnemyLayer = mask;
         maxPatrons = updatePatrons;
-        
+
         //effect parametrs
         _vfxShootPrefab = vfxShootPrefab;
         _patronsText = patronsText;
@@ -80,23 +86,25 @@ public class ParametrsUpdateDecorator : MainDecorator
     }
     public override LayerMask enemyLayer
     {
-        get {return _updateEnemyLayer;}
+        get { return _updateEnemyLayer; }
         set { }
     }
-
     //methods decorator shoot and reload logic
     public override void Shoot(InputAction.CallbackContext context)
     {
-        if ((context.started || context.performed) && Patrons > 0)
+        float currentTime = Time.time;
+        float timeDifference = currentTime - _updateLastShoot;
+        if ((context.started || context.performed) && Patrons > 0 && timeDifference >= _updateFireRate)
         {
-            _animator.SetBool("shoot",true);
+            _updateLastShoot = currentTime;
+            _animator.SetBool("shoot", true);
             _animatorWeapon.SetBool("shoot", true);
             Patrons--;
             _patronsText.text = Patrons.ToString();
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
                 out RaycastHit hit, Range, enemyLayer, QueryTriggerInteraction.Ignore))
             {
-                
+
                 hit.collider.TryGetComponent(out IDamageableProps damageableProps);
                 damageableProps?.GetDamage(Damage);
 
@@ -111,8 +119,10 @@ public class ParametrsUpdateDecorator : MainDecorator
                 var newVfxShoot = Instantiate(_vfxShootPrefab, hitVfx.point, Quaternion.identity);
             }
         }
-        if (Patrons == 0)
+        if (Patrons == 0 && isReload == false)
         {
+            _animator.SetBool("shoot", false);
+            _animatorWeapon.SetBool("shoot", false);
             Reload(context);
         }
     }
@@ -136,7 +146,7 @@ public class ParametrsUpdateDecorator : MainDecorator
 
     public async override void Reload(InputAction.CallbackContext context)
     {
-        if (context.started && Patrons < maxPatrons && isReload == false)
+        if (context.started && Patrons < maxPatrons)
         {
             Debug.Log("Activate");
             isReload = true;
