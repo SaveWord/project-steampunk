@@ -28,14 +28,14 @@ public class ParametrsUpdateDecorator : MainDecorator
 
 
     //constructor
-    public ParametrsUpdateDecorator(IWeapon weapon, float updateLastShoot, float updateFireRate,
+    public ParametrsUpdateDecorator(IWeapon weapon,float updateFireRate,
         float updateDamage,
         float updateRange, float updateReload, float updatePatrons,
         IWeapon.WeaponTypeDamage updateWeaponType, LayerMask mask,
         GameObject vfxShootPrefab, TextMeshProUGUI patronsText,
         Animator animator, Animator animatorWeapon) : base(weapon)
     {
-        _updateLastShoot = updateLastShoot;
+  
         _updateFireRate = updateFireRate;
 
         _weapon = weapon;

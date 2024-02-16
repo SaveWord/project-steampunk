@@ -7,7 +7,6 @@ using static IWeapon;
 [CreateAssetMenu(fileName = "Weapon", menuName = "ScriptableObjects/WeaponTypeAndParametrs", order = 1)]
 public class WeaponTypeScriptableObj : ScriptableObject
 {
-    public float lastFire;
     public float fireRate;
     public float damage;
     public float range;
