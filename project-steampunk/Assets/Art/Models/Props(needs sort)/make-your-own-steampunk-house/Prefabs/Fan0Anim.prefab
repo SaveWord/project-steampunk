@@ -177,6 +177,7 @@ GameObject:
   - component: {fileID: 8585418930528106780}
   - component: {fileID: 2539095449501364291}
   - component: {fileID: 1576318418084539590}
+  - component: {fileID: -1802431614198192174}
   m_Layer: 8
   m_Name: Fan0Anim
   m_TagString: Untagged
@@ -251,6 +252,27 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -471663115890655308, guid: f61c8c96d068e6740af4bc9d86ca05a7, type: 3}
+--- !u!95 &-1802431614198192174
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6109906615626024625}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7528c6f5dbdcf7e42b1067b0e9bc66a0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &9062953027850618694
 GameObject:
   m_ObjectHideFlags: 0
