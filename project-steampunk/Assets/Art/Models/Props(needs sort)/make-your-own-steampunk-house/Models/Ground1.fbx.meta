@@ -9,6 +9,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: wall_stone.001
     second: {fileID: 2100000, guid: 8e670c77d472fcc41a4b87f02fa28ebd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wall_stone.002
+    second: {fileID: 2100000, guid: 8e670c77d472fcc41a4b87f02fa28ebd, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -39,7 +44,10 @@ ModelImporter:
     clipAnimations: []
     isReadable: 0
   meshes:
-    lODScreenPercentages: []
+    lODScreenPercentages:
+    - 0.25
+    - 0.125
+    - 0.01
     globalScale: 1
     meshCompression: 0
     addColliders: 0
