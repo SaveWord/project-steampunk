@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
+using static UnityEngine.EventSystems.StandaloneInputModule;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -15,8 +16,10 @@ public class PlayerMove : MonoBehaviour
     public float MouseSense { get { return mouseSense;} set { mouseSense = value; } }
 
     [Header("Cinemachine Virtual Cameras")]
+    [SerializeField] private float camEffectRotateAD;
     [SerializeField] private CinemachineVirtualCamera cam;
     [SerializeField] private CinemachineVirtualCamera camTackle;
+    private CinemachineBasicMultiChannelPerlin camNoise;
 
 
     [Header("Переменные детекта ground")]
@@ -96,19 +99,13 @@ public class PlayerMove : MonoBehaviour
         animatorPlayer = GetComponentInChildren<Animator>();
         inputActions = new ActionPrototypePlayer();
         inputActions.Player.Enable();
-        //eventsShoot = GetComponentInChildren<ShootRay>();
-        //eventsWeaponShoot = GetComponentInChildren<WeaponController>();
-        //inputActions.Player.Shoot.started += context => eventsShoot.Shoot(context);
-        //inputActions.Player.Shoot.canceled += context => eventsShoot.Shoot(context);
-        //inputActions.Player.Reload.started += context => eventsShoot.Reload(context);
-        //inputActions.Player.Shoot.started += context => eventsWeaponShoot.Shoot(context);
-        //inputActions.Player.Shoot.canceled += context => eventsWeaponShoot.Shoot(context);
-        //inputActions.Player.Reload.started += context => eventsWeaponShoot.Reload(context);
+        camNoise = cam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
 
     }
     private void Update()
     {
         IsGrounded();
+
     }
     private void FixedUpdate()
     {
@@ -123,6 +120,24 @@ public class PlayerMove : MonoBehaviour
             rb.velocity = new Vector3((inputMove.y < 0) ? 
                 -rb.velocity.x : rb.velocity.x ,rb.velocity.y,0);
         }
+        EffectsMove(inputMove);
+    }
+    //effects move
+    public void EffectsMove(Vector2 _inputMove)
+    {
+        Quaternion targetRotation;
+        camNoise.m_AmplitudeGain = _inputMove.magnitude * 2;
+        if (_inputMove.x > 0)
+        {
+            targetRotation = Quaternion.Euler(0, 0, -60);
+        }
+        else if (_inputMove.x < 0)
+        {
+            targetRotation = Quaternion.Euler(0, 0, 60);
+        } 
+        else { targetRotation = Quaternion.Euler(0, 0, 0); }
+        cam.transform.localRotation = Quaternion.Slerp(cam.transform.localRotation,
+              targetRotation, camEffectRotateAD * Time.deltaTime);
     }
 
     //Movement
@@ -145,6 +160,7 @@ public class PlayerMove : MonoBehaviour
     {
         Vector3 move = transform.right * inputMove.x + transform.forward * inputMove.y;
         rb.velocity = new Vector3(move.x * speed, rb.velocity.y, move.z * speed);
+        
         animatorPlayer.SetFloat("speed",inputMove.magnitude,0.1f,Time.deltaTime);
     }
 
