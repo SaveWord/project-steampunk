@@ -13,7 +13,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
     [SerializeField] private float mouseSense;
-    public float MouseSense { get { return mouseSense;} set { mouseSense = value; } }
+    public float MouseSense { get { return mouseSense; } set { mouseSense = value; } }
 
     [Header("Cinemachine Virtual Cameras")]
     [SerializeField] private float camEffectRotateAD;
@@ -91,7 +91,6 @@ public class PlayerMove : MonoBehaviour
     private WeaponController eventsWeaponShoot;
     private void Awake()
     {
-        
         capsuleColliders = GetComponents<CapsuleCollider>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -115,10 +114,10 @@ public class PlayerMove : MonoBehaviour
         Move(inputMove);
         Rotation(inputLook);
         Debug.Log(inputMove);
-        if ((inputMove.y < 0 || inputMove.x!=0) && tackleActive == true )
+        if ((inputMove.y < 0 || inputMove.x != 0) && tackleActive == true)
         {
-            rb.velocity = new Vector3((inputMove.y < 0) ? 
-                -rb.velocity.x : rb.velocity.x ,rb.velocity.y,0);
+            rb.velocity = new Vector3((inputMove.y < 0) ?
+            -rb.velocity.x : rb.velocity.x, rb.velocity.y, 0);
         }
         EffectsMove(inputMove);
     }
@@ -134,7 +133,7 @@ public class PlayerMove : MonoBehaviour
         else if (_inputMove.x < 0)
         {
             targetRotation = Quaternion.Euler(0, 0, 60);
-        } 
+        }
         else { targetRotation = Quaternion.Euler(0, 0, 0); }
         cam.transform.localRotation = Quaternion.Slerp(cam.transform.localRotation,
               targetRotation, camEffectRotateAD * Time.deltaTime);
@@ -149,7 +148,7 @@ public class PlayerMove : MonoBehaviour
         xRotation -= yLook;
         xRotation = Mathf.Clamp(xRotation, -55.5f, 55.5f);
 
-     
+
         if (tackleActive)
             camTackle.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         else
@@ -160,8 +159,8 @@ public class PlayerMove : MonoBehaviour
     {
         Vector3 move = transform.right * inputMove.x + transform.forward * inputMove.y;
         rb.velocity = new Vector3(move.x * speed, rb.velocity.y, move.z * speed);
-        
-        animatorPlayer.SetFloat("speed",inputMove.magnitude,0.1f,Time.deltaTime);
+
+        animatorPlayer.SetFloat("speed", inputMove.magnitude, 0.1f, Time.deltaTime);
     }
 
     public void Dash(InputAction.CallbackContext context)
@@ -177,7 +176,7 @@ public class PlayerMove : MonoBehaviour
     }
     IEnumerator DashCoroutine()
     {
-        
+
         oldSpeed = speed;
         speed = dashSpeed;
         Physics.IgnoreLayerCollision(gameObject.layer, layerIgnore, true);
@@ -228,7 +227,7 @@ public class PlayerMove : MonoBehaviour
     public void Jump(InputAction.CallbackContext context)
     {
         Debug.Log(doubleJump);
-        if (context.phase == InputActionPhase.Started && IsGrounded() == true 
+        if (context.phase == InputActionPhase.Started && IsGrounded() == true
             && tackleActive == false)
         {
             animatorPlayer.SetBool("jump", true);
@@ -241,7 +240,7 @@ public class PlayerMove : MonoBehaviour
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             doubleJump = 0;
         }
-        if(context.phase == InputActionPhase.Canceled)
+        if (context.phase == InputActionPhase.Canceled)
         {
             animatorPlayer.SetBool("jump", false);
         }
