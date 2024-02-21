@@ -89,7 +89,7 @@ public class PlayerMove : MonoBehaviour
 
     private void Awake()
     {
-        Physics.gravity = new Vector3(0, -6.61f, 0); //change gravity
+        Physics.gravity = new Vector3(0, -8.61f, 0); //change gravity
         capsuleColliders = GetComponents<CapsuleCollider>();//change collider in slide
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -160,7 +160,7 @@ public class PlayerMove : MonoBehaviour
 
     public void Dash(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started)
+        if (context.started)
         {
             if (dashTimer <= Time.time)
             {
@@ -245,9 +245,9 @@ public class PlayerMove : MonoBehaviour
     }
     IEnumerator JumpCoroutineUpSpeed()
     {
-        speed = speed * 1.2f;
+        speed = speed * 1.3f;
         yield return new WaitForSeconds(0.1f);
-        speed = speed / 1.2f;
+        speed = speed / 1.3f;
     }
     private bool IsGrounded()
     {
