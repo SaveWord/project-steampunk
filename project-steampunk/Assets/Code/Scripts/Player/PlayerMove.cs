@@ -2,11 +2,11 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
-using static UnityEngine.EventSystems.StandaloneInputModule;
+using UnityEngine.VFX;
 
 public class PlayerMove : MonoBehaviour
 {
-    private Animator animatorPlayer;
+    private Animator animatorPlayer; //animator for change hands anim
 
     //move data
     [Header("ѕеременные перемещени€")]
@@ -16,10 +16,10 @@ public class PlayerMove : MonoBehaviour
     public float MouseSense { get { return mouseSense; } set { mouseSense = value; } }
 
     [Header("Cinemachine Virtual Cameras")]
-    [SerializeField] private float camEffectRotateAD;
     [SerializeField] private CinemachineVirtualCamera cam;
     [SerializeField] private CinemachineVirtualCamera camTackle;
-    private CinemachineBasicMultiChannelPerlin camNoise;
+    private Animator animatorCinemachineVirtualCam;// анимаци€ поворота головы при движении на A D
+    private CinemachineBasicMultiChannelPerlin camNoise;//шум дл€ иммитаци€ бега вперед, покачивание камеры
 
 
     [Header("ѕеременные детекта ground")]
@@ -84,26 +84,31 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float kickForce;
     [SerializeField] private LayerMask enemyLayer;
 
-    [SerializeField] private GameObject spheres;
+    //vfx effects move
+    private VisualEffect effectDash;
 
-    //add shoot and reload new input system
-    private ShootRay eventsShoot;
-    private WeaponController eventsWeaponShoot;
     private void Awake()
     {
-        capsuleColliders = GetComponents<CapsuleCollider>();
+        Physics.gravity = new Vector3(0, -6.61f, 0); //change gravity
+        capsuleColliders = GetComponents<CapsuleCollider>();//change collider in slide
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         rb = GetComponent<Rigidbody>();
         animatorPlayer = GetComponentInChildren<Animator>();
         inputActions = new ActionPrototypePlayer();
         inputActions.Player.Enable();
+
+        //camera and vfx effects move getcomponents
+        effectDash = GetComponentInChildren<VisualEffect>();
         camNoise = cam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        animatorCinemachineVirtualCam = GameObject.Find("VirtualCameres").GetComponent<Animator>();
+
 
     }
     private void Update()
     {
         IsGrounded();
+
 
     }
     private void FixedUpdate()
@@ -124,21 +129,11 @@ public class PlayerMove : MonoBehaviour
     //effects move
     public void EffectsMove(Vector2 _inputMove)
     {
-        Quaternion targetRotation;
-        camNoise.m_AmplitudeGain = _inputMove.magnitude * 2;
-        if (_inputMove.x > 0)
-        {
-            targetRotation = Quaternion.Euler(0, 0, -60);
-        }
-        else if (_inputMove.x < 0)
-        {
-            targetRotation = Quaternion.Euler(0, 0, 60);
-        }
-        else { targetRotation = Quaternion.Euler(0, 0, 0); }
-        cam.transform.localRotation = Quaternion.Slerp(cam.transform.localRotation,
-              targetRotation, camEffectRotateAD * Time.deltaTime);
+        if (IsGrounded())
+        { camNoise.m_AmplitudeGain = _inputMove.magnitude * 2; }
+        else { camNoise.m_AmplitudeGain = 0; }
+        animatorCinemachineVirtualCam.SetFloat("rotateCam", _inputMove.x, 0.1f, Time.deltaTime);
     }
-
     //Movement
     private void Rotation(Vector2 inputLook)
     {
@@ -180,7 +175,9 @@ public class PlayerMove : MonoBehaviour
         oldSpeed = speed;
         speed = dashSpeed;
         Physics.IgnoreLayerCollision(gameObject.layer, layerIgnore, true);
+        effectDash.Play();
         yield return new WaitForSeconds(dashTimeLimit);
+        effectDash.Stop();
         Physics.IgnoreLayerCollision(gameObject.layer, layerIgnore, false);
         speed = oldSpeed;
 
@@ -236,7 +233,8 @@ public class PlayerMove : MonoBehaviour
         else if (doubleJump == 1 && context.phase == InputActionPhase.Started)
         {
             animatorPlayer.SetBool("jump", true);
-            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            // rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            StartCoroutine(JumpCoroutineUpSpeed());
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             doubleJump = 0;
         }
@@ -245,7 +243,12 @@ public class PlayerMove : MonoBehaviour
             animatorPlayer.SetBool("jump", false);
         }
     }
-
+    IEnumerator JumpCoroutineUpSpeed()
+    {
+        speed = speed * 1.2f;
+        yield return new WaitForSeconds(0.1f);
+        speed = speed / 1.2f;
+    }
     private bool IsGrounded()
     {
         float sphereRadius = 1f;
