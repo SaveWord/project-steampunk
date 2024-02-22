@@ -11,12 +11,17 @@ namespace Enemies.Bullets
         [SerializeField] private float _lifeTime;
         [SerializeField] private float _speed;
 
+        private GameObject targetObject; 
+        private float followDuration = 15f;
+        private Vector3 lastKnownPosition;
+
         private Rigidbody _rBody;
         private float _timeOnFly;
 
         private void Awake()
         {
             _rBody = GetComponent<Rigidbody>();
+            targetObject = GameObject.FindGameObjectWithTag("Player");
         }
 
         private void Update()
@@ -28,8 +33,29 @@ namespace Enemies.Bullets
         {
             _timeOnFly += Time.deltaTime;
             if (_timeOnFly >= _lifeTime)
+            {
                 SelfDestroy();
-        }
+            }
+
+            if (targetObject != null)
+            {
+                if (_timeOnFly < followDuration)
+                {
+                    Vector3 targetDirection = (targetObject.transform.position - transform.position).normalized;
+                    transform.position += targetDirection * _speed * Time.deltaTime;
+                    lastKnownPosition = targetObject.transform.position;
+                }
+                else
+                {
+                    Vector3 continueDirection = (lastKnownPosition - transform.position).normalized;
+                    transform.position += continueDirection * _speed * Time.deltaTime;
+                }
+            }
+            else
+            {
+                Debug.LogWarning("Target object not found!");
+            }
+    }
 
         private void SelfDestroy()
         {
