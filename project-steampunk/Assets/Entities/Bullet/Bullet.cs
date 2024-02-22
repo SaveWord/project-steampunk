@@ -66,7 +66,11 @@ namespace Enemies.Bullets
             {
                 DealDamage(collision.gameObject);
             }
-            SelfDestroy();
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Ground")|| collision.gameObject.layer == LayerMask.NameToLayer("Props"))
+            {
+                SelfDestroy();
+            }
+            
         }
 
         private void DealDamage(GameObject target)
