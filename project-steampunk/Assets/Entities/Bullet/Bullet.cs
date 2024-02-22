@@ -10,6 +10,7 @@ namespace Enemies.Bullets
         [SerializeField] private float _damage;
         [SerializeField] private float _lifeTime;
         [SerializeField] private float _speed;
+        [SerializeField] private bool FollowForSomeTime;
 
         private GameObject targetObject; 
         private float followDuration = 15f;
@@ -32,12 +33,8 @@ namespace Enemies.Bullets
         private void OnFly()
         {
             _timeOnFly += Time.deltaTime;
-            if (_timeOnFly >= _lifeTime)
-            {
-                SelfDestroy();
-            }
-
-            if (targetObject != null)
+            if (_timeOnFly >= _lifeTime) SelfDestroy();
+            if (targetObject != null && FollowForSomeTime)
             {
                 if (_timeOnFly < followDuration)
                 {
@@ -53,9 +50,9 @@ namespace Enemies.Bullets
             }
             else
             {
-                Debug.LogWarning("Target object not found!");
+               Debug.LogWarning("Target object not found!");
             }
-    }
+        }
 
         private void SelfDestroy()
         {
