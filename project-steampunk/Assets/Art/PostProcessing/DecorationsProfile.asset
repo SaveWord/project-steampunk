@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7595750904194808870
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2303f781f6c04e428d9eb352fa4be37e, type: 3}
+  m_Name: OutlineVol
+  m_EditorClassIdentifier: 
+  active: 1
+  m_Sensitive:
+    m_OverrideState: 1
+    m_Value: 0.02
+  m_Thickness:
+    m_OverrideState: 1
+    m_Value: 0.15
+  m_Color:
+    m_OverrideState: 1
+    m_Value:
+      _grad:
+        serializedVersion: 2
+        key0: {r: 0.074186325, g: 1, b: 0, a: 0.19607843}
+        key1: {r: 1, g: 0.74682754, b: 0, a: 1}
+        key2: {r: 0, g: 0, b: 0, a: 0}
+        key3: {r: 0, g: 0, b: 0, a: 0}
+        key4: {r: 0, g: 0, b: 0, a: 0}
+        key5: {r: 0, g: 0, b: 0, a: 0}
+        key6: {r: 0, g: 0, b: 0, a: 0}
+        key7: {r: 0, g: 0, b: 0, a: 0}
+        ctime0: 0
+        ctime1: 65535
+        ctime2: 0
+        ctime3: 0
+        ctime4: 0
+        ctime5: 0
+        ctime6: 0
+        ctime7: 0
+        atime0: 0
+        atime1: 65535
+        atime2: 0
+        atime3: 0
+        atime4: 0
+        atime5: 0
+        atime6: 0
+        atime7: 0
+        m_Mode: 0
+        m_ColorSpace: 0
+        m_NumColorKeys: 2
+        m_NumAlphaKeys: 2
+      _pixels:
+      - {r: 0.074186325, g: 1, b: 0, a: 0.19607843}
+      - {r: 0.10405128, g: 0.99183315, b: 0, a: 0.22201139}
+      - {r: 0.13391623, g: 0.9836663, b: 0, a: 0.24794434}
+      - {r: 0.1637812, g: 0.97549945, b: 0, a: 0.2738773}
+      - {r: 0.19364615, g: 0.9673326, b: 0, a: 0.29981023}
+      - {r: 0.2235111, g: 0.95916575, b: 0, a: 0.3257432}
+      - {r: 0.25337607, g: 0.9509989, b: 0, a: 0.35167617}
+      - {r: 0.28324103, g: 0.94283205, b: 0, a: 0.3776091}
+      - {r: 0.31310597, g: 0.9346652, b: 0, a: 0.40354204}
+      - {r: 0.34297094, g: 0.9264983, b: 0, a: 0.429475}
+      - {r: 0.37283587, g: 0.91833144, b: 0, a: 0.45540798}
+      - {r: 0.40270084, g: 0.9101646, b: 0, a: 0.48134094}
+      - {r: 0.4325658, g: 0.90199775, b: 0, a: 0.50727385}
+      - {r: 0.46243075, g: 0.8938309, b: 0, a: 0.5332068}
+      - {r: 0.4922957, g: 0.88566405, b: 0, a: 0.5591398}
+      - {r: 0.52216065, g: 0.8774972, b: 0, a: 0.58507276}
+      - {r: 0.5520256, g: 0.86933035, b: 0, a: 0.61100566}
+      - {r: 0.5818906, g: 0.8611635, b: 0, a: 0.6369387}
+      - {r: 0.61175555, g: 0.85299665, b: 0, a: 0.6628716}
+      - {r: 0.6416205, g: 0.8448298, b: 0, a: 0.68880457}
+      - {r: 0.6714854, g: 0.83666295, b: 0, a: 0.7147375}
+      - {r: 0.70135045, g: 0.8284961, b: 0, a: 0.74067044}
+      - {r: 0.73121536, g: 0.82032925, b: 0, a: 0.7666034}
+      - {r: 0.7610803, g: 0.8121624, b: 0, a: 0.7925364}
+      - {r: 0.7909453, g: 0.8039955, b: 0, a: 0.8184693}
+      - {r: 0.82081026, g: 0.79582864, b: 0, a: 0.84440225}
+      - {r: 0.85067517, g: 0.7876618, b: 0, a: 0.8703352}
+      - {r: 0.8805402, g: 0.77949494, b: 0, a: 0.8962682}
+      - {r: 0.9104051, g: 0.7713281, b: 0, a: 0.9222011}
+      - {r: 0.94027007, g: 0.76316124, b: 0, a: 0.94813406}
+      - {r: 0.97013503, g: 0.7549944, b: 0, a: 0.97406703}
+      - {r: 1, g: 0.74682754, b: 0, a: 1}
+  m_Fill:
+    m_OverrideState: 1
+    m_Value: {r: 0, g: 0, b: 0, a: 1}
+  m_Mode:
+    m_OverrideState: 1
+    m_Value: 1
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
+  m_Name: DecorationsProfile
+  m_EditorClassIdentifier: 
+  components:
+  - {fileID: -7595750904194808870}
