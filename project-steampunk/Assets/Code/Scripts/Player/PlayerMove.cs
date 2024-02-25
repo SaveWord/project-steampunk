@@ -106,6 +106,10 @@ public class PlayerMove : MonoBehaviour
         //inputActions.Player.Reload.started += context => eventsWeaponShoot.Reload(context);
 
     }
+    public float GetSpeed()
+    {
+        return speed;
+    }
     private void Update()
     {
         IsGrounded();
