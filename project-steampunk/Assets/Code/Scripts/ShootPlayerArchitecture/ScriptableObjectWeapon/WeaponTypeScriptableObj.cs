@@ -14,5 +14,4 @@ public class WeaponTypeScriptableObj : ScriptableObject
     public float patrons;
     public WeaponTypeDamage attackType;
     public LayerMask enemyLayer;
-    public GameObject vfxShootPrefab;
 }

@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -13,6 +14,10 @@ public class WeaponController : MonoBehaviour
     private TextMeshProUGUI patronsText;
     [SerializeField] private WeaponTypeScriptableObj[] weaponParametrs;
     [SerializeField] private WeaponType weaponType;
+
+    //visual
+    private ParticleSystem vfxShootPrefab;
+    private CinemachineImpulseSource recoilCinemachine;
     private Animator animatorArms;
     private Animator animatorWeapon;
     enum WeaponType
@@ -22,6 +27,8 @@ public class WeaponController : MonoBehaviour
     }
     private void OnEnable()
     {
+        recoilCinemachine = transform.root.GetComponentInChildren<CinemachineImpulseSource>();
+        vfxShootPrefab = GetComponentInChildren<ParticleSystem>();
         animatorArms = transform.root.GetComponentInChildren<Animator>();
         animatorWeapon = GetComponent<Animator>();
         inputShoot = new ActionPrototypePlayer();
@@ -59,7 +66,7 @@ public class WeaponController : MonoBehaviour
                     weaponParametrs[0].range, weaponParametrs[0].reloadSpeed,
                     weaponParametrs[0].patrons, weaponParametrs[0].attackType,
                     weaponParametrs[0].enemyLayer,
-                    weaponParametrs[0].vfxShootPrefab, patronsText, animatorArms, animatorWeapon);
+                    vfxShootPrefab,patronsText, animatorArms, animatorWeapon,recoilCinemachine);
                 break;
             case WeaponType.Shotgun:
 

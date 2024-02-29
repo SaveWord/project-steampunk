@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using static IWeapon;
 using UnityEngine.UI;
+using Cinemachine;
 
 public class ParametrsUpdateDecorator : MainDecorator
 {
@@ -19,8 +20,11 @@ public class ParametrsUpdateDecorator : MainDecorator
     private float _updatePatrons;
     private WeaponTypeDamage _updateWeaponType;
     private LayerMask _updateEnemyLayer;
+
+
     //effects and ui value
-    private GameObject _vfxShootPrefab;
+    private CinemachineImpulseSource _recoil;
+    private ParticleSystem _vfxShootPrefab;
     private TextMeshProUGUI _patronsText;
     private bool isReload;
     private Animator _animator;
@@ -28,14 +32,14 @@ public class ParametrsUpdateDecorator : MainDecorator
 
 
     //constructor
-    public ParametrsUpdateDecorator(IWeapon weapon,float updateFireRate,
+    public ParametrsUpdateDecorator(IWeapon weapon, float updateFireRate,
         float updateDamage,
         float updateRange, float updateReload, float updatePatrons,
         IWeapon.WeaponTypeDamage updateWeaponType, LayerMask mask,
-        GameObject vfxShootPrefab, TextMeshProUGUI patronsText,
-        Animator animator, Animator animatorWeapon) : base(weapon)
+        ParticleSystem vfxShootPrefab, TextMeshProUGUI patronsText,
+        Animator animator, Animator animatorWeapon, CinemachineImpulseSource recoil) : base(weapon)
     {
-  
+
         _updateFireRate = updateFireRate;
 
         _weapon = weapon;
@@ -52,6 +56,7 @@ public class ParametrsUpdateDecorator : MainDecorator
         _patronsText = patronsText;
         _animator = animator;
         _animatorWeapon = animatorWeapon;
+        _recoil = recoil;
     }
 
     //properties
@@ -94,13 +99,20 @@ public class ParametrsUpdateDecorator : MainDecorator
     {
         float currentTime = Time.time;
         float timeDifference = currentTime - _updateLastShoot;
+
         if ((context.started || context.performed) && Patrons > 0 && timeDifference >= _updateFireRate)
         {
             _updateLastShoot = currentTime;
+            Patrons--;
+            //vfx and animation and ui
             _animator.SetBool("shoot", true);
             _animatorWeapon.SetBool("shoot", true);
-            Patrons--;
+            _recoil.GenerateImpulse();
+            _vfxShootPrefab.Stop();
+            _vfxShootPrefab.Play();
             _patronsText.text = Patrons.ToString();
+
+
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
                 out RaycastHit hit, Range, enemyLayer, QueryTriggerInteraction.Ignore))
             {
@@ -113,11 +125,12 @@ public class ParametrsUpdateDecorator : MainDecorator
 
                 ShowDamage(Damage + "");
             }
-            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
+            /*if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
                out RaycastHit hitVfx, Range, Physics.AllLayers, QueryTriggerInteraction.Ignore))
             {
                 var newVfxShoot = Instantiate(_vfxShootPrefab, hitVfx.point, Quaternion.identity);
             }
+            */
         }
         if (Patrons == 0 && isReload == false)
         {
