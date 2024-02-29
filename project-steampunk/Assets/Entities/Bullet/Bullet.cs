@@ -50,6 +50,12 @@ namespace Enemies.Bullets
                     transform.position += continueDirection * _speed * Time.deltaTime;
                 }
             }
+            else if (targetObject != null && !FollowForSomeTime)
+            {
+                lastKnownPosition = targetObject.transform.position;
+                Vector3 continueDirection = (lastKnownPosition - transform.position).normalized;
+                transform.position += continueDirection * _speed * Time.deltaTime;
+            }
             else
             {
                Debug.LogWarning("Target object not found!");
@@ -58,15 +64,19 @@ namespace Enemies.Bullets
 
         private void SelfDestroy()
         {
+            Debug.Log("Die");
             Destroy(gameObject);
         }
 
         private void OnCollisionEnter(Collision collision)
         {
-            Debug.Log(collision.gameObject.GetInstanceID());
-            if (collision.gameObject.GetInstanceID() == Target.GetTargetID())
+            Debug.Log("777777777777777777777777777777777777777777777777777777777777");
+            player_health damageScript = collision.gameObject.GetComponent<player_health>();
+            if (damageScript != null)
             {
-                DealDamage(collision.gameObject);
+                Debug.Log("hit player");
+                damageScript.TakeDamage(_damage);
+                SelfDestroy();
             }
             if (collision.gameObject.layer == LayerMask.NameToLayer("Ground")|| collision.gameObject.layer == LayerMask.NameToLayer("Props"))
             {

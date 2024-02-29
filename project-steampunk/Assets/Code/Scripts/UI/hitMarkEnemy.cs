@@ -17,16 +17,17 @@ public class hitMarkEnemy : MonoBehaviour
     }
     void Update()
     {
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
-                out RaycastHit hit,weaponParametrs.range,enemyLayer, QueryTriggerInteraction.Ignore))
-        {
-                redCross.gameObject.SetActive(true);
-                standardCross.gameObject.SetActive(false);      
-        }
-        else
-        {
-            redCross.gameObject.SetActive(false);
-            standardCross.gameObject.SetActive(true);
-        }
+        //if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
+        //        out RaycastHit hit,weaponParametrs.range,enemyLayer, QueryTriggerInteraction.Ignore))
+        //{
+        //        redCross.gameObject.SetActive(true);
+        //        standardCross.gameObject.SetActive(false);      
+        //}
+        //else
+        //{
+        //    redCross.gameObject.SetActive(false);
+        //    standardCross.gameObject.SetActive(true);
+        //}
+        standardCross.gameObject.SetActive(true);
     }
 }

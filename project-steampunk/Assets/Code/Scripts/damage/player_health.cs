@@ -37,6 +37,11 @@ public class player_health : health_abstract
         playerPosition = transform.position;
         isDead = true;
     }
+    public override void TakeDamage(float dama)
+    {
+        mineHP -= dama;
+        UpdateHealth();
+        Debug.Log(mineHP);
+    }
 
-    
 }

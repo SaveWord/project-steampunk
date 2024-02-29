@@ -121,7 +121,7 @@ public class PlayerMove : MonoBehaviour
         rb.velocity += Vector3.up * Physics.gravity.y * verticalDamping;
         Move(inputMove);
         Rotation(inputLook);
-        Debug.Log(inputMove);
+        //Debug.Log(inputMove);
         if ((inputMove.y < 0 || inputMove.x!=0) && tackleActive == true )
         {
             rb.velocity = new Vector3((inputMove.y < 0) ? 
