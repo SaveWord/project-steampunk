@@ -7,70 +7,55 @@ namespace Enemies.Bullets
         public ITarget Target;
 
         [Header("Basics")]
-        [SerializeField] private float _damage;
-        [SerializeField] private float _lifeTime;
-        private float _speed;
-        [SerializeField] private bool FollowForSomeTime;
+        [SerializeField] protected float _damage;
+        [SerializeField] protected float _lifeTime;
+        protected float _speed;
+        //[SerializeField] private bool FollowForSomeTime;
 
-        private GameObject targetObject; 
-        private float followDuration = 15f;
-        private Vector3 lastKnownPosition;
+        protected GameObject targetObject; 
+       
+        protected Vector3 lastKnownPosition;
+        protected Vector3 continueDirection;
+        protected Rigidbody _rBody;
+        protected float _timeOnFly;
 
-        private Rigidbody _rBody;
-        private float _timeOnFly;
-
-        private void Awake()
+        protected void Awake()
         {
+            _timeOnFly = 0;
             _rBody = GetComponent<Rigidbody>();
             targetObject = GameObject.FindGameObjectWithTag("Player");
-
-            _speed = targetObject.GetComponent<PlayerMove>().GetSpeed() * 0.8f;
+            if (targetObject != null)
+            {
+                _speed = targetObject.GetComponent<PlayerMove>().GetSpeed() * 0.8f;
+                lastKnownPosition = targetObject.transform.position;
+                continueDirection = (lastKnownPosition - transform.position).normalized;
+            }
+            else
+            {
+                Debug.LogWarning("Target object not found!");
+            }
         }
 
-        private void Update()
+        protected void Update()
         {
             OnFly();
         }
 
-        private void OnFly()
+        public virtual void OnFly()
         {
             _timeOnFly += Time.deltaTime;
             if (_timeOnFly >= _lifeTime) SelfDestroy();
-            if (targetObject != null && FollowForSomeTime)
-            {
-                if (_timeOnFly < followDuration)
-                {
-                    Vector3 targetDirection = (targetObject.transform.position - transform.position).normalized;
-                    transform.position += targetDirection * _speed * Time.deltaTime;
-                    lastKnownPosition = targetObject.transform.position;
-                }
-                else
-                {
-                    Vector3 continueDirection = (lastKnownPosition - transform.position).normalized;
-                    transform.position += continueDirection * _speed * Time.deltaTime;
-                }
-            }
-            else if (targetObject != null && !FollowForSomeTime)
-            {
-                lastKnownPosition = targetObject.transform.position;
-                Vector3 continueDirection = (lastKnownPosition - transform.position).normalized;
-                transform.position += continueDirection * _speed * Time.deltaTime;
-            }
-            else
-            {
-               Debug.LogWarning("Target object not found!");
-            }
+            
         }
 
-        private void SelfDestroy()
+        protected void SelfDestroy()
         {
             Debug.Log("Die");
             Destroy(gameObject);
         }
 
-        private void OnCollisionEnter(Collision collision)
+        protected void OnCollisionEnter(Collision collision)
         {
-            Debug.Log("777777777777777777777777777777777777777777777777777777777777");
             player_health damageScript = collision.gameObject.GetComponent<player_health>();
             if (damageScript != null)
             {
@@ -85,7 +70,7 @@ namespace Enemies.Bullets
             
         }
 
-        private void DealDamage(GameObject target)
+        protected void DealDamage(GameObject target)
         {
             //var damageable = target.GetComponent<IHealth>();
            // damageable.TakeDamage(_damage);
