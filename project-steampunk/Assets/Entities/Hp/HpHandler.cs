@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Enemies;
 
 public class HpHandler: MonoBehaviour, IHealth
 {
@@ -23,8 +24,9 @@ public class HpHandler: MonoBehaviour, IHealth
         _currentHp = _maxHp;
     }
 
-    public void TakeDamage(float amount)
+    public void TakeDamage(float amount)//TODO: specify damage maker
     {
+        gameObject.GetComponent<TargetDetector>().GetShot();
         if (!_invulnerable)
         {
             if (amount <= 0)

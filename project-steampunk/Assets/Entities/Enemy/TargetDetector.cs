@@ -11,6 +11,7 @@ namespace Enemies
         private ITarget _target;
         private SphereCollider _collider;
         private controlarrow _controlarrow;
+        private bool _TheyAreShootingMe = false;
 
         private void Awake()
         {
@@ -32,6 +33,7 @@ namespace Enemies
 
         public bool IsTargetAvailable()
         {
+            if (_target == null) Debug.Log("target is null");
             if (_target != null && IsTargetVisible())
                 return true;
             else 
@@ -40,6 +42,11 @@ namespace Enemies
 
         private bool IsTargetVisible()
         {
+            Debug.Log("Cheaking");
+            if (_TheyAreShootingMe)
+            {
+                return true;
+            }
             if (_target != null && SphereCastAll(out RaycastHit hitInfo))
             {                
                 if (hitInfo.collider.gameObject.GetInstanceID() == _target.GetTargetID())
@@ -92,5 +99,12 @@ namespace Enemies
             
             return _target;
         }
+        public void GetShot()
+        {
+            _TheyAreShootingMe = true;
+            //Debug.Log("_TheyAreShootingMe is" + _TheyAreShootingMe);
+        }
+
+        //TODO: forget that i was shot
     }
 }
