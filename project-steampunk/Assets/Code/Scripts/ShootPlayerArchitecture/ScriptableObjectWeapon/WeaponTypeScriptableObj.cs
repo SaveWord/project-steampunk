@@ -14,4 +14,8 @@ public class WeaponTypeScriptableObj : ScriptableObject
     public float patrons;
     public WeaponTypeDamage attackType;
     public LayerMask enemyLayer;
+
+    //Impact in object shoot
+    public ParticleSystem vfxImpactMetalProps;
+    public ParticleSystem vfxImpactOtherProps;
 }

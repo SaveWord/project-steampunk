@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.VFX;
 
 public class HpEnemy : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class HpEnemy : MonoBehaviour
     private float jumpForce;
     private Animator _animator;
     [SerializeField] private Rigidbody rb;
-    [SerializeField] private ParticleSystem deathParticlePrefab;
+    [SerializeField] private GameObject deathParticlePrefab;
 
       private void OnTriggerEnter(Collider other)
       {

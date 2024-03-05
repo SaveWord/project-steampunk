@@ -17,6 +17,7 @@ public class WeaponController : MonoBehaviour
 
     //visual
     private ParticleSystem vfxShootPrefab;
+
     private CinemachineImpulseSource recoilCinemachine;
     private Animator animatorArms;
     private Animator animatorWeapon;
@@ -66,7 +67,8 @@ public class WeaponController : MonoBehaviour
                     weaponParametrs[0].range, weaponParametrs[0].reloadSpeed,
                     weaponParametrs[0].patrons, weaponParametrs[0].attackType,
                     weaponParametrs[0].enemyLayer,
-                    vfxShootPrefab,patronsText, animatorArms, animatorWeapon,recoilCinemachine);
+                    vfxShootPrefab, weaponParametrs[0].vfxImpactMetalProps, weaponParametrs[0].vfxImpactOtherProps,
+                    patronsText, animatorArms, animatorWeapon,recoilCinemachine);
                 break;
             case WeaponType.Shotgun:
 

@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.VFX;
 
-public class HpHandler: MonoBehaviour, IHealth
+public class HpHandler : MonoBehaviour, IHealth
 {
     [SerializeField]
     private float _maxHp = 100f;
@@ -11,6 +12,9 @@ public class HpHandler: MonoBehaviour, IHealth
     private float _currentHp;
     [SerializeField]
     private bool _invulnerable = false;
+
+    //vfxGraphTakeDamage
+    private VisualEffect enemyDamageImpact;
 
     public float CurrentHp { get { return (float)_currentHp; } }
 
@@ -20,6 +24,7 @@ public class HpHandler: MonoBehaviour, IHealth
 
     private void Start()
     {
+        enemyDamageImpact = GetComponentInChildren<VisualEffect>();
         _currentHp = _maxHp;
     }
 
@@ -32,6 +37,7 @@ public class HpHandler: MonoBehaviour, IHealth
 
             _currentHp -= amount;
 
+            if(gameObject.layer == 6) { enemyDamageImpact.Play(); }
             OnHPChanged(CurrentHp);
             OnTakenDamage(amount);
 

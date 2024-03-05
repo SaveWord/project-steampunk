@@ -25,6 +25,8 @@ public class ParametrsUpdateDecorator : MainDecorator
     //effects and ui value
     private CinemachineImpulseSource _recoil;
     private ParticleSystem _vfxShootPrefab;
+    private ParticleSystem _vfxImpactMetalProps;
+    private ParticleSystem _vfxImpactOtherProps;
     private TextMeshProUGUI _patronsText;
     private bool isReload;
     private Animator _animator;
@@ -36,7 +38,8 @@ public class ParametrsUpdateDecorator : MainDecorator
         float updateDamage,
         float updateRange, float updateReload, float updatePatrons,
         IWeapon.WeaponTypeDamage updateWeaponType, LayerMask mask,
-        ParticleSystem vfxShootPrefab, TextMeshProUGUI patronsText,
+        ParticleSystem vfxShootPrefab, ParticleSystem vfxImpactMetalProps, ParticleSystem vfxImpactOtherProps,
+        TextMeshProUGUI patronsText,
         Animator animator, Animator animatorWeapon, CinemachineImpulseSource recoil) : base(weapon)
     {
 
@@ -53,6 +56,8 @@ public class ParametrsUpdateDecorator : MainDecorator
 
         //effect parametrs
         _vfxShootPrefab = vfxShootPrefab;
+        _vfxImpactMetalProps = vfxImpactMetalProps;
+        _vfxImpactOtherProps = vfxImpactOtherProps;
         _patronsText = patronsText;
         _animator = animator;
         _animatorWeapon = animatorWeapon;
@@ -123,6 +128,8 @@ public class ParametrsUpdateDecorator : MainDecorator
                 hit.collider.TryGetComponent(out IHealth damageable);
                 damageable?.TakeDamage(Damage);
 
+
+                ShowVFXImpact(hit);
                 ShowDamage(Damage + "");
             }
             /*if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
@@ -139,7 +146,19 @@ public class ParametrsUpdateDecorator : MainDecorator
             Reload(context);
         }
     }
-
+    private void ShowVFXImpact(RaycastHit hit)
+    {
+        if(hit.collider.gameObject.layer == 25)
+        {
+            Instantiate(_vfxImpactMetalProps, hit.point,
+                Quaternion.FromToRotation(Vector3.forward, hit.normal));
+        }
+        else
+        {
+            Instantiate(_vfxImpactOtherProps, hit.point,
+                Quaternion.FromToRotation(Vector3.forward, hit.normal));
+        }
+    }
     private void ShowDamage(string message)
     {
         var _floatingMessage = (GameObject)Resources.Load("FloatingMessage", typeof(GameObject));
@@ -159,7 +178,7 @@ public class ParametrsUpdateDecorator : MainDecorator
 
     public async override void Reload(InputAction.CallbackContext context)
     {
-        if (context.started && Patrons < maxPatrons)
+        if ((context.started || context.performed) && Patrons < maxPatrons)
         {
             Debug.Log("Activate");
             isReload = true;
