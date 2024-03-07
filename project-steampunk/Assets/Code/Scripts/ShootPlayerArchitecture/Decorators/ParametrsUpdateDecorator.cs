@@ -47,7 +47,7 @@ public class ParametrsUpdateDecorator : MainDecorator
         _updateFireRate = updateFireRate;
 
         _weapon = weapon;
-        _updateDamage = updateDamage[updateDamage.Length - 1].damage;
+        _updateDamage = updateDamage.Last().damage;
         _updateMaxRange = updateDamage.Last().range;
         _updateReload = updateReload;
         _updatePatrons = updatePatrons;
