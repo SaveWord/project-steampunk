@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.UIElements;
+//using UnityEditor.UIElements;
 using UnityEngine;
 
 public class LiftToBossArena : MonoBehaviour
@@ -41,7 +41,6 @@ public class LiftToBossArena : MonoBehaviour
             playerPosition = rb.position;
             playerPosition.y += heightStep;
             rb.position = playerPosition;
-
         }
 
 
