@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 namespace Enemies
 {
@@ -7,11 +8,13 @@ namespace Enemies
         [Header("Basics")]
         [SerializeField] private LayerMask _viewMask;
         [SerializeField] private float _detectionRadius = 20f;
+        [SerializeField] private float _timeToForgets = 5f;
 
         private ITarget _target;
         private SphereCollider _collider;
         private controlarrow _controlarrow;
         private bool _TheyAreShootingMe = false;
+        private IEnumerator _timerCoroutine;
 
         private void Awake()
         {
@@ -19,6 +22,7 @@ namespace Enemies
             _collider.isTrigger = true;
             _collider.radius = _detectionRadius;
             _controlarrow = GetComponent<controlarrow>();
+            _timerCoroutine = Forget();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -42,11 +46,6 @@ namespace Enemies
 
         private bool IsTargetVisible()
         {
-            Debug.Log("Cheaking");
-            if (_TheyAreShootingMe)
-            {
-                return true;
-            }
             if (_target != null && SphereCastAll(out RaycastHit hitInfo))
             {                
                 if (hitInfo.collider.gameObject.GetInstanceID() == _target.GetTargetID())
@@ -102,9 +101,36 @@ namespace Enemies
         public void GetShot()
         {
             _TheyAreShootingMe = true;
-            //Debug.Log("_TheyAreShootingMe is" + _TheyAreShootingMe);
+            StopCoroutine(_timerCoroutine);
+            _timerCoroutine = Forget();
+            StartCoroutine(_timerCoroutine);
         }
 
         //TODO: forget that i was shot
+
+        public bool AmIUnderAttack()
+        {
+            if (_TheyAreShootingMe)
+            {
+                _target = GameObject.FindWithTag("Player").GetComponent<ITarget>();
+                if (_target == null)
+                {
+                    Debug.Log("target is null");
+                    return false;
+                }
+
+                Debug.Log("target have");
+                return true;
+            }
+            else
+                return false;
+        }
+
+        IEnumerator Forget()
+        {
+            yield return new WaitForSeconds(_timeToForgets);
+            _TheyAreShootingMe = false;
+            _target = null;
+        }
     }
 }
