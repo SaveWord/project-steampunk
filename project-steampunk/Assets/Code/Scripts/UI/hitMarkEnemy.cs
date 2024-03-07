@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class hitMarkEnemy : MonoBehaviour
@@ -18,7 +19,7 @@ public class hitMarkEnemy : MonoBehaviour
     void Update()
     {
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
-                out RaycastHit hit,weaponParametrs.range,enemyLayer, QueryTriggerInteraction.Ignore))
+                out RaycastHit hit, weaponParametrs.distanceAndDamages.Last().range,enemyLayer, QueryTriggerInteraction.Ignore))
         {
                 redCross.gameObject.SetActive(true);
                 standardCross.gameObject.SetActive(false);      

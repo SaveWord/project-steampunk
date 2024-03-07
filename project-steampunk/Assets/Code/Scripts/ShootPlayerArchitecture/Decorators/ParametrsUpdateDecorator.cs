@@ -7,36 +7,37 @@ using UnityEngine.InputSystem;
 using static IWeapon;
 using UnityEngine.UI;
 using Cinemachine;
+using UnityEngine.UIElements;
+using System.Linq;
 
 public class ParametrsUpdateDecorator : MainDecorator
 {
-    private IWeapon _weapon;
+    protected IWeapon _weapon;
     //parametrs weapon
-    private float _updateLastShoot;
-    private float _updateFireRate;
-    private float _updateDamage;
-    private float _updateRange;
-    private float _updateReload;
-    private float _updatePatrons;
-    private WeaponTypeDamage _updateWeaponType;
-    private LayerMask _updateEnemyLayer;
+    protected float _updateLastShoot;
+    protected float _updateFireRate;
+    protected float _updateDamage;
+    protected float _updateMaxRange;
+    protected float _updateReload;
+    protected float _updatePatrons;
+    protected WeaponTypeDamage _updateWeaponType;
+    protected LayerMask _updateEnemyLayer;
 
 
     //effects and ui value
-    private CinemachineImpulseSource _recoil;
-    private ParticleSystem _vfxShootPrefab;
-    private ParticleSystem _vfxImpactMetalProps;
-    private ParticleSystem _vfxImpactOtherProps;
-    private TextMeshProUGUI _patronsText;
-    private bool isReload;
-    private Animator _animator;
-    private Animator _animatorWeapon;
+    protected CinemachineImpulseSource _recoil;
+    protected ParticleSystem _vfxShootPrefab;
+    protected ParticleSystem _vfxImpactMetalProps;
+    protected ParticleSystem _vfxImpactOtherProps;
+    protected TextMeshProUGUI _patronsText;
+    protected bool isReload;
+    protected Animator _animator;
+    protected Animator _animatorWeapon;
 
 
     //constructor
     public ParametrsUpdateDecorator(IWeapon weapon, float updateFireRate,
-        float updateDamage,
-        float updateRange, float updateReload, float updatePatrons,
+        DistanceAndDamage[] updateDamage, float updateReload, float updatePatrons,
         IWeapon.WeaponTypeDamage updateWeaponType, LayerMask mask,
         ParticleSystem vfxShootPrefab, ParticleSystem vfxImpactMetalProps, ParticleSystem vfxImpactOtherProps,
         TextMeshProUGUI patronsText,
@@ -46,8 +47,8 @@ public class ParametrsUpdateDecorator : MainDecorator
         _updateFireRate = updateFireRate;
 
         _weapon = weapon;
-        _updateDamage = updateDamage;
-        _updateRange = updateRange;
+        _updateDamage = updateDamage[updateDamage.Length - 1].damage;
+        _updateMaxRange = updateDamage.Last().range;
         _updateReload = updateReload;
         _updatePatrons = updatePatrons;
         _updateWeaponType = updateWeaponType;
@@ -68,12 +69,12 @@ public class ParametrsUpdateDecorator : MainDecorator
     public override float Damage
     {
         get { return _updateDamage; }
-        set { }
+        set { _updateDamage = value; }
     }
 
     public override float Range
     {
-        get { return _updateRange; }
+        get { return _updateMaxRange; }
         set { }
     }
 
@@ -109,15 +110,9 @@ public class ParametrsUpdateDecorator : MainDecorator
         {
             _updateLastShoot = currentTime;
             Patrons--;
+
             //vfx and animation and ui
-            _animator.SetBool("shoot", true);
-            _animatorWeapon.SetBool("shoot", true);
-            _recoil.GenerateImpulse();
-            _vfxShootPrefab.Stop();
-            _vfxShootPrefab.Play();
-            _patronsText.text = Patrons.ToString();
-
-
+            ShowAnimatorAndInternalImpact();
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
                 out RaycastHit hit, Range, enemyLayer, QueryTriggerInteraction.Ignore))
             {
@@ -130,14 +125,7 @@ public class ParametrsUpdateDecorator : MainDecorator
 
 
                 ShowVFXImpact(hit);
-                ShowDamage(Damage + "");
             }
-            /*if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
-               out RaycastHit hitVfx, Range, Physics.AllLayers, QueryTriggerInteraction.Ignore))
-            {
-                var newVfxShoot = Instantiate(_vfxShootPrefab, hitVfx.point, Quaternion.identity);
-            }
-            */
         }
         if (Patrons == 0 && isReload == false)
         {
@@ -145,6 +133,15 @@ public class ParametrsUpdateDecorator : MainDecorator
             _animatorWeapon.SetBool("shoot", false);
             Reload(context);
         }
+    }
+    private void ShowAnimatorAndInternalImpact()
+    {
+        _animator.SetBool("shoot", true);
+        _animatorWeapon.SetBool("shoot", true);
+        _recoil.GenerateImpulse();
+        _vfxShootPrefab.Stop();
+        _vfxShootPrefab.Play();
+        _patronsText.text = Patrons.ToString();
     }
     private void ShowVFXImpact(RaycastHit hit)
     {
@@ -157,22 +154,6 @@ public class ParametrsUpdateDecorator : MainDecorator
         {
             Instantiate(_vfxImpactOtherProps, hit.point,
                 Quaternion.FromToRotation(Vector3.forward, hit.normal));
-        }
-    }
-    private void ShowDamage(string message)
-    {
-        var _floatingMessage = (GameObject)Resources.Load("FloatingMessage", typeof(GameObject));
-        Debug.Log("show damage");
-        if (_floatingMessage)
-        {
-            var notice = Instantiate(_floatingMessage, new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z), UnityEngine.Quaternion.Euler(new Vector3(0, 0, 0)));
-            notice.GetComponent<TextMeshPro>().text = message;
-            notice.transform.parent = GameObject.Find("Main Camera").transform;
-            notice.transform.localRotation = UnityEngine.Quaternion.Euler(new Vector3(0, 0, 0));
-            float randomisedPosition = (Random.Range(0.0f, 0.9f) * 2 - 1) / 3;
-            Debug.Log("pos" + randomisedPosition);
-            notice.transform.localPosition = new Vector3(randomisedPosition, 0, 3);
-
         }
     }
 

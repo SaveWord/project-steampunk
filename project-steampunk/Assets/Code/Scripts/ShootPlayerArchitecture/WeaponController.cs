@@ -1,32 +1,43 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class WeaponController : MonoBehaviour
 {
-    private IWeapon weapon;
-    private ActionPrototypePlayer inputShoot;
-    private bool isPressed;
-    private InputAction.CallbackContext isPressedContext;
-    private TextMeshProUGUI patronsText;
-    [SerializeField] private WeaponTypeScriptableObj[] weaponParametrs;
-    [SerializeField] private WeaponType weaponType;
+    protected IWeapon weapon;
+    protected ActionPrototypePlayer inputShoot;
+    protected bool isPressed;
+    protected InputAction.CallbackContext isPressedContext;
+    protected TextMeshProUGUI patronsText;
+    [SerializeField] protected WeaponTypeScriptableObj weaponParametrs;
 
     //visual
-    private ParticleSystem vfxShootPrefab;
+    protected ParticleSystem vfxShootPrefab;
 
-    private CinemachineImpulseSource recoilCinemachine;
-    private Animator animatorArms;
-    private Animator animatorWeapon;
-    enum WeaponType
+    protected CinemachineImpulseSource recoilCinemachine;
+    protected Animator animatorArms;
+    protected Animator animatorWeapon;
+
+   protected virtual void SubscriptionInput()
     {
-        Revolver,
-        Shotgun
+        inputShoot.Player.Shoot.started += context => Shoot(context);
+        inputShoot.Player.Shoot.performed += context => Shoot(context);
+        inputShoot.Player.Shoot.canceled += context => Shoot(context);
+        inputShoot.Player.Reload.started += context => Reload(context);
     }
-    private void OnEnable()
+    protected virtual void UnSubscribeInput()
+    {
+       
+        inputShoot.Player.Shoot.started -= context => Shoot(context);
+        inputShoot.Player.Shoot.performed -= context => Shoot(context);
+        inputShoot.Player.Shoot.canceled -= context => Shoot(context);
+        inputShoot.Player.Reload.started -= context => Reload(context);
+    }
+    protected void OnEnable()
     {
         recoilCinemachine = transform.root.GetComponentInChildren<CinemachineImpulseSource>();
         vfxShootPrefab = GetComponentInChildren<ParticleSystem>();
@@ -34,49 +45,38 @@ public class WeaponController : MonoBehaviour
         animatorWeapon = GetComponent<Animator>();
         inputShoot = new ActionPrototypePlayer();
         inputShoot.Enable();
-        inputShoot.Player.Shoot.started += context => Shoot(context);
-        inputShoot.Player.Shoot.performed += context => Shoot(context);
-        inputShoot.Player.Shoot.canceled += context => Shoot(context);
-        inputShoot.Player.Reload.started += context => Reload(context);
+        SubscriptionInput();
+        
     }
-    private void OnDisable()
+    protected void OnDisable()
     {
         inputShoot.Disable();
-        inputShoot.Player.Shoot.started -= context => Shoot(context);
-        inputShoot.Player.Shoot.performed -= context => Shoot(context);
-        inputShoot.Player.Shoot.canceled -= context => Shoot(context);
-        inputShoot.Player.Reload.started -= context => Reload(context);
+        UnSubscribeInput();  
     }
-    private void Update()
+    protected void Update()
     {
-        if(isPressed)
+        if (isPressed)
         {
             weapon.Shoot(isPressedContext);
         }
     }
-    private void Start()
+    protected virtual void Start()
     {
         //use parametrs for shoot and weapon
         patronsText = transform.root.GetComponentInChildren<TextMeshProUGUI>();
-        switch (weaponType)
-        {
-            case WeaponType.Revolver:
-                weapon = new ParametrsUpdateDecorator(weapon, 
-                    weaponParametrs[0].fireRate,
-                    weaponParametrs[0].damage,
-                    weaponParametrs[0].range, weaponParametrs[0].reloadSpeed,
-                    weaponParametrs[0].patrons, weaponParametrs[0].attackType,
-                    weaponParametrs[0].enemyLayer,
-                    vfxShootPrefab, weaponParametrs[0].vfxImpactMetalProps, weaponParametrs[0].vfxImpactOtherProps,
-                    patronsText, animatorArms, animatorWeapon,recoilCinemachine);
-                break;
-            case WeaponType.Shotgun:
 
-                break;
-        }
-
+        weapon = new ParametrsUpdateDecorator(weapon,
+            weaponParametrs.fireRate,
+            weaponParametrs.distanceAndDamages
+            , weaponParametrs.reloadSpeed,
+            weaponParametrs.patrons, weaponParametrs.attackType,
+            weaponParametrs.enemyLayer,
+            vfxShootPrefab, weaponParametrs.vfxImpactMetalProps, weaponParametrs.vfxImpactOtherProps,
+            patronsText, animatorArms, animatorWeapon, recoilCinemachine);
     }
-    public void Shoot(InputAction.CallbackContext context)
+
+
+    public virtual void Shoot(InputAction.CallbackContext context)
     {
         //One Shoot
         if (context.started)
@@ -88,7 +88,7 @@ public class WeaponController : MonoBehaviour
             isPressed = true;
         }
         //Cancel action
-        if(context.canceled) 
+        if (context.canceled)
         {
             isPressedContext = context;
             isPressed = false;
@@ -96,19 +96,8 @@ public class WeaponController : MonoBehaviour
             animatorWeapon.SetBool("shoot", false);
         }
     }
-    /*
-    IEnumerator ShootCoroutine(InputAction.CallbackContext context)
-    {
-        while (context.performed)
-        {
-            yield return new WaitForSeconds(0.6f);
-            weapon.Shoot(context);
-            Debug.Log(context);
-        }
-    }
-    */
     //reload func
-    public async void Reload(InputAction.CallbackContext context)
+    public virtual async void Reload(InputAction.CallbackContext context)
     {
         weapon.Reload(context);
     }

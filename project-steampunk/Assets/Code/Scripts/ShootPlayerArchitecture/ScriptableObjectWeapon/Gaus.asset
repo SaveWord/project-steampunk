@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65dc1cc18e0639243bf5d8fcf3fc3c62, type: 3}
+  m_Name: Gaus
+  m_EditorClassIdentifier: 
+  fireRate: 0.6
+  reloadSpeed: 2
+  patrons: 3
+  distanceAndDamages:
+  - damage: 55
+    range: 10
+  - damage: 50
+    range: 20
+  - damage: 45
+    range: 30
+  - damage: 40
+    range: 40
+  - damage: 35
+    range: 50
+  - damage: 30
+    range: 60
+  - damage: 25
+    range: 70
+  - damage: 20
+    range: 80
+  - damage: 15
+    range: 90
+  - damage: 10
+    range: 100
+  attackType: 0
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 33556800
+  vfxImpactMetalProps: {fileID: 3795848090712241470, guid: 62f1e6b8ba8e68c44b5234a5949541fc,
+    type: 3}
+  vfxImpactOtherProps: {fileID: 7258679735602562000, guid: 608cb554bb30cb746956424c326042ca,
+    type: 3}
