@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Revolver
   m_EditorClassIdentifier: 
   fireRate: 0.6
-  damage: 20
-  range: 30
   reloadSpeed: 2.5
   patrons: 6
+  distanceAndDamages:
+  - damage: 20
+    range: 100
   attackType: 0
   enemyLayer:
     serializedVersion: 2

@@ -101,52 +101,56 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
 
                 for (int i = 0; i <= _distanceAndDamage.Length - 1; i++)
                 {
-                    if(rangeBetween <= _distanceAndDamage[i].range)
+                    if (rangeBetween <= _distanceAndDamage[i].range)
                     {
                         Damage = _distanceAndDamage[i].damage;
                         break;
                     }
                 }
+                hit.collider.TryGetComponent(out IShield destroyShield);
+                destroyShield?.ShieldDestroy();
+
 
                 hit.collider.TryGetComponent(out IDamageableProps damageableProps);
-                    damageableProps?.GetDamage(Damage);
+                damageableProps?.GetDamage(Damage);
 
-                    hit.collider.TryGetComponent(out IHealth damageable);
-                    damageable?.TakeDamage(Damage);
+                hit.collider.TryGetComponent(out IHealth damageable);
+                damageable?.TakeDamage(Damage);
 
 
-                    ShowVFXImpact(hit);
-                }
+
+                ShowVFXImpact(hit);
             }
         }
+    }
 
-        private void ShowAnimatorAndInternalImpact()
+    private void ShowAnimatorAndInternalImpact()
+    {
+        _animator.SetBool("shoot", true);
+        _animatorWeapon.SetBool("shoot", true);
+        _recoil.GenerateImpulse();
+        _vfxShootPrefab.Stop();
+        _vfxShootPrefab.Play();
+        _patronsText.text = Patrons.ToString();
+    }
+    private void ShowVFXImpact(RaycastHit hit)
+    {
+        if (hit.collider.gameObject.layer == 25)
         {
-            _animator.SetBool("shoot", true);
-            _animatorWeapon.SetBool("shoot", true);
-            _recoil.GenerateImpulse();
-            _vfxShootPrefab.Stop();
-            _vfxShootPrefab.Play();
-            _patronsText.text = Patrons.ToString();
+            Instantiate(_vfxImpactMetalProps, hit.point,
+                Quaternion.FromToRotation(Vector3.forward, hit.normal));
         }
-        private void ShowVFXImpact(RaycastHit hit)
+        else
         {
-            if (hit.collider.gameObject.layer == 25)
-            {
-                Instantiate(_vfxImpactMetalProps, hit.point,
-                    Quaternion.FromToRotation(Vector3.forward, hit.normal));
-            }
-            else
-            {
-                Instantiate(_vfxImpactOtherProps, hit.point,
-                    Quaternion.FromToRotation(Vector3.forward, hit.normal));
-            }
+            Instantiate(_vfxImpactOtherProps, hit.point,
+                Quaternion.FromToRotation(Vector3.forward, hit.normal));
         }
+    }
 
     public async override void Reload(InputAction.CallbackContext context)
     {
         if (Patrons < maxPatrons)
-        {     
+        {
             Patrons++;
             _patronsText.text = Patrons.ToString();
         }
