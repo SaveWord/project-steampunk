@@ -7,46 +7,70 @@ namespace Enemies.Bullets
         public ITarget Target;
 
         [Header("Basics")]
-        [SerializeField] private float _damage;
-        [SerializeField] private float _lifeTime;
-        [SerializeField] private float _speed;
+        [SerializeField] protected float _damage;
+        [SerializeField] protected float _lifeTime;
+        protected float _speed;
+        //[SerializeField] private bool FollowForSomeTime;
 
-        private Rigidbody _rBody;
-        private float _timeOnFly;
+        protected GameObject targetObject; 
+       
+        protected Vector3 lastKnownPosition;
+        protected Vector3 continueDirection;
+        protected Rigidbody _rBody;
+        protected float _timeOnFly;
 
-        private void Awake()
+        protected void Awake()
         {
+            _timeOnFly = 0;
             _rBody = GetComponent<Rigidbody>();
+            targetObject = GameObject.FindGameObjectWithTag("Player");
+            if (targetObject != null)
+            {
+                _speed = targetObject.GetComponent<PlayerMove>().GetSpeed() * 0.8f;
+                lastKnownPosition = targetObject.transform.position;
+                continueDirection = (lastKnownPosition - transform.position).normalized;
+            }
+            else
+            {
+                Debug.LogWarning("Target object not found!");
+            }
         }
 
-        private void Update()
+        protected void Update()
         {
             OnFly();
         }
 
-        private void OnFly()
+        public virtual void OnFly()
         {
             _timeOnFly += Time.deltaTime;
-            if (_timeOnFly >= _lifeTime)
-                SelfDestroy();
+            if (_timeOnFly >= _lifeTime) SelfDestroy();
+            
         }
 
-        private void SelfDestroy()
+        protected void SelfDestroy()
         {
+            Debug.Log("Die");
             Destroy(gameObject);
         }
 
-        private void OnCollisionEnter(Collision collision)
+        protected void OnCollisionEnter(Collision collision)
         {
-            Debug.Log(collision.gameObject.GetInstanceID());
-            if (collision.gameObject.GetInstanceID() == Target.GetTargetID())
+            player_health damageScript = collision.gameObject.GetComponent<player_health>();
+            if (damageScript != null)
             {
-                DealDamage(collision.gameObject);
+                Debug.Log("hit player");
+                damageScript.TakeDamage(_damage);
+                SelfDestroy();
             }
-            SelfDestroy();
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Ground")|| collision.gameObject.layer == LayerMask.NameToLayer("Props"))
+            {
+                SelfDestroy();
+            }
+            
         }
 
-        private void DealDamage(GameObject target)
+        protected void DealDamage(GameObject target)
         {
             //var damageable = target.GetComponent<IHealth>();
            // damageable.TakeDamage(_damage);

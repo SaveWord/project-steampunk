@@ -14,66 +14,67 @@ public class controlarrow : MonoBehaviour
 
     private void Start()
     {
-        mainCamera = Camera.main;
-        player = GameObject.FindGameObjectWithTag("Player");
-        InstantiateImage();
+        //mainCamera = Camera.main;
+        //player = GameObject.FindGameObjectWithTag("Player");
+        //InstantiateImage();
     }
     private bool IsVisible()
     {
-        Vector3 screenPoint = mainCamera.WorldToViewportPoint(transform.position);
-        return (screenPoint.x >= 0 && screenPoint.x <= 1 && screenPoint.y >= 0 && screenPoint.y <= 1 && screenPoint.z > 0);
+        //Vector3 screenPoint = mainCamera.WorldToViewportPoint(transform.position);
+        //return (screenPoint.x >= 0 && screenPoint.x <= 1 && screenPoint.y >= 0 && screenPoint.y <= 1 && screenPoint.z > 0);
+        return false;
     }
     private void UpdateImagePosition()
     {
-        if (_arrow != null && player != null)
-        {
-            Vector3 directionToTarget = player.transform.position - transform.position;
+        //if (_arrow != null && player != null)
+        //{
+        //    Vector3 directionToTarget = player.transform.position - transform.position;
 
-            float angleToTarget = Vector3.SignedAngle(player.transform.forward, directionToTarget, Vector3.up);
-            Debug.Log(angleToTarget);
-            angleToTarget = angleToTarget + 180f;
+        //    float angleToTarget = Vector3.SignedAngle(player.transform.forward, directionToTarget, Vector3.up);
+        //    Debug.Log(angleToTarget);
+        //    angleToTarget = angleToTarget + 180f;
 
-            _arrow.transform.rotation = Quaternion.Euler(0f, 0f, - angleToTarget);
+        //    _arrow.transform.rotation = Quaternion.Euler(0f, 0f, - angleToTarget);
 
-            float radians = Mathf.Deg2Rad * (angleToTarget);
-            //Debug.Log(radians);
+        //    float radians = Mathf.Deg2Rad * (angleToTarget);
+        //    //Debug.Log(radians);
 
-            float x = Mathf.Sin(radians) * radarRadius;
-            float y = Mathf.Cos(radians) * radarRadius;
+        //    float x = Mathf.Sin(radians) * radarRadius;
+        //    float y = Mathf.Cos(radians) * radarRadius;
 
-            _arrow.transform.localPosition = new Vector3(-x, -y, 0f);
+        //    _arrow.transform.localPosition = new Vector3(-x, -y, 0f);
 
-        }
+        //}
     }
 
     private void InstantiateImage()
     {
-        Vector3 positionOffset = new Vector3(0f, 0f, 0f);
-        _arrow = Instantiate(imageArrow, positionOffset, Quaternion.identity);
-        _arrow.transform.parent = FindObjectsWithTag("arrows").transform;
-        _arrow.transform.localPosition = positionOffset;
+        //Vector3 positionOffset = new Vector3(0f, 0f, 0f);
+        //_arrow = Instantiate(imageArrow, positionOffset, Quaternion.identity);
+        //_arrow.transform.parent = FindObjectsWithTag("arrows").transform;
+        //_arrow.transform.localPosition = positionOffset;
     }
     public void Hide()
     {
-        if (_arrow != null)
-        {
-            _arrow.SetActive(false);
-        }
+        //if (_arrow != null)
+        //{
+        //    _arrow.SetActive(false);
+        //}
     }
     public void Show()
     {
-        if (_arrow != null&&!seen)
-        {
-            _arrow.SetActive(true);
-        }
+        //if (_arrow != null&&!seen)
+        //{
+        //    _arrow.SetActive(true);
+        //}
     }
 
     public void ChangeColorToGray()
     {
-        if (_arrow != null)
-        {
-            _arrow.GetComponent<Image>().color = Color.yellow;
-        }
+        //if (_arrow != null)
+        //{
+        //    _arrow.GetComponent<Image>().color = Color.yellow;
+        //}
     }
 
     public void ChangeColorToRed()

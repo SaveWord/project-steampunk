@@ -2,13 +2,13 @@ using UnityEngine;
 
 namespace Enemies.AntStates
 {
-    public class Attack : IState
+    public class FightBack : IState
     {
         ITargetDetector _targetHolder;
         ITargetAttacker _targetAttacker;
         AntMover _antMover;
 
-        public Attack(ITargetDetector targetHolder, ITargetAttacker targetAttacker, AntMover antMover)
+        public FightBack(ITargetDetector targetHolder, ITargetAttacker targetAttacker, AntMover antMover)
         {
             _targetHolder = targetHolder;
             _targetAttacker = targetAttacker;
@@ -28,7 +28,7 @@ namespace Enemies.AntStates
             {
                 _antMover.Dash();
                 _targetAttacker.Attack(_target);
-                Debug.Log("fight mode");
+                //Debug.Log("fighting back mode");
             }
         }
 
