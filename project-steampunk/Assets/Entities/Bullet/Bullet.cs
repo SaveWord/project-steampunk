@@ -21,13 +21,15 @@ namespace Enemies.Bullets
 
         protected void Awake()
         {
+            Physics.IgnoreLayerCollision(9, 9, true);
+            Physics.IgnoreLayerCollision(6, 9, true);
             _timeOnFly = 0;
             _rBody = GetComponent<Rigidbody>();
             targetObject = GameObject.FindGameObjectWithTag("Player");
             if (targetObject != null)
             {
                 _speed = targetObject.GetComponent<PlayerMove>().GetSpeed() * 0.8f;
-                lastKnownPosition = targetObject.transform.position;
+                lastKnownPosition = targetObject.GetComponent<ITarget>().GetPosition();
                 continueDirection = (lastKnownPosition - transform.position).normalized;
             }
             else
@@ -56,7 +58,7 @@ namespace Enemies.Bullets
 
         protected void OnCollisionEnter(Collision collision)
         {
-            player_health damageScript = collision.gameObject.GetComponent<player_health>();
+            IHealth damageScript = collision.gameObject.GetComponent<IHealth>();
             if (damageScript != null)
             {
                 Debug.Log("hit player");
@@ -65,7 +67,7 @@ namespace Enemies.Bullets
             }
             if (collision.gameObject.layer == LayerMask.NameToLayer("Ground")|| collision.gameObject.layer == LayerMask.NameToLayer("Props"))
             {
-                SelfDestroy();
+               SelfDestroy();
             }
             
         }

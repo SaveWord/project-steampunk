@@ -19,7 +19,7 @@ public class Player : MonoBehaviour, ITarget
 
     public Vector3 GetPosition()
     {
-        return transform.position;
+        return Camera.main.transform.position;
     }
     
     public void HandlePlayerDamage(float damage)

@@ -30,14 +30,16 @@ public class HpHandler : MonoBehaviour, IHealth
 
     public void TakeDamage(float amount)//TODO: specify damage maker
     {
-        gameObject.GetComponent<TargetDetector>().GetShot();
+       
         if (!_invulnerable)
         {
             if (amount <= 0)
                 throw new ArgumentOutOfRangeException("Invalid Damage amount specified: " + amount);
 
             _currentHp -= amount;
-            if (gameObject.layer == 6) { enemyDamageImpact.Play(); }
+            if (gameObject.layer == 6) {
+                gameObject.GetComponent<TargetDetector>().GetShot();
+                enemyDamageImpact.Play(); }
             OnHPChanged(CurrentHp);
             OnTakenDamage(amount);
 

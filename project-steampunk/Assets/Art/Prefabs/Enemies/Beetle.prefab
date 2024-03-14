@@ -262,10 +262,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.2
-  m_Height: 5.8
+  m_Radius: 0.85
+  m_Height: 5
   m_Direction: 2
-  m_Center: {x: 0, y: 1.63, z: -0.46}
+  m_Center: {x: 0, y: 1, z: -0.46}
 --- !u!54 &4421177991535709285
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -361,6 +361,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 576
   _detectionRadius: 30
+  _timeToForgets: 5
 --- !u!114 &5814971670290550352
 MonoBehaviour:
   m_ObjectHideFlags: 0

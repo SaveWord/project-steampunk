@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
 using UnityEngine.VFX;
+using Unity.VisualScripting;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -89,6 +90,7 @@ public class PlayerMove : MonoBehaviour
 
     private void Awake()
     {
+        
         Physics.gravity = new Vector3(0, -8.61f, 0); //change gravity
         capsuleColliders = GetComponents<CapsuleCollider>();//change collider in slide
         Cursor.lockState = CursorLockMode.Locked;
@@ -111,6 +113,7 @@ public class PlayerMove : MonoBehaviour
     }
     private void Update()
     {
+        OnDrawGizmosSelected();
         IsGrounded();
 
 
@@ -228,6 +231,8 @@ public class PlayerMove : MonoBehaviour
 
         animatorPlayer.SetBool("slide", false);
     }
+      */
+
     public void Jump(InputAction.CallbackContext context)
     {
         Debug.Log(doubleJump);
@@ -250,7 +255,7 @@ public class PlayerMove : MonoBehaviour
             animatorPlayer.SetBool("jump", false);
         }
     }
-    */
+  
 
     IEnumerator JumpCoroutineUpSpeed()
     {
@@ -262,8 +267,15 @@ public class PlayerMove : MonoBehaviour
     {
         float sphereRadius = 1f;
         isGrounded = Physics.CheckSphere(dotGround.position, sphereRadius, groundLayer);
+        
         if (isGrounded == true) { doubleJump = 1; }
         return isGrounded;
+    }
+    void OnDrawGizmosSelected()
+    {
+        
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(dotGround.position, 1f);
     }
     //hookShot
     /*
