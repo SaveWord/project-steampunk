@@ -7,12 +7,13 @@ using UnityEngine.InputSystem;
 using static IWeapon;
 using UnityEngine.UI;
 using Cinemachine;
-using UnityEngine.UIElements;
 using System.Linq;
 
 public class ParametrsUpdateDecorator : MainDecorator
 {
     protected IWeapon _weapon;
+    protected float changeRadius = 0.1f;//radius sphere cast, change, aim assist logic
+    protected DistanceAndDamage[] _distanceAndDamage;
     //parametrs weapon
     protected float _updateLastShoot;
     protected float _updateFireRate;
@@ -45,6 +46,8 @@ public class ParametrsUpdateDecorator : MainDecorator
     {
 
         _updateFireRate = updateFireRate;
+
+        _distanceAndDamage = updateDamage;
 
         _weapon = weapon;
         _updateDamage = updateDamage.Last().damage;
@@ -113,7 +116,23 @@ public class ParametrsUpdateDecorator : MainDecorator
 
             //vfx and animation and ui
             ShowAnimatorAndInternalImpact();
-            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
+
+            //aim assist, change radius sphere cast from distance
+
+            if (Physics.SphereCast(Camera.main.transform.position, 2f, Camera.main.transform.forward,
+                out RaycastHit hit1, Range, enemyLayer, QueryTriggerInteraction.Ignore))
+            {
+                for (int i = 0; i <= _distanceAndDamage.Length - 1; i++)
+                {
+                    if (_distanceAndDamage[i].range > hit1.distance)
+                    {
+                        changeRadius = _distanceAndDamage[i].radiusRay;
+                        break;
+                    }
+                }
+            }
+
+            if (Physics.SphereCast(Camera.main.transform.position,changeRadius ,Camera.main.transform.forward,
                 out RaycastHit hit, Range, enemyLayer, QueryTriggerInteraction.Ignore))
             {
 

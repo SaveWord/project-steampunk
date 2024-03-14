@@ -17,7 +17,17 @@ MonoBehaviour:
   patrons: 6
   distanceAndDamages:
   - damage: 20
+    range: 20
+    radiusRay: 0.1
+  - damage: 20
+    range: 50
+    radiusRay: 0.5
+  - damage: 20
+    range: 90
+    radiusRay: 1.5
+  - damage: 20
     range: 100
+    radiusRay: 2
   attackType: 0
   enemyLayer:
     serializedVersion: 2

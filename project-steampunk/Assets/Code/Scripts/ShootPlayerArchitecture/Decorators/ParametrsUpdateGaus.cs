@@ -10,7 +10,7 @@ using static IWeapon;
 public class ParametrsUpdateGaus : ParametrsUpdateDecorator
 {
     private Transform _distanceTarget;
-    private DistanceAndDamage[] _distanceAndDamage;
+
     public ParametrsUpdateGaus(Transform distanceTarget, IWeapon weapon, float updateFireRate,
          DistanceAndDamage[] distanceAndDamage
          , float updateReload, float updatePatrons,
@@ -94,7 +94,24 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
 
             //vfx and animation and ui
             ShowAnimatorAndInternalImpact();
-            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
+
+            //aim assist, change radius sphere cast from distance
+
+            if (Physics.SphereCast(Camera.main.transform.position, 2f, Camera.main.transform.forward,
+                out RaycastHit hit1, Range, enemyLayer, QueryTriggerInteraction.Ignore))
+            {
+                for (int i = 0; i <= _distanceAndDamage.Length - 1; i++)
+                {
+                    if (_distanceAndDamage[i].range > hit1.distance)
+                    {
+                        changeRadius = _distanceAndDamage[i].radiusRay;
+                        break;
+                    }
+                }
+            }
+
+            //shoot logic
+            if (Physics.SphereCast(Camera.main.transform.position,changeRadius ,Camera.main.transform.forward,
                 out RaycastHit hit, Range, enemyLayer, QueryTriggerInteraction.Ignore))
             {
                 float rangeBetween = Vector3.Distance(hit.point, _distanceTarget.position);

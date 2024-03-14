@@ -26,4 +26,5 @@ public class DistanceAndDamage
 {
     public float damage;
     public float range;
+    public float radiusRay;
 }

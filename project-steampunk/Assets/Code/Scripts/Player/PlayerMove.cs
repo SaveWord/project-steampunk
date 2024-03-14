@@ -184,6 +184,7 @@ public class PlayerMove : MonoBehaviour
     }
 
     //подкат
+    /*
     public void Tackle(InputAction.CallbackContext context)
     {
         if (inputActions.Player.Move.ReadValue<Vector2>().y > 0)
@@ -191,6 +192,7 @@ public class PlayerMove : MonoBehaviour
             StartCoroutine(TackleCoroutine(context));
         }
     }
+
     IEnumerator TackleCoroutine(InputAction.CallbackContext contextCoroutine)
     {
         float oldSpeed;
@@ -243,6 +245,8 @@ public class PlayerMove : MonoBehaviour
             animatorPlayer.SetBool("jump", false);
         }
     }
+    */
+
     IEnumerator JumpCoroutineUpSpeed()
     {
         speed = speed * 1.3f;
