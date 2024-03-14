@@ -7555,6 +7555,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 776517085692961642, guid: 273fe0dcf3aad42409f9a9ee4c04f2ef,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 846186669497442288, guid: 273fe0dcf3aad42409f9a9ee4c04f2ef,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7608,17 +7613,67 @@ PrefabInstance:
     - target: {fileID: 2047584711058086990, guid: 273fe0dcf3aad42409f9a9ee4c04f2ef,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2603638811216751671, guid: 273fe0dcf3aad42409f9a9ee4c04f2ef,
         type: 3}
       propertyPath: _detectionRadius
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 4421177991535709285, guid: 273fe0dcf3aad42409f9a9ee4c04f2ef,
+        type: 3}
+      propertyPath: m_Mass
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4421177991535709285, guid: 273fe0dcf3aad42409f9a9ee4c04f2ef,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5814971670290550352, guid: 273fe0dcf3aad42409f9a9ee4c04f2ef,
+        type: 3}
+      propertyPath: _rBody
+      value: 
+      objectReference: {fileID: 1577207116}
+    - target: {fileID: 5814971670290550352, guid: 273fe0dcf3aad42409f9a9ee4c04f2ef,
+        type: 3}
+      propertyPath: dashForce
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 5814971670290550352, guid: 273fe0dcf3aad42409f9a9ee4c04f2ef,
+        type: 3}
+      propertyPath: ReverceDash
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5814971670290550352, guid: 273fe0dcf3aad42409f9a9ee4c04f2ef,
+        type: 3}
+      propertyPath: dashCooldown
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5814971670290550352, guid: 273fe0dcf3aad42409f9a9ee4c04f2ef,
+        type: 3}
+      propertyPath: dashDuration
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5814971670290550352, guid: 273fe0dcf3aad42409f9a9ee4c04f2ef,
+        type: 3}
+      propertyPath: navMeshAgent
+      value: 
+      objectReference: {fileID: 1577207115}
     - target: {fileID: 7797188128257077587, guid: 273fe0dcf3aad42409f9a9ee4c04f2ef,
         type: 3}
       propertyPath: m_Name
       value: Beetle
+      objectReference: {fileID: 0}
+    - target: {fileID: 8096222637621829909, guid: 273fe0dcf3aad42409f9a9ee4c04f2ef,
+        type: 3}
+      propertyPath: m_AutoBraking
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8788620654445131766, guid: 273fe0dcf3aad42409f9a9ee4c04f2ef,
+        type: 3}
+      propertyPath: _invulnerable
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -22612,6 +22667,18 @@ RectTransform:
   m_AnchoredPosition: {x: 2.2000122, y: 0}
   m_SizeDelta: {x: -5.6000094, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!195 &1577207115 stripped
+NavMeshAgent:
+  m_CorrespondingSourceObject: {fileID: 8096222637621829909, guid: 273fe0dcf3aad42409f9a9ee4c04f2ef,
+    type: 3}
+  m_PrefabInstance: {fileID: 1201810176}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &1577207116 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 4421177991535709285, guid: 273fe0dcf3aad42409f9a9ee4c04f2ef,
+    type: 3}
+  m_PrefabInstance: {fileID: 1201810176}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1660897883
 GameObject:
   m_ObjectHideFlags: 0

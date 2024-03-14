@@ -1,6 +1,7 @@
 using Enemies.AntMoves;
 using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -13,15 +14,29 @@ namespace Enemies
         [SerializeField] private Dash _dash;
 
         private NavMeshAgent _nMeshAgent;
+        ///[SerializeField] 
         private Rigidbody _rBody;
         private controlarrow _controlarrow;
         private Animator _animator;
 
-        public void MoveToTarget(ITarget target)
+
+        public float dashForce = 100f;
+        public float dashDuration = 2f;
+        public float dashCooldown = 1f;
+        private bool canDash = true;
+
+        private float distance;
+        private Vector3 targetPosition;
+        [SerializeField] private NavMeshAgent navMeshAgent;
+        [SerializeField] private bool ReverceDash;
+
+       public void MoveToTarget(ITarget target)
         {
             if (_nMeshAgent.enabled)
             {
                 _nMeshAgent.SetDestination(target.GetPosition());
+
+                
 
                 _animator.SetBool("isRunning", true);
 
@@ -37,12 +52,103 @@ namespace Enemies
 
         }
 
-        public void Dash()
+        public void Dash(ITarget target)
         {
-            if (_dash.IsDashCharged)
-                _dash.MakeDash(ToggleControlToRBody);
-        }
+            distance = Vector3.Distance(transform.position, target.GetPosition());//
+            targetPosition = target.GetPosition();
+            //Debug.Log("Distan: "+distance+ " " +canDash);
+            if (distance < 15f)
+            {
+                Debug.Log("distance < 15f");
+            }
+            else
+            {
+                Debug.Log("Too far");
 
+            }
+
+            if (!ReverceDash && distance>15f&& canDash)
+            {
+                //float height = transform.position.y;
+                Debug.Log("Ïù ÂÔÛÐÐÐÐÐÐÐÐ");
+
+
+                canDash = false;
+                ToggleControlToRBody();
+                Vector3 dashDirection = (targetPosition - transform.position).normalized;
+                //if (ReverceDash) dashDirection = -dashDirection;
+                dashDirection.y = 0;
+
+                
+                _rBody.AddForce(Vector3.up * dashForce, ForceMode.Impulse);
+                _rBody.AddForce(dashDirection * dashForce, ForceMode.Impulse);
+                //Debug.Log("dashDirection " + dashDirection + "hjgfjcghvjhkjhlkjhjghgjfhjfhjfhjfh");
+
+                
+
+                StartCoroutine(GoDash(dashDuration));
+            }
+            if (ReverceDash && canDash)
+            {
+                //Debug.Log("Ïù ÂÔÛÐÐÐÐÐÐÐÐ");
+
+                if(distance < 15f)
+                {
+                    canDash = false;
+                    ToggleControlToRBody();
+                    Vector3 dashDirection = (targetPosition - transform.position).normalized;
+                    dashDirection.y = 0;
+                    //if (ReverceDash) dashDirection = -dashDirection;
+
+                    _rBody.AddForce(Vector3.up * dashForce, ForceMode.Impulse);
+                    _rBody.AddForce(dashDirection * dashForce, ForceMode.Impulse);
+                    //Debug.Log("dashDirection " + dashDirection + "hjgfjcghvjhkjhlkjhjghgjfhjfhjfhjfh");
+                }
+
+
+                
+
+
+
+
+
+                StartCoroutine(GoDash(dashDuration/2));
+            }
+            //navMeshAgent.enabled = false;
+
+
+            //_rBody.AddForce(Vector3.up * dashForce, ForceMode.Impulse);
+
+
+
+            //if (_dash.IsDashCharged)
+            //    _dash.MakeDash(ToggleControlToRBody);
+        }
+        IEnumerator GoDash(float time)
+        {
+            Debug.Log("CORUTINE STARTED");
+            //canDash = false;
+            //ToggleControlToRBody();
+            //Vector3 dashDirection = (targetPosition - transform.position).normalized;
+            //if (ReverceDash) dashDirection = -dashDirection;
+
+            //_rBody.AddForce(Vector3.up * dashForce, ForceMode.Impulse);
+            //_rBody.AddForce(dashDirection * dashForce, ForceMode.Impulse);
+            //Debug.Log("dashDirection " + dashDirection+"hjgfjcghvjhkjhlkjhjghgjfhjfhjfhjfh");
+
+            yield return new WaitForSeconds(time);
+            
+            Debug.Log("iughhhj;oljkhgjhvjjkhlkj");
+            if (_rBody == null)
+            {
+                Debug.Log("NULLLL");
+            }
+            ToggleControlToNavMesh();
+            yield return new WaitForSeconds(dashCooldown);
+            Debug.Log("now can");
+            canDash = true;
+            
+        }
         private void ToggleControlToRBody()
         {
             _rBody.isKinematic = false;

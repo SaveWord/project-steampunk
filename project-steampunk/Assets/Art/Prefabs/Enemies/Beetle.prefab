@@ -360,6 +360,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 576
   _detectionRadius: 30
+  _timeToForgets: 5
 --- !u!114 &5814971670290550352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -378,6 +379,11 @@ MonoBehaviour:
     _dashMaxCooldown: 6
     _dashForce: 1
     _dashHeight: 0.063
+  dashForce: 60
+  dashDuration: 3
+  dashCooldown: 1
+  navMeshAgent: {fileID: 0}
+  ReverceDash: 0
 --- !u!114 &8788620654445131766
 MonoBehaviour:
   m_ObjectHideFlags: 0

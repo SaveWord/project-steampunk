@@ -26,7 +26,7 @@ public class player_health : health_abstract
         {
             mineHP -= other.gameObject.GetComponent<damage_interface>().getDamage();
             UpdateHealth();
-            //Debug.Log(mineHP);
+            Debug.Log(mineHP);
         }
 
     }

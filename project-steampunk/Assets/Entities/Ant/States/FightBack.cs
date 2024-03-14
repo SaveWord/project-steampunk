@@ -26,7 +26,7 @@ namespace Enemies.AntStates
 
             if (_target != null)
             {
-                _antMover.Dash();
+                _antMover.Dash(_target);
                 _targetAttacker.Attack(_target);
                 //Debug.Log("fighting back mode");
             }
