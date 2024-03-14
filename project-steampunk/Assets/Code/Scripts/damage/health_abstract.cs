@@ -11,7 +11,7 @@ public abstract class health_abstract: MonoBehaviour
 
     protected void UpdateHealth()
     {
-        healthSlider.value = mineHP;
+        healthSlider.value = mineHP/100;
         if (mineHP <= 0)
         {
             Die();

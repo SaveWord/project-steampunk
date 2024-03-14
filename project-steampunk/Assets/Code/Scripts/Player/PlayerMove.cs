@@ -105,6 +105,10 @@ public class PlayerMove : MonoBehaviour
 
 
     }
+    public float GetSpeed()
+    {
+        return speed;
+    }
     private void Update()
     {
         IsGrounded();
@@ -118,6 +122,7 @@ public class PlayerMove : MonoBehaviour
         rb.velocity += Vector3.up * Physics.gravity.y * verticalDamping;
         Move(inputMove);
         Rotation(inputLook);
+
         Debug.Log(inputMove);
         if ((inputMove.y < 0 || inputMove.x != 0) && tackleActive == true)
         {

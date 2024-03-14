@@ -28,6 +28,7 @@ namespace Enemies.AntStates
             {
                 _antMover.Dash();
                 _targetAttacker.Attack(_target);
+                Debug.Log("fight mode");
             }
         }
 

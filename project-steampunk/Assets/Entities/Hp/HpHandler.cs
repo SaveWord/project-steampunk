@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Enemies;
 using UnityEngine.VFX;
 
 public class HpHandler : MonoBehaviour, IHealth
@@ -12,7 +13,6 @@ public class HpHandler : MonoBehaviour, IHealth
     private float _currentHp;
     [SerializeField]
     private bool _invulnerable = false;
-
     //vfxGraphTakeDamage
     private VisualEffect enemyDamageImpact;
 
@@ -28,16 +28,16 @@ public class HpHandler : MonoBehaviour, IHealth
         _currentHp = _maxHp;
     }
 
-    public void TakeDamage(float amount)
+    public void TakeDamage(float amount)//TODO: specify damage maker
     {
+        gameObject.GetComponent<TargetDetector>().GetShot();
         if (!_invulnerable)
         {
             if (amount <= 0)
                 throw new ArgumentOutOfRangeException("Invalid Damage amount specified: " + amount);
 
             _currentHp -= amount;
-
-            if(gameObject.layer == 6) { enemyDamageImpact.Play(); }
+            if (gameObject.layer == 6) { enemyDamageImpact.Play(); }
             OnHPChanged(CurrentHp);
             OnTakenDamage(amount);
 
