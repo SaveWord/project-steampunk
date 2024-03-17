@@ -1,0 +1,102 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7865605808511973232
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9216014200678551931}
+  - component: {fileID: 5785332119524234771}
+  m_Layer: 0
+  m_Name: HoneycombShot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9216014200678551931
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7865605808511973232}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.5, y: 0.5, z: 0.5, w: 0.5}
+  m_LocalPosition: {x: 2.7766018, y: 6.831174, z: -0.74946105}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 90}
+--- !u!114 &5785332119524234771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7865605808511973232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0709ddf791f9a5a4398a74fe5e245a66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m: 1
+  _shotQueue:
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 2}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 888641386058455615, guid: 2b8b1f7e2207efd43aafd228a1b07e3f, type: 3}
+  - _key:
+      SpotPoint: {x: 1.1, y: 0, z: 1.6}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 888641386058455615, guid: 2b8b1f7e2207efd43aafd228a1b07e3f, type: 3}
+  - _key:
+      SpotPoint: {x: 1.9, y: 0, z: 0.6}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 888641386058455615, guid: 2b8b1f7e2207efd43aafd228a1b07e3f, type: 3}
+  - _key:
+      SpotPoint: {x: 1.9, y: 0, z: -0.6}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 888641386058455615, guid: 2b8b1f7e2207efd43aafd228a1b07e3f, type: 3}
+  - _key:
+      SpotPoint: {x: 1.1, y: 0, z: -1.6}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 888641386058455615, guid: 2b8b1f7e2207efd43aafd228a1b07e3f, type: 3}
+  - _key:
+      SpotPoint: {x: -1.7, y: 0, z: -2}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 888641386058455615, guid: 2b8b1f7e2207efd43aafd228a1b07e3f, type: 3}
+  - _key:
+      SpotPoint: {x: -1.9, y: 0, z: -0.6}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 888641386058455615, guid: 2b8b1f7e2207efd43aafd228a1b07e3f, type: 3}
+  - _key:
+      SpotPoint: {x: -1.9, y: 0, z: 0.6}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 888641386058455615, guid: 2b8b1f7e2207efd43aafd228a1b07e3f, type: 3}
+  - _key:
+      SpotPoint: {x: -1.1, y: 0, z: 1.6}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 888641386058455615, guid: 2b8b1f7e2207efd43aafd228a1b07e3f, type: 3}

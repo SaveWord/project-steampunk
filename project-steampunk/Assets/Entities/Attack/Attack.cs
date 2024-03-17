@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 namespace Enemies.Attacks.Attacks
 {
-    public abstract class Attack : MonoBehaviour
+    public interface IAttack
     {
-        public abstract void Activate(ITarget target, Vector3 commonSpot);        
+        public void Activate(ITarget target, Transform attackSpot);
     }
 }

@@ -17,7 +17,7 @@ namespace Enemies.Bullets
         protected Vector3 lastKnownPosition;
         protected Vector3 continueDirection;
         protected Rigidbody _rBody;
-        protected float _timeOnFly;
+        protected float _timeOnFly = 4f;
 
         protected void Awake()
         {

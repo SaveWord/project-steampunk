@@ -113,7 +113,7 @@ public class PlayerMove : MonoBehaviour
     }
     private void Update()
     {
-        OnDrawGizmosSelected();
+       // OnDrawGizmosSelected();
         IsGrounded();
 
 

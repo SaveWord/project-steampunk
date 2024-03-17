@@ -13,6 +13,7 @@ namespace Enemies.Attacks.Attacks
 
         public void Activate(ITarget target, Transform attackSpot)
         {
+            Activated = true;
             StartCoroutine(MakeShots(target, attackSpot));
         }
 
@@ -36,6 +37,7 @@ namespace Enemies.Attacks.Attacks
                 yield return new WaitForSeconds(shot.Key.ShotDelay);
                 MakeShot(target, shot.Value, shot.Key, attackSpot);
             }
+            Activated = false;
         }
     }
 }
