@@ -109,7 +109,8 @@ public class ParametrsUpdateDecorator : MainDecorator
         float currentTime = Time.time;
         float timeDifference = currentTime - _updateLastShoot;
 
-        if ((context.started || context.performed) && Patrons > 0 && timeDifference >= _updateFireRate)
+        if (((context.started || context.performed) && Patrons > 0 && timeDifference >= _updateFireRate) 
+            && isReload == false)
         {
             _updateLastShoot = currentTime;
             Patrons--;
@@ -153,7 +154,7 @@ public class ParametrsUpdateDecorator : MainDecorator
             Reload(context);
         }
     }
-    private void ShowAnimatorAndInternalImpact()
+    protected virtual void ShowAnimatorAndInternalImpact()
     {
         _animator.SetBool("shoot", true);
         _animatorWeapon.SetBool("shoot", true);
@@ -162,7 +163,7 @@ public class ParametrsUpdateDecorator : MainDecorator
         _vfxShootPrefab.Play();
         _patronsText.text = Patrons.ToString();
     }
-    private void ShowVFXImpact(RaycastHit hit)
+    protected void ShowVFXImpact(RaycastHit hit)
     {
         if(hit.collider.gameObject.layer == 25)
         {

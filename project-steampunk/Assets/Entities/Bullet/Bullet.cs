@@ -56,7 +56,7 @@ namespace Enemies.Bullets
             Destroy(gameObject);
         }
 
-        protected void OnCollisionEnter(Collision collision)
+        protected void OnTriggerEnter(Collider collision)
         {
             IHealth damageScript = collision.gameObject.GetComponent<IHealth>();
             if (damageScript != null)

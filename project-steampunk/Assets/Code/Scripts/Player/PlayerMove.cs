@@ -18,7 +18,6 @@ public class PlayerMove : MonoBehaviour
 
     [Header("Cinemachine Virtual Cameras")]
     [SerializeField] private CinemachineVirtualCamera cam;
-    [SerializeField] private CinemachineVirtualCamera camTackle;
     private Animator animatorCinemachineVirtualCam;// анимация поворота головы при движении на A D
     private CinemachineBasicMultiChannelPerlin camNoise;//шум для иммитация бега вперед, покачивание камеры
 
@@ -54,9 +53,11 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float dashTimeLimit;//время рывка
     [SerializeField] private float dashCooldown;//время перезарядки рывка
     private float dashTimer;
+    private float oldSpeed;
 
 
     //tackle data
+    /*
     [Header("Переменные подката")]
     [SerializeField] private float tackleSpeed;//скорость подката
     [SerializeField] private float tackleSpeedSubtraction; // уменьшение скорости при долгом зажатии подката
@@ -64,7 +65,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float colliderHeight;//высота коллайдера во время подката
     private CapsuleCollider[] capsuleColliders;
     private bool tackleActive;
-    private float oldSpeed;
+    */
 
     private int doubleJump;
 
@@ -79,20 +80,15 @@ public class PlayerMove : MonoBehaviour
     private bool wallLeft;
     */
 
-    //kick
-    [Header("Переменные пинка")]
-    [SerializeField] private float maxDistanceKick;
-    [SerializeField] private float kickForce;
-    [SerializeField] private LayerMask enemyLayer;
 
     //vfx effects move
     private VisualEffect effectDash;
 
     private void Awake()
     {
-        
+
         Physics.gravity = new Vector3(0, -8.61f, 0); //change gravity
-        capsuleColliders = GetComponents<CapsuleCollider>();//change collider in slide
+        //capsuleColliders = GetComponents<CapsuleCollider>();//change collider in slide
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         rb = GetComponent<Rigidbody>();
@@ -103,7 +99,7 @@ public class PlayerMove : MonoBehaviour
         //camera and vfx effects move getcomponents
         effectDash = GetComponentInChildren<VisualEffect>();
         camNoise = cam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-        animatorCinemachineVirtualCam = GameObject.Find("VirtualCameres").GetComponent<Animator>();
+        animatorCinemachineVirtualCam = GameObject.Find("VirtualCameraAnimator").GetComponent<Animator>();
 
 
     }
@@ -113,10 +109,7 @@ public class PlayerMove : MonoBehaviour
     }
     private void Update()
     {
-        OnDrawGizmosSelected();
         IsGrounded();
-
-
     }
     private void FixedUpdate()
     {
@@ -127,11 +120,11 @@ public class PlayerMove : MonoBehaviour
         Rotation(inputLook);
 
         Debug.Log(inputMove);
-        if ((inputMove.y < 0 || inputMove.x != 0) && tackleActive == true)
-        {
-            rb.velocity = new Vector3((inputMove.y < 0) ?
-            -rb.velocity.x : rb.velocity.x, rb.velocity.y, 0);
-        }
+        //if ((inputMove.y < 0 || inputMove.x != 0) && tackleActive == true)
+        //{
+        //    rb.velocity = new Vector3((inputMove.y < 0) ?
+        //    -rb.velocity.x : rb.velocity.x, rb.velocity.y, 0);
+        //}
         EffectsMove(inputMove);
     }
     //effects move
@@ -151,11 +144,7 @@ public class PlayerMove : MonoBehaviour
         xRotation -= yLook;
         xRotation = Mathf.Clamp(xRotation, -55.5f, 55.5f);
 
-
-        if (tackleActive)
-            camTackle.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        else
-            cam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        cam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         transform.Rotate(Vector3.up * xLook);
     }
     private void Move(Vector2 inputMove)
@@ -236,8 +225,8 @@ public class PlayerMove : MonoBehaviour
     public void Jump(InputAction.CallbackContext context)
     {
         Debug.Log(doubleJump);
-        if (context.phase == InputActionPhase.Started && IsGrounded() == true
-            && tackleActive == false)
+        if (context.phase == InputActionPhase.Started && IsGrounded() == true)
+            //&& tackleActive == false)
         {
             animatorPlayer.SetBool("jump", true);
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
@@ -255,7 +244,7 @@ public class PlayerMove : MonoBehaviour
             animatorPlayer.SetBool("jump", false);
         }
     }
-  
+
 
     IEnumerator JumpCoroutineUpSpeed()
     {
@@ -267,15 +256,9 @@ public class PlayerMove : MonoBehaviour
     {
         float sphereRadius = 1f;
         isGrounded = Physics.CheckSphere(dotGround.position, sphereRadius, groundLayer);
-        
+
         if (isGrounded == true) { doubleJump = 1; }
         return isGrounded;
-    }
-    void OnDrawGizmosSelected()
-    {
-        
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(dotGround.position, 1f);
     }
     //hookShot
     /*
@@ -348,20 +331,5 @@ public class PlayerMove : MonoBehaviour
 
      }
     */
-
-    //hit leg (kick)
-    public void Kick(InputAction.CallbackContext context)
-    {
-        if (context.phase == InputActionPhase.Started)
-        {
-            if (Physics.Raycast(cam.transform.position, cam.transform.forward,
-                out RaycastHit hit, maxDistanceKick, enemyLayer))
-            {
-                hit.collider.GetComponent<Rigidbody>().
-                    AddForce(((hit.collider.transform.position - transform.position).normalized)
-                    * kickForce, ForceMode.Impulse);
-            }
-        }
-    }
 
 }

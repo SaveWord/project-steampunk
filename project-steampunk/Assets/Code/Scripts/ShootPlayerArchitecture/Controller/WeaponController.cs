@@ -53,7 +53,7 @@ public class WeaponController : MonoBehaviour
         inputShoot.Disable();
         UnSubscribeInput();  
     }
-    protected void Update()
+    protected virtual void Update()
     {
         if (isPressed)
         {

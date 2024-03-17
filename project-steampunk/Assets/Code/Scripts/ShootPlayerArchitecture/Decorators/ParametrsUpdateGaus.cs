@@ -140,30 +140,6 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
             }
         }
     }
-
-    private void ShowAnimatorAndInternalImpact()
-    {
-        _animator.SetBool("shoot", true);
-        _animatorWeapon.SetBool("shoot", true);
-        _recoil.GenerateImpulse();
-        _vfxShootPrefab.Stop();
-        _vfxShootPrefab.Play();
-        _patronsText.text = Patrons.ToString();
-    }
-    private void ShowVFXImpact(RaycastHit hit)
-    {
-        if (hit.collider.gameObject.layer == 25)
-        {
-            Instantiate(_vfxImpactMetalProps, hit.point,
-                Quaternion.FromToRotation(Vector3.forward, hit.normal));
-        }
-        else
-        {
-            Instantiate(_vfxImpactOtherProps, hit.point,
-                Quaternion.FromToRotation(Vector3.forward, hit.normal));
-        }
-    }
-
     public async override void Reload(InputAction.CallbackContext context)
     {
         if (Patrons < maxPatrons)
