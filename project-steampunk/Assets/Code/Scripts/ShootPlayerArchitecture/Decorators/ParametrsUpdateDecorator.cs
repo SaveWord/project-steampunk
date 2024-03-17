@@ -179,7 +179,7 @@ public class ParametrsUpdateDecorator : MainDecorator
 
     public async override void Reload(InputAction.CallbackContext context)
     {
-        if ((context.started || context.performed) && Patrons < maxPatrons)
+        if ((context.started || context.performed) && Patrons < maxPatrons && isReload != true)
         {
             Debug.Log("Activate");
             isReload = true;
