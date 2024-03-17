@@ -25,6 +25,7 @@ public class PlayerMove : MonoBehaviour
     [Header("Переменные детекта ground")]
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Transform dotGround;
+    [SerializeField] private float sphereRadius;
     [SerializeField] private float verticalDamping = 0.5f;
 
 
@@ -254,7 +255,6 @@ public class PlayerMove : MonoBehaviour
     }
     private bool IsGrounded()
     {
-        float sphereRadius = 1f;
         isGrounded = Physics.CheckSphere(dotGround.position, sphereRadius, groundLayer);
 
         if (isGrounded == true) { doubleJump = 1; }
