@@ -20,6 +20,7 @@ public class HpHandler : MonoBehaviour, IHealth
 
     public event Action<float> OnHPChanged = delegate { };
     public event Action<float> OnTakenDamage = delegate { };
+    public event Action<float> OnHealedDamage = delegate { };
     public event Action OnDied = delegate { };
 
     private void Start()
@@ -57,8 +58,9 @@ public class HpHandler : MonoBehaviour, IHealth
             _currentHp = _maxHp;
         else
             _currentHp += amount;
-
+        Debug.Log("Healed "+amount);
         OnHPChanged(CurrentHp);
+        OnHealedDamage(amount);
     }
 
     private void Die()

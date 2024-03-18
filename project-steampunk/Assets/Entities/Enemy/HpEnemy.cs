@@ -14,8 +14,9 @@ public class HpEnemy : MonoBehaviour
     private Animator _animator;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private GameObject deathParticlePrefab;
+    [SerializeField] private GameObject healDropPrefab;
 
-      private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
       {
           if (other.CompareTag("bullet")||other.CompareTag("killzone"))
           {
@@ -51,11 +52,21 @@ public class HpEnemy : MonoBehaviour
     {
         GetComponent<IHealth>().OnDied += HandleEnemyDied;
         _animator = GetComponentInChildren<Animator>();
+        healDropPrefab = Resources.Load<GameObject>("HealDrop");
     }
 
     private void HandleEnemyDied()
     {
         var deathparticle = Instantiate(deathParticlePrefab, transform.position, transform.rotation);
+        // drop the heals
+        var healCount = Random.Range(0, 2);
+        Debug.Log("Healed num " +healCount);
+        for (int i=0; i <= healCount; i++)
+        {
+            var position = new Vector3(transform.position.x+ Random.Range(-10, 10), 0, transform.position.z+ Random.Range(-10, 10));
+
+            Instantiate(healDropPrefab, position, Quaternion.identity);
+        }
         //animation of death
         _animator.SetBool("isDead", true);
         Destroy(deathparticle, 1f);
