@@ -10,6 +10,8 @@ using static IWeapon;
 public class ParametrsUpdateGaus : ParametrsUpdateDecorator
 {
     private Transform _distanceTarget;
+    private ParticleSystem _afterFireParticle;
+    private List<GameObject> _poolTrail;
 
     public ParametrsUpdateGaus(Transform distanceTarget, IWeapon weapon, float updateFireRate,
          DistanceAndDamage[] distanceAndDamage
@@ -17,7 +19,8 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
          IWeapon.WeaponTypeDamage updateWeaponType, LayerMask mask,
          ParticleSystem vfxShootPrefab, ParticleSystem vfxImpactMetalProps, ParticleSystem vfxImpactOtherProps,
          TextMeshProUGUI patronsText,
-         Animator animator, Animator animatorWeapon, CinemachineImpulseSource recoil)
+         Animator animator, Animator animatorWeapon, CinemachineImpulseSource recoil, 
+         List<GameObject> poolTrail, ParticleSystem afterFireParticle)
          : base(weapon, updateFireRate, distanceAndDamage, updateReload, updatePatrons, updateWeaponType,
              mask, vfxShootPrefab, vfxImpactMetalProps, vfxImpactOtherProps, patronsText, animator, animator, recoil)
     {
@@ -42,6 +45,8 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
         _animator = animator;
         _animatorWeapon = animatorWeapon;
         _recoil = recoil;
+        _poolTrail = poolTrail;
+        _afterFireParticle = afterFireParticle;
     }
 
     //properties
@@ -86,6 +91,7 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
     {
         float currentTime = Time.time;
         float timeDifference = currentTime - _updateLastShoot;
+        _afterFireParticle.Stop(true,ParticleSystemStopBehavior.StopEmittingAndClear);
 
         if ((context.started || context.performed) && Patrons > 0 && timeDifference >= _updateFireRate)
         {
@@ -93,8 +99,9 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
             Patrons--;
 
             //vfx and animation and ui
+            
             ShowAnimatorAndInternalImpact();
-
+            TrailPoolSpawn();
             //aim assist, change radius sphere cast from distance
 
             if (Physics.SphereCast(Camera.main.transform.position, 2f, Camera.main.transform.forward,
@@ -137,15 +144,33 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
 
 
                 ShowVFXImpact(hit);
+               
+            }
+        }
+    }
+    private void TrailPoolSpawn()
+    {
+        for (int i = 0; i < _poolTrail.Count; i++)
+        {
+            if (!_poolTrail[i].activeInHierarchy)
+            {
+                _poolTrail[i].transform.position = _vfxShootPrefab.transform.position;
+                _poolTrail[i].transform.rotation = _vfxShootPrefab.transform.rotation;
+                 _poolTrail[i].SetActive(true);
+                break;
             }
         }
     }
     public async override void Reload(InputAction.CallbackContext context)
     {
-        if (Patrons < maxPatrons)
+        if (Patrons <= 0)
         {
+            _afterFireParticle.Play();
+        }
+        if (Patrons < maxPatrons)
+        { 
             Patrons++;
             _patronsText.text = Patrons.ToString();
-        }
+        }   
     }
 }
