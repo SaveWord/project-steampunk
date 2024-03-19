@@ -22,12 +22,12 @@ public class PlatformMover : MonoBehaviour
         if(other.CompareTag("Player")&&!open)
         {
             open = true;
-            foreach (GameObject enemy in ArenaArea.GetComponent<CheckForEnemies>().enemiesInArena)
-            {
-                if (!enemy.IsDestroyed())
-                    open = false;
+            //foreach (GameObject enemy in ArenaArea.GetComponent<CheckForEnemies>().enemiesInArena)
+            //{
+            //    if (!enemy.IsDestroyed())
+            //        open = false;
 
-            }
+            //}
             if (open)
             {
                 animator.enabled = true;

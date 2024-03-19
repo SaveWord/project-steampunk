@@ -113,7 +113,7 @@ public class PlayerMove : MonoBehaviour
     }
     private void Update()
     {
-        OnDrawGizmosSelected();
+        //OnDrawGizmosSelected();
         IsGrounded();
 
 
@@ -271,12 +271,12 @@ public class PlayerMove : MonoBehaviour
         if (isGrounded == true) { doubleJump = 1; }
         return isGrounded;
     }
-    void OnDrawGizmosSelected()
-    {
+    //void OnDrawGizmosSelected()
+    //{
         
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(dotGround.position, 1f);
-    }
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawSphere(dotGround.position, 1f);
+    //}
     //hookShot
     /*
     public void HandleHookShot(InputAction.CallbackContext context)
