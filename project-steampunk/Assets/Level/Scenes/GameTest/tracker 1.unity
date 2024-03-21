@@ -7643,7 +7643,7 @@ PrefabInstance:
     - target: {fileID: 5814971670290550352, guid: 273fe0dcf3aad42409f9a9ee4c04f2ef,
         type: 3}
       propertyPath: ReverceDash
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5814971670290550352, guid: 273fe0dcf3aad42409f9a9ee4c04f2ef,
         type: 3}
@@ -7660,6 +7660,21 @@ PrefabInstance:
       propertyPath: navMeshAgent
       value: 
       objectReference: {fileID: 1577207115}
+    - target: {fileID: 5814971670290550352, guid: 273fe0dcf3aad42409f9a9ee4c04f2ef,
+        type: 3}
+      propertyPath: DashReactDist
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5814971670290550352, guid: 273fe0dcf3aad42409f9a9ee4c04f2ef,
+        type: 3}
+      propertyPath: DashForwardReactDist
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5814971670290550352, guid: 273fe0dcf3aad42409f9a9ee4c04f2ef,
+        type: 3}
+      propertyPath: DashBackwardReactDist
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7797188128257077587, guid: 273fe0dcf3aad42409f9a9ee4c04f2ef,
         type: 3}
       propertyPath: m_Name

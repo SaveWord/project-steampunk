@@ -29,8 +29,10 @@ namespace Enemies
         private Vector3 targetPosition;
         [SerializeField] private NavMeshAgent navMeshAgent;
         [SerializeField] private bool ReverceDash;
+        [SerializeField] private float DashForwardReactDist;
+        [SerializeField] private float DashBackwardReactDist;
 
-       public void MoveToTarget(ITarget target)
+        public void MoveToTarget(ITarget target)
         {
             if (_nMeshAgent.enabled)
             {
@@ -62,84 +64,21 @@ namespace Enemies
                 return;
             }
 
-            //bool shouldDash = (!ReverceDash && distance > 15f) || (ReverceDash && distance < 15f);
-            if (canDash)
+            bool shouldDash = (!ReverceDash && distance > DashForwardReactDist) || (ReverceDash && distance < DashBackwardReactDist);
+            if (shouldDash)
             {
                 StartCoroutine(GoDash(dashDuration));
             }
 
-
-            //if (canDash)
-            //{
-            //    if((!ReverceDash && distance > 15f)||(ReverceDash&& distance < 15f)){
-            //        StartCoroutine(GoDash(dashDuration));
-            //    }
-            //}
-
-           
-            //    if (!ReverceDash && distance>15f&& canDash)
-            //{
-            //    //float height = transform.position.y;
-            //    Debug.Log("Ïù ÂÔÛÐÐÐÐÐÐÐÐ");
-
-
-            //    canDash = false;
-            //    ToggleControlToRBody();
-            //    Vector3 dashDirection = (targetPosition - transform.position).normalized;
-            //    //if (ReverceDash) dashDirection = -dashDirection;
-            //    dashDirection.y = 0;
-
-                
-            //    _rBody.AddForce(Vector3.up * dashForce, ForceMode.Impulse);
-            //    _rBody.AddForce(dashDirection * dashForce, ForceMode.Impulse);
-            //    //Debug.Log("dashDirection " + dashDirection + "hjgfjcghvjhkjhlkjhjghgjfhjfhjfhjfh");
-
-                
-
-            //    StartCoroutine(GoDash(dashDuration));
-            //}
-            //if (ReverceDash && canDash)
-            //{
-            //    //Debug.Log("Ïù ÂÔÛÐÐÐÐÐÐÐÐ");
-
-            //    if(distance < 15f)
-            //    {
-            //        canDash = false;
-            //        ToggleControlToRBody();
-            //        Vector3 dashDirection = (targetPosition - transform.position).normalized;
-            //        dashDirection.y = 0;
-            //        //if (ReverceDash) dashDirection = -dashDirection;
-
-            //        _rBody.AddForce(Vector3.up * dashForce, ForceMode.Impulse);
-            //        _rBody.AddForce(dashDirection * dashForce, ForceMode.Impulse);
-            //        //Debug.Log("dashDirection " + dashDirection + "hjgfjcghvjhkjhlkjhjghgjfhjfhjfhjfh");
-            //    }
-
-
-                
-
-
-
-
-
-            //    StartCoroutine(GoDash(dashDuration/2));
-            //}
-            ////navMeshAgent.enabled = false;
-
-
-            //_rBody.AddForce(Vector3.up * dashForce, ForceMode.Impulse);
-
-
-
-            //if (_dash.IsDashCharged)
-            //    _dash.MakeDash(ToggleControlToRBody);
         }
         IEnumerator GoDash(float time)
         {
             canDash = false;
             ToggleControlToRBody();
             Vector3 dashDirection = (targetPosition - transform.position).normalized;
+            if(ReverceDash) { dashDirection = -dashDirection; }
 
+           
             _rBody.AddForce(Vector3.up * dashForce, ForceMode.Impulse);
             _rBody.AddForce(dashDirection * dashForce, ForceMode.Impulse);
 
