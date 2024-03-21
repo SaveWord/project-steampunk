@@ -56,25 +56,14 @@ namespace Enemies
         {
             distance = Vector3.Distance(transform.position, target.GetPosition());//
             targetPosition = target.GetPosition();
-            //Debug.Log("Distan: "+distance+ " " +canDash);
-            if (distance < 15f)
-            {
-                Debug.Log("distance < 15f");
-            }
-            else
-            {
-                Debug.Log("Too far");
-
-            }
-
 
             if (!canDash)
             {
                 return;
             }
 
-            bool shouldDash = (!ReverceDash && distance > 15f) || (ReverceDash && distance < 15f);
-            if (shouldDash)
+            //bool shouldDash = (!ReverceDash && distance > 15f) || (ReverceDash && distance < 15f);
+            if (canDash)
             {
                 StartCoroutine(GoDash(dashDuration));
             }
@@ -147,26 +136,16 @@ namespace Enemies
         }
         IEnumerator GoDash(float time)
         {
-            Debug.Log("CORUTINE STARTED");
             canDash = false;
             ToggleControlToRBody();
             Vector3 dashDirection = (targetPosition - transform.position).normalized;
-            if (ReverceDash) dashDirection = -dashDirection;
 
             _rBody.AddForce(Vector3.up * dashForce, ForceMode.Impulse);
             _rBody.AddForce(dashDirection * dashForce, ForceMode.Impulse);
-            Debug.Log("dashDirection " + dashDirection + "hjgfjcghvjhkjhlkjhjghgjfhjfhjfhjfh");
 
             yield return new WaitForSeconds(time);
-            
-            Debug.Log("iughhhj;oljkhgjhvjjkhlkj");
-            if (_rBody == null)
-            {
-                Debug.Log("NULLLL");
-            }
             ToggleControlToNavMesh();
             yield return new WaitForSeconds(dashCooldown);
-            Debug.Log("now can");
             canDash = true;
             
         }
@@ -184,11 +163,11 @@ namespace Enemies
             _nMeshAgent.enabled = true;
         }
 
-        private void OnCollisionStay(Collision collision)
-        {
-            if (collision.collider.transform.gameObject.layer == 8 && !_nMeshAgent.enabled)
-                ToggleControlToNavMesh();
-        }
+        //private void OnCollisionStay(Collision collision)
+        //{
+        //    if (collision.collider.transform.gameObject.layer == 8 && !_nMeshAgent.enabled)
+        //        ToggleControlToNavMesh();
+        //}
 
         private void Awake()
         {
@@ -199,6 +178,21 @@ namespace Enemies
             _controlarrow = GetComponent<controlarrow>();
 
             _animator = GetComponentInChildren<Animator>();
+        }
+
+        private void OnDrawGizmos()
+        {
+            if(canDash)
+            {
+                Gizmos.color = Color.yellow;
+                Gizmos.DrawCube(transform.position + Vector3.up * 10, Vector3.one * 3f);
+            }
+            else
+            {
+                Gizmos.color = Color.magenta;
+                Gizmos.DrawCube(transform.position + Vector3.up * 10, Vector3.one * 3f);
+            }
+                
         }
 
     }

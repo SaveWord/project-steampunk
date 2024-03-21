@@ -21,7 +21,6 @@ namespace Enemies.AntStates
 
         public void Tick()
         {
-            Debug.Log("idle mode");
             return;
         }
     }

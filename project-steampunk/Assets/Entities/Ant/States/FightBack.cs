@@ -17,7 +17,7 @@ namespace Enemies.AntStates
 
         public Color GizmoColor()
         {
-            return Color.red;
+            return Color.cyan;
         }
 
         public void Tick()
