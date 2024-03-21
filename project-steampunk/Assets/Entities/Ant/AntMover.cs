@@ -67,43 +67,64 @@ namespace Enemies
 
             }
 
-            if (!ReverceDash && distance>15f&& canDash)
+
+            if (!canDash)
             {
-                //float height = transform.position.y;
-                Debug.Log("Ïù ÂÔÛÐÐÐÐÐÐÐÐ");
+                return;
+            }
 
-
-                canDash = false;
-                ToggleControlToRBody();
-                Vector3 dashDirection = (targetPosition - transform.position).normalized;
-                //if (ReverceDash) dashDirection = -dashDirection;
-                dashDirection.y = 0;
-
-                
-                _rBody.AddForce(Vector3.up * dashForce, ForceMode.Impulse);
-                _rBody.AddForce(dashDirection * dashForce, ForceMode.Impulse);
-                //Debug.Log("dashDirection " + dashDirection + "hjgfjcghvjhkjhlkjhjghgjfhjfhjfhjfh");
-
-                
-
+            bool shouldDash = (!ReverceDash && distance > 15f) || (ReverceDash && distance < 15f);
+            if (shouldDash)
+            {
                 StartCoroutine(GoDash(dashDuration));
             }
-            if (ReverceDash && canDash)
-            {
-                //Debug.Log("Ïù ÂÔÛÐÐÐÐÐÐÐÐ");
 
-                if(distance < 15f)
-                {
-                    canDash = false;
-                    ToggleControlToRBody();
-                    Vector3 dashDirection = (targetPosition - transform.position).normalized;
-                    dashDirection.y = 0;
-                    //if (ReverceDash) dashDirection = -dashDirection;
 
-                    _rBody.AddForce(Vector3.up * dashForce, ForceMode.Impulse);
-                    _rBody.AddForce(dashDirection * dashForce, ForceMode.Impulse);
-                    //Debug.Log("dashDirection " + dashDirection + "hjgfjcghvjhkjhlkjhjghgjfhjfhjfhjfh");
-                }
+            //if (canDash)
+            //{
+            //    if((!ReverceDash && distance > 15f)||(ReverceDash&& distance < 15f)){
+            //        StartCoroutine(GoDash(dashDuration));
+            //    }
+            //}
+
+           
+            //    if (!ReverceDash && distance>15f&& canDash)
+            //{
+            //    //float height = transform.position.y;
+            //    Debug.Log("Ïù ÂÔÛÐÐÐÐÐÐÐÐ");
+
+
+            //    canDash = false;
+            //    ToggleControlToRBody();
+            //    Vector3 dashDirection = (targetPosition - transform.position).normalized;
+            //    //if (ReverceDash) dashDirection = -dashDirection;
+            //    dashDirection.y = 0;
+
+                
+            //    _rBody.AddForce(Vector3.up * dashForce, ForceMode.Impulse);
+            //    _rBody.AddForce(dashDirection * dashForce, ForceMode.Impulse);
+            //    //Debug.Log("dashDirection " + dashDirection + "hjgfjcghvjhkjhlkjhjghgjfhjfhjfhjfh");
+
+                
+
+            //    StartCoroutine(GoDash(dashDuration));
+            //}
+            //if (ReverceDash && canDash)
+            //{
+            //    //Debug.Log("Ïù ÂÔÛÐÐÐÐÐÐÐÐ");
+
+            //    if(distance < 15f)
+            //    {
+            //        canDash = false;
+            //        ToggleControlToRBody();
+            //        Vector3 dashDirection = (targetPosition - transform.position).normalized;
+            //        dashDirection.y = 0;
+            //        //if (ReverceDash) dashDirection = -dashDirection;
+
+            //        _rBody.AddForce(Vector3.up * dashForce, ForceMode.Impulse);
+            //        _rBody.AddForce(dashDirection * dashForce, ForceMode.Impulse);
+            //        //Debug.Log("dashDirection " + dashDirection + "hjgfjcghvjhkjhlkjhjghgjfhjfhjfhjfh");
+            //    }
 
 
                 
@@ -112,9 +133,9 @@ namespace Enemies
 
 
 
-                StartCoroutine(GoDash(dashDuration/2));
-            }
-            //navMeshAgent.enabled = false;
+            //    StartCoroutine(GoDash(dashDuration/2));
+            //}
+            ////navMeshAgent.enabled = false;
 
 
             //_rBody.AddForce(Vector3.up * dashForce, ForceMode.Impulse);
@@ -127,14 +148,14 @@ namespace Enemies
         IEnumerator GoDash(float time)
         {
             Debug.Log("CORUTINE STARTED");
-            //canDash = false;
-            //ToggleControlToRBody();
-            //Vector3 dashDirection = (targetPosition - transform.position).normalized;
-            //if (ReverceDash) dashDirection = -dashDirection;
+            canDash = false;
+            ToggleControlToRBody();
+            Vector3 dashDirection = (targetPosition - transform.position).normalized;
+            if (ReverceDash) dashDirection = -dashDirection;
 
-            //_rBody.AddForce(Vector3.up * dashForce, ForceMode.Impulse);
-            //_rBody.AddForce(dashDirection * dashForce, ForceMode.Impulse);
-            //Debug.Log("dashDirection " + dashDirection+"hjgfjcghvjhkjhlkjhjghgjfhjfhjfhjfh");
+            _rBody.AddForce(Vector3.up * dashForce, ForceMode.Impulse);
+            _rBody.AddForce(dashDirection * dashForce, ForceMode.Impulse);
+            Debug.Log("dashDirection " + dashDirection + "hjgfjcghvjhkjhlkjhjghgjfhjfhjfhjfh");
 
             yield return new WaitForSeconds(time);
             
