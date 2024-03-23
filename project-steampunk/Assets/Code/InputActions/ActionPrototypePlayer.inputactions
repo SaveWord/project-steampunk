@@ -51,33 +51,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Kick",
-                    "type": "Button",
-                    "id": "79fb2049-58bf-4c9b-96e2-dfe6dea11003",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Tackle",
-                    "type": "Button",
-                    "id": "1728b823-1802-4f35-b82f-4b6eb2b8e6a9",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "PickOrThrow",
-                    "type": "Button",
-                    "id": "1d0e5583-7515-4e34-8473-f081f323d981",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "Reload",
                     "type": "Button",
                     "id": "1337b473-fa2f-481f-855c-a311d94ba19e",
@@ -87,36 +60,36 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SwitchFire",
+                    "name": "SwitchWeaponMouse",
+                    "type": "Value",
+                    "id": "8a583602-98d7-477d-abf5-22c4a7d46a8a",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Weapon1",
                     "type": "Button",
-                    "id": "9429e25c-4b69-45c3-98e3-9bfc922ef0c0",
+                    "id": "fbaa28f7-643f-46b7-902e-96da013d6b6c",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SwitchElectro",
+                    "name": "Weapon2",
                     "type": "Button",
-                    "id": "62a8ef36-fe9b-4490-9d3a-2aa04666c35f",
+                    "id": "c8fed2cb-66c0-4cb1-8d67-1d4c2bb42390",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SwitchEarth",
+                    "name": "Weapon3",
                     "type": "Button",
-                    "id": "7a8338fb-bb21-4458-b11f-f975768075f0",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "SwitchWater",
-                    "type": "Button",
-                    "id": "2a5302fb-720e-45f2-be28-2d028e928cd6",
+                    "id": "6aa45246-3182-49d8-97b5-548ef4811aad",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -225,39 +198,6 @@
                 },
                 {
                     "name": "",
-                    "id": "3f3b60e2-57c0-4beb-837c-126771861c30",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Kick",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d4a798bf-d4c6-4e8c-9f2d-5755cfb616dc",
-                    "path": "<Keyboard>/leftCtrl",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Tackle",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "cc77e0fe-314f-4c2d-9eed-cc0217f80ace",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "",
-                    "action": "PickOrThrow",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "c35ce583-4fff-4403-960a-7e3a54d8b1ee",
                     "path": "<Keyboard>/r",
                     "interactions": "",
@@ -269,45 +209,45 @@
                 },
                 {
                     "name": "",
-                    "id": "88593db5-b02b-4146-8bcb-5fd629c29815",
+                    "id": "086662ee-3b26-463a-bd39-256f424c571e",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SwitchWeaponMouse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b6d83433-64cf-4da5-b0af-b77210facb0f",
                     "path": "<Keyboard>/1",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SwitchFire",
+                    "action": "Weapon1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "247dab4f-9867-4ba3-8579-b494ae7bdfe3",
+                    "id": "b3f1b610-9c8c-42a2-9ed7-1916f84d9580",
                     "path": "<Keyboard>/2",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SwitchElectro",
+                    "action": "Weapon2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "38ea31fb-0c4c-44d5-bfae-8f73902afc64",
+                    "id": "0ef57dae-f754-4921-bfc9-66cac17910f8",
                     "path": "<Keyboard>/3",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SwitchEarth",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "af5ae5d1-c31d-4dbc-9108-a3f93b432af7",
-                    "path": "<Keyboard>/4",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SwitchWater",
+                    "action": "Weapon3",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

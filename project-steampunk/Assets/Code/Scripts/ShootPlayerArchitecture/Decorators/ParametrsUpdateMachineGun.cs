@@ -64,6 +64,9 @@ public class ParametrsUpdateMachineGun : ParametrsUpdateDecorator
             if (Physics.Raycast(posRay, Camera.main.transform.forward,
                    out RaycastHit hit, Range, enemyLayer, QueryTriggerInteraction.Ignore))
             {
+                hit.collider.TryGetComponent(out IShield impulseShield);
+                impulseShield?.ShieldImpulse();
+
                 hit.collider.TryGetComponent(out IDamageableProps damageableProps);
                 damageableProps?.GetDamage(Damage);
 

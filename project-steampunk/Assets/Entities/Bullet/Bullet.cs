@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace Enemies.Bullets
@@ -18,6 +19,10 @@ namespace Enemies.Bullets
         protected Vector3 continueDirection;
         protected Rigidbody _rBody;
         protected float _timeOnFly;
+
+        [Header("VFX")]
+        [SerializeField] protected GameObject sphereDie;
+        [SerializeField] protected float coroutineTimeDie;
 
         protected void Awake()
         {
@@ -53,6 +58,12 @@ namespace Enemies.Bullets
         protected void SelfDestroy()
         {
             Debug.Log("Die");
+            StartCoroutine(SelfDestroyCoroutine());
+        }
+        protected IEnumerator SelfDestroyCoroutine()
+        {
+            sphereDie.SetActive(true);
+            yield return new WaitForSeconds(coroutineTimeDie);
             Destroy(gameObject);
         }
 

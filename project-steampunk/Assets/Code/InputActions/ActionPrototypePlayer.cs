@@ -73,33 +73,6 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Kick"",
-                    ""type"": ""Button"",
-                    ""id"": ""79fb2049-58bf-4c9b-96e2-dfe6dea11003"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Tackle"",
-                    ""type"": ""Button"",
-                    ""id"": ""1728b823-1802-4f35-b82f-4b6eb2b8e6a9"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""PickOrThrow"",
-                    ""type"": ""Button"",
-                    ""id"": ""1d0e5583-7515-4e34-8473-f081f323d981"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
                     ""name"": ""Reload"",
                     ""type"": ""Button"",
                     ""id"": ""1337b473-fa2f-481f-855c-a311d94ba19e"",
@@ -109,36 +82,36 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""SwitchFire"",
+                    ""name"": ""SwitchWeaponMouse"",
+                    ""type"": ""Value"",
+                    ""id"": ""8a583602-98d7-477d-abf5-22c4a7d46a8a"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Weapon1"",
                     ""type"": ""Button"",
-                    ""id"": ""9429e25c-4b69-45c3-98e3-9bfc922ef0c0"",
+                    ""id"": ""fbaa28f7-643f-46b7-902e-96da013d6b6c"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""SwitchElectro"",
+                    ""name"": ""Weapon2"",
                     ""type"": ""Button"",
-                    ""id"": ""62a8ef36-fe9b-4490-9d3a-2aa04666c35f"",
+                    ""id"": ""c8fed2cb-66c0-4cb1-8d67-1d4c2bb42390"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""SwitchEarth"",
+                    ""name"": ""Weapon3"",
                     ""type"": ""Button"",
-                    ""id"": ""7a8338fb-bb21-4458-b11f-f975768075f0"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""SwitchWater"",
-                    ""type"": ""Button"",
-                    ""id"": ""2a5302fb-720e-45f2-be28-2d028e928cd6"",
+                    ""id"": ""6aa45246-3182-49d8-97b5-548ef4811aad"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -247,39 +220,6 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
                 },
                 {
                     ""name"": """",
-                    ""id"": ""3f3b60e2-57c0-4beb-837c-126771861c30"",
-                    ""path"": ""<Keyboard>/q"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Kick"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""d4a798bf-d4c6-4e8c-9f2d-5755cfb616dc"",
-                    ""path"": ""<Keyboard>/leftCtrl"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Tackle"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""cc77e0fe-314f-4c2d-9eed-cc0217f80ace"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": ""Press"",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""PickOrThrow"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""c35ce583-4fff-4403-960a-7e3a54d8b1ee"",
                     ""path"": ""<Keyboard>/r"",
                     ""interactions"": """",
@@ -291,45 +231,45 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
                 },
                 {
                     ""name"": """",
-                    ""id"": ""88593db5-b02b-4146-8bcb-5fd629c29815"",
+                    ""id"": ""086662ee-3b26-463a-bd39-256f424c571e"",
+                    ""path"": ""<Mouse>/scroll"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchWeaponMouse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b6d83433-64cf-4da5-b0af-b77210facb0f"",
                     ""path"": ""<Keyboard>/1"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""SwitchFire"",
+                    ""action"": ""Weapon1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""247dab4f-9867-4ba3-8579-b494ae7bdfe3"",
+                    ""id"": ""b3f1b610-9c8c-42a2-9ed7-1916f84d9580"",
                     ""path"": ""<Keyboard>/2"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""SwitchElectro"",
+                    ""action"": ""Weapon2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""38ea31fb-0c4c-44d5-bfae-8f73902afc64"",
+                    ""id"": ""0ef57dae-f754-4921-bfc9-66cac17910f8"",
                     ""path"": ""<Keyboard>/3"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""SwitchEarth"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""af5ae5d1-c31d-4dbc-9108-a3f93b432af7"",
-                    ""path"": ""<Keyboard>/4"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""SwitchWater"",
+                    ""action"": ""Weapon3"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -373,14 +313,11 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
-        m_Player_Kick = m_Player.FindAction("Kick", throwIfNotFound: true);
-        m_Player_Tackle = m_Player.FindAction("Tackle", throwIfNotFound: true);
-        m_Player_PickOrThrow = m_Player.FindAction("PickOrThrow", throwIfNotFound: true);
         m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
-        m_Player_SwitchFire = m_Player.FindAction("SwitchFire", throwIfNotFound: true);
-        m_Player_SwitchElectro = m_Player.FindAction("SwitchElectro", throwIfNotFound: true);
-        m_Player_SwitchEarth = m_Player.FindAction("SwitchEarth", throwIfNotFound: true);
-        m_Player_SwitchWater = m_Player.FindAction("SwitchWater", throwIfNotFound: true);
+        m_Player_SwitchWeaponMouse = m_Player.FindAction("SwitchWeaponMouse", throwIfNotFound: true);
+        m_Player_Weapon1 = m_Player.FindAction("Weapon1", throwIfNotFound: true);
+        m_Player_Weapon2 = m_Player.FindAction("Weapon2", throwIfNotFound: true);
+        m_Player_Weapon3 = m_Player.FindAction("Weapon3", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_SenseESCBuild = m_UI.FindAction("SenseESCBuild", throwIfNotFound: true);
@@ -450,14 +387,11 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Dash;
     private readonly InputAction m_Player_Shoot;
-    private readonly InputAction m_Player_Kick;
-    private readonly InputAction m_Player_Tackle;
-    private readonly InputAction m_Player_PickOrThrow;
     private readonly InputAction m_Player_Reload;
-    private readonly InputAction m_Player_SwitchFire;
-    private readonly InputAction m_Player_SwitchElectro;
-    private readonly InputAction m_Player_SwitchEarth;
-    private readonly InputAction m_Player_SwitchWater;
+    private readonly InputAction m_Player_SwitchWeaponMouse;
+    private readonly InputAction m_Player_Weapon1;
+    private readonly InputAction m_Player_Weapon2;
+    private readonly InputAction m_Player_Weapon3;
     public struct PlayerActions
     {
         private @ActionPrototypePlayer m_Wrapper;
@@ -467,14 +401,11 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
         public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
-        public InputAction @Kick => m_Wrapper.m_Player_Kick;
-        public InputAction @Tackle => m_Wrapper.m_Player_Tackle;
-        public InputAction @PickOrThrow => m_Wrapper.m_Player_PickOrThrow;
         public InputAction @Reload => m_Wrapper.m_Player_Reload;
-        public InputAction @SwitchFire => m_Wrapper.m_Player_SwitchFire;
-        public InputAction @SwitchElectro => m_Wrapper.m_Player_SwitchElectro;
-        public InputAction @SwitchEarth => m_Wrapper.m_Player_SwitchEarth;
-        public InputAction @SwitchWater => m_Wrapper.m_Player_SwitchWater;
+        public InputAction @SwitchWeaponMouse => m_Wrapper.m_Player_SwitchWeaponMouse;
+        public InputAction @Weapon1 => m_Wrapper.m_Player_Weapon1;
+        public InputAction @Weapon2 => m_Wrapper.m_Player_Weapon2;
+        public InputAction @Weapon3 => m_Wrapper.m_Player_Weapon3;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -499,30 +430,21 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
             @Shoot.started += instance.OnShoot;
             @Shoot.performed += instance.OnShoot;
             @Shoot.canceled += instance.OnShoot;
-            @Kick.started += instance.OnKick;
-            @Kick.performed += instance.OnKick;
-            @Kick.canceled += instance.OnKick;
-            @Tackle.started += instance.OnTackle;
-            @Tackle.performed += instance.OnTackle;
-            @Tackle.canceled += instance.OnTackle;
-            @PickOrThrow.started += instance.OnPickOrThrow;
-            @PickOrThrow.performed += instance.OnPickOrThrow;
-            @PickOrThrow.canceled += instance.OnPickOrThrow;
             @Reload.started += instance.OnReload;
             @Reload.performed += instance.OnReload;
             @Reload.canceled += instance.OnReload;
-            @SwitchFire.started += instance.OnSwitchFire;
-            @SwitchFire.performed += instance.OnSwitchFire;
-            @SwitchFire.canceled += instance.OnSwitchFire;
-            @SwitchElectro.started += instance.OnSwitchElectro;
-            @SwitchElectro.performed += instance.OnSwitchElectro;
-            @SwitchElectro.canceled += instance.OnSwitchElectro;
-            @SwitchEarth.started += instance.OnSwitchEarth;
-            @SwitchEarth.performed += instance.OnSwitchEarth;
-            @SwitchEarth.canceled += instance.OnSwitchEarth;
-            @SwitchWater.started += instance.OnSwitchWater;
-            @SwitchWater.performed += instance.OnSwitchWater;
-            @SwitchWater.canceled += instance.OnSwitchWater;
+            @SwitchWeaponMouse.started += instance.OnSwitchWeaponMouse;
+            @SwitchWeaponMouse.performed += instance.OnSwitchWeaponMouse;
+            @SwitchWeaponMouse.canceled += instance.OnSwitchWeaponMouse;
+            @Weapon1.started += instance.OnWeapon1;
+            @Weapon1.performed += instance.OnWeapon1;
+            @Weapon1.canceled += instance.OnWeapon1;
+            @Weapon2.started += instance.OnWeapon2;
+            @Weapon2.performed += instance.OnWeapon2;
+            @Weapon2.canceled += instance.OnWeapon2;
+            @Weapon3.started += instance.OnWeapon3;
+            @Weapon3.performed += instance.OnWeapon3;
+            @Weapon3.canceled += instance.OnWeapon3;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -542,30 +464,21 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
             @Shoot.started -= instance.OnShoot;
             @Shoot.performed -= instance.OnShoot;
             @Shoot.canceled -= instance.OnShoot;
-            @Kick.started -= instance.OnKick;
-            @Kick.performed -= instance.OnKick;
-            @Kick.canceled -= instance.OnKick;
-            @Tackle.started -= instance.OnTackle;
-            @Tackle.performed -= instance.OnTackle;
-            @Tackle.canceled -= instance.OnTackle;
-            @PickOrThrow.started -= instance.OnPickOrThrow;
-            @PickOrThrow.performed -= instance.OnPickOrThrow;
-            @PickOrThrow.canceled -= instance.OnPickOrThrow;
             @Reload.started -= instance.OnReload;
             @Reload.performed -= instance.OnReload;
             @Reload.canceled -= instance.OnReload;
-            @SwitchFire.started -= instance.OnSwitchFire;
-            @SwitchFire.performed -= instance.OnSwitchFire;
-            @SwitchFire.canceled -= instance.OnSwitchFire;
-            @SwitchElectro.started -= instance.OnSwitchElectro;
-            @SwitchElectro.performed -= instance.OnSwitchElectro;
-            @SwitchElectro.canceled -= instance.OnSwitchElectro;
-            @SwitchEarth.started -= instance.OnSwitchEarth;
-            @SwitchEarth.performed -= instance.OnSwitchEarth;
-            @SwitchEarth.canceled -= instance.OnSwitchEarth;
-            @SwitchWater.started -= instance.OnSwitchWater;
-            @SwitchWater.performed -= instance.OnSwitchWater;
-            @SwitchWater.canceled -= instance.OnSwitchWater;
+            @SwitchWeaponMouse.started -= instance.OnSwitchWeaponMouse;
+            @SwitchWeaponMouse.performed -= instance.OnSwitchWeaponMouse;
+            @SwitchWeaponMouse.canceled -= instance.OnSwitchWeaponMouse;
+            @Weapon1.started -= instance.OnWeapon1;
+            @Weapon1.performed -= instance.OnWeapon1;
+            @Weapon1.canceled -= instance.OnWeapon1;
+            @Weapon2.started -= instance.OnWeapon2;
+            @Weapon2.performed -= instance.OnWeapon2;
+            @Weapon2.canceled -= instance.OnWeapon2;
+            @Weapon3.started -= instance.OnWeapon3;
+            @Weapon3.performed -= instance.OnWeapon3;
+            @Weapon3.canceled -= instance.OnWeapon3;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -636,14 +549,11 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
         void OnLook(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
-        void OnKick(InputAction.CallbackContext context);
-        void OnTackle(InputAction.CallbackContext context);
-        void OnPickOrThrow(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
-        void OnSwitchFire(InputAction.CallbackContext context);
-        void OnSwitchElectro(InputAction.CallbackContext context);
-        void OnSwitchEarth(InputAction.CallbackContext context);
-        void OnSwitchWater(InputAction.CallbackContext context);
+        void OnSwitchWeaponMouse(InputAction.CallbackContext context);
+        void OnWeapon1(InputAction.CallbackContext context);
+        void OnWeapon2(InputAction.CallbackContext context);
+        void OnWeapon3(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
