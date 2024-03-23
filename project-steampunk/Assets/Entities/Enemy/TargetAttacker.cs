@@ -44,7 +44,7 @@ public class TargetAttacker : MonoBehaviour, ITargetAttacker
         {
             _attaksList[_attackQueue].Activate(target, attack[_attackQueue].Value.Key);
             _animator.SetBool("isAttacking", true);
-            StartCoroutine(Reload(0.3f));
+            StartCoroutine(Reload(attack[_attackQueue].Value.Value));
         }
         _attackQueue++;
         if (_attackQueue == attack.Count)
