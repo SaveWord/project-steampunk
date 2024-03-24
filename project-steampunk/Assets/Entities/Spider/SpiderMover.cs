@@ -75,11 +75,8 @@ namespace Enemies
             {
                 return;
             }
-            Debug.Log("DashDistance + dashoffset" + (DashDistance + dashoffset));
-            Debug.Log("DashDistance - dashoffset" + (DashDistance - dashoffset));
             if (distance < (DashDistance + dashoffset) && distance > (DashDistance - dashoffset))
             {
-                Debug.Log("ready to jump");
                 StartCoroutine(GoDash(dashDuration));
                 StartCoroutine(JumpCooldown(JumpCooldowntime));
             }
