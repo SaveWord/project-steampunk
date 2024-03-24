@@ -31,6 +31,8 @@ namespace Enemies
         [SerializeField] private bool ReverceDash;
         [SerializeField] private float DashForwardReactDist;
         [SerializeField] private float DashBackwardReactDist;
+        [SerializeField] private bool JumpUp;
+
 
         public void MoveToTarget(ITarget target)
         {
@@ -78,9 +80,18 @@ namespace Enemies
             Vector3 dashDirection = (targetPosition - transform.position).normalized;
             if(ReverceDash) { dashDirection = -dashDirection; }
 
+            if (JumpUp)
+            {
+                _rBody.AddForce(Vector3.up * dashForce, ForceMode.Impulse);
+                _rBody.AddForce(dashDirection * dashForce, ForceMode.Impulse);
+            }
+            else
+            {
+                _rBody.AddForce(Vector3.up * dashForce* 0.2f, ForceMode.Impulse);
+                _rBody.AddForce(dashDirection * dashForce*2f, ForceMode.Impulse);
+            }
+            
            
-            _rBody.AddForce(Vector3.up * dashForce, ForceMode.Impulse);
-            _rBody.AddForce(dashDirection * dashForce, ForceMode.Impulse);
 
             yield return new WaitForSeconds(time);
             ToggleControlToNavMesh();
