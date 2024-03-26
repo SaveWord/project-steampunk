@@ -20,6 +20,7 @@ public class WeaponTypeScriptableObj : ScriptableObject
     //Impact in object shoot
     public ParticleSystem vfxImpactMetalProps;
     public ParticleSystem vfxImpactOtherProps;
+    public GameObject prefabTrail;
 }
 [Serializable]
 public class DistanceAndDamage

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65dc1cc18e0639243bf5d8fcf3fc3c62, type: 3}
   m_Name: Gaus
   m_EditorClassIdentifier: 
-  fireRate: 0.6
-  reloadSpeed: 2
+  fireRate: 0.5
+  reloadSpeed: 3
   patrons: 3
   distanceAndDamages:
   - damage: 55
@@ -53,4 +53,6 @@ MonoBehaviour:
   vfxImpactMetalProps: {fileID: 3795848090712241470, guid: 62f1e6b8ba8e68c44b5234a5949541fc,
     type: 3}
   vfxImpactOtherProps: {fileID: 7258679735602562000, guid: 608cb554bb30cb746956424c326042ca,
+    type: 3}
+  prefabTrail: {fileID: 1568396291543303866, guid: 30634149823c3e44c8ff2287cbe4c8ae,
     type: 3}

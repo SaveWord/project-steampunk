@@ -11,6 +11,8 @@ public class Player : MonoBehaviour, ITarget
     private bool isDead;
     [SerializeField] 
     private DamageTakenEffect damageEffect;
+    [SerializeField]
+    private DamageTakenEffect healEffect;
 
     public int GetTargetID()
     {
@@ -26,11 +28,16 @@ public class Player : MonoBehaviour, ITarget
     {
         StartCoroutine(damageEffect.TakeDamageEffect());
     }
+    public void HandlePlayerHeal(float damage)
+    {
+        StartCoroutine(healEffect.TakeDamageEffect());
+    }
     private void Start()
     {
         isDead = false;
         GetComponent<IHealth>().OnDied += HandlePlayerDied;
         GetComponent<IHealth>().OnTakenDamage += HandlePlayerDamage;
+        GetComponent<IHealth>().OnHealedDamage += HandlePlayerHeal;
     }
 
     private void HandlePlayerDied()

@@ -24,6 +24,9 @@ public class DamageTakenEffect : MonoBehaviour
     public IEnumerator TakeDamageEffect()
     {
         _vignetteIntensity = 0.4f;
+        ParticleSystem part = gameObject.GetComponent<ParticleSystem>();
+        if(part)
+            part.Play();
         _vignette.intensity.Override(0.4f);
         yield return new WaitForSeconds(0.4f);
         while (_vignetteIntensity > 0)

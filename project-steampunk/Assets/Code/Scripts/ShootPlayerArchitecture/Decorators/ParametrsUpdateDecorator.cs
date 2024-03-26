@@ -109,7 +109,8 @@ public class ParametrsUpdateDecorator : MainDecorator
         float currentTime = Time.time;
         float timeDifference = currentTime - _updateLastShoot;
 
-        if ((context.started || context.performed) && Patrons > 0 && timeDifference >= _updateFireRate)
+        if (((context.started || context.performed) && Patrons > 0 && timeDifference >= _updateFireRate) 
+            && isReload == false)
         {
             _updateLastShoot = currentTime;
             Patrons--;
@@ -135,6 +136,8 @@ public class ParametrsUpdateDecorator : MainDecorator
             if (Physics.SphereCast(Camera.main.transform.position,changeRadius ,Camera.main.transform.forward,
                 out RaycastHit hit, Range, enemyLayer, QueryTriggerInteraction.Ignore))
             {
+                hit.collider.TryGetComponent(out IShield impulseShield);
+                impulseShield?.ShieldImpulse();
 
                 hit.collider.TryGetComponent(out IDamageableProps damageableProps);
                 damageableProps?.GetDamage(Damage);
@@ -153,7 +156,7 @@ public class ParametrsUpdateDecorator : MainDecorator
             Reload(context);
         }
     }
-    private void ShowAnimatorAndInternalImpact()
+    protected virtual void ShowAnimatorAndInternalImpact()
     {
         _animator.SetBool("shoot", true);
         _animatorWeapon.SetBool("shoot", true);
@@ -162,7 +165,7 @@ public class ParametrsUpdateDecorator : MainDecorator
         _vfxShootPrefab.Play();
         _patronsText.text = Patrons.ToString();
     }
-    private void ShowVFXImpact(RaycastHit hit)
+    protected void ShowVFXImpact(RaycastHit hit)
     {
         if(hit.collider.gameObject.layer == 25)
         {
@@ -178,7 +181,7 @@ public class ParametrsUpdateDecorator : MainDecorator
 
     public async override void Reload(InputAction.CallbackContext context)
     {
-        if ((context.started || context.performed) && Patrons < maxPatrons)
+        if ((context.started || context.performed) && Patrons < maxPatrons && isReload != true)
         {
             Debug.Log("Activate");
             isReload = true;

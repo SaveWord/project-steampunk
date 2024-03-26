@@ -5,4 +5,8 @@ public interface IShield
     {
 
     }
+    public void ShieldImpulse()
+    {
+
+    }
 }
