@@ -16,7 +16,7 @@ public class HpHandler : MonoBehaviour, IHealth
     //vfxGraphTakeDamage
     private VisualEffect enemyDamageImpact;
 
-    public float CurrentHp { get { return (float)_currentHp; } }
+    public float CurrentHp { get { return (float)_currentHp; }}
 
     public event Action<float> OnHPChanged = delegate { };
     public event Action<float> OnTakenDamage = delegate { };
@@ -25,8 +25,14 @@ public class HpHandler : MonoBehaviour, IHealth
 
     private void Start()
     {
+        if (gameObject.layer == 7)
+        {
+            GameManagerSingleton.Instance.SaveSystem.LoadData();
+            _currentHp = GameManagerSingleton.Instance.SaveSystem.playerData.health;
+            transform.position = GameManagerSingleton.Instance.SaveSystem.playerData.position;
+        }
         enemyDamageImpact = GetComponentInChildren<VisualEffect>();
-        _currentHp = _maxHp;
+        //_currentHp = _maxHp;
     }
 
     public void TakeDamage(float amount)//TODO: specify damage maker
