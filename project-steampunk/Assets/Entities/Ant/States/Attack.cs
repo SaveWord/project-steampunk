@@ -9,9 +9,9 @@ namespace Enemies.AntStates
         ITargetDetector _targetHolder;
         ITargetAttacker _targetAttacker;
         AntMover _antMover;
-        List<Pair<RangeAttack, Pair<Transform, float>>> _attacksCollection;
+        List<AttackConstruct> _attacksCollection;
 
-        public Attack(ITargetDetector targetHolder, ITargetAttacker targetAttacker, AntMover antMover, List<Pair<RangeAttack, Pair<Transform, float>>> attacksCollection)
+        public Attack(ITargetDetector targetHolder, ITargetAttacker targetAttacker, AntMover antMover, List<AttackConstruct> attacksCollection)
         {
             _targetHolder = targetHolder;
             _targetAttacker = targetAttacker;

@@ -11,7 +11,8 @@ namespace Enemies
     [RequireComponent(typeof(TargetAttacker), typeof(TargetDetector), typeof(AntMover))]
     public class Ant : Enemy
     {
-        [SerializeField] public List<Pair<RangeAttack , Pair<Transform , float >>> _attacksCollection;
+        [SerializeField]
+        public List<AttackConstruct> _attacksCollection;
 
         private void Awake()
         {

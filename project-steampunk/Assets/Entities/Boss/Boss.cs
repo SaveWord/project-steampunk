@@ -15,8 +15,6 @@ namespace Enemies
         public List<AttackConstruct> _attacksCollection;
         [SerializeField] 
         private float phaseTimer = 4f;
-        private bool change=false;
-        private int _stateOrder=0;
         private StateMachine _stateMachine;
         private Attack attack;
         private Attack attackGround;

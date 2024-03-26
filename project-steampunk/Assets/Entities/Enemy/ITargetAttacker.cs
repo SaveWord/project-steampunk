@@ -7,6 +7,6 @@ namespace Enemies
 {
     public interface ITargetAttacker
     {
-        public void Attack(ITarget target, List<Pair<RangeAttack, Pair<Transform, float>>> attack);
+        public void Attack(ITarget target, List<AttackConstruct> attack);
     }
 }
