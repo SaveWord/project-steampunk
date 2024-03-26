@@ -38,7 +38,8 @@ public class HpHandler : MonoBehaviour, IHealth
 
             _currentHp -= amount;
             if (gameObject.layer == 6) {
-                gameObject.GetComponent<TargetDetector>().GetShot();
+                if(gameObject.GetComponent<TargetDetector>()!=null) 
+                    gameObject.GetComponent<TargetDetector>().GetShot();
                 enemyDamageImpact.Play(); }
             OnHPChanged(CurrentHp);
             OnTakenDamage(amount);

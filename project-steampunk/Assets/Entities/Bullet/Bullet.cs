@@ -9,7 +9,7 @@ namespace Enemies.Bullets
         [Header("Basics")]
         [SerializeField] protected float _damage;
         [SerializeField] protected float _lifeTime;
-        protected float _speed;
+        [SerializeField]  protected float _speed;
         //[SerializeField] private bool FollowForSomeTime;
 
         protected GameObject targetObject; 
@@ -28,7 +28,7 @@ namespace Enemies.Bullets
             targetObject = GameObject.FindGameObjectWithTag("Player");
             if (targetObject != null)
             {
-                _speed = targetObject.GetComponent<PlayerMove>().GetSpeed() * 0.8f;
+                _speed = targetObject.GetComponent<PlayerMove>().GetSpeed() * 3f;
                 lastKnownPosition = targetObject.GetComponent<ITarget>().GetPosition();
                 continueDirection = (lastKnownPosition - transform.position).normalized;
             }

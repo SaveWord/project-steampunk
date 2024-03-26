@@ -13678,7 +13678,7 @@ MonoBehaviour:
   _attacksCollection:
   - attack: {fileID: 3164132647910671957, guid: 74cdc0788015a1d4cb9f50dbf641cd14,
       type: 3}
-    patternSpawn: {fileID: 1986124868}
+    patternSpawn: {fileID: 7403880616549798251}
     cooldown: 3
   phaseTimer: 2
 --- !u!114 &368618430
@@ -13788,7 +13788,7 @@ MonoBehaviour:
   _laserList: {fileID: 1313071982445249826}
   _laserAttackDuration: 5
   _laserTimeout: 10
-  _pointOfAttack: {fileID: 1986124867}
+  _pointOfAttack: {fileID: 482882351775013495}
   _laserFollowDistance: 0.3
   _laserDamage: 1
   _laserSpeed: 10
@@ -37958,11 +37958,10 @@ MonoBehaviour:
     _hp: 100
     _timeBeforeReposition: 2
   _attacksCollection:
-  - attack: {fileID: 3164132647910671957, guid: 74cdc0788015a1d4cb9f50dbf641cd14,
-      type: 3}
-    patternSpawn: {fileID: 7403880616549798251}
-    cooldown: 3
-  phaseTimer: 2
+  - _key: {fileID: 0}
+    _value:
+      _key: {fileID: 0}
+      _value: 0
 --- !u!43 &1456384790
 Mesh:
   m_ObjectHideFlags: 0
@@ -55712,37 +55711,6 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!1 &1986124867
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1986124868}
-  m_Layer: 6
-  m_Name: AerialPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1986124868
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1986124867}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.95324695, y: 20.45, z: 0.30219236}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8227366555936033555}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1997117448
 Mesh:
   m_ObjectHideFlags: 0
@@ -77733,11 +77701,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0d7d31acf5fd6345acbc78b608a5c91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackQueue: 0
-  instanciated: 0
-  _attaksList: []
-  _animator: {fileID: 0}
-  _OnReload: 0
 --- !u!114 &2096569049737918276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77750,11 +77713,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0d7d31acf5fd6345acbc78b608a5c91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackQueue: 0
-  instanciated: 0
-  _attaksList: []
-  _animator: {fileID: 0}
-  _OnReload: 0
 --- !u!4 &2264502305509283220
 Transform:
   m_ObjectHideFlags: 0
@@ -89279,99 +89237,98 @@ MonoBehaviour:
     _hp: 1
     _timeBeforeReposition: 2
   _attacksCollection:
-  - attack: {fileID: 5785332119524234771, guid: c2d0a73390040594cb2dc0e8a5dd5dea,
-      type: 3}
-    patternSpawn: {fileID: 7403880616549798251}
-    cooldown: 0.2
-  - attack: {fileID: 7535649719867759211, guid: 839a1b29ac62751499d6005f280dc1ce,
-      type: 3}
-    patternSpawn: {fileID: 7403880616549798251}
-    cooldown: 0.1
-  - attack: {fileID: 7535649719867759211, guid: 5ec9ac63664824740b5f1f5a9de07ea5,
-      type: 3}
-    patternSpawn: {fileID: 1206019437}
-    cooldown: 0.2
-  - attack: {fileID: 5785332119524234771, guid: c2d0a73390040594cb2dc0e8a5dd5dea,
-      type: 3}
-    patternSpawn: {fileID: 7403880616549798251}
-    cooldown: 0.5
-  - attack: {fileID: 7535649719867759211, guid: 839a1b29ac62751499d6005f280dc1ce,
-      type: 3}
-    patternSpawn: {fileID: 7403880616549798251}
-    cooldown: 0.1
-  - attack: {fileID: 3164132647910671957, guid: 74cdc0788015a1d4cb9f50dbf641cd14,
-      type: 3}
-    patternSpawn: {fileID: 7403880616549798251}
-    cooldown: 0.5
-  - attack: {fileID: 5785332119524234771, guid: c2d0a73390040594cb2dc0e8a5dd5dea,
-      type: 3}
-    patternSpawn: {fileID: 7403880616549798251}
-    cooldown: 0.5
-  - attack: {fileID: 7535649719867759211, guid: 839a1b29ac62751499d6005f280dc1ce,
-      type: 3}
-    patternSpawn: {fileID: 7403880616549798251}
-    cooldown: 0.1
-  - attack: {fileID: 4530020378320582419, guid: b8b038985f5dbf948b85188392cc962f,
-      type: 3}
-    patternSpawn: {fileID: 59548530}
-    cooldown: 0.5
-  - attack: {fileID: 7535649719867759211, guid: 839a1b29ac62751499d6005f280dc1ce,
-      type: 3}
-    patternSpawn: {fileID: 7403880616549798251}
-    cooldown: 0.1
-  - attack: {fileID: 5785332119524234771, guid: a38d54172dc5b2e479344b534a572cdd,
-      type: 3}
-    patternSpawn: {fileID: 7403880616549798251}
-    cooldown: 0.2
-  - attack: {fileID: 7535649719867759211, guid: 839a1b29ac62751499d6005f280dc1ce,
-      type: 3}
-    patternSpawn: {fileID: 15880896}
-    cooldown: 0.1
-  - attack: {fileID: 5785332119524234771, guid: c2d0a73390040594cb2dc0e8a5dd5dea,
-      type: 3}
-    patternSpawn: {fileID: 15880896}
-    cooldown: 0.5
-  - attack: {fileID: 3164132647910671957, guid: 74cdc0788015a1d4cb9f50dbf641cd14,
-      type: 3}
-    patternSpawn: {fileID: 7403880616549798251}
-    cooldown: 0.5
-  - attack: {fileID: 7535649719867759211, guid: 5ec9ac63664824740b5f1f5a9de07ea5,
-      type: 3}
-    patternSpawn: {fileID: 1206019437}
-    cooldown: 0.2
-  - attack: {fileID: 3164132647910671957, guid: 74cdc0788015a1d4cb9f50dbf641cd14,
-      type: 3}
-    patternSpawn: {fileID: 7403880616549798251}
-    cooldown: 0.5
-  - attack: {fileID: 3164132647910671957, guid: 74cdc0788015a1d4cb9f50dbf641cd14,
-      type: 3}
-    patternSpawn: {fileID: 7403880616549798251}
-    cooldown: 0.5
-  - attack: {fileID: 7535649719867759211, guid: 839a1b29ac62751499d6005f280dc1ce,
-      type: 3}
-    patternSpawn: {fileID: 7403880616549798251}
-    cooldown: 0.1
-  - attack: {fileID: 4530020378320582419, guid: b8b038985f5dbf948b85188392cc962f,
-      type: 3}
-    patternSpawn: {fileID: 59548530}
-    cooldown: 0.3
-  - attack: {fileID: 4530020378320582419, guid: b8b038985f5dbf948b85188392cc962f,
-      type: 3}
-    patternSpawn: {fileID: 59548530}
-    cooldown: 0.5
-  - attack: {fileID: 7535649719867759211, guid: 839a1b29ac62751499d6005f280dc1ce,
-      type: 3}
-    patternSpawn: {fileID: 7403880616549798251}
-    cooldown: 0.3
-  - attack: {fileID: 7535649719867759211, guid: 839a1b29ac62751499d6005f280dc1ce,
-      type: 3}
-    patternSpawn: {fileID: 15880896}
-    cooldown: 0.3
-  - attack: {fileID: 7535649719867759211, guid: 839a1b29ac62751499d6005f280dc1ce,
-      type: 3}
-    patternSpawn: {fileID: 7403880616549798251}
-    cooldown: 0.3
-  phaseTimer: 4
+  - _key: {fileID: 0}
+    _value:
+      _key: {fileID: 0}
+      _value: 0
+  - _key: {fileID: 0}
+    _value:
+      _key: {fileID: 0}
+      _value: 0
+  - _key: {fileID: 0}
+    _value:
+      _key: {fileID: 0}
+      _value: 0
+  - _key: {fileID: 0}
+    _value:
+      _key: {fileID: 0}
+      _value: 0
+  - _key: {fileID: 0}
+    _value:
+      _key: {fileID: 0}
+      _value: 0
+  - _key: {fileID: 0}
+    _value:
+      _key: {fileID: 0}
+      _value: 0
+  - _key: {fileID: 0}
+    _value:
+      _key: {fileID: 0}
+      _value: 0
+  - _key: {fileID: 0}
+    _value:
+      _key: {fileID: 0}
+      _value: 0
+  - _key: {fileID: 0}
+    _value:
+      _key: {fileID: 0}
+      _value: 0
+  - _key: {fileID: 0}
+    _value:
+      _key: {fileID: 0}
+      _value: 0
+  - _key: {fileID: 0}
+    _value:
+      _key: {fileID: 0}
+      _value: 0
+  - _key: {fileID: 0}
+    _value:
+      _key: {fileID: 0}
+      _value: 0
+  - _key: {fileID: 0}
+    _value:
+      _key: {fileID: 0}
+      _value: 0
+  - _key: {fileID: 0}
+    _value:
+      _key: {fileID: 0}
+      _value: 0
+  - _key: {fileID: 0}
+    _value:
+      _key: {fileID: 0}
+      _value: 0
+  - _key: {fileID: 0}
+    _value:
+      _key: {fileID: 0}
+      _value: 0
+  - _key: {fileID: 0}
+    _value:
+      _key: {fileID: 0}
+      _value: 0
+  - _key: {fileID: 0}
+    _value:
+      _key: {fileID: 0}
+      _value: 0
+  - _key: {fileID: 0}
+    _value:
+      _key: {fileID: 0}
+      _value: 0
+  - _key: {fileID: 0}
+    _value:
+      _key: {fileID: 0}
+      _value: 0
+  - _key: {fileID: 0}
+    _value:
+      _key: {fileID: 0}
+      _value: 0
+  - _key: {fileID: 0}
+    _value:
+      _key: {fileID: 0}
+      _value: 0
+  - _key: {fileID: 0}
+    _value:
+      _key: {fileID: 0}
+      _value: 0
 --- !u!114 &4592647486710368103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89388,7 +89345,6 @@ MonoBehaviour:
     _hp: 100
     _timeBeforeReposition: 2
   _attacksCollection: []
-  phaseTimer: 2
 --- !u!114 &4886198750809893996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119090,7 +119046,6 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 1986124868}
   - {fileID: 1581256362}
   - {fileID: 2032408148}
   - {fileID: 843802201}

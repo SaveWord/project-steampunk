@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 2150725530207207554}
   - component: {fileID: 374493219025889352}
   - component: {fileID: 6925724005884958875}
+  - component: {fileID: -5538689923931934795}
   m_Layer: 9
   m_Name: Bullet_Magnet
   m_TagString: Untagged
@@ -114,7 +115,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.2628541, y: 1.5045762, z: -0.952209}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8454820717629045054}
@@ -225,12 +226,29 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6589324849865989182}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b8b78b988cd1b8449f420d2a143d980, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 13
   _lifeTime: 80
+  _speed: 0
   MagnetRad: 10
   TurnAngle: 20
+--- !u!114 &-5538689923931934795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6589324849865989182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b2935b34c81af74dbf623a7807325a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 12
+  _lifeTime: 50
+  _speed: 30
+  followDuration: 10

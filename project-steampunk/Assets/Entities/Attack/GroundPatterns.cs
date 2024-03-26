@@ -7,72 +7,80 @@ namespace Enemies.Bullets
 {
     public class GroundPatterns : MonoBehaviour
     {
-        public ITarget Target;
+        public List<GameObject> _patternPartsList;
 
-        [Header("Basics")]
-        [SerializeField] private float _damage;
-        [SerializeField] private float _lifeTime;
-        [SerializeField]  private float _speed ;
-        [SerializeField] private float _cooldownTime;
-        [SerializeField] private float _chargeTime;
-        //[SerializeField] private bool FollowForSomeTime;
+        //Instructions: add children colliders to this object with no render,and for each collider a child object for visual representation
 
-        private GameObject targetObject;
-        //private float followDuration = 15f;
-        // private Vector3 lastKnownPosition;
-        public Material materialNone;
+        [Header("Materials")]
         [SerializeField]
-        public Material materialCharge;
+        private Material _materialNone;
         [SerializeField]
-        public Material materialDamage;
+        private Material _materialCharge;
+        [SerializeField]
+        private Material _materialDamage;
 
-        private Rigidbody _rBody;
-        private float _timeOnFly;
+        [Header("No need")]
+        public float _damageTime;
+        public float _chargeTime;
+        public float _damage;
 
         private void Awake()
         {
-            materialNone = this.GetComponent<MeshRenderer>().material ;
-            //this.GetComponent<MeshRenderer>().material = null;
-            NewPulseCycle();
+            foreach (Transform segment in gameObject.transform)
+            {
+                _patternPartsList.Add(segment.gameObject);
+            }
+            foreach (GameObject child in _patternPartsList)
+            {
+                child.AddComponent<GroundComponent>();
+                child.GetComponent<GroundComponent>()._damage = _damage;
+                child.SetActive(false);
+            }
         }
 
-        void NewPulseCycle()
+        public void PulseCycle()
         {
-            Debug.Log("new cycle");
-            this.GetComponent<MeshRenderer>().material = materialCharge;
-            StartCoroutine(ChargeCoroutine());
+            foreach (GameObject child in _patternPartsList)
+            {
+                child.SetActive(true);
+                StartCoroutine(ChargeCoroutine(child));
+            }
         }
 
-        // Executes platform's attack
-        private IEnumerator ChargeCoroutine()
+        private IEnumerator ChargeCoroutine(GameObject gameObject)
         {
-            Debug.Log("starting charge");
-            this.GetComponent<MeshRenderer>().material = materialCharge;
-            
+            foreach (Transform child in gameObject.transform)
+            {
+                child.gameObject.GetComponent<MeshRenderer>().material = _materialCharge;
+            }
             yield return new WaitForSeconds(_chargeTime);
 
-            // changing color of platform to red
-            this.GetComponent<MeshRenderer>().material = materialDamage;
-            
-            // waiting just a little for player to see red coloring
-            yield return new WaitForSeconds(0.2f);
-            // changing color back to basic state
-            this.GetComponent<MeshRenderer>().material = materialCharge;
-            yield return new WaitForSeconds(_chargeTime);
-            this.GetComponent<MeshRenderer>().material = materialDamage;
 
-            // waiting just a little for player to see red coloring
-            yield return new WaitForSeconds(0.2f);
-            this.GetComponent<MeshRenderer>().material = materialNone;
-            StartCoroutine(CooldownCoroutine());
+            gameObject.GetComponent<GroundComponent>().isDamaging = true;
+            foreach (Transform child in gameObject.transform)
+            {
+                child.gameObject.GetComponent<MeshRenderer>().material = _materialDamage;
+            }
+           
+            // damage dealing time frame
+            yield return new WaitForSeconds(_damageTime);
+
+
+            gameObject.GetComponent<GroundComponent>().isDamaging = false;
+            foreach (Transform child in gameObject.transform)
+            {
+                child.gameObject.GetComponent<MeshRenderer>().material = _materialNone;
+            }
+            gameObject.SetActive(false);
+           
+            //StartCoroutine(CooldownCoroutine());
         }
 
-        // Provides cooldown for platform attack cycle
         private IEnumerator CooldownCoroutine()
         {
-            Debug.Log("waiting cooldown");
-            yield return new WaitForSeconds(_cooldownTime);
-            NewPulseCycle();
+            yield return new WaitForSeconds(_chargeTime);
+           PulseCycle();
+            //SelfDestroy();
         }
 
         private void SelfDestroy()
@@ -80,23 +88,6 @@ namespace Enemies.Bullets
             Destroy(gameObject);
         }
 
-        private void OnCollisionEnter(Collision collision)
-        {
-            Debug.Log(collision.gameObject.GetInstanceID());
-            if (collision.gameObject.GetInstanceID() == Target.GetTargetID())
-            {
-                DealDamage(collision.gameObject);
-            }
-        }
-
-        private void DealDamage(GameObject target)
-        {
-            //var damageable = target.GetComponent<IHealth>();
-           // damageable.TakeDamage(_damage);
-            target.TryGetComponent(out IHealth damageable);
-                damageable?.TakeDamage(_damage);
-            Debug.Log("attack from pizza");
-        }
     }
 }
 

@@ -1,0 +1,574 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2574148535203093731
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8709887414534370692}
+  - component: {fileID: 763348558666176653}
+  m_Layer: 0
+  m_Name: RingRange 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8709887414534370692
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2574148535203093731}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &763348558666176653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2574148535203093731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0709ddf791f9a5a4398a74fe5e245a66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shotQueue:
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 10}
+      ShotDirection: {x: 0, y: 0, z: 1}
+      ShotDelay: 0
+      LookAtTarget: 0
+    _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
+      type: 3}
+  - _key:
+      SpotPoint: {x: 1.5643448, y: 0, z: 9.8768835}
+      ShotDirection: {x: 0.15643448, y: 0, z: 0.98768836}
+      ShotDelay: 0
+      LookAtTarget: 0
+    _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
+      type: 3}
+  - _key:
+      SpotPoint: {x: 3.09017, y: 0, z: 9.510566}
+      ShotDirection: {x: 0.309017, y: 0, z: 0.95105654}
+      ShotDelay: 0
+      LookAtTarget: 0
+    _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
+      type: 3}
+  - _key:
+      SpotPoint: {x: 4.539905, y: 0, z: 8.910066}
+      ShotDirection: {x: 0.4539905, y: 0, z: 0.8910065}
+      ShotDelay: 0
+      LookAtTarget: 0
+    _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
+      type: 3}
+  - _key:
+      SpotPoint: {x: 5.8778524, y: 0, z: 8.09017}
+      ShotDirection: {x: 0.5877852, y: 0, z: 0.80901706}
+      ShotDelay: 0
+      LookAtTarget: 0
+    _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
+      type: 3}
+  - _key:
+      SpotPoint: {x: 7.071068, y: 0, z: 7.071068}
+      ShotDirection: {x: 0.70710677, y: 0, z: 0.70710677}
+      ShotDelay: 0
+      LookAtTarget: 0
+    _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
+      type: 3}
+  - _key:
+      SpotPoint: {x: 8.09017, y: 0, z: 5.8778524}
+      ShotDirection: {x: 0.80901706, y: 0, z: 0.5877852}
+      ShotDelay: 0
+      LookAtTarget: 0
+    _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
+      type: 3}
+  - _key:
+      SpotPoint: {x: 8.910066, y: 0, z: 4.539905}
+      ShotDirection: {x: 0.8910065, y: 0, z: 0.4539905}
+      ShotDelay: 0
+      LookAtTarget: 0
+    _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
+      type: 3}
+  - _key:
+      SpotPoint: {x: 9.510566, y: 0, z: 3.0901697}
+      ShotDirection: {x: 0.95105654, y: 0, z: 0.30901697}
+      ShotDelay: 0
+      LookAtTarget: 0
+    _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
+      type: 3}
+  - _key:
+      SpotPoint: {x: 9.8768835, y: 0, z: 1.5643437}
+      ShotDirection: {x: 0.98768836, y: 0, z: 0.15643437}
+      ShotDelay: 0
+      LookAtTarget: 0
+    _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
+      type: 3}
+  - _key:
+      SpotPoint: {x: 10, y: 0, z: -0.0000004371139}
+      ShotDirection: {x: 1, y: 0, z: -0.00000004371139}
+      ShotDelay: 0
+      LookAtTarget: 0
+    _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
+      type: 3}
+  - _key:
+      SpotPoint: {x: 9.8768835, y: 0, z: -1.5643444}
+      ShotDirection: {x: 0.98768836, y: 0, z: -0.15643445}
+      ShotDelay: 0
+      LookAtTarget: 0
+    _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
+      type: 3}
+  - _key:
+      SpotPoint: {x: 9.510565, y: 0, z: -3.0901704}
+      ShotDirection: {x: 0.95105654, y: 0, z: -0.30901703}
+      ShotDelay: 0
+      LookAtTarget: 0
+    _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
+      type: 3}
+  - _key:
+      SpotPoint: {x: 8.910065, y: 0, z: -4.539906}
+      ShotDirection: {x: 0.8910065, y: 0, z: -0.45399058}
+      ShotDelay: 0
+      LookAtTarget: 0
+    _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
+      type: 3}
+  - _key:
+      SpotPoint: {x: 8.09017, y: 0, z: -5.877852}
+      ShotDirection: {x: 0.80901706, y: 0, z: -0.5877851}
+      ShotDelay: 0
+      LookAtTarget: 0
+    _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
+      type: 3}
+  - _key:
+      SpotPoint: {x: 7.071068, y: 0, z: -7.071068}
+      ShotDirection: {x: 0.70710677, y: 0, z: -0.70710677}
+      ShotDelay: 0
+      LookAtTarget: 0
+    _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
+      type: 3}
+  - _key:
+      SpotPoint: {x: 5.877852, y: 0, z: -8.090171}
+      ShotDirection: {x: 0.5877851, y: 0, z: -0.8090171}
+      ShotDelay: 0
+      LookAtTarget: 0
+    _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
+      type: 3}
+  - _key:
+      SpotPoint: {x: 4.5399036, y: 0, z: -8.910066}
+      ShotDirection: {x: 0.45399037, y: 0, z: -0.8910066}
+      ShotDelay: 0
+      LookAtTarget: 0
+    _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
+      type: 3}
+  - _key:
+      SpotPoint: {x: 3.090168, y: 0, z: -9.510566}
+      ShotDirection: {x: 0.30901676, y: 0, z: -0.9510566}
+      ShotDelay: 0
+      LookAtTarget: 0
+    _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
+      type: 3}
+  - _key:
+      SpotPoint: {x: 1.5643444, y: 0, z: -9.8768835}
+      ShotDirection: {x: 0.15643445, y: 0, z: -0.98768836}
+      ShotDelay: 0
+      LookAtTarget: 0
+    _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
+      type: 3}
+  - _key:
+      SpotPoint: {x: -0.0000008742278, y: 0, z: -10}
+      ShotDirection: {x: -0.00000008742278, y: 0, z: -1}
+      ShotDelay: 0
+      LookAtTarget: 0
+    _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
+      type: 3}
+  - _key:
+      SpotPoint: {x: -1.5643461, y: 0, z: -9.876883}
+      ShotDirection: {x: -0.15643463, y: 0, z: -0.98768836}
+      ShotDelay: 0
+      LookAtTarget: 0
+    _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
+      type: 3}
+  - _key:
+      SpotPoint: {x: -3.0901697, y: 0, z: -9.510566}
+      ShotDirection: {x: -0.30901697, y: 0, z: -0.95105654}
+      ShotDelay: 0
+      LookAtTarget: 0
+    _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
+      type: 3}
+  - _key:
+      SpotPoint: {x: -4.5399055, y: 0, z: -8.910066}
+      ShotDirection: {x: -0.45399052, y: 0, z: -0.8910065}
+      ShotDelay: 0
+      LookAtTarget: 0
+    _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
+      type: 3}
+  - _key:
+      SpotPoint: {x: -5.8778534, y: 0, z: -8.09017}
+      ShotDirection: {x: -0.5877853, y: 0, z: -0.80901694}
+      ShotDelay: 0
+      LookAtTarget: 0
+    _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
+      type: 3}
+  - _key:
+      SpotPoint: {x: -7.071069, y: 0, z: -7.0710664}
+      ShotDirection: {x: -0.7071069, y: 0, z: -0.70710665}
+      ShotDelay: 0
+      LookAtTarget: 0
+    _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
+      type: 3}
+  - _key:
+      SpotPoint: {x: -8.090171, y: 0, z: -5.8778505}
+      ShotDirection: {x: -0.8090171, y: 0, z: -0.58778507}
+      ShotDelay: 0
+      LookAtTarget: 0
+    _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
+      type: 3}
+  - _key:
+      SpotPoint: {x: -8.910067, y: 0, z: -4.539902}
+      ShotDirection: {x: -0.8910067, y: 0, z: -0.45399025}
+      ShotDelay: 0
+      LookAtTarget: 0
+    _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
+      type: 3}
+  - _key:
+      SpotPoint: {x: -9.510565, y: 0, z: -3.0901709}
+      ShotDirection: {x: -0.9510565, y: 0, z: -0.3090171}
+      ShotDelay: 0
+      LookAtTarget: 0
+    _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
+      type: 3}
+  - _key:
+      SpotPoint: {x: -9.876883, y: 0, z: -1.5643452}
+      ShotDirection: {x: -0.98768836, y: 0, z: -0.15643454}
+      ShotDelay: 0
+      LookAtTarget: 0
+    _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
+      type: 3}
+  - _key:
+      SpotPoint: {x: -10, y: 0, z: 0.00000011924881}
+      ShotDirection: {x: -1, y: 0, z: 0.0000000119248815}
+      ShotDelay: 0
+      LookAtTarget: 0
+    _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
+      type: 3}
+  - _key:
+      SpotPoint: {x: -9.876883, y: 0, z: 1.5643454}
+      ShotDirection: {x: -0.98768836, y: 0, z: 0.15643455}
+      ShotDelay: 0
+      LookAtTarget: 0
+    _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
+      type: 3}
+  - _key:
+      SpotPoint: {x: -9.510565, y: 0, z: 3.0901713}
+      ShotDirection: {x: -0.9510565, y: 0, z: 0.30901712}
+      ShotDelay: 0
+      LookAtTarget: 0
+    _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
+      type: 3}
+  - _key:
+      SpotPoint: {x: -8.910064, y: 0, z: 4.5399065}
+      ShotDirection: {x: -0.8910064, y: 0, z: 0.45399064}
+      ShotDelay: 0
+      LookAtTarget: 0
+    _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
+      type: 3}
+  - _key:
+      SpotPoint: {x: -8.090168, y: 0, z: 5.877855}
+      ShotDirection: {x: -0.8090169, y: 0, z: 0.5877854}
+      ShotDelay: 0
+      LookAtTarget: 0
+    _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
+      type: 3}
+  - _key:
+      SpotPoint: {x: -7.0710654, y: 0, z: 7.07107}
+      ShotDirection: {x: -0.70710653, y: 0, z: 0.707107}
+      ShotDelay: 0
+      LookAtTarget: 0
+    _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
+      type: 3}
+  - _key:
+      SpotPoint: {x: -5.8778496, y: 0, z: 8.090173}
+      ShotDirection: {x: -0.58778495, y: 0, z: 0.80901724}
+      ShotDelay: 0
+      LookAtTarget: 0
+    _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
+      type: 3}
+  - _key:
+      SpotPoint: {x: -4.539905, y: 0, z: 8.910066}
+      ShotDirection: {x: -0.4539905, y: 0, z: 0.8910065}
+      ShotDelay: 0
+      LookAtTarget: 0
+    _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
+      type: 3}
+  - _key:
+      SpotPoint: {x: -3.0901694, y: 0, z: 9.510566}
+      ShotDirection: {x: -0.3090169, y: 0, z: 0.95105654}
+      ShotDelay: 0
+      LookAtTarget: 0
+    _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
+      type: 3}
+  - _key:
+      SpotPoint: {x: -1.5643436, y: 0, z: 9.8768835}
+      ShotDirection: {x: -0.15643436, y: 0, z: 0.98768836}
+      ShotDelay: 0
+      LookAtTarget: 0
+    _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
+      type: 3}
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 0}
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 0}
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 0}
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 0}
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 0}
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 0}
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 0}
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 0}
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 0}
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 0}
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 0}
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 0}
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 0}
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 0}
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 0}
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 0}
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 0}
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 0}
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 0}
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 0}
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 0}
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 0}
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 0}
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 0}
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 0}
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 0}
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 0}
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 0}
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 0}
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 0}
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 0}
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 0}
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 0}
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 0}
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 0}
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 0}
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 0}
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 0}
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 0}
+  - _key:
+      SpotPoint: {x: 0, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 0}
+  bullet: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904, type: 3}
+  makeChildren: 0
+  destroyChildren: 1
+  sphereCount: 40
+  largeRadius: 10
+  smallRadius: 3
+  axis: y
