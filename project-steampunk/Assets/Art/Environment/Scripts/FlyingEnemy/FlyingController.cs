@@ -30,6 +30,11 @@ public class FlyingController : MonoBehaviour
                 yield return null;
             }
         }
+        //_Agent.Pathfinding(_MoveToPoint.position);
+        //while(_Agent.Status!=AStarAgentStatus.Finished)
+        //{
+        //    yield return null;
+        //}      
     }
 
     IEnumerator Coroutine_Animation()

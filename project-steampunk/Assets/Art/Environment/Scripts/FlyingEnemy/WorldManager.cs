@@ -9,6 +9,7 @@ public class WorldManager : MonoBehaviour
     [SerializeField] int GridWidth;
     [SerializeField] int GridHeight;
     [SerializeField] int GridLength;
+    [SerializeField] LayerMask mask;
     public Point[][][] Grid;
     public float PointDistance;
     public float PointSize;
@@ -40,6 +41,7 @@ public class WorldManager : MonoBehaviour
     private void InitializeGrid()
     {
         startPoint = new Vector3(-GridWidth, -GridHeight, -GridLength) / 2f * PointDistance + transform.position;
+        Debug.Log($"StartPoint={startPoint}");
         GameObject gridParent = new GameObject("Grid");
         Grid = new Point[GridWidth][][];
         for (int i = 0; i < GridWidth; i++)
@@ -54,7 +56,7 @@ public class WorldManager : MonoBehaviour
                     Grid[i][j][k] = new Point();
                     Grid[i][j][k].Coords = new Vector3Int(i, j,k);
                     Grid[i][j][k].WorldPosition = pos;
-                    if(Physics.CheckBox(Grid[i][j][k].WorldPosition, Vector3.one * PointDistance/2f, Quaternion.identity))
+                    if(Physics.CheckBox(Grid[i][j][k].WorldPosition, Vector3.one * PointDistance/2f, Quaternion.identity,mask))
                     {
                         Grid[i][j][k].Invalid = true;
                     }
