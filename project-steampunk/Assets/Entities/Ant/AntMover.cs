@@ -88,7 +88,7 @@ namespace Enemies
             else
             {
                 _rBody.AddForce(Vector3.up * dashForce* 0.2f, ForceMode.Impulse);
-                _rBody.AddForce(dashDirection * dashForce*2f, ForceMode.Impulse);
+                _rBody.AddForce(dashDirection * dashForce*4f, ForceMode.Impulse);
             }
             
            
