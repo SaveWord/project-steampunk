@@ -26,6 +26,9 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _HALFTONESHAPE_DOT
+  - _METALLICSPECGLOSSMAP
+  - _NORMALMAP
+  - _OCCLUSIONMAP
   - _TOON_SHADING_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -40,11 +43,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 06e1051a58c05514bbf763c7cd2d2ed9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 93759a276309753428274cf3b816c675, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -88,15 +91,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 06e1051a58c05514bbf763c7cd2d2ed9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 6b377c80acc70be4188f0ca94f96a718, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 6a33415a66071a640bdd6c478469a27d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
@@ -212,7 +215,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.25899875, g: 0.2996962, b: 0.35180876, a: 1}
+    - _BaseColor: {r: 0.6886792, g: 0.6886792, b: 0.6886792, a: 1}
     - _Color: {r: 0.25899872, g: 0.29969615, b: 0.35180873, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _FaceFrontDirection: {r: 0, g: 0, b: 1, a: 0}

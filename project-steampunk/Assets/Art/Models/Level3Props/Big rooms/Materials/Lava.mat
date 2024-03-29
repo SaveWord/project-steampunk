@@ -16,10 +16,9 @@ Material:
   - _HALFTONESHAPE_DOT
   - _METALLICSPECGLOSSMAP
   - _NORMALMAP
-  - _OCCLUSIONMAP
   - _TOON_SHADING_ON
   m_InvalidKeywords: []
-  m_LightmapFlags: 1
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 2050
@@ -31,11 +30,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: d880d79fef4dd2d478381fc717ddac9e, type: 3}
-        m_Scale: {x: 10, y: 10}
+        m_Texture: {fileID: 2800000, guid: 572b3f10584c2e441bbd5316b16c85dc, type: 3}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: f3d977d49a470c94092b012f513b2896, type: 3}
+        m_Texture: {fileID: 2800000, guid: 6c2d3588b678a9c4c8d40228fb1151dd, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -55,7 +54,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 2800000, guid: d880d79fef4dd2d478381fc717ddac9e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 572b3f10584c2e441bbd5316b16c85dc, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0.3123123, y: 0}
     - _FaceShadowMap:
@@ -79,15 +78,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: d880d79fef4dd2d478381fc717ddac9e, type: 3}
-        m_Scale: {x: 10, y: 10}
+        m_Texture: {fileID: 2800000, guid: 572b3f10584c2e441bbd5316b16c85dc, type: 3}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: 47da785a836d4e945a12439d38cc6e76, type: 3}
+        m_Texture: {fileID: 2800000, guid: 6fac4d4b9fb4a1344bf1440d9eb986fc, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
-        m_Texture: {fileID: 2800000, guid: 10b7a7ecb5c9999498f9746c785b100b, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
