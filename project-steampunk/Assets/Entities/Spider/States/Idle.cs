@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Enemies.AntStates
+namespace Enemies.SpiderStates
 {
     public class Idle : IState
     {

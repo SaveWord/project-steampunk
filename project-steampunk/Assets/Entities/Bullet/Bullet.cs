@@ -69,9 +69,11 @@ namespace Enemies.Bullets
 
         protected void OnTriggerEnter(Collider collision)
         {
-            IHealth damageScript = collision.gameObject.GetComponent<IHealth>();
-            if (damageScript != null)
+
+            IHealth damageScript = collision.gameObject.GetComponent<IHealth>(); 
+            if (damageScript != null&& collision.gameObject.layer != LayerMask.NameToLayer("Enemy"))
             {
+                HpHandler damageScript = collision.gameObject.GetComponent<HpHandler>();
                 Debug.Log("hit player");
                 damageScript.TakeDamage(_damage);
                 SelfDestroy();

@@ -274,7 +274,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7797188128257077587}
   serializedVersion: 4
-  m_Mass: 5
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -380,6 +380,14 @@ MonoBehaviour:
     _dashMaxCooldown: 6
     _dashForce: 1
     _dashHeight: 0.063
+  dashForce: 50
+  dashDuration: 3
+  dashCooldown: 1
+  navMeshAgent: {fileID: 0}
+  ReverceDash: 0
+  DashForwardReactDist: 10
+  DashBackwardReactDist: 10
+  JumpUp: 0
 --- !u!114 &8788620654445131766
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -39,8 +39,11 @@ public class HpHandler : MonoBehaviour, IHealth
     }
 
     public void TakeDamage(float amount)//TODO: specify damage maker
-    {
-       
+    { 
+        //gameObject.TryGetComponent(out TargetDetector _targetDetector);
+        //if(_targetDetector != null )
+           // _targetDetector.GetShot();
+
         if (!_invulnerable)
         {
             if (amount <= 0)

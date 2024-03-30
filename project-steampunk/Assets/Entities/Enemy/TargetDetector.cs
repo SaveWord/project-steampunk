@@ -37,7 +37,6 @@ namespace Enemies
 
         public bool IsTargetAvailable()
         {
-            if (_target == null) Debug.Log("target is null");
             if (_target != null && IsTargetVisible())
                 return true;
             else 
@@ -101,9 +100,9 @@ namespace Enemies
         public void GetShot()
         {
             _TheyAreShootingMe = true;
-            StopCoroutine(_timerCoroutine);
-            _timerCoroutine = Forget();
-            StartCoroutine(_timerCoroutine);
+            //StopCoroutine(_timerCoroutine);
+            //_timerCoroutine = Forget();
+            //StartCoroutine(_timerCoroutine);
         }
 
         //TODO: forget that i was shot
@@ -115,11 +114,9 @@ namespace Enemies
                 _target = GameObject.FindWithTag("Player").GetComponent<ITarget>();
                 if (_target == null)
                 {
-                    Debug.Log("target is null");
                     return false;
                 }
 
-                Debug.Log("target have");
                 return true;
             }
             else
