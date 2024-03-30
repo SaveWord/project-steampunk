@@ -18,9 +18,10 @@ public class MouseSenseScroll : MonoBehaviour
     {
         Time.timeScale = 1;
         player = transform.root.GetComponent<PlayerMove>();
-        inputActionsUI = new ActionPrototypePlayer();
+        //inputActionsUI = new ActionPrototypePlayer();
+        inputActionsUI = SingletonActionPlayer.Instance.inputActions;
         inputActionsUI.Enable();
-        inputActionsUI.UI.SenseESCBuild.started += context => ActiveSlider(context);
+        inputActionsUI.UICustom.SenseESCBuild.started += context => ActiveSlider(context);
         filePath = Application.dataPath + "/" + optionsFileName;
         LoadSense();
     }
@@ -50,8 +51,8 @@ public class MouseSenseScroll : MonoBehaviour
     {
         if (activeSlider == false)
         {
+            inputActionsUI.Player.Disable();
             Time.timeScale = 0;
-
             activeSlider = true;
             testMenu.SetActive(activeSlider);
             Cursor.lockState = CursorLockMode.Confined;
@@ -59,6 +60,7 @@ public class MouseSenseScroll : MonoBehaviour
         }
         else if (activeSlider == true)
         {
+            inputActionsUI.Player.Enable();
             Time.timeScale = 1;
             activeSlider = false;
             testMenu.SetActive(activeSlider);
@@ -68,18 +70,19 @@ public class MouseSenseScroll : MonoBehaviour
     }
     public void ContinueButton()
     {
-        if (activeSlider == false)
-        {
-            Time.timeScale = 0;
-
-            activeSlider = true;
-            testMenu.SetActive(activeSlider);
-            Cursor.lockState = CursorLockMode.Confined;
-            Cursor.visible = true;
-        }
-        else if (activeSlider == true)
+        //if (activeSlider == false)
+        //{
+        //    Time.timeScale = 0;
+           
+        //    activeSlider = true;
+        //    testMenu.SetActive(activeSlider);
+        //    Cursor.lockState = CursorLockMode.Confined;
+        //    Cursor.visible = true;
+        //}
+        if (activeSlider == true)
         {
             Time.timeScale = 1;
+            inputActionsUI.Player.Enable();
             activeSlider = false;
             testMenu.SetActive(activeSlider);
             Cursor.lockState = CursorLockMode.Locked;
