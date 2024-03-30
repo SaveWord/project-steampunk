@@ -72,7 +72,4 @@ public class HpEnemy : MonoBehaviour
         Destroy(deathparticle, 1f);
         GameObject.Destroy(this.gameObject,1f);
     }
-
- 
-
 }

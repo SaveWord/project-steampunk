@@ -8,9 +8,12 @@ public class CheckPoint : MonoBehaviour
     private void Start()
     {
         GameManagerSingleton.Instance.SaveSystem.LoadCheckPoint();
-        if (GameManagerSingleton.Instance.SaveSystem.checkPointData.disablePoint[idCheckPoint] == 1)
+        if (idCheckPoint < GameManagerSingleton.Instance.SaveSystem.checkPointData.disablePoint.Count)
         {
-            gameObject.SetActive(false);
+            if (GameManagerSingleton.Instance.SaveSystem.checkPointData.disablePoint[idCheckPoint] == 1)
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
     private void OnTriggerEnter(Collider other)

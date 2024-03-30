@@ -8,15 +8,20 @@ public class SaveSystem : MonoBehaviour
 {
     public PlayerData playerData;
     public CheckPointData checkPointData;
+    public SpawnerData spawnerData;
     private string saveDataPath;
     private string saveDataPathCheckPoint;
+    private string saveDataPathSpawner;
 
     private void OnEnable()
     {
         playerData = new PlayerData();
         checkPointData = new CheckPointData();
+        spawnerData = new SpawnerData();
         saveDataPath = Application.persistentDataPath + "/PlayerData.json";
         saveDataPathCheckPoint = Application.persistentDataPath + "/CheckPoint.json";
+        saveDataPathSpawner = Application.persistentDataPath + "/SpawnerData.json";
+        
     }
     public void SaveData(float hp, Vector3 pos )
     {
@@ -26,7 +31,20 @@ public class SaveSystem : MonoBehaviour
         File.WriteAllText( saveDataPath, savePlayerData );
         Debug.Log("FileSave");
     }
-
+    public void SaveSpawnerData(int id, int disable)
+    {
+        spawnerData.disableSpawner.Insert( id, disable );
+        string saveDataSpawner = JsonUtility.ToJson( spawnerData );
+        File.WriteAllText(saveDataPathSpawner, saveDataSpawner);
+        Debug.Log("FileSpawnerSave");
+    }
+    public void SaveCheckPoint(int disableCheck)
+    {
+        checkPointData.disablePoint.Add(disableCheck);
+        string saveCheckPointData = JsonUtility.ToJson(checkPointData);
+        File.WriteAllText(saveDataPathCheckPoint, saveCheckPointData);
+        Debug.Log("FileSavePoint");
+    }
     public void LoadData()
     {
         if (File.Exists(saveDataPath))
@@ -37,12 +55,14 @@ public class SaveSystem : MonoBehaviour
         }
         else { Debug.Log("File not found"); }
     }
-    public void SaveCheckPoint(int disableCheck)
+    public void LoadSpawnerData()
     {
-        checkPointData.disablePoint.Add(disableCheck);
-        string saveCheckPointData = JsonUtility.ToJson(checkPointData);
-        File.WriteAllText(saveDataPathCheckPoint, saveCheckPointData);
-        Debug.Log("FileSavePoint");
+        if(File.Exists(saveDataPathSpawner))
+        {
+            string loadSpawnerData = File.ReadAllText(saveDataPathSpawner);
+            spawnerData = JsonUtility.FromJson<SpawnerData>(loadSpawnerData);
+            Debug.Log("FileSpawnLoad");
+        }
     }
     public void LoadCheckPoint()
     {
@@ -57,10 +77,14 @@ public class SaveSystem : MonoBehaviour
 }
 public class CheckPointData
 {
-    public List<int> disablePoint;
+    public List<int> disablePoint = new List<int>();
 }
 public class PlayerData
 {
     public float health;
     public Vector3 position;
+}
+public class SpawnerData
+{
+    public List<int> disableSpawner = new List<int>();
 }

@@ -99,8 +99,13 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
             Patrons--;
 
             //vfx and animation and ui
-            
             ShowAnimatorAndInternalImpact();
+            if (Patrons <= 0)
+            {
+                _animator.SetBool("shoot", false);
+                _animatorWeapon.SetBool("shoot", false);
+                _afterFireParticle.Play();
+            }
             TrailPoolSpawn();
             //aim assist, change radius sphere cast from distance
 
@@ -163,10 +168,6 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
     }
     public async override void Reload(InputAction.CallbackContext context)
     {
-        if (Patrons <= 0)
-        {
-            _afterFireParticle.Play();
-        }
         if (Patrons < maxPatrons)
         { 
             Patrons++;

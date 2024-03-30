@@ -23,6 +23,9 @@ public class HpHandler : MonoBehaviour, IHealth
     public event Action<float> OnHealedDamage = delegate { };
     public event Action OnDied = delegate { };
 
+    //delete ListSpawner and check door
+    public int _idEnemy;
+    public event Action <int> DeleteList;
     private void Start()
     {
         if (gameObject.layer == 7)
@@ -73,6 +76,12 @@ public class HpHandler : MonoBehaviour, IHealth
     {
         OnDied();
         Debug.Log("died");
+    }
+
+    private void OnDisable()
+    {
+        if (gameObject.layer == 6)
+            DeleteList(_idEnemy);
     }
 
     //if needed blood particle
