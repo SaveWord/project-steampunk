@@ -17,6 +17,12 @@ public class SwitchWeapon : MonoBehaviour
         inputActions.Player.Weapon3.started += context => Weapon3();
         animator = transform.root.GetComponentInChildren<Animator>();
     }
+    IEnumerator ISwitch()
+    {
+        animator.SetBool("switch", true);
+        yield return new WaitForSeconds(0.2f);
+        animator.SetBool("switch", false);
+    } 
     private void OnDisable()
     {
         inputActions.Disable();
@@ -60,6 +66,8 @@ public class SwitchWeapon : MonoBehaviour
             if(i == selectNumberWeapon)
             {
                 weapon.gameObject.SetActive(true);
+                StopCoroutine(ISwitch());
+                StartCoroutine(ISwitch());
             }
             else weapon.gameObject.SetActive(false);
             i++;
