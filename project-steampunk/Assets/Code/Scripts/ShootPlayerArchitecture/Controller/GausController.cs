@@ -36,7 +36,7 @@ public class GausController : WeaponController
         }
 
 
-        patronsText = transform.root.GetComponentInChildren<TextMeshProUGUI>();
+        patronsText = GetComponentInChildren<TextMeshProUGUI>();
 
         weapon = new ParametrsUpdateGaus(transform,weapon,
             weaponParametrs.fireRate,

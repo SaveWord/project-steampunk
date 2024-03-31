@@ -15,7 +15,7 @@ public class MachineGunController : WeaponController
     protected override void Start()
     {
         //use parametrs for shoot and weapon
-        patronsText = transform.root.GetComponentInChildren<TextMeshProUGUI>();
+        patronsText = GetComponentInChildren<TextMeshProUGUI>();
         recoil = transform.root.GetComponentInChildren<RecoilMachineGun>();
         weapon = new ParametrsUpdateMachineGun(weapon, weaponParametrs.fireRate,
             weaponParametrs.distanceAndDamages

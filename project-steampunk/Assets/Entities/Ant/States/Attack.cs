@@ -57,6 +57,9 @@ namespace Enemies.AntStates
         ITargetAttacker _targetAttacker;
         AntMover _antMover;
 
+
+       
+
         public Attack(ITargetDetector targetHolder, ITargetAttacker targetAttacker, AntMover antMover)
         {
             _targetHolder = targetHolder;
@@ -75,12 +78,12 @@ namespace Enemies.AntStates
 
             if (_target != null)
             {
-                _antMover.Dash();
+                _antMover.Dash(_target);
                 _targetAttacker.Attack(_target);
                 Debug.Log("fight mode");
             }
         }
-
+        
         public void OnEnter()
         {
             return;

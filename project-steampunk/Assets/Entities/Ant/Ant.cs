@@ -124,7 +124,7 @@ namespace Enemies
             if (Application.isPlaying)
             {
                 Gizmos.color = _stateMachine.GetGizmoColor();
-                Gizmos.DrawSphere(transform.position + Vector3.up * 2, 0.5f);
+                Gizmos.DrawSphere(transform.position + Vector3.up * 6, 2f);
             }
         }
     }

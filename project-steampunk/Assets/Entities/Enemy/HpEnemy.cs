@@ -16,6 +16,30 @@ public class HpEnemy : MonoBehaviour
     [SerializeField] private GameObject deathParticlePrefab;
     [SerializeField] private GameObject healDropPrefab;
 
+    private void OnTriggerEnter(Collider other)
+      {
+          //if (other.CompareTag("bullet")||other.CompareTag("killzone"))
+          //{
+          //    state = other.gameObject.GetComponent<damage_interface>().getstate();
+          //    Debug.Log(state);
+          //    switch (state)
+          //    {
+          //        case "frozen":
+          //            playerPosition = transform.position;
+          //            immovable = true;
+          //            Debug.Log(false);
+          //            break;
+          //        case "jump":
+          //            jumpForce = other.gameObject.GetComponent<damage_interface>().getDamage();
+          //            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+          //            Debug.Log(true);
+          //            break;
+          //        default: break;
+
+          //    }
+          //}
+      }
+
       private void OnTriggerStay(Collider other)
       {
           if (immovable)
@@ -27,9 +51,8 @@ public class HpEnemy : MonoBehaviour
     private void Start()
     {
         GetComponent<IHealth>().OnDied += HandleEnemyDied;
-        //_animator = GetComponentInChildren<Animator>();
+        _animator = GetComponentInChildren<Animator>();
         healDropPrefab = Resources.Load<GameObject>("HealDrop");
-
     }
 
     private void HandleEnemyDied()
@@ -40,16 +63,13 @@ public class HpEnemy : MonoBehaviour
         Debug.Log("Healed num " +healCount);
         for (int i=0; i <= healCount; i++)
         {
-            var position = new Vector3(transform.position.x+ Random.Range(-10, 10), transform.position.y, transform.position.z+ Random.Range(-10, 10));
+            var position = new Vector3(transform.position.x+ Random.Range(-10, 10), 0, transform.position.z+ Random.Range(-10, 10));
 
             Instantiate(healDropPrefab, position, Quaternion.identity);
         }
         //animation of death
-       // _animator.SetBool("isDead", true);
+        _animator.SetBool("isDead", true);
         Destroy(deathparticle, 1f);
-        GameObject.Destroy(this.gameObject);
+        GameObject.Destroy(this.gameObject,1f);
     }
-
- 
-
 }

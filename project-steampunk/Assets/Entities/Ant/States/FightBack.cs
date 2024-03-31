@@ -17,7 +17,7 @@ namespace Enemies.AntStates
 
         public Color GizmoColor()
         {
-            return Color.red;
+            return Color.cyan;
         }
 
         public void Tick()
@@ -26,8 +26,8 @@ namespace Enemies.AntStates
 
             if (_target != null)
             {
-                _antMover.Dash();
-               // _targetAttacker.Attack(_target);
+                _antMover.Dash(_target);
+                _targetAttacker.Attack(_target);
                 //Debug.Log("fighting back mode");
             }
         }
