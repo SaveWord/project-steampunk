@@ -69,7 +69,7 @@ public class Spawner : MonoBehaviour
             {
                 door.DoorOpen();
             }
-            GameManagerSingleton.Instance.SaveSystem.SaveSpawnerData(spawnerID, 1);
+            GameManagerSingleton.Instance.SaveSystem.SaveSpawnerData(1);
         }
     }
 }

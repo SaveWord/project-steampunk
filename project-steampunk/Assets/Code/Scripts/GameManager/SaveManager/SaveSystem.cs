@@ -31,9 +31,9 @@ public class SaveSystem : MonoBehaviour
         File.WriteAllText( saveDataPath, savePlayerData );
         Debug.Log("FileSave");
     }
-    public void SaveSpawnerData(int id, int disable)
+    public void SaveSpawnerData(int disable)
     {
-        spawnerData.disableSpawner.Insert( id, disable );
+        spawnerData.disableSpawner.Add(disable);
         string saveDataSpawner = JsonUtility.ToJson( spawnerData );
         File.WriteAllText(saveDataPathSpawner, saveDataSpawner);
         Debug.Log("FileSpawnerSave");

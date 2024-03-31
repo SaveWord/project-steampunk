@@ -33,7 +33,8 @@ namespace Enemies
         [SerializeField] private float _damageCloseCombat;
         [SerializeField] private float _damageJump;
         [SerializeField] private float dashoffset;
-        [SerializeField] private float Cooldowntime;
+        [Tooltip("Cooldown damage")]
+        [SerializeField] private float CooldowntimeDamage;
         [SerializeField] private float JumpCooldowntime;
 
         private bool damagecooldown = false;
@@ -152,20 +153,20 @@ namespace Enemies
             if (collision.gameObject.CompareTag("Player"))
             {
                 Debug.Log("hit player");
-                HpHandler damageScript = collision.gameObject.GetComponent<HpHandler>();
+                IHealth damageScript = collision.gameObject.GetComponent<IHealth>();
                 if (canDash && !damagecooldown)
                 {
                     damageScript.TakeDamage(_damageCloseCombat);
-                    StartCoroutine(Cooldown(Cooldowntime));
+                    StartCoroutine(Cooldown(CooldowntimeDamage));
                 }
                 else if (!damagecooldown) { 
                     damageScript.TakeDamage(_damageJump);
-                    StartCoroutine(Cooldown(Cooldowntime));
+                    StartCoroutine(Cooldown(CooldowntimeDamage));
                 }
                 
             }
         }
-        IEnumerator Cooldown(float time)
+        IEnumerator Cooldown(float time) // damage
         {
             damagecooldown = true;
 

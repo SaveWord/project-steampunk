@@ -94,8 +94,9 @@ public class PlayerMove : MonoBehaviour
         Cursor.visible = false;
         rb = GetComponent<Rigidbody>();
         animatorPlayer = GetComponentInChildren<Animator>();
-        inputActions = SingletonActionPlayer.Instance.inputActions;
-        //inputActions.Player.Enable();
+        //inputActions = SingletonActionPlayer.Instance.inputActions;
+        inputActions = new ActionPrototypePlayer();
+        inputActions.Player.Enable();
 
         //camera and vfx effects move getcomponents
         effectDash = GetComponentInChildren<VisualEffect>();

@@ -10,6 +10,7 @@ public class SwitchWeapon : MonoBehaviour
 
     private void OnEnable()
     {
+        //inputActions = SingletonActionPlayer.Instance.inputActions;
         inputActions = new ActionPrototypePlayer();
         inputActions.Enable();
         inputActions.Player.Weapon1.started += context => Weapon1();
@@ -25,7 +26,7 @@ public class SwitchWeapon : MonoBehaviour
     } 
     private void OnDisable()
     {
-        inputActions.Disable();
+        //inputActions.Disable();
         inputActions.Player.Weapon1.started -= context => Weapon1();
         inputActions.Player.Weapon2.started -= context => Weapon2();
         inputActions.Player.Weapon3.started -= context => Weapon3();

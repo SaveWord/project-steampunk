@@ -18,8 +18,8 @@ public class MouseSenseScroll : MonoBehaviour
     {
         Time.timeScale = 1;
         player = transform.root.GetComponent<PlayerMove>();
-        //inputActionsUI = new ActionPrototypePlayer();
-        inputActionsUI = SingletonActionPlayer.Instance.inputActions;
+        //inputActionsUI = SingletonActionPlayer.Instance.inputActions;
+        inputActionsUI = new ActionPrototypePlayer();
         inputActionsUI.Enable();
         inputActionsUI.UICustom.SenseESCBuild.started += context => ActiveSlider(context);
         filePath = Application.dataPath + "/" + optionsFileName;

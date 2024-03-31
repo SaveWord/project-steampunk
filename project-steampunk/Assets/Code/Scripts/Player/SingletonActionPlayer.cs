@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SingletonActionPlayer : MonoBehaviour
+public class SingletonActionPlayer: MonoBehaviour
 {
     public static SingletonActionPlayer Instance { get; private set; }
     public ActionPrototypePlayer inputActions;
@@ -16,5 +16,10 @@ public class SingletonActionPlayer : MonoBehaviour
         Instance = this;
         inputActions = new ActionPrototypePlayer();
         inputActions.Enable();
+    }
+   
+    private void OnDisable()
+    {
+        inputActions.Disable();
     }
 }
