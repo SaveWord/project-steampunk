@@ -34,10 +34,10 @@ public class DeathByPlatform : MonoBehaviour
             source.Play();
             StartCoroutine(waitForSound(other));
         }
-        //if (other.gameObject.layer==6)
-        //{         
-        //    Destroy(other.gameObject);
-        //}
+        if (other.gameObject.layer==6 && other.GetType()==typeof(CapsuleCollider))
+        {         
+            Destroy(other.gameObject);
+        }
 
     }
     IEnumerator waitForSound(Collider other)

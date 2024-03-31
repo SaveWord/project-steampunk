@@ -13,7 +13,7 @@ public class CheckForEnemies : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.layer == 6)
+        if (other.gameObject.layer == 6 && other.GetType()==typeof(CapsuleCollider))
         {
             if (!enemiesInArena.Contains(other.gameObject))
                 enemiesInArena.Add(other.gameObject);
