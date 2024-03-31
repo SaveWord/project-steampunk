@@ -33,7 +33,7 @@ public class MouseSenseScroll : MonoBehaviour
     }
     private void SaveSense()
     {
-        string senseString = sliderSense.value.ToString();
+        string senseString = sliderSense.value.ToString();  
         File.WriteAllText(filePath, senseString);
     }
     private void LoadSense()
