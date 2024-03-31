@@ -30,7 +30,7 @@ namespace Enemies
             var idle = new Idle();
             var chase = new Chase(navMeshAgent, antMover, targetDetector);
             var attack = new Attack(targetDetector, targetAttacker, antMover, _attacksCollection);
-            var fightBack = new FightBack(targetDetector, targetAttacker, antMover);
+            var fightBack = new FightBack(targetDetector, targetAttacker, antMover, _attacksCollection);
 
             _stateMachine.AddTransition(idle, attack, TargetAvailable());
             _stateMachine.AddTransition(chase, attack, TargetAvailable());

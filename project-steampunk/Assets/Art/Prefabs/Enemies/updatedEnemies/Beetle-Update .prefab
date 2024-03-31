@@ -335,7 +335,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 3.41
-  m_Speed: 10
+  m_Speed: 6
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -423,6 +423,14 @@ MonoBehaviour:
     _dashMaxCooldown: 0
     _dashForce: 0
     _dashHeight: 0
+  dashForce: 100
+  dashDuration: 2
+  dashCooldown: 1
+  navMeshAgent: {fileID: 0}
+  ReverceDash: 0
+  DashForwardReactDist: 0
+  DashBackwardReactDist: 0
+  JumpUp: 0
 --- !u!114 &8846361435030487999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -437,7 +445,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHp: 100
   _currentHp: 0
-  _invulnerable: 1
+  _invulnerable: 0
+  _idEnemy: 0
 --- !u!114 &4542283488404793218
 MonoBehaviour:
   m_ObjectHideFlags: 0
