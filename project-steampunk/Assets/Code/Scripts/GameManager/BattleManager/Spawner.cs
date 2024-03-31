@@ -7,12 +7,18 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     [SerializeField] private int spawnerID;
+    public float count;
     public List<Transform> dotSpawn;
     public Dictionary<int, GameObject> enemies;
     public List<DoorController> doors;
     [SerializeField] private GameObject enemyAntPrefab;
     //[SerializeField] private int enemiesCount;
     BoxCollider detectZone;
+
+    private void Update()
+    {
+        count = enemies.Count;
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -24,8 +30,8 @@ public class Spawner : MonoBehaviour
                 var enemy = Instantiate(enemyAntPrefab, dot);
                 enemy.transform.localPosition = Vector3.zero;
                 enemies.Add(j, enemy);
-                enemies[j].GetComponent<HpHandler>()._idEnemy = j;
-                enemies[j].GetComponent<HpHandler>().DeleteList += DeleteList;
+                enemies[j].GetComponent<HpEnemy>()._idEnemy = j;
+                enemies[j].GetComponent<HpEnemy>().DeleteList += DeleteList;
                 j++;
             }
             foreach (var door in doors)
@@ -47,7 +53,7 @@ public class Spawner : MonoBehaviour
         {
             if (GameManagerSingleton.Instance.SaveSystem.spawnerData.disableSpawner[spawnerID] == 1)
             {
-                DoorCheck();
+                DoorOpen();
                 detectZone.enabled = false;
             }
         }
@@ -55,10 +61,21 @@ public class Spawner : MonoBehaviour
     }
     private void DeleteList(int id)
     {
-        enemies[id].GetComponent<HpHandler>().DeleteList -= DeleteList;
+        enemies[id].GetComponent<HpEnemy>().DeleteList -= DeleteList;
         enemies.Remove(id);
         DoorCheck();
 
+    }
+    private void DoorOpen()
+    {
+        if (enemies.Count == 0)
+        {
+            Debug.Log("ENEMYES Empty");
+            foreach (var door in doors)
+            {
+                door.DoorOpen();
+            }
+        }
     }
     private void DoorCheck()
     {
@@ -69,7 +86,6 @@ public class Spawner : MonoBehaviour
             {
                 door.DoorOpen();
             }
-            GameManagerSingleton.Instance.SaveSystem.SaveSpawnerData(1);
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,10 @@ public class HpEnemy : MonoBehaviour
     [SerializeField] private Rigidbody rb;
     [SerializeField] private GameObject deathParticlePrefab;
     [SerializeField] private GameObject healDropPrefab;
+
+    //delete ListSpawner and check door
+    public int _idEnemy;
+    public event Action<int> DeleteList;
 
     private void OnTriggerEnter(Collider other)
       {
@@ -59,11 +64,11 @@ public class HpEnemy : MonoBehaviour
     {
         var deathparticle = Instantiate(deathParticlePrefab, transform.position, transform.rotation);
         // drop the heals
-        var healCount = Random.Range(0, 2);
+        var healCount = UnityEngine.Random.Range(0, 2);
         Debug.Log("Healed num " +healCount);
         for (int i=0; i <= healCount; i++)
         {
-            var position = new Vector3(transform.position.x+ Random.Range(-10, 10), 0, transform.position.z+ Random.Range(-10, 10));
+            var position = new Vector3(transform.position.x+ UnityEngine.Random.Range(-10, 10), 0, transform.position.z+ UnityEngine.Random.Range(-10, 10));
 
             Instantiate(healDropPrefab, position, Quaternion.identity);
         }
@@ -71,5 +76,6 @@ public class HpEnemy : MonoBehaviour
         _animator.SetBool("isDead", true);
         Destroy(deathparticle, 1f);
         GameObject.Destroy(this.gameObject,1f);
+        DeleteList(_idEnemy);
     }
 }
