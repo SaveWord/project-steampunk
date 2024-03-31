@@ -894,7 +894,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.15289101, z: -0, w: -0.9882431}
   m_LocalPosition: {x: 0, y: 3.1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3048504389405504527}
@@ -1249,7 +1249,6 @@ MonoBehaviour:
   _maxHp: 1000
   _currentHp: 1000
   _invulnerable: 0
-  _idEnemy: 0
 --- !u!114 &2877010259385070440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1266,6 +1265,7 @@ MonoBehaviour:
   deathParticlePrefab: {fileID: 3794447131822965395, guid: 6883b706c49cf5b4b8832dcb64ffd9c7,
     type: 3}
   healDropPrefab: {fileID: 0}
+  _idEnemy: 0
 --- !u!114 &6097781742018688182
 MonoBehaviour:
   m_ObjectHideFlags: 0
