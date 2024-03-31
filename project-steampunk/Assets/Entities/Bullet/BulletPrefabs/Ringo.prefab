@@ -47,6 +47,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damage: 20
   _lifeTime: 7
+  _speed: 23
+  sphereDie: {fileID: 0}
+  coroutineTimeDie: 0
   _damage: 20
   _lifeTime: 7
   _speed: 23
@@ -116,7 +119,7 @@ LineRenderer:
   - {x: 9.396927, y: 0, z: -3.4201992}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 2
+    widthMultiplier: 1
     widthCurve:
       serializedVersion: 2
       m_Curve:

@@ -26,7 +26,7 @@ namespace Enemies.Bullets
         private MeshCollider _meshCollider;
         [SerializeField] private float _startingRadius = 5f;
         [SerializeField] private int subdivision = 10;
-        private bool _OnReload;
+        private bool _OnReload =false ;
         [SerializeField] private float _lifetime = 10f;
         private bool a = true;
         private void Awake()
@@ -79,7 +79,7 @@ namespace Enemies.Bullets
         {
             target.TryGetComponent(out IHealth damageable);
             damageable?.TakeDamage(_damage);
-            Debug.Log("attack from ring");
+            Debug.Log("attack from ring"+_damage);
         }
 
         private IEnumerator DestructTime(float reloadTime)
@@ -88,7 +88,12 @@ namespace Enemies.Bullets
             yield return new WaitForSeconds(reloadTime);
             SelfDestroy();
         }
+        private IEnumerator DamageTime(float reloadTime)
+        {
 
+            yield return new WaitForSeconds(reloadTime);
+            _OnReload = false;
+        }
         private void OnTriggerEnter(Collider collision)
         {
             Debug.Log("shosh " + collision.gameObject.GetInstanceID());
@@ -98,7 +103,9 @@ namespace Enemies.Bullets
             }
             else if (collision.gameObject.layer == LayerMask.NameToLayer("Player") && !_OnReload)
             {
+                _OnReload = true;
                 DealDamage(collision.gameObject);
+                StartCoroutine(DamageTime(3f));
 
             }
 

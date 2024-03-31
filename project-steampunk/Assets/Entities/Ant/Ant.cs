@@ -13,6 +13,10 @@ namespace Enemies
     {
         [SerializeField]
         public List<AttackConstruct> _attacksCollection;
+        [SerializeField]
+        private float _transitionCooldownTime;
+        [SerializeField] 
+        private bool _canChange = true;
 
         private void Awake()
         {
@@ -42,9 +46,22 @@ namespace Enemies
             _stateMachine.SetState(idle);
         }
 
-        private void Update()
+        private IEnumerator CooldownTransition()
         {
             _stateMachine.Tick();
+            _canChange = false;
+            yield return new WaitForSeconds(_transitionCooldownTime);
+            _canChange = true;
+        }
+
+        private void Update()
+        {
+            if (_canChange)
+            {
+                
+                StartCoroutine(CooldownTransition());
+            }
+
         }
 
         private void OnDrawGizmos()

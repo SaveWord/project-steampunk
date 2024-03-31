@@ -11,10 +11,10 @@ public class TargetAttacker : MonoBehaviour, ITargetAttacker
     public int _attackQueue = 0;
     bool instanciated = false;
     private List<RangeAttack> _attaksList = new List<RangeAttack>();
+    private List<AttackConstruct> _attaks = new List<AttackConstruct>();
     private Animator _animator;
 
     private bool _OnReload;
-
 
     private void Awake()
     {
@@ -25,6 +25,7 @@ public class TargetAttacker : MonoBehaviour, ITargetAttacker
 
     public void SetAttack(List<AttackConstruct> attack)
     {
+        //_attaks = attack;
         foreach (var atk in attack)
         {
             var tempObject = Instantiate(atk.attack, transform);
@@ -35,7 +36,7 @@ public class TargetAttacker : MonoBehaviour, ITargetAttacker
 
     public void Attack(ITarget target, List<AttackConstruct> attack)
     {
-        if (!instanciated)
+        if(!instanciated)
             SetAttack(attack);
 
         transform.LookAt(new Vector3(target.GetPosition().x, transform.position.y, target.GetPosition().z));
@@ -45,23 +46,27 @@ public class TargetAttacker : MonoBehaviour, ITargetAttacker
 
         if (_OnReload) //!_attack.Activated && 
         {
-            _attaksList[_attackQueue].Activate(target, attack[_attackQueue].patternSpawn);
-            _animator.SetBool("isAttacking", true);
-            StartCoroutine(Reload(attack[_attackQueue].cooldown));
+
+            StartCoroutine(StartAttack(attack[_attackQueue].startTime, attack, target));
+            
         }
-
-
-
-
     }
 
-
+    private IEnumerator StartAttack(float Time, List<AttackConstruct> attack, ITarget target)
+    {
+        var atkAnim = "isAttacking" + _attackQueue;
+        _animator.SetBool(atkAnim, true);
+        yield return new WaitForSeconds(Time);
+        _animator.SetBool(atkAnim, false);
+        _attaksList[_attackQueue].Activate(target, attack[_attackQueue].patternSpawn);
+        StartCoroutine(Reload(attack[_attackQueue].cooldown));
+    }
     private IEnumerator Reload(float reloadTime)
     {
         _OnReload = false;
         yield return new WaitForSeconds(reloadTime);
-        _OnReload = true; _attackQueue++;
-        _animator.SetBool("isAttacking", false);
+        _OnReload = true;
+        _attackQueue++;
     }
 
     private IEnumerator DestroyBullet(float time, RangeAttack attack)

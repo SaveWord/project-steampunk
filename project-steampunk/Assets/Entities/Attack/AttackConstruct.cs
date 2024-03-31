@@ -11,6 +11,7 @@ namespace Enemies.Attacks.Attacks
         public RangeAttack attack;
         public Transform patternSpawn;
         public float cooldown;
+        public float startTime;
     }
 
 }
