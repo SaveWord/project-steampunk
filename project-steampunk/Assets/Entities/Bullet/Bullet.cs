@@ -10,7 +10,7 @@ namespace Enemies.Bullets
         [Header("Basics")]
         [SerializeField] protected float _damage;
         [SerializeField] protected float _lifeTime;
-        protected float _speed;
+        [SerializeField]  protected float _speed;
         //[SerializeField] private bool FollowForSomeTime;
 
         protected GameObject targetObject; 
@@ -18,7 +18,7 @@ namespace Enemies.Bullets
         protected Vector3 lastKnownPosition;
         protected Vector3 continueDirection;
         protected Rigidbody _rBody;
-        protected float _timeOnFly;
+        protected float _timeOnFly = 4f;
 
         [Header("VFX")]
         [SerializeField] protected GameObject sphereDie;
