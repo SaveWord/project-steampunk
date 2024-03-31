@@ -68,7 +68,8 @@ public class HpEnemy : MonoBehaviour
         Debug.Log("Healed num " +healCount);
         for (int i=0; i <= healCount; i++)
         {
-            var position = new Vector3(transform.position.x+ UnityEngine.Random.Range(-10, 10), 0, transform.position.z+ UnityEngine.Random.Range(-10, 10));
+
+            var position = new Vector3(transform.position.x+ UnityEngine.Random.Range(-10, 10), transform.position.y, transform.position.z+ UnityEngine.Random.Range(-10, 10));
 
             Instantiate(healDropPrefab, position, Quaternion.identity);
         }

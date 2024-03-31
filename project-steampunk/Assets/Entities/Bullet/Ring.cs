@@ -10,7 +10,6 @@ namespace Enemies.Bullets
 
         [Header("Basics")]
         [SerializeField] private float _damage;
-        [SerializeField] private float _lifeTime;
         [SerializeField] private float _speed;
         //[SerializeField] private bool FollowForSomeTime;
 
@@ -41,14 +40,11 @@ namespace Enemies.Bullets
         private void Start()
         {
             transform.rotation = Quaternion.Euler(0, 0, 0);
-
             StartCoroutine(DestructTime(_lifetime));
         }
 
         private void Update()
         {
-            
-            
             _startingRadius += Time.deltaTime * _speed;
              float angleStep = 2f * Mathf.PI / subdivision;
             _lineRenderer.positionCount = subdivision;
@@ -70,9 +66,6 @@ namespace Enemies.Bullets
         {
             _timeOnFly += Time.deltaTime;
             gameObject.transform.localScale += new Vector3(1 * _speed, 0, 1 * _speed);
-
-            if (_timeOnFly >= _lifeTime) SelfDestroy();
-
         }
 
         protected void DealDamage(GameObject target)
@@ -86,7 +79,7 @@ namespace Enemies.Bullets
         {
             
             yield return new WaitForSeconds(reloadTime);
-            SelfDestroy();
+            Destroy(gameObject);
         }
         private IEnumerator DamageTime(float reloadTime)
         {
@@ -99,7 +92,7 @@ namespace Enemies.Bullets
             Debug.Log("shosh " + collision.gameObject.GetInstanceID());
             if (collision.gameObject.layer == LayerMask.NameToLayer("Ground") || collision.gameObject.layer == LayerMask.NameToLayer("Props"))
             {
-              //  SelfDestroy();
+                Destroy(gameObject);
             }
             else if (collision.gameObject.layer == LayerMask.NameToLayer("Player") && !_OnReload)
             {
