@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private int spawnerID;
+    public int spawnerID;
     public float count;
     public List<Transform> dotSpawn;
     public Dictionary<int, GameObject> enemies;
@@ -48,16 +47,25 @@ public class Spawner : MonoBehaviour
         enemies = new Dictionary<int, GameObject>();
         doors.AddRange(GetComponentsInChildren<DoorController>());
         detectZone = GetComponent<BoxCollider>();
+        dotSpawn = transform.Cast<Transform>().ToList();
+
+        //load data
         GameManagerSingleton.Instance.SaveSystem.LoadSpawnerData();
+
+        //if load disable spawner and open door
         if (spawnerID < GameManagerSingleton.Instance.SaveSystem.spawnerData.disableSpawner.Count)
         {
             if (GameManagerSingleton.Instance.SaveSystem.spawnerData.disableSpawner[spawnerID] == 1)
             {
-                DoorOpen();
                 detectZone.enabled = false;
+                DoorCheck();
             }
         }
 
+    }
+    public void SaveStaySpawner()
+    {
+        GameManagerSingleton.Instance.SaveSystem.SaveSpawnerData(1);
     }
     private void DeleteList(int id)
     {
@@ -65,17 +73,6 @@ public class Spawner : MonoBehaviour
         enemies.Remove(id);
         DoorCheck();
 
-    }
-    private void DoorOpen()
-    {
-        if (enemies.Count == 0)
-        {
-            Debug.Log("ENEMYES Empty");
-            foreach (var door in doors)
-            {
-                door.DoorOpen();
-            }
-        }
     }
     private void DoorCheck()
     {
