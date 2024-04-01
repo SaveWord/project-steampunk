@@ -17,7 +17,7 @@ public class Bullet_Magnet : Bullet
     {
         _timeOnFly += Time.deltaTime;
         _turntime += Time.deltaTime;
-        if (_timeOnFly >= _lifettime) SelfDestroy();
+        if (_timeOnFly >= _lifettime) Destroy(gameObject);
         if (targetObject != null)
         {
             distance = Vector3.Distance(gameObject.transform.position, targetObject.transform.position);
@@ -45,29 +45,21 @@ public class Bullet_Magnet : Bullet
         void SelfDestroy()
         {
             Debug.Log("Die");
-            StartCoroutine(SelfDestroyCoroutine());
         }
-
-        IEnumerator SelfDestroyCoroutine()
-        {
-            sphereDie.SetActive(true);
-            yield return new WaitForSeconds(coroutineTimeDie);
-            Destroy(gameObject);
-        }
-
         void OnTriggerEnter(Collider collision)
         {
 
             IHealth damageScript = collision.gameObject.GetComponent<IHealth>();
-            if (damageScript != null && collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+            if (damageScript != null && collision.gameObject.layer == LayerMask.NameToLayer("Player") && collision.gameObject.layer != LayerMask.NameToLayer("Projectiles"))
             {
                 Debug.Log("hit player");
                 damageScript.TakeDamage(_damage);
-                SelfDestroy();
+                Destroy(gameObject);
             }
             if (collision.gameObject.layer == LayerMask.NameToLayer("Ground") || collision.gameObject.layer == LayerMask.NameToLayer("Props"))
             {
-                SelfDestroy();
+                Debug.Log("hit ground");
+                Destroy(gameObject);
             }
 
         }

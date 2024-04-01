@@ -37,14 +37,14 @@ public class HpBar : MonoBehaviour
     {
         var hpCanvas = (GameObject)Resources.Load("EnemyHealth", typeof(GameObject));
         if (hpCanvas && player == null)
-        {
-            var canvasObject = Instantiate(hpCanvas, new Vector3(playerCamera.transform.position.x,
-                playerCamera.transform.position.y,
-                playerCamera.transform.position.z),
-                UnityEngine.Quaternion.Euler(new Vector3(0, 0, 0)));
-            canvasObject.transform.SetParent(this.transform, false);
-            canvasObject.transform.localScale = new Vector3(1, 1, 1);
+        {  var canvasObject = Instantiate(hpCanvas, new Vector3(playerCamera.transform.position.x,
+                    playerCamera.transform.position.y,
+                    playerCamera.transform.position.z),
+                    UnityEngine.Quaternion.Euler(new Vector3(0, 0, 0)));
+                canvasObject.transform.SetParent(this.transform, false);
+                canvasObject.transform.localScale = new Vector3(1, 1, 1);
             _healthSlider = GetComponentInChildren<Slider>();
+            canvasObject.SetActive(false);
         }
     }
     private void HpBarRotation()
