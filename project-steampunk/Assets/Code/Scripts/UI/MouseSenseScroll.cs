@@ -19,9 +19,9 @@ public class MouseSenseScroll : MonoBehaviour
     {
         Time.timeScale = 1;
         player = transform.root.GetComponent<PlayerMove>();
-        //inputActionsUI = SingletonActionPlayer.Instance.inputActions;
-        inputActionsUI = new ActionPrototypePlayer();
-        inputActionsUI.Enable();
+        inputActionsUI = SingletonActionPlayer.Instance.inputActions;
+        //inputActionsUI = new ActionPrototypePlayer();
+        //inputActionsUI.Enable();
         inputActionsUI.UICustom.SenseESCBuild.started += context => ActiveSlider(context);
         filePath = Application.dataPath + "/" + optionsFileName;
         LoadSense();
@@ -29,6 +29,7 @@ public class MouseSenseScroll : MonoBehaviour
     private void OnDisable()
     {
         player.MouseSense = sliderSense.value;
+        inputActionsUI.UICustom.SenseESCBuild.started -= context => ActiveSlider(context);
         SaveSense();
 
     }
@@ -71,19 +72,19 @@ public class MouseSenseScroll : MonoBehaviour
     }
     public void ContinueButton()
     {
-        //if (activeSlider == false)
-        //{
-        //    Time.timeScale = 0;
-           
-        //    activeSlider = true;
-        //    testMenu.SetActive(activeSlider);
-        //    Cursor.lockState = CursorLockMode.Confined;
-        //    Cursor.visible = true;
-        //}
-        if (activeSlider == true)
+        if (activeSlider == false)
         {
-            Time.timeScale = 1;
+            inputActionsUI.Player.Disable();
+            Time.timeScale = 0;
+            activeSlider = true;
+            testMenu.SetActive(activeSlider);
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
+        }
+        else if (activeSlider == true)
+        {
             inputActionsUI.Player.Enable();
+            Time.timeScale = 1;
             activeSlider = false;
             testMenu.SetActive(activeSlider);
             Cursor.lockState = CursorLockMode.Locked;

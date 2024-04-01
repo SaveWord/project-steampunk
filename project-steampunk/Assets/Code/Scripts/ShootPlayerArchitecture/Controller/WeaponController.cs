@@ -42,9 +42,9 @@ public class WeaponController : MonoBehaviour
         vfxShootPrefab = GetComponentInChildren<ParticleSystem>();
         animatorArms = transform.root.GetComponentInChildren<Animator>();
         animatorWeapon = GetComponent<Animator>();
-        //inputShoot = SingletonActionPlayer.Instance.inputActions;
-        inputShoot = new ActionPrototypePlayer();
-        inputShoot.Enable();
+        inputShoot = SingletonActionPlayer.Instance.inputActions;
+        //inputShoot = new ActionPrototypePlayer();
+        //inputShoot.Enable();
         SubscriptionInput();
         
     }
