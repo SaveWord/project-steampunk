@@ -74,6 +74,13 @@ public class SaveSystem : MonoBehaviour
         }
         else { Debug.Log("FilePoint not found"); }
     }
+
+    public void DeleteAllSave()
+    {
+        File.Delete(saveDataPath);
+        File.Delete(saveDataPathSpawner);
+        File.Delete(saveDataPathCheckPoint);
+    }
 }
 public class CheckPointData
 {
