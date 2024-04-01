@@ -21,6 +21,7 @@ namespace Enemies
         private Animator _animator;
 
 
+        public float dashForceUp = 100f;
         public float dashForce = 100f;
         public float dashDuration = 2f;
         public float dashCooldown = 1f;
@@ -79,7 +80,7 @@ namespace Enemies
             if (distance < (DashDistance + dashoffset) && distance > (DashDistance - dashoffset))
             {
                 StartCoroutine(GoDash(dashDuration));
-                StartCoroutine(JumpCooldown(JumpCooldowntime));
+                StartCoroutine(JumpCooldown(UnityEngine.Random.Range(1,5)));
             }
 
         }
@@ -90,7 +91,7 @@ namespace Enemies
             Vector3 dashDirection = (targetPosition - transform.position).normalized;
 
 
-            _rBody.AddForce(Vector3.up * dashForce, ForceMode.Impulse);
+            _rBody.AddForce(Vector3.up * dashForceUp, ForceMode.Impulse);
             _rBody.AddForce(dashDirection * dashForce, ForceMode.Impulse);
 
             yield return new WaitForSeconds(time);
