@@ -233,7 +233,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damage: 13
   _lifeTime: 80
-  _speed: 0
+  BulletSpeed: 1
+  sphereDie: {fileID: 0}
+  coroutineTimeDie: 0
   MagnetRad: 10
   TurnAngle: 20
 --- !u!114 &-5538689923931934795
@@ -250,5 +252,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damage: 12
   _lifeTime: 50
-  _speed: 30
+  BulletSpeed: 0
+  sphereDie: {fileID: 0}
+  coroutineTimeDie: 0
   followDuration: 10

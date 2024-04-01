@@ -148,12 +148,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 12
-  _lifeTime: 100
-  _speed: 40
+  _lifeTime: 10
+  BulletSpeed: 1.5
   sphereDie: {fileID: 0}
   coroutineTimeDie: 7
-  MagnetRad: 50
-  TurnAngle: 50
+  MagnetRad: 30
+  TurnAngle: 30
+  _lifettime: 10
 --- !u!1 &4249495279527545909
 GameObject:
   m_ObjectHideFlags: 0

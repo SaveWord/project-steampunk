@@ -10,7 +10,8 @@ namespace Enemies.Bullets
         [Header("Basics")]
         [SerializeField] protected float _damage;
         [SerializeField] protected float _lifeTime;
-        [SerializeField]  protected float _speed;
+        [SerializeField] private float BulletSpeed;
+        protected float _speed;
         //[SerializeField] private bool FollowForSomeTime;
 
         protected GameObject targetObject; 
@@ -33,8 +34,8 @@ namespace Enemies.Bullets
             targetObject = GameObject.FindGameObjectWithTag("Player");
             if (targetObject != null)
             {
-                if(_speed<1)
-                    _speed = targetObject.GetComponent<PlayerMove>().GetSpeed() * 0.8f;
+               
+                _speed = targetObject.GetComponent<PlayerMove>().GetSpeed() * BulletSpeed;
                 lastKnownPosition = targetObject.GetComponent<ITarget>().GetPosition();
                 continueDirection = (lastKnownPosition - transform.position).normalized;
             }
@@ -72,13 +73,13 @@ namespace Enemies.Bullets
         {
 
             IHealth damageScript = collision.gameObject.GetComponent<IHealth>(); 
-            if (damageScript != null&& collision.gameObject.layer != LayerMask.NameToLayer("Enemy"))
+            if (damageScript != null && collision.gameObject.layer == LayerMask.NameToLayer("Player") && collision.gameObject.layer != LayerMask.NameToLayer("Projectiles"))
             {
                 Debug.Log("hit player");
                 damageScript.TakeDamage(_damage);
                 SelfDestroy();
             }
-            if (collision.gameObject.layer == LayerMask.NameToLayer("Ground")|| collision.gameObject.layer == LayerMask.NameToLayer("Props"))
+            if ((collision.gameObject.layer == LayerMask.NameToLayer("Ground")|| collision.gameObject.layer == LayerMask.NameToLayer("Props"))&& collision.gameObject.layer != LayerMask.NameToLayer("Projectiles"))
             {
                SelfDestroy();
             }

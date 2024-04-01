@@ -10,7 +10,7 @@ namespace Enemies.Bullets
 
         [Header("Basics")]
         [SerializeField] private float _damage;
-        [SerializeField] private float _speed;
+        [SerializeField] private float _waveSpeed;
         //[SerializeField] private bool FollowForSomeTime;
 
         private GameObject targetObject;
@@ -45,7 +45,7 @@ namespace Enemies.Bullets
 
         private void Update()
         {
-            _startingRadius += Time.deltaTime * _speed;
+            _startingRadius += Time.deltaTime * _waveSpeed;
              float angleStep = 2f * Mathf.PI / subdivision;
             _lineRenderer.positionCount = subdivision;
             for (int i = 0; i < subdivision; i++)
@@ -65,7 +65,7 @@ namespace Enemies.Bullets
         private void OnFly()
         {
             _timeOnFly += Time.deltaTime;
-            gameObject.transform.localScale += new Vector3(1 * _speed, 0, 1 * _speed);
+            gameObject.transform.localScale += new Vector3(1 * _waveSpeed, 0, 1 * _waveSpeed);
         }
 
         protected void DealDamage(GameObject target)
