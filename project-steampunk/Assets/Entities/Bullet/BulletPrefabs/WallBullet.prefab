@@ -126,6 +126,8 @@ GameObject:
   - component: {fileID: 3455235670542662553}
   - component: {fileID: 6060526688463858420}
   - component: {fileID: -108103273196745814}
+  - component: {fileID: 4816367267944950515}
+  - component: {fileID: -411261512111258432}
   m_Layer: 6
   m_Name: WallBullet
   m_TagString: Untagged
@@ -164,6 +166,8 @@ MonoBehaviour:
   _damage: 10
   _lifeTime: 10
   _speed: 0.5
+  sphereDie: {fileID: 0}
+  coroutineTimeDie: 0
   _speedWall: 1
 --- !u!54 &-108103273196745814
 Rigidbody:
@@ -192,6 +196,37 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &4816367267944950515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2718995441319664728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ea888751f5ba1249b431e29e558b051, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: -108103273196745814}
+  deathParticlePrefab: {fileID: 0}
+  healDropPrefab: {fileID: 0}
+  _idEnemy: 0
+--- !u!114 &-411261512111258432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2718995441319664728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a32c832d3fe41d4cb8378b6e39620e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHp: 1
+  _currentHp: 1
+  _invulnerable: 0
 --- !u!1 &7425706309689774621
 GameObject:
   m_ObjectHideFlags: 0
@@ -317,6 +352,8 @@ MonoBehaviour:
   _damage: 10
   _lifeTime: 10
   _speed: 20
+  sphereDie: {fileID: 0}
+  coroutineTimeDie: 0
   _speedWall: 0
 --- !u!114 &7662961224586133807
 MonoBehaviour:
@@ -333,6 +370,8 @@ MonoBehaviour:
   rb: {fileID: 0}
   deathParticlePrefab: {fileID: 1489431029902184, guid: 4430919f14c50f84085d287cbcb2c30e,
     type: 3}
+  healDropPrefab: {fileID: 0}
+  _idEnemy: 0
 --- !u!114 &4561390093216011166
 MonoBehaviour:
   m_ObjectHideFlags: 0

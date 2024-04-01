@@ -33,7 +33,8 @@ namespace Enemies.Bullets
             targetObject = GameObject.FindGameObjectWithTag("Player");
             if (targetObject != null)
             {
-                _speed = targetObject.GetComponent<PlayerMove>().GetSpeed() * 0.8f;
+                if(_speed<1)
+                    _speed = targetObject.GetComponent<PlayerMove>().GetSpeed() * 0.8f;
                 lastKnownPosition = targetObject.GetComponent<ITarget>().GetPosition();
                 continueDirection = (lastKnownPosition - transform.position).normalized;
             }
