@@ -74,7 +74,7 @@ public class HpEnemy : MonoBehaviour
             Instantiate(healDropPrefab, position, Quaternion.identity);
         }
         //animation of death
-        _animator.SetBool("isDead", true);
+        //_animator.SetBool("isDead", true);
         Destroy(deathparticle, 0.3f); ;
         GameObject.Destroy(this.gameObject,0.3f);
         DeleteList(_idEnemy);
