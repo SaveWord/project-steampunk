@@ -13,6 +13,7 @@ public class Player : MonoBehaviour, ITarget
     private DamageTakenEffect damageEffect;
     [SerializeField]
     private DamageTakenEffect healEffect;
+    public static Action dieMenuEvent;
 
     public int GetTargetID()
     {
@@ -43,7 +44,8 @@ public class Player : MonoBehaviour, ITarget
     private void HandlePlayerDied()
     {
         isDead = true;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+       dieMenuEvent?.Invoke();
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     
 }

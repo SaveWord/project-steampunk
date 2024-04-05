@@ -9,14 +9,17 @@ using UnityEngine.UI;
 public class MouseSenseScroll : MonoBehaviour
 {
     [SerializeField] private GameObject testMenu;
+    [SerializeField] private GameObject testMenuDie;
     [SerializeField] private Slider sliderSense;
     public string optionsFileName;
     private string filePath;
     private PlayerMove player;
     private ActionPrototypePlayer inputActionsUI;
     private bool activeSlider = false;
+    private bool activeDieMenu =false;
     private void OnEnable()
     {
+        Player.dieMenuEvent += ContinueDie;
         Time.timeScale = 1;
         player = transform.root.GetComponent<PlayerMove>();
         inputActionsUI = SingletonActionPlayer.Instance.inputActions;
@@ -28,6 +31,7 @@ public class MouseSenseScroll : MonoBehaviour
     }
     private void OnDisable()
     {
+        Player.dieMenuEvent -= ContinueDie;
         player.MouseSense = sliderSense.value;
         inputActionsUI.UICustom.SenseESCBuild.started -= context => ActiveSlider(context);
         SaveSense();
@@ -51,23 +55,26 @@ public class MouseSenseScroll : MonoBehaviour
     }
     public void ActiveSlider(InputAction.CallbackContext context)
     {
-        if (activeSlider == false)
+        if (activeDieMenu == false)
         {
-            inputActionsUI.Player.Disable();
-            Time.timeScale = 0;
-            activeSlider = true;
-            testMenu.SetActive(activeSlider);
-            Cursor.lockState = CursorLockMode.Confined;
-            Cursor.visible = true;
-        }
-        else if (activeSlider == true)
-        {
-            inputActionsUI.Player.Enable();
-            Time.timeScale = 1;
-            activeSlider = false;
-            testMenu.SetActive(activeSlider);
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            if (activeSlider == false)
+            {
+                inputActionsUI.Player.Disable();
+                Time.timeScale = 0;
+                activeSlider = true;
+                testMenu.SetActive(activeSlider);
+                Cursor.lockState = CursorLockMode.Confined;
+                Cursor.visible = true;
+            }
+            else if (activeSlider == true)
+            {
+                inputActionsUI.Player.Enable();
+                Time.timeScale = 1;
+                activeSlider = false;
+                testMenu.SetActive(activeSlider);
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
         }
     }
     public void ContinueButton()
@@ -95,6 +102,21 @@ public class MouseSenseScroll : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         GameManagerSingleton.Instance.SaveSystem.DeleteAllSave();
+    }
+    public void ContinueDie()
+    {
+        activeDieMenu = true;
+        inputActionsUI.Player.Disable();
+        Time.timeScale = 0;
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
+        testMenuDie.SetActive(true);
+    }
+    public void ControllPointLoad()
+    {
+        Time.timeScale = 1;
+        inputActionsUI.Player.Enable();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     public void Exit()
     {

@@ -12,7 +12,14 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
     [SerializeField] private float mouseSense;
-    public float MouseSense { get { return mouseSense; } set { mouseSense = value; } }
+
+    public float DashSlider { get
+        {
+            float remainingTime = dashTimer > Time.time ? dashTimer - Time.time : 0f;
+            float progress = 1f - Mathf.Clamp01(remainingTime / dashCooldown);
+            return progress; 
+        } private set { } }
+    public  float MouseSense { get { return mouseSense; } set { mouseSense = value; } }
 
     [Header("Cinemachine Virtual Cameras")]
     [SerializeField] private CinemachineVirtualCamera cam;
