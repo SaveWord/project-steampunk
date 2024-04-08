@@ -21,20 +21,19 @@ public class WeaponController : MonoBehaviour
     protected Animator animatorArms;
     protected Animator animatorWeapon;
 
-   protected virtual void SubscriptionInput()
+    protected virtual void SubscriptionInput()
     {
-        inputShoot.Player.Shoot.started += context => Shoot(context);
-        inputShoot.Player.Shoot.performed += context => Shoot(context);
-        inputShoot.Player.Shoot.canceled += context => Shoot(context);
-        inputShoot.Player.Reload.started += context => Reload(context);
+        inputShoot.Player.Shoot.started += Shoot;
+        inputShoot.Player.Shoot.performed += Shoot;
+        inputShoot.Player.Shoot.canceled += Shoot;
+        inputShoot.Player.Reload.started += Reload;
     }
     protected virtual void UnSubscribeInput()
     {
-       
-        inputShoot.Player.Shoot.started -= context => Shoot(context);
-        inputShoot.Player.Shoot.performed -= context => Shoot(context);
-        inputShoot.Player.Shoot.canceled -= context => Shoot(context);
-        inputShoot.Player.Reload.started -= context => Reload(context);
+        inputShoot.Player.Shoot.started -= Shoot;
+        inputShoot.Player.Shoot.performed -= Shoot;
+        inputShoot.Player.Shoot.canceled -= Shoot;
+        inputShoot.Player.Reload.started -= Reload;
     }
     protected void OnEnable()
     {
@@ -46,12 +45,12 @@ public class WeaponController : MonoBehaviour
         //inputShoot = new ActionPrototypePlayer();
         //inputShoot.Enable();
         SubscriptionInput();
-        
+
     }
     protected void OnDisable()
     {
         //inputShoot.Disable();
-        UnSubscribeInput();  
+        UnSubscribeInput();
     }
     protected virtual void Update()
     {
@@ -84,6 +83,8 @@ public class WeaponController : MonoBehaviour
         //Shoot Pressed
         if (context.performed)
         {
+            Debug.Log(weapon.GetType().Name);
+            Debug.Log(this.GetType().Name);
             isPressedContext = context;
             isPressed = true;
         }

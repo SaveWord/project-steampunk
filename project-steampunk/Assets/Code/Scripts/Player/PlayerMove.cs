@@ -10,16 +10,23 @@ public class PlayerMove : MonoBehaviour
     //move data
     [Header("Переменные перемещения")]
     [SerializeField] private float speed;
-    [SerializeField] private float jumpForce;
     [SerializeField] private float mouseSense;
 
-    public float DashSlider { get
+    //jump
+    [SerializeField] private float jumpForce;
+    [Tooltip("don't give up player in slope"),SerializeField] private float jumpLimitRbY;
+    private bool jumpTrue;
+    public float DashSlider
+    {
+        get
         {
             float remainingTime = dashTimer > Time.time ? dashTimer - Time.time : 0f;
             float progress = 1f - Mathf.Clamp01(remainingTime / dashCooldown);
-            return progress; 
-        } private set { } }
-    public  float MouseSense { get { return mouseSense; } set { mouseSense = value; } }
+            return progress;
+        }
+        private set { }
+    }
+    public float MouseSense { get { return mouseSense; } set { mouseSense = value; } }
 
     [Header("Cinemachine Virtual Cameras")]
     [SerializeField] private CinemachineVirtualCamera cam;
@@ -39,6 +46,9 @@ public class PlayerMove : MonoBehaviour
     private Rigidbody rb;
     private ActionPrototypePlayer inputActions;
     private bool isGrounded;
+
+    private int doubleJump;
+
 
     //state player movement
     //private State state;
@@ -62,6 +72,8 @@ public class PlayerMove : MonoBehaviour
     private float oldSpeed;
 
 
+    private RaycastHit slopeHit;
+
     //tackle data
     /*
     [Header("Переменные подката")]
@@ -73,7 +85,7 @@ public class PlayerMove : MonoBehaviour
     private bool tackleActive;
     */
 
-    private int doubleJump;
+
 
     //wallRunning
     /*
@@ -89,6 +101,7 @@ public class PlayerMove : MonoBehaviour
 
     //vfx effects move
     private VisualEffect effectDash;
+
 
     private void Awake()
     {
@@ -127,7 +140,6 @@ public class PlayerMove : MonoBehaviour
         Move(inputMove);
         Rotation(inputLook);
 
-        Debug.Log(inputMove);
         //if ((inputMove.y < 0 || inputMove.x != 0) && tackleActive == true)
         //{
         //    rb.velocity = new Vector3((inputMove.y < 0) ?
@@ -157,12 +169,36 @@ public class PlayerMove : MonoBehaviour
     }
     private void Move(Vector2 inputMove)
     {
+        Physics.Raycast(dotGround.transform.position, Vector3.down, out slopeHit, 1, groundLayer);
         Vector3 move = transform.right * inputMove.x + transform.forward * inputMove.y;
-        rb.velocity = new Vector3(move.x * speed, rb.velocity.y, move.z * speed);
+        Vector3 projectedMove = Vector3.ProjectOnPlane(move, slopeHit.normal).normalized;
+       
+
+        float vc = new Vector2(rb.velocity.x, rb.velocity.z).magnitude;
+        float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
+        Debug.DrawLine(transform.position, transform.position + projectedMove * 5, Color.red);
+        //Debug.Log(rb.velocity);
+        Debug.Log(angle);
+        //rb.velocity = new Vector3(projectedMove.x * speed, rb.velocity.y/(vc/5+1), projectedMove.z * speed);
+        //rb.velocity = new Vector3(projectedMove.x * speed, rb.velocity.y, projectedMove.z * speed);
+    
+        if(angle  < 60 && angle != 0)
+        {
+            rb.velocity = new Vector3(projectedMove.x * speed, rb.velocity.y, projectedMove.z * speed);
+            //rb.AddForce(projectedMove * speed *20,ForceMode.Force);
+        }
+        else if((angle >60 || angle ==0) && rb.velocity.y > 0)
+        {
+            rb.AddForce(Vector3.down * jumpLimitRbY, ForceMode.Force);
+        }
+        else
+        {
+            rb.velocity = new Vector3(move.x * speed, rb.velocity.y, move.z * speed);
+        }
 
         animatorPlayer.SetFloat("speed", inputMove.magnitude, 0.1f, Time.deltaTime);
     }
-
+    
     public void Dash(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -237,14 +273,14 @@ public class PlayerMove : MonoBehaviour
         //&& tackleActive == false)
         {
             animatorPlayer.SetBool("jump", true);
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            rb.AddForce(Vector3.up * jumpForce * jumpLimitRbY, ForceMode.Force);
         }
         else if (doubleJump == 1 && context.phase == InputActionPhase.Started)
         {
-            animatorPlayer.SetBool("jump", true);
-            // rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+
+            animatorPlayer.SetBool("jump", true);   
             StartCoroutine(JumpCoroutineUpSpeed());
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            rb.AddForce(Vector3.up * jumpForce *jumpLimitRbY, ForceMode.Force);
             doubleJump = 0;
         }
         if (context.phase == InputActionPhase.Canceled)
@@ -264,7 +300,7 @@ public class PlayerMove : MonoBehaviour
     {
         isGrounded = Physics.CheckSphere(dotGround.position, sphereRadius, groundLayer);
 
-        if (isGrounded == true) { doubleJump = 1; }
+        if (isGrounded == true) { doubleJump = 1;  }
         return isGrounded;
     }
     //hookShot

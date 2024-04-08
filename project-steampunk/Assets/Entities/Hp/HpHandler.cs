@@ -23,18 +23,17 @@ public class HpHandler : MonoBehaviour, IHealth
     public event Action<float> OnHealedDamage = delegate { };
     public event Action OnDied = delegate { };
 
-  
     private void Start()
     {
+        if (gameObject.layer == 6)
+            enemyDamageImpact = GetComponentInChildren<VisualEffect>();
+        _currentHp = _maxHp;
         if (gameObject.layer == 7)
         {
             GameManagerSingleton.Instance.SaveSystem.LoadData();
             _currentHp = GameManagerSingleton.Instance.SaveSystem.playerData.health;
-            transform.position = GameManagerSingleton.Instance.SaveSystem.playerData.position;
+            transform.localPosition = GameManagerSingleton.Instance.SaveSystem.playerData.position;
         }
-        if (gameObject.layer == 6)
-            enemyDamageImpact = GetComponentInChildren<VisualEffect>();
-        _currentHp = _maxHp;
     }
 
     public void TakeDamage(float amount)//TODO: specify damage maker

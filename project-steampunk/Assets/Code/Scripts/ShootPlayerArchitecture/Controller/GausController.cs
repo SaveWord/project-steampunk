@@ -11,15 +11,15 @@ public class GausController : WeaponController
     private ParticleSystem afterFireSmoke;
     protected override void SubscriptionInput()
     {
-        inputShoot.Player.Shoot.started += context => Shoot(context);
-        inputShoot.Player.Shoot.performed += context => Shoot(context);
-        inputShoot.Player.Shoot.canceled += context => Shoot(context);
+        inputShoot.Player.Shoot.started += Shoot;
+        inputShoot.Player.Shoot.performed += Shoot;
+        inputShoot.Player.Shoot.canceled += Shoot;
     }
     protected override void UnSubscribeInput()
     {
-        inputShoot.Player.Shoot.started -= context => Shoot(context);
-        inputShoot.Player.Shoot.performed -= context => Shoot(context);
-        inputShoot.Player.Shoot.canceled -= context => Shoot(context);
+        inputShoot.Player.Shoot.started -= Shoot;
+        inputShoot.Player.Shoot.performed -= Shoot;
+        inputShoot.Player.Shoot.canceled -= Shoot;
     }
     protected override void Start()
     {
@@ -58,6 +58,7 @@ public class GausController : WeaponController
         //Shoot Pressed
         if (context.performed)
         {
+            Debug.Log(this.GetType().Name);
             isPressedContext = context;
             isPressed = true;
         }
