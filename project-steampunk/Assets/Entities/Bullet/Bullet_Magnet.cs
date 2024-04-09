@@ -42,26 +42,6 @@ public class Bullet_Magnet : Bullet
         {
             Debug.LogWarning("Target object not found!");
         }
-        void SelfDestroy()
-        {
-            Debug.Log("Die");
-        }
-        void OnTriggerEnter(Collider collision)
-        {
-
-            IHealth damageScript = collision.gameObject.GetComponent<IHealth>();
-            if (damageScript != null && collision.gameObject.layer == LayerMask.NameToLayer("Player") && collision.gameObject.layer != LayerMask.NameToLayer("Projectiles"))
-            {
-                Debug.Log("hit player");
-                damageScript.TakeDamage(_damage);
-                Destroy(gameObject);
-            }
-            if (collision.gameObject.layer == LayerMask.NameToLayer("Ground") || collision.gameObject.layer == LayerMask.NameToLayer("Props"))
-            {
-                Debug.Log("hit ground");
-                Destroy(gameObject);
-            }
-
-        }
+       
     }
 }
