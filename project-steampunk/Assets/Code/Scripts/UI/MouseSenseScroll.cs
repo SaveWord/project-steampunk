@@ -10,11 +10,18 @@ public class MouseSenseScroll : MonoBehaviour
 {
     [SerializeField] private GameObject testMenu;
     [SerializeField] private Slider sliderSense;
+    [SerializeField] private Image cheatsImage;
+
     public string optionsFileName;
     private string filePath;
     private PlayerMove player;
     private ActionPrototypePlayer inputActionsUI;
     private bool activeSlider = false;
+
+    private HpHandler playerHpHandler;
+    private GameObject playerObject;
+
+
     private void OnEnable()
     {
         Time.timeScale = 1;
@@ -22,9 +29,14 @@ public class MouseSenseScroll : MonoBehaviour
         inputActionsUI = SingletonActionPlayer.Instance.inputActions;
         //inputActionsUI = new ActionPrototypePlayer();
         //inputActionsUI.Enable();
+
+        playerObject = GameObject.FindGameObjectWithTag("Player");
+        playerHpHandler = playerObject.GetComponent<HpHandler>();
+
         inputActionsUI.UICustom.SenseESCBuild.started += context => ActiveSlider(context);
         filePath = Application.dataPath + "/" + optionsFileName;
         LoadSense();
+
     }
     private void OnDisable()
     {
@@ -104,4 +116,19 @@ public class MouseSenseScroll : MonoBehaviour
     {
         player.MouseSense = sense;
     }
+
+    public void Cheats()
+    {
+        playerHpHandler._invulnerable = !playerHpHandler._invulnerable;
+        if (playerHpHandler._invulnerable)
+            cheatsImage.color = new Color32(0, 255, 0, 255);
+        else
+            cheatsImage.color = new Color32(255, 0, 0, 255);
+
+    }
+    public void ToBoss()
+    {
+        playerObject.transform.position = new Vector3(2564.40015f, 560.868958f, 121.196419f);
+    }
+
 }
