@@ -3,12 +3,10 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
 using UnityEngine.VFX;
-using Unity.VisualScripting;
 
 public class PlayerMove : MonoBehaviour
 {
     private Animator animatorPlayer; //animator for change hands anim
-
     //move data
     [Header("Переменные перемещения")]
     [SerializeField] private float speed;
@@ -94,9 +92,10 @@ public class PlayerMove : MonoBehaviour
         Cursor.visible = false;
         rb = GetComponent<Rigidbody>();
         animatorPlayer = GetComponentInChildren<Animator>();
-        //inputActions = SingletonActionPlayer.Instance.inputActions;
-        inputActions = new ActionPrototypePlayer();
-        inputActions.Player.Enable();
+
+        //inputActions = new ActionPrototypePlayer();
+        inputActions = SingletonActionPlayer.Instance.inputActions;
+
 
         //camera and vfx effects move getcomponents
         effectDash = GetComponentInChildren<VisualEffect>();
@@ -228,7 +227,7 @@ public class PlayerMove : MonoBehaviour
     {
         Debug.Log(doubleJump);
         if (context.phase == InputActionPhase.Started && IsGrounded() == true)
-            //&& tackleActive == false)
+        //&& tackleActive == false)
         {
             animatorPlayer.SetBool("jump", true);
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
