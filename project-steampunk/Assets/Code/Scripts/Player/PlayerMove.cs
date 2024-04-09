@@ -106,7 +106,7 @@ public class PlayerMove : MonoBehaviour
     private void Awake()
     {
 
-        Physics.gravity = new Vector3(0, -8.61f, 0); //change gravity
+        Physics.gravity = new Vector3(0, -10f, 0); //change gravity
         //capsuleColliders = GetComponents<CapsuleCollider>();//change collider in slide
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -184,18 +184,23 @@ public class PlayerMove : MonoBehaviour
     
         if(angle  < 60 && angle != 0)
         {
-            rb.velocity = new Vector3(projectedMove.x * speed, rb.velocity.y, projectedMove.z * speed);
+            rb.velocity = new Vector3(projectedMove.x * speed*1.5f, rb.velocity.y, projectedMove.z * speed*1.5f);
             //rb.AddForce(projectedMove * speed *20,ForceMode.Force);
+            if (rb.velocity.y > 0)
+            {
+                rb.AddForce(Vector3.down * jumpLimitRbY, ForceMode.Force);
+            }
         }
-        else if((angle >60 || angle ==0) && rb.velocity.y > 0)
-        {
-            rb.AddForce(Vector3.down * jumpLimitRbY, ForceMode.Force);
-        }
+        //else if((angle >60 || angle ==0) && rb.velocity.y > 0)
+        //{
+        //    rb.AddForce(Vector3.down * jumpLimitRbY, ForceMode.Force);
+        //}
         else
         {
             rb.velocity = new Vector3(move.x * speed, rb.velocity.y, move.z * speed);
         }
-
+        if(!isGrounded && rb.velocity.y > 0 && !jumpTrue )
+            rb.AddForce(Vector3.down * jumpLimitRbY, ForceMode.Force);
         animatorPlayer.SetFloat("speed", inputMove.magnitude, 0.1f, Time.deltaTime);
     }
     
@@ -272,6 +277,7 @@ public class PlayerMove : MonoBehaviour
         if (context.phase == InputActionPhase.Started && IsGrounded() == true)
         //&& tackleActive == false)
         {
+            StartCoroutine(JumpCoroutineUpSpeed());
             animatorPlayer.SetBool("jump", true);
             rb.AddForce(Vector3.up * jumpForce * jumpLimitRbY, ForceMode.Force);
         }
@@ -292,8 +298,10 @@ public class PlayerMove : MonoBehaviour
 
     IEnumerator JumpCoroutineUpSpeed()
     {
+        jumpTrue = true;
         speed = speed * 1.3f;
         yield return new WaitForSeconds(0.1f);
+        jumpTrue = false;
         speed = speed / 1.3f;
     }
     private bool IsGrounded()
