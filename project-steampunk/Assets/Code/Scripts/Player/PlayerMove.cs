@@ -7,6 +7,9 @@ using UnityEngine.VFX;
 public class PlayerMove : MonoBehaviour
 {
     private Animator animatorPlayer; //animator for change hands anim
+
+    [Tooltip("Change physics"),SerializeField] private float physicsGravity = -9.81f;
+
     //move data
     [Header("Переменные перемещения")]
     [SerializeField] private float speed;
@@ -14,7 +17,6 @@ public class PlayerMove : MonoBehaviour
 
     //jump
     [SerializeField] private float jumpForce;
-    [Tooltip("don't give up player in slope"),SerializeField] private float jumpLimitRbY;
     private bool jumpTrue;
     public float DashSlider
     {
@@ -106,7 +108,7 @@ public class PlayerMove : MonoBehaviour
     private void Awake()
     {
 
-        Physics.gravity = new Vector3(0, -10f, 0); //change gravity
+        Physics.gravity = new Vector3(0, physicsGravity, 0); //change gravity
         //capsuleColliders = GetComponents<CapsuleCollider>();//change collider in slide
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -169,41 +171,38 @@ public class PlayerMove : MonoBehaviour
     }
     private void Move(Vector2 inputMove)
     {
-        Physics.Raycast(dotGround.transform.position, Vector3.down, out slopeHit, 1, groundLayer);
-        Vector3 move = transform.right * inputMove.x + transform.forward * inputMove.y;
-        Vector3 projectedMove = Vector3.ProjectOnPlane(move, slopeHit.normal).normalized;
+        Physics.SphereCast(dotGround.transform.position,1f ,Vector3.down, out slopeHit,5, groundLayer);
+
        
 
-        float vc = new Vector2(rb.velocity.x, rb.velocity.z).magnitude;
-        float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
-        Debug.DrawLine(transform.position, transform.position + projectedMove * 5, Color.red);
+        Vector3 move = transform.right * inputMove.x + transform.forward * inputMove.y;
+        Vector3 projectedMove = Vector3.ProjectOnPlane(move, slopeHit.normal).normalized;
+        float angle = Vector3.Angle(slopeHit.point,move);
         //Debug.Log(rb.velocity);
-        Debug.Log(angle);
-        //rb.velocity = new Vector3(projectedMove.x * speed, rb.velocity.y/(vc/5+1), projectedMove.z * speed);
-        //rb.velocity = new Vector3(projectedMove.x * speed, rb.velocity.y, projectedMove.z * speed);
-    
-        if(angle  < 60 && angle != 0)
+        //Debug.Log(projectedMove);
+        //Debug.Log(angle);
+        if (projectedMove.magnitude == 0 && jumpTrue == false)
+            rb.velocity = new Vector3(0, -50,0);
+
+        if ((angle != 0) && jumpTrue == false)
         {
-            rb.velocity = new Vector3(projectedMove.x * speed*1.5f, rb.velocity.y, projectedMove.z * speed*1.5f);
-            //rb.AddForce(projectedMove * speed *20,ForceMode.Force);
-            if (rb.velocity.y > 0)
+            if(rb.velocity.y > 0)
             {
-                rb.AddForce(Vector3.down * jumpLimitRbY, ForceMode.Force);
+                rb.velocity = new Vector3(rb.velocity.x, -50, rb.velocity.z);
             }
+            rb.velocity = new Vector3(projectedMove.x * speed, rb.velocity.y,
+                projectedMove.z * speed);   
         }
-        //else if((angle >60 || angle ==0) && rb.velocity.y > 0)
-        //{
-        //    rb.AddForce(Vector3.down * jumpLimitRbY, ForceMode.Force);
-        //}
+       
         else
         {
             rb.velocity = new Vector3(move.x * speed, rb.velocity.y, move.z * speed);
         }
-        if(!isGrounded && rb.velocity.y > 0 && !jumpTrue )
-            rb.AddForce(Vector3.down * jumpLimitRbY, ForceMode.Force);
+
+
         animatorPlayer.SetFloat("speed", inputMove.magnitude, 0.1f, Time.deltaTime);
     }
-    
+
     public void Dash(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -277,16 +276,17 @@ public class PlayerMove : MonoBehaviour
         if (context.phase == InputActionPhase.Started && IsGrounded() == true)
         //&& tackleActive == false)
         {
+            jumpTrue = true;
             StartCoroutine(JumpCoroutineUpSpeed());
             animatorPlayer.SetBool("jump", true);
-            rb.AddForce(Vector3.up * jumpForce * jumpLimitRbY, ForceMode.Force);
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
         else if (doubleJump == 1 && context.phase == InputActionPhase.Started)
         {
-
-            animatorPlayer.SetBool("jump", true);   
+            jumpTrue = true;
+            animatorPlayer.SetBool("jump", true);
             StartCoroutine(JumpCoroutineUpSpeed());
-            rb.AddForce(Vector3.up * jumpForce *jumpLimitRbY, ForceMode.Force);
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             doubleJump = 0;
         }
         if (context.phase == InputActionPhase.Canceled)
@@ -298,19 +298,30 @@ public class PlayerMove : MonoBehaviour
 
     IEnumerator JumpCoroutineUpSpeed()
     {
-        jumpTrue = true;
         speed = speed * 1.3f;
         yield return new WaitForSeconds(0.1f);
-        jumpTrue = false;
         speed = speed / 1.3f;
     }
     private bool IsGrounded()
     {
         isGrounded = Physics.CheckSphere(dotGround.position, sphereRadius, groundLayer);
-
+       
         if (isGrounded == true) { doubleJump = 1;  }
         return isGrounded;
     }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(LayerMask.LayerToName(collision.gameObject.layer) == "Ground")
+            jumpTrue = false;
+    }
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(dotGround.position, sphereRadius);
+
+      
+    }
+
     //hookShot
     /*
     public void HandleHookShot(InputAction.CallbackContext context)

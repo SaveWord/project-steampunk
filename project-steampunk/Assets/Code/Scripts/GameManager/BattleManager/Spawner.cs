@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static DotSpawnType;
 
 public class Spawner : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class Spawner : MonoBehaviour
     public Dictionary<int, GameObject> enemies;
     public List<DoorController> doors;
     [SerializeField] private GameObject enemyAntPrefab;
+    [SerializeField] private GameObject enemyAntShieldPrefab;
+    [SerializeField] private GameObject enemyBeetlePrefab;
+    [SerializeField] private GameObject enemyBeePrefab;
     //[SerializeField] private int enemiesCount;
     BoxCollider detectZone;
 
@@ -25,8 +29,23 @@ public class Spawner : MonoBehaviour
             int j = 0;
             foreach (var dot in dotSpawn)
             {
-
-                var enemy = Instantiate(enemyAntPrefab, dot);
+                GameObject enemy = null;
+                EnemyTypeSpawn dotSpawnType = dot.GetComponent<DotSpawnType>().enemyTypeSpawn;
+                switch (dotSpawnType)
+                {
+                    case EnemyTypeSpawn.Ant:
+                        enemy = Instantiate(enemyAntPrefab, dot);
+                        break;
+                    case EnemyTypeSpawn.AntShield:
+                        enemy = Instantiate(enemyAntShieldPrefab, dot);
+                        break;
+                    case EnemyTypeSpawn.Beetle:
+                        enemy = Instantiate(enemyBeetlePrefab, dot);
+                        break;
+                    case EnemyTypeSpawn.Bee:
+                        enemy = Instantiate(enemyBeePrefab, dot);
+                        break;
+                }
                 enemy.transform.localPosition = Vector3.zero;
                 enemies.Add(j, enemy);
                 enemies[j].GetComponent<HpEnemy>()._idEnemy = j;
