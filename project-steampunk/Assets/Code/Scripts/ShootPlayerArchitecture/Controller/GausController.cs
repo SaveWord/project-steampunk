@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class GausController : WeaponController
 {
     InputAction.CallbackContext context;//null context
+   [SerializeField] private List<Image> gausePatronsImages;
     private List<GameObject> poolObjectList;
     private ParticleSystem afterFireSmoke;
     protected override void SubscriptionInput()
@@ -45,7 +48,8 @@ public class GausController : WeaponController
             weaponParametrs.patrons, weaponParametrs.attackType,
             weaponParametrs.enemyLayer,
             vfxShootPrefab, weaponParametrs.vfxImpactMetalProps, weaponParametrs.vfxImpactOtherProps,
-            patronsText, animatorArms, animatorWeapon, recoilCinemachine,poolObjectList, afterFireSmoke);
+            patronsText, gausePatronsImages,
+            animatorArms, animatorWeapon, recoilCinemachine,poolObjectList, afterFireSmoke);
     }
     public override void Shoot(InputAction.CallbackContext context)
     {

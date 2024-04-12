@@ -194,6 +194,7 @@ public class ParametrsUpdateDecorator : MainDecorator
             Debug.Log("Deactivate");
             Patrons = maxPatrons;
             _patronsText.text = Patrons.ToString();
+            return;
         }
     }
 }

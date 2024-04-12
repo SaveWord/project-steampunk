@@ -8,7 +8,7 @@ public class PlayerMove : MonoBehaviour
 {
     private Animator animatorPlayer; //animator for change hands anim
 
-    [Tooltip("Change physics"),SerializeField] private float physicsGravity = -9.81f;
+    [Tooltip("Change physics, use negative value"),SerializeField] private float physicsGravity = -9.81f;
 
     //move data
     [Header("Переменные перемещения")]
