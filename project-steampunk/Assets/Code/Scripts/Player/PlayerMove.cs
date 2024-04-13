@@ -43,7 +43,8 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float verticalDamping = 0.5f;
 
 
-
+    [Header("Угол наклона камеры Y")]
+   [SerializeField] private float yAngle;
     private float xRotation;
     private Rigidbody rb;
     private ActionPrototypePlayer inputActions;
@@ -71,6 +72,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float dashTimeLimit;//время рывка
     [SerializeField] private float dashCooldown;//время перезарядки рывка
     private float dashTimer;
+    private bool dashTrue;
     private float oldSpeed;
 
 
@@ -104,6 +106,12 @@ public class PlayerMove : MonoBehaviour
     //vfx effects move
     private VisualEffect effectDash;
 
+    [Header("Звуки мувмента")]
+    [SerializeField] private AudioClip moveClip;
+    [SerializeField] private AudioClip dashClip;
+    [SerializeField] private AudioClip jumpClip;
+
+    private AudioSource audioSource;
 
     private void Awake()
     {
@@ -113,6 +121,7 @@ public class PlayerMove : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         rb = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
         animatorPlayer = GetComponentInChildren<Animator>();
 
         //inputActions = new ActionPrototypePlayer();
@@ -164,7 +173,7 @@ public class PlayerMove : MonoBehaviour
         float yLook = inputLook.y * mouseSense;
 
         xRotation -= yLook;
-        xRotation = Mathf.Clamp(xRotation, -55.5f, 55.5f);
+        xRotation = Mathf.Clamp(xRotation, -yAngle, yAngle);
 
         cam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         transform.Rotate(Vector3.up * xLook);
@@ -172,8 +181,14 @@ public class PlayerMove : MonoBehaviour
     private void Move(Vector2 inputMove)
     {
         Physics.SphereCast(dotGround.transform.position,1f ,Vector3.down, out slopeHit,5, groundLayer);
-
-       
+        if((inputMove != Vector2.zero) && !audioSource.isPlaying && jumpTrue == false
+            && dashTrue == false)
+        {
+            audioSource.clip = moveClip;
+            audioSource.Play();
+        }
+       else if((inputMove == Vector2.zero) && jumpTrue == false)
+            audioSource.Stop();
 
         Vector3 move = transform.right * inputMove.x + transform.forward * inputMove.y;
         Vector3 projectedMove = Vector3.ProjectOnPlane(move, slopeHit.normal).normalized;
@@ -219,11 +234,17 @@ public class PlayerMove : MonoBehaviour
 
         oldSpeed = speed;
         speed = dashSpeed;
+        dashTrue = true;
         Physics.IgnoreLayerCollision(gameObject.layer, layerIgnore, true);
+
+        //effects and audio
+        audioSource.Stop();
+        audioSource.PlayOneShot(dashClip);
         effectDash.Play();
         yield return new WaitForSeconds(dashTimeLimit);
         effectDash.Stop();
         Physics.IgnoreLayerCollision(gameObject.layer, layerIgnore, false);
+        dashTrue = false;
         speed = oldSpeed;
 
     }
@@ -299,6 +320,10 @@ public class PlayerMove : MonoBehaviour
     IEnumerator JumpCoroutineUpSpeed()
     {
         speed = speed * 1.3f;
+        //audio
+        audioSource.Stop();
+        audioSource.PlayOneShot(jumpClip);
+
         yield return new WaitForSeconds(0.1f);
         speed = speed / 1.3f;
     }
@@ -311,8 +336,10 @@ public class PlayerMove : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if(LayerMask.LayerToName(collision.gameObject.layer) == "Ground")
+        if (LayerMask.LayerToName(collision.gameObject.layer) == "Ground")
+        {
             jumpTrue = false;
+        }
     }
     void OnDrawGizmosSelected()
     {

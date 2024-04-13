@@ -13,6 +13,7 @@ public class Spawner : MonoBehaviour
     public List<DoorController> doors;
     [SerializeField] private GameObject enemyAntPrefab;
     [SerializeField] private GameObject enemyAntShieldPrefab;
+    [SerializeField] private GameObject enemySpiderPrefab;
     [SerializeField] private GameObject enemyBeetlePrefab;
     [SerializeField] private GameObject enemyBeePrefab;
     //[SerializeField] private int enemiesCount;
@@ -38,6 +39,9 @@ public class Spawner : MonoBehaviour
                         break;
                     case EnemyTypeSpawn.AntShield:
                         enemy = Instantiate(enemyAntShieldPrefab, dot);
+                        break;
+                    case EnemyTypeSpawn.Spider:
+                        enemy = Instantiate(enemySpiderPrefab, dot);
                         break;
                     case EnemyTypeSpawn.Beetle:
                         enemy = Instantiate(enemyBeetlePrefab, dot);

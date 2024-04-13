@@ -8,6 +8,7 @@ public class DotSpawnType : MonoBehaviour
     {
         Ant,
         AntShield,
+        Spider,
         Beetle,
         Bee
     }
