@@ -67,7 +67,8 @@ public class ArenaAttacker : MonoBehaviour, IBossTargetAttacker
         }
 
         _laser = _laserList.GetComponent<LaserFollow>();
-        _laser.LaserFollowInstanciate( _pointOfAttack,_laserFollowDistance, _laserDamage,  _laserSpeed,  _laserAttackDuration);
+        if(_laser)
+            _laser.LaserFollowInstanciate( _pointOfAttack,_laserFollowDistance, _laserDamage,  _laserSpeed,  _laserAttackDuration);
         
     }
 

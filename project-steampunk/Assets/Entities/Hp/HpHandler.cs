@@ -12,7 +12,7 @@ public class HpHandler : MonoBehaviour, IHealth
     [SerializeField]
     private float _currentHp;
     [SerializeField]
-    private bool _invulnerable = false;
+    public bool _invulnerable = false;
     //vfxGraphTakeDamage
     private VisualEffect enemyDamageImpact;
 
