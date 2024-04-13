@@ -100,18 +100,12 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
         {
             _updateLastShoot = currentTime;
             Patrons--;
-            if (Patrons <= 0)
-            {
-                _animator.SetBool("shoot", false);
-                _animatorWeapon.SetBool("shoot", false);
-                _afterFireParticle.Play();
-                return;
-            }
+          
 
             //vfx and animation and ui
             ShowAnimatorAndInternalImpact();
            
-            TrailPoolSpawn();
+            //TrailPoolSpawn();
             //aim assist, change radius sphere cast from distance
 
             if (Physics.SphereCast(Camera.main.transform.position, 2f, Camera.main.transform.forward,
@@ -155,6 +149,14 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
                 //vfx and animator stop
                 ShowVFXImpact(hit);
 
+                //if (Patrons <= 0)
+                //{
+                //    _animator.SetBool("shoot", false);
+                //    _animatorWeapon.SetBool("shoot", false);
+                //    _afterFireParticle.Play();
+                    
+                //}
+
             }
         }
         indexPatron = Mathf.Clamp((int)Patrons, 0, _updateGausePatronsImage.Count - 1);
@@ -172,6 +174,14 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
                 break;
             }
         }
+    }
+    protected override void ShowAnimatorAndInternalImpact()
+    {
+        _animator.SetBool("shoot", true);
+        _animatorWeapon.SetBool("shoot", true);
+        _recoil.GenerateImpulse();
+        _vfxShootPrefab.Stop();
+        _vfxShootPrefab.Play();
     }
     public async override void Reload(InputAction.CallbackContext context)
     {
