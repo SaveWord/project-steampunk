@@ -53,7 +53,11 @@ public class SaveSystem : MonoBehaviour
             playerData = JsonUtility.FromJson<PlayerData>(loadPlayerData);
             Debug.Log("FileLoad");
         }
-        else { Debug.Log("File not found"); }
+        else {
+            playerData.health = 100;
+            playerData.position = GetComponentInChildren<CheckPoint>().gameObject.transform.position;
+            Debug.Log("File not found"); 
+        }
     }
     public void LoadSpawnerData()
     {
