@@ -46,7 +46,7 @@ public class BossTargetAttacker : MonoBehaviour, IBossTargetAttacker
         if (_OnReload) //!_attack.Activated && 
         {
             _attaksList[_attackQueue].Activate(target, attack[_attackQueue].patternSpawn);
-            _animator.SetBool("isAttacking", true);
+            _animator.SetBool("isAttacking0", true);
             StartCoroutine(Reload(attack[_attackQueue].cooldown));
         }
         
@@ -61,7 +61,7 @@ public class BossTargetAttacker : MonoBehaviour, IBossTargetAttacker
         _OnReload = false;
         yield return new WaitForSeconds(reloadTime);
         _OnReload = true;_attackQueue++;
-         _animator.SetBool("isAttacking", false);
+         _animator.SetBool("isAttacking0", false);
     }
 
     private IEnumerator DestroyBullet(float time, RangeAttack attack)
