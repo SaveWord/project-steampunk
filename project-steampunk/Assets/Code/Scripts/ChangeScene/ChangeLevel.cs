@@ -8,7 +8,10 @@ public class ChangeLevel : MonoBehaviour
     [SerializeField] private int sceneName;
     private void OnTriggerEnter(Collider other)
     {
-        GameManagerSingleton.Instance.SaveSystem.DeleteAllSave();
-        SceneManager.LoadSceneAsync(sceneName);
+        if (other.CompareTag("Player"))
+        {
+            GameManagerSingleton.Instance.SaveSystem.DeleteAllSave();
+            SceneManager.LoadSceneAsync(sceneName);
+        }
     }
 }
