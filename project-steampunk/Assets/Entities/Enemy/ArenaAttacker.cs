@@ -26,11 +26,13 @@ public class ArenaAttacker : MonoBehaviour, IBossTargetAttacker
 
     private LaserAttack _laser;
     [SerializeField]
-    private float _laserAttackDuration;
+    private float _laserAttackDuration =4f;
     [SerializeField]
-    private float _laserAttackChargeDuration;
+    private float _laserAttackChargeDuration=1.3f;
     [SerializeField]
-    private float _laserTimeout;
+    private float _laserTimeout = 0;
+    [SerializeField]
+    private float _laserCooldown;
 
     [SerializeField]
     private GameObject _pointOfAttack;
@@ -133,11 +135,13 @@ public class ArenaAttacker : MonoBehaviour, IBossTargetAttacker
         _OnReload = false;
         yield return new WaitForSeconds(_laserTimeout);
         _laserList.SetActive(true);
-        _animator.SetBool("isAttacking1", true);
+        _animator.SetBool("isAttacking0", true);
         //  _laser.transform.eulerAngles = new Vector3(90, 0, 0);
         _laser.StartAttack();
         yield return new WaitForSeconds(_laserAttackDuration + _laserAttackChargeDuration);
-        _animator.SetBool("isAttacking1", false);
+        _animator.SetBool("isAttacking0", false);
+
+        yield return new WaitForSeconds(_laserCooldown);
         _OnReload = true;
 
 
