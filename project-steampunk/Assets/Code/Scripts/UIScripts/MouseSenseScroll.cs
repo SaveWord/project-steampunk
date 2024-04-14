@@ -103,6 +103,18 @@ public class MouseSenseScroll : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         GameManagerSingleton.Instance.SaveSystem.DeleteAllSave();
     }
+    public void LevelLoad(int level)
+    {
+        GameManagerSingleton.Instance.SaveSystem.DeleteAllSave();
+        SceneManager.LoadSceneAsync(level);
+    }
+    public void BossTP()
+    {
+        if(SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            transform.root.position = new Vector3(2564.40015f, 560.868958f, 121.196419f); 
+        }
+    }
     public void ContinueDie()
     {
         activeDieMenu = true;
