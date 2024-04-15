@@ -32,7 +32,7 @@ public class LaserAttack : MonoBehaviour
     */
     [Header("Attack Parametres")]
     public GameObject _pointOfAttack;
-    public GameObject _target;
+    public Camera _target;
 
     public int _followDistance;
     public float _damage = 2;
@@ -45,17 +45,19 @@ public class LaserAttack : MonoBehaviour
     public Material _targetMat;
     private Queue<Vector3> _storedPositions = new Queue<Vector3>();
     private ParticleSystem particle;
-
+    private bool _OnReload = false;
+    private Vector3 _lastPos;
     void Start()
     {
        particle = GetComponent<ParticleSystem>();
         gameObject.SetActive(false);
+        _target = Camera.main;
     }
 
     protected void DealDamage(GameObject target)
     {
         target.TryGetComponent(out IHealth damageable);
-        damageable?.TakeDamage(_damage);
+        damageable?.TakeDamage(_damage/3);
         Debug.Log("attack from ll ");
     }
 
@@ -66,6 +68,17 @@ public class LaserAttack : MonoBehaviour
             DealDamage(collision.gameObject);
         }
     }
+
+    private IEnumerator Reload()
+    {
+        _OnReload = true;
+        _followDistance = _followDistance+3;
+
+        yield return new WaitForSeconds(3f);
+        _followDistance = _followDistance-3;
+        _OnReload = false;
+    }
+
     public void StartAttack() {
 
         StartCoroutine(Charge());
@@ -89,9 +102,17 @@ public class LaserAttack : MonoBehaviour
 
     void Update()
     {
+        
         transform.position = _pointOfAttack.transform.position;
         _storedPositions.Enqueue(_target.transform.position);
-
+        if (_lastPos != null)
+            { 
+                var distance = Vector3.Distance(_target.transform.position, _lastPos);
+                Debug.Log(distance + " killme");
+                if(distance>=4 && !_OnReload)
+                    StartCoroutine(Reload());
+            }
+        //if (_target.transform.position)
         if (_storedPositions.Count >= _followDistance)
         {
             var pos = _storedPositions.Dequeue();
@@ -103,6 +124,6 @@ public class LaserAttack : MonoBehaviour
                 transform.rotation = bulletRotation;
             }
         }
-
+        _lastPos = _target.transform.position;
     }
 }
