@@ -6,14 +6,16 @@ public class CheckPoint : MonoBehaviour
 {
     [SerializeField] private int idCheckPoint;
     public List<Spawner> spawners = new List<Spawner>();
+    private Collider colliderCheckPoint;
     private void Start()
     {
+        colliderCheckPoint = GetComponent<Collider>();
         GameManagerSingleton.Instance.SaveSystem.LoadCheckPoint();
         if (idCheckPoint < GameManagerSingleton.Instance.SaveSystem.checkPointData.disablePoint.Count)
         {
             if (GameManagerSingleton.Instance.SaveSystem.checkPointData.disablePoint[idCheckPoint] == 1)
             {
-                gameObject.SetActive(false);
+                colliderCheckPoint.enabled = false;
             }
         }
        spawners.AddRange(GetComponentsInChildren<Spawner>());
@@ -31,8 +33,8 @@ public class CheckPoint : MonoBehaviour
                 {
                     spawner.SaveStaySpawner();
                 }
-                   
-            gameObject.SetActive(false);
+
+            colliderCheckPoint.enabled = false;
 
         }
     }
