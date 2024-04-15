@@ -7572,7 +7572,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 3.41
-  m_Speed: 7
+  m_Speed: 15
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -7640,7 +7640,7 @@ MonoBehaviour:
   _viewMask:
     serializedVersion: 2
     m_Bits: 576
-  _detectionRadius: 70
+  _detectionRadius: 1000
   _timeToForgets: 15
 --- !u!114 &2760288364705530801
 MonoBehaviour:

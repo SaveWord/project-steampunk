@@ -8,15 +8,13 @@ public class IgnoreSteps : MonoBehaviour
     Rigidbody rigidBody;
     [SerializeField] GameObject stepRayUpper;
     [SerializeField] GameObject stepRayLower;
-    [SerializeField] float stepHeight = 0.3f;
     [SerializeField] float stepSmooth = 2f;
 
-    private void Awake()
+
+    private void OnEnable()
     {
         rigidBody = GetComponent<Rigidbody>();
-        stepRayUpper.transform.position = new Vector3(stepRayUpper.transform.position.x, stepHeight, stepRayUpper.transform.position.z);
     }
-
     private void FixedUpdate()
     {
         stepClimb();
@@ -43,7 +41,7 @@ public class IgnoreSteps : MonoBehaviour
             if (!Physics.Raycast(stepRayUpper.transform.position, movedir, out hitUpper, 1f))
             {
                 Debug.Log("Steps0123");
-                rigidBody.position -= new Vector3(0f, -stepSmooth, 0f);
+                rigidBody.position -= new Vector3(0f, -stepSmooth*Time.deltaTime, 0f);
             }
         }
     }

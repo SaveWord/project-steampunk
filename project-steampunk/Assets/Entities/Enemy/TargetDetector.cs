@@ -23,6 +23,7 @@ namespace Enemies
             _collider.radius = _detectionRadius;
             _controlarrow = GetComponent<controlarrow>();
             _timerCoroutine = Forget();
+            GetShot();
         }
 
         private void OnTriggerEnter(Collider other)
