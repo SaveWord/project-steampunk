@@ -8,16 +8,14 @@ public class PlayerMove : MonoBehaviour
 {
     private Animator animatorPlayer; //animator for change hands anim
 
-    [Tooltip("Change physics, use negative value"),SerializeField] private float physicsGravity = -9.81f;
+
 
     //move data
     [Header("Переменные перемещения")]
     [SerializeField] private float speed;
     [SerializeField] private float mouseSense;
 
-    //jump
-    [SerializeField] private float jumpForce;
-    private bool jumpTrue;
+
     public float DashSlider
     {
         get
@@ -42,15 +40,26 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float sphereRadius;
     [SerializeField] private float verticalDamping = 0.5f;
 
+    //jump
+    [Header("Гравитация и переменные прыжка")]
+    [SerializeField] private float jumpHeight;
+    private float jumpForce;
+    private bool jumpTrue;
+    private int doubleJump;
+
+    private float standartGravityScale = 5;
+    [Tooltip("Change physics,gravity"), SerializeField] private float gravityScale = 5;
+    [Tooltip("Change physics, gravity"), SerializeField] private float fallingGravityScale = 5;
+
 
     [Header("Угол наклона камеры Y")]
-   [SerializeField] private float yAngle;
+    [SerializeField] private float yAngle;
     private float xRotation;
     private Rigidbody rb;
     private ActionPrototypePlayer inputActions;
     private bool isGrounded;
 
-    private int doubleJump;
+
 
 
     //state player movement
@@ -115,8 +124,6 @@ public class PlayerMove : MonoBehaviour
 
     private void Awake()
     {
-
-        Physics.gravity = new Vector3(0, physicsGravity, 0); //change gravity
         //capsuleColliders = GetComponents<CapsuleCollider>();//change collider in slide
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -145,6 +152,8 @@ public class PlayerMove : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        rb.AddForce(Physics.gravity * (standartGravityScale - 1) * rb.mass); //change gravity
+
         Vector2 inputMove = inputActions.Player.Move.ReadValue<Vector2>();
         Vector2 inputLook = inputActions.Player.Look.ReadValue<Vector2>();
         rb.velocity += Vector3.up * Physics.gravity.y * verticalDamping;
@@ -180,35 +189,45 @@ public class PlayerMove : MonoBehaviour
     }
     private void Move(Vector2 inputMove)
     {
-        Physics.SphereCast(dotGround.transform.position,1f ,Vector3.down, out slopeHit,5, groundLayer);
-        if((inputMove != Vector2.zero) && !audioSource.isPlaying && jumpTrue == false
+        Physics.SphereCast(dotGround.transform.position, 1f, Vector3.down, out slopeHit, 5, groundLayer);
+        if ((inputMove != Vector2.zero) && !audioSource.isPlaying && jumpTrue == false
             && dashTrue == false)
         {
             audioSource.clip = moveClip;
             audioSource.Play();
         }
-       else if((inputMove == Vector2.zero) && jumpTrue == false)
+        else if ((inputMove == Vector2.zero) && jumpTrue == false)
             audioSource.Stop();
 
         Vector3 move = transform.right * inputMove.x + transform.forward * inputMove.y;
         Vector3 projectedMove = Vector3.ProjectOnPlane(move, slopeHit.normal).normalized;
-        float angle = Vector3.Angle(slopeHit.point,move);
+        float angle = Vector3.Angle(slopeHit.point, move);
         //Debug.Log(rb.velocity);
         //Debug.Log(projectedMove);
         //Debug.Log(angle);
-        if (projectedMove.magnitude == 0 && jumpTrue == false)
-            rb.velocity = new Vector3(0, -50,0);
+        if (inputMove.magnitude == 0) // moment stop if movement in keyboard stop
+            rb.velocity = new Vector3(0, rb.velocity.y, 0);
 
-        if ((angle != 0) && jumpTrue == false)
+        //more powerfull gravity if in air
+        if (rb.velocity.y >= 0)
+            standartGravityScale = gravityScale;
+        else if (rb.velocity.y < 0)
+            standartGravityScale = fallingGravityScale;
+
+
+        if (projectedMove.magnitude == 0 && jumpTrue == false)// stop in slope floor
+            rb.velocity = new Vector3(0, -50, 0);
+
+        if ((angle != 0) && jumpTrue == false)// slope movement
         {
-            if(rb.velocity.y > 0)
+            if (rb.velocity.y > 0)
             {
-                rb.velocity = new Vector3(rb.velocity.x, -50, rb.velocity.z);
+                rb.velocity = new Vector3(projectedMove.x * speed, -50, projectedMove.z * speed);
             }
             rb.velocity = new Vector3(projectedMove.x * speed, rb.velocity.y,
-                projectedMove.z * speed);   
+                projectedMove.z * speed);
         }
-       
+
         else
         {
             rb.velocity = new Vector3(move.x * speed, rb.velocity.y, move.z * speed);
@@ -293,9 +312,9 @@ public class PlayerMove : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
-        Debug.Log(doubleJump);
+        jumpForce = Mathf.Sqrt(jumpHeight * -2 * (Physics.gravity.y * standartGravityScale));
+        //Debug.Log(doubleJump);
         if (context.phase == InputActionPhase.Started && IsGrounded() == true)
-        //&& tackleActive == false)
         {
             jumpTrue = true;
             StartCoroutine(JumpCoroutineUpSpeed());
@@ -307,7 +326,7 @@ public class PlayerMove : MonoBehaviour
             jumpTrue = true;
             animatorPlayer.SetBool("jump", true);
             StartCoroutine(JumpCoroutineUpSpeed());
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            rb.AddForce(Vector3.up * jumpForce * 1.5f, ForceMode.Impulse);
             doubleJump = 0;
         }
         if (context.phase == InputActionPhase.Canceled)
@@ -330,8 +349,6 @@ public class PlayerMove : MonoBehaviour
     private bool IsGrounded()
     {
         isGrounded = Physics.CheckSphere(dotGround.position, sphereRadius, groundLayer);
-       
-        if (isGrounded == true) { doubleJump = 1;  }
         return isGrounded;
     }
     private void OnCollisionEnter(Collision collision)
@@ -339,6 +356,7 @@ public class PlayerMove : MonoBehaviour
         if (LayerMask.LayerToName(collision.gameObject.layer) == "Ground")
         {
             jumpTrue = false;
+            doubleJump = 1;
         }
     }
     void OnDrawGizmosSelected()
@@ -346,7 +364,7 @@ public class PlayerMove : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(dotGround.position, sphereRadius);
 
-      
+
     }
 
     //hookShot
