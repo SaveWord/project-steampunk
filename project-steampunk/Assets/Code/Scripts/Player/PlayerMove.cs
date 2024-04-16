@@ -43,6 +43,7 @@ public class PlayerMove : MonoBehaviour
     //jump
     [Header("Гравитация и переменные прыжка")]
     [SerializeField] private float jumpHeight;
+    [Tooltip("Доп сила для двойного прыжка"),SerializeField] private float jumpForceDouble = 1.5f;
     private float jumpForce;
     private bool jumpTrue;
     private int doubleJump;
@@ -225,7 +226,7 @@ public class PlayerMove : MonoBehaviour
                 rb.velocity = new Vector3(projectedMove.x * speed, -50, projectedMove.z * speed);
             }
             rb.velocity = new Vector3(projectedMove.x * speed, rb.velocity.y,
-                projectedMove.z * speed);
+              projectedMove.z * speed);
         }
 
         else
@@ -326,7 +327,8 @@ public class PlayerMove : MonoBehaviour
             jumpTrue = true;
             animatorPlayer.SetBool("jump", true);
             StartCoroutine(JumpCoroutineUpSpeed());
-            rb.AddForce(Vector3.up * jumpForce * 1.5f, ForceMode.Impulse);
+            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            rb.AddForce(Vector3.up * jumpForce *jumpForceDouble, ForceMode.Impulse);
             doubleJump = 0;
         }
         if (context.phase == InputActionPhase.Canceled)
@@ -338,13 +340,14 @@ public class PlayerMove : MonoBehaviour
 
     IEnumerator JumpCoroutineUpSpeed()
     {
-        speed = speed * 1.3f;
+        float oldSpeed = speed;
+        speed = 65;
         //audio
         audioSource.Stop();
         audioSource.PlayOneShot(jumpClip);
 
         yield return new WaitForSeconds(0.1f);
-        speed = speed / 1.3f;
+        speed = oldSpeed;
     }
     private bool IsGrounded()
     {
