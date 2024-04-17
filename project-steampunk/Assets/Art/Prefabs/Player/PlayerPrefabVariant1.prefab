@@ -30173,17 +30173,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5c3e477cf32b2a499478c246a9b2770, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  physicsGravity: -8.61
   speed: 50
   mouseSense: 0.3
-  jumpForce: 20
   cam: {fileID: 4615741055011588475}
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
   dotGround: {fileID: 1772693686151482536}
   sphereRadius: 0.35
-  verticalDamping: 0.1
+  verticalDamping: 0.05
+  jumpHeight: 4
+  gravityScale: 5
+  fallingGravityScale: 10
   yAngle: 55.5
   layerIgnore: 31
   dashSpeed: 220
