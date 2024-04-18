@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3288406147177182339}
   - component: {fileID: 5824385659517330078}
   - component: {fileID: 5039030865083948813}
+  - component: {fileID: 3221200921425605439}
   m_Layer: 8
   m_Name: Hall00
   m_TagString: Untagged
@@ -49,7 +50,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1399079008655388190}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -107,3 +108,24 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2593883977500087568, guid: 4261353764dea7a4d8ecb25158c3eb49, type: 3}
+--- !u!65 &3221200921425605439
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1399079008655388190}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 60, y: 1, z: 43}
+  m_Center: {x: 0, y: -0.48, z: 0}

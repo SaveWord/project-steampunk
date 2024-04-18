@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 464945097102914180}
   - component: {fileID: 1337287435781085560}
   - component: {fileID: 8372454395190400569}
-  - component: {fileID: 1049919530778344895}
   - component: {fileID: 282456496185708508}
+  - component: {fileID: 731881415177689539}
   m_Layer: 8
   m_Name: Ground
   m_TagString: Untagged
@@ -108,7 +108,20 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2168888785578081608, guid: 3f2356ea81492ff4cb00380a58a0d25f, type: 3}
---- !u!65 &1049919530778344895
+--- !u!114 &282456496185708508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3501441885406985950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f5b12484bb3fc8499771abe99005970, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damage: 100
+--- !u!65 &731881415177689539
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -127,18 +140,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3149.1243, y: 60.84967, z: 2371.2583}
-  m_Center: {x: 581.56213, y: -5.3418884, z: -236.62915}
---- !u!114 &282456496185708508
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3501441885406985950}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f5b12484bb3fc8499771abe99005970, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Damage: 100
+  m_Size: {x: 3440.894, y: 44.86, z: 2371.2583}
+  m_Center: {x: 435.67725, y: 0, z: -236.62915}
