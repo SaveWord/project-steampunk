@@ -335,7 +335,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 3.41
-  m_Speed: 10
+  m_Speed: 16
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -431,6 +431,7 @@ MonoBehaviour:
   DashForwardReactDist: 0
   DashBackwardReactDist: 0
   JumpUp: 0
+  _damageCloseCombat: 30
 --- !u!114 &8846361435030487999
 MonoBehaviour:
   m_ObjectHideFlags: 0
