@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2386167510976170090}
   - component: {fileID: 1461788780882261357}
   - component: {fileID: 8538961825715267944}
+  - component: {fileID: 133747737750454313}
   m_Layer: 8
   m_Name: MPlatform1
   m_TagString: Untagged
@@ -102,8 +103,29 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -6705399469593139366, guid: 71523b3d1c8e43e4a995bd0b8ab22cb8, type: 3}
+--- !u!65 &133747737750454313
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8162182246950755360}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 20, y: 2, z: 20}
+  m_Center: {x: 0, y: -1, z: 0}

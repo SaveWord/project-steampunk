@@ -277,7 +277,7 @@ NavMeshAgent:
   m_AngularSpeed: 1000
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 2.42
   m_BaseOffset: -0.5
@@ -372,11 +372,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6640ac490ccb90b4f87730d90cce5237, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 1000
-  dashForceUp: 10
+  _moveSpeed: 1100
+  dashForceUp: 15
   dashForce: 1500
-  dashDuration: 0.9
-  dashCooldown: 4
+  dashDuration: 1
+  dashCooldown: 2
   navMeshAgent: {fileID: 968187379263351500}
   DashDistance: 50
   _damageCloseCombat: 50
