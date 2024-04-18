@@ -6808,6 +6808,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 368618428}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &72520206 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 323167988228485059, guid: 6aa594fb9f32f0e4ba5c231dff85d519,
+    type: 3}
+  m_PrefabInstance: {fileID: 1879863549}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &84346500
 GameObject:
   m_ObjectHideFlags: 0
@@ -13647,7 +13653,7 @@ Transform:
   m_GameObject: {fileID: 368618427}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.15289381, z: -0, w: -0.9882426}
-  m_LocalPosition: {x: 0, y: 3.1, z: 0}
+  m_LocalPosition: {x: -18.6, y: 3.1, z: 58.5}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -13680,6 +13686,7 @@ MonoBehaviour:
       type: 3}
     patternSpawn: {fileID: 1986124868}
     cooldown: 3
+    startTime: 0
   phaseTimer: 2
 --- !u!114 &368618430
 MonoBehaviour:
@@ -13711,6 +13718,8 @@ MonoBehaviour:
   rb: {fileID: 368618439}
   deathParticlePrefab: {fileID: 3794447131822965395, guid: 6883b706c49cf5b4b8832dcb64ffd9c7,
     type: 3}
+  healDropPrefab: {fileID: 0}
+  _idEnemy: 0
 --- !u!114 &368618432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13773,6 +13782,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d85f3e1807a925e47b8f458f80097d86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _attackQueue: 0
 --- !u!114 &368618436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13787,11 +13797,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _laserList: {fileID: 1313071982445249826}
   _laserAttackDuration: 5
+  _laserAttackChargeDuration: 0
   _laserTimeout: 10
   _pointOfAttack: {fileID: 1986124867}
-  _laserFollowDistance: 0.3
+  _laserFollowDistance: 0
   _laserDamage: 1
-  _laserSpeed: 10
   _patternQueue:
   - {fileID: 8077353284174557429}
   - {fileID: 1876561203948446593}
@@ -13799,6 +13809,7 @@ MonoBehaviour:
   _damageTimePattern: 2
   _chargeTimePattern: 1
   _reloadTimePattern: 5
+  bee: 0
 --- !u!114 &368618437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13819,94 +13830,117 @@ MonoBehaviour:
       type: 3}
     patternSpawn: {fileID: 7403880616549798251}
     cooldown: 0.2
+    startTime: 0
   - attack: {fileID: 7535649719867759211, guid: 839a1b29ac62751499d6005f280dc1ce,
       type: 3}
     patternSpawn: {fileID: 7403880616549798251}
     cooldown: 0.1
+    startTime: 0
   - attack: {fileID: 7535649719867759211, guid: 5ec9ac63664824740b5f1f5a9de07ea5,
       type: 3}
     patternSpawn: {fileID: 1206019437}
     cooldown: 0.2
+    startTime: 0
   - attack: {fileID: 5785332119524234771, guid: c2d0a73390040594cb2dc0e8a5dd5dea,
       type: 3}
     patternSpawn: {fileID: 7403880616549798251}
     cooldown: 0.5
+    startTime: 0
   - attack: {fileID: 7535649719867759211, guid: 839a1b29ac62751499d6005f280dc1ce,
       type: 3}
     patternSpawn: {fileID: 7403880616549798251}
     cooldown: 0.1
+    startTime: 0
   - attack: {fileID: 3164132647910671957, guid: 74cdc0788015a1d4cb9f50dbf641cd14,
       type: 3}
     patternSpawn: {fileID: 7403880616549798251}
     cooldown: 0.5
+    startTime: 0
   - attack: {fileID: 5785332119524234771, guid: c2d0a73390040594cb2dc0e8a5dd5dea,
       type: 3}
     patternSpawn: {fileID: 7403880616549798251}
     cooldown: 0.5
+    startTime: 0
   - attack: {fileID: 7535649719867759211, guid: 839a1b29ac62751499d6005f280dc1ce,
       type: 3}
     patternSpawn: {fileID: 7403880616549798251}
     cooldown: 0.1
+    startTime: 0
   - attack: {fileID: 4530020378320582419, guid: b8b038985f5dbf948b85188392cc962f,
       type: 3}
     patternSpawn: {fileID: 59548530}
     cooldown: 0.5
+    startTime: 0
   - attack: {fileID: 7535649719867759211, guid: 839a1b29ac62751499d6005f280dc1ce,
       type: 3}
     patternSpawn: {fileID: 7403880616549798251}
     cooldown: 0.1
+    startTime: 0
   - attack: {fileID: 5785332119524234771, guid: a38d54172dc5b2e479344b534a572cdd,
       type: 3}
     patternSpawn: {fileID: 7403880616549798251}
     cooldown: 0.2
+    startTime: 0
   - attack: {fileID: 7535649719867759211, guid: 839a1b29ac62751499d6005f280dc1ce,
       type: 3}
     patternSpawn: {fileID: 15880896}
     cooldown: 0.1
+    startTime: 0
   - attack: {fileID: 5785332119524234771, guid: c2d0a73390040594cb2dc0e8a5dd5dea,
       type: 3}
     patternSpawn: {fileID: 15880896}
     cooldown: 0.5
+    startTime: 0
   - attack: {fileID: 3164132647910671957, guid: 74cdc0788015a1d4cb9f50dbf641cd14,
       type: 3}
     patternSpawn: {fileID: 7403880616549798251}
     cooldown: 0.5
+    startTime: 0
   - attack: {fileID: 7535649719867759211, guid: 5ec9ac63664824740b5f1f5a9de07ea5,
       type: 3}
     patternSpawn: {fileID: 1206019437}
     cooldown: 0.2
+    startTime: 0
   - attack: {fileID: 3164132647910671957, guid: 74cdc0788015a1d4cb9f50dbf641cd14,
       type: 3}
     patternSpawn: {fileID: 7403880616549798251}
     cooldown: 0.5
+    startTime: 0
   - attack: {fileID: 3164132647910671957, guid: 74cdc0788015a1d4cb9f50dbf641cd14,
       type: 3}
     patternSpawn: {fileID: 7403880616549798251}
     cooldown: 0.5
+    startTime: 0
   - attack: {fileID: 7535649719867759211, guid: 839a1b29ac62751499d6005f280dc1ce,
       type: 3}
     patternSpawn: {fileID: 7403880616549798251}
     cooldown: 0.1
+    startTime: 0
   - attack: {fileID: 4530020378320582419, guid: b8b038985f5dbf948b85188392cc962f,
       type: 3}
     patternSpawn: {fileID: 59548530}
     cooldown: 0.3
+    startTime: 0
   - attack: {fileID: 4530020378320582419, guid: b8b038985f5dbf948b85188392cc962f,
       type: 3}
     patternSpawn: {fileID: 59548530}
     cooldown: 0.5
+    startTime: 0
   - attack: {fileID: 7535649719867759211, guid: 839a1b29ac62751499d6005f280dc1ce,
       type: 3}
     patternSpawn: {fileID: 7403880616549798251}
     cooldown: 0.3
+    startTime: 0
   - attack: {fileID: 7535649719867759211, guid: 839a1b29ac62751499d6005f280dc1ce,
       type: 3}
     patternSpawn: {fileID: 15880896}
     cooldown: 0.3
+    startTime: 0
   - attack: {fileID: 7535649719867759211, guid: 839a1b29ac62751499d6005f280dc1ce,
       type: 3}
     patternSpawn: {fileID: 7403880616549798251}
     cooldown: 0.3
+    startTime: 0
   phaseTimer: 4
 --- !u!195 &368618438
 NavMeshAgent:
@@ -14349,6 +14383,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d85f3e1807a925e47b8f458f80097d86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _attackQueue: 0
 --- !u!1001 &605582675
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16960,10 +16995,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damage: 20
   _lifeTime: 7
-  _speed: 0.09
+  BulletSpeed: 0
+  sphereDie: {fileID: 0}
+  coroutineTimeDie: 0
   _damage: 20
-  _lifeTime: 7
-  _speed: 0.09
+  _waveSpeed: 0
   _startingRadius: 5
   subdivision: 10
   _lifetime: 10
@@ -32513,6 +32549,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d85f3e1807a925e47b8f458f80097d86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _attackQueue: 0
 --- !u!43 &1281427586
 Mesh:
   m_ObjectHideFlags: 0
@@ -37930,11 +37967,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _laserList: {fileID: 1313071982445249826}
   _laserAttackDuration: 5
+  _laserAttackChargeDuration: 0
   _laserTimeout: 10
   _pointOfAttack: {fileID: 482882351775013495}
-  _laserFollowDistance: 0.3
+  _laserFollowDistance: 0
   _laserDamage: 1
-  _laserSpeed: 10
   _patternQueue:
   - {fileID: 8077353284174557429}
   - {fileID: 1876561203948446593}
@@ -37942,6 +37979,7 @@ MonoBehaviour:
   _damageTimePattern: 2
   _chargeTimePattern: 1
   _reloadTimePattern: 5
+  bee: 0
 --- !u!114 &1452234811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37962,7 +38000,9 @@ MonoBehaviour:
       type: 3}
     patternSpawn: {fileID: 7403880616549798251}
     cooldown: 3
-  phaseTimer: 2
+    startTime: 0
+  _transitionCooldownTime: 0
+  _canChange: 1
 --- !u!43 &1456384790
 Mesh:
   m_ObjectHideFlags: 0
@@ -38239,7 +38279,7 @@ PrefabInstance:
     - target: {fileID: 8441693225563694387, guid: 3f69444b96d0c5349b2d35a15fcf1767,
         type: 3}
       propertyPath: _invulnerable
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -41188,12 +41228,188 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 355748752}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1744987986
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3963819253092339886, guid: 28447f895efd6934da30877bedaf4f0f,
+        type: 3}
+      propertyPath: m_Name
+      value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 6130522308966011141, guid: 28447f895efd6934da30877bedaf4f0f,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 18.729387
+      objectReference: {fileID: 0}
+    - target: {fileID: 6130522308966011141, guid: 28447f895efd6934da30877bedaf4f0f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6130522308966011141, guid: 28447f895efd6934da30877bedaf4f0f,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -69.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6130522308966011141, guid: 28447f895efd6934da30877bedaf4f0f,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6130522308966011141, guid: 28447f895efd6934da30877bedaf4f0f,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6130522308966011141, guid: 28447f895efd6934da30877bedaf4f0f,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6130522308966011141, guid: 28447f895efd6934da30877bedaf4f0f,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6130522308966011141, guid: 28447f895efd6934da30877bedaf4f0f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6130522308966011141, guid: 28447f895efd6934da30877bedaf4f0f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6130522308966011141, guid: 28447f895efd6934da30877bedaf4f0f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8783740408634091740, guid: 28447f895efd6934da30877bedaf4f0f,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 72520206}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 28447f895efd6934da30877bedaf4f0f, type: 3}
 --- !u!4 &1790139343 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7858907226612916075, guid: 34b39ec1e1861e944a9be8259540f8bd,
     type: 3}
   m_PrefabInstance: {fileID: 2447401774732356633}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1879863549
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 323167988228485059, guid: 6aa594fb9f32f0e4ba5c231dff85d519,
+        type: 3}
+      propertyPath: m_Name
+      value: PlayerPrefabVariantHoduli
+      objectReference: {fileID: 0}
+    - target: {fileID: 323167988228485059, guid: 6aa594fb9f32f0e4ba5c231dff85d519,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1807265715729996297, guid: 6aa594fb9f32f0e4ba5c231dff85d519,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1807265715729996297, guid: 6aa594fb9f32f0e4ba5c231dff85d519,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2903102271160348929, guid: 6aa594fb9f32f0e4ba5c231dff85d519,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4880010174477272363, guid: 6aa594fb9f32f0e4ba5c231dff85d519,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4880010174477272363, guid: 6aa594fb9f32f0e4ba5c231dff85d519,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4963252496338463717, guid: 6aa594fb9f32f0e4ba5c231dff85d519,
+        type: 3}
+      propertyPath: _invulnerable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5047405197648694243, guid: 6aa594fb9f32f0e4ba5c231dff85d519,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5047405197648694243, guid: 6aa594fb9f32f0e4ba5c231dff85d519,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 5047405197648694243, guid: 6aa594fb9f32f0e4ba5c231dff85d519,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5047405197648694243, guid: 6aa594fb9f32f0e4ba5c231dff85d519,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 5047405197648694243, guid: 6aa594fb9f32f0e4ba5c231dff85d519,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5047405197648694243, guid: 6aa594fb9f32f0e4ba5c231dff85d519,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 5047405197648694243, guid: 6aa594fb9f32f0e4ba5c231dff85d519,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5047405197648694243, guid: 6aa594fb9f32f0e4ba5c231dff85d519,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5047405197648694243, guid: 6aa594fb9f32f0e4ba5c231dff85d519,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 5047405197648694243, guid: 6aa594fb9f32f0e4ba5c231dff85d519,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6aa594fb9f32f0e4ba5c231dff85d519, type: 3}
 --- !u!1 &1905093103
 GameObject:
   m_ObjectHideFlags: 0
@@ -77734,10 +77950,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackQueue: 0
-  instanciated: 0
-  _attaksList: []
-  _animator: {fileID: 0}
-  _OnReload: 0
 --- !u!114 &2096569049737918276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77751,10 +77963,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackQueue: 0
-  instanciated: 0
-  _attaksList: []
-  _animator: {fileID: 0}
-  _OnReload: 0
 --- !u!4 &2264502305509283220
 Transform:
   m_ObjectHideFlags: 0
@@ -89283,95 +89491,119 @@ MonoBehaviour:
       type: 3}
     patternSpawn: {fileID: 7403880616549798251}
     cooldown: 0.2
+    startTime: 0
   - attack: {fileID: 7535649719867759211, guid: 839a1b29ac62751499d6005f280dc1ce,
       type: 3}
     patternSpawn: {fileID: 7403880616549798251}
     cooldown: 0.1
+    startTime: 0
   - attack: {fileID: 7535649719867759211, guid: 5ec9ac63664824740b5f1f5a9de07ea5,
       type: 3}
     patternSpawn: {fileID: 1206019437}
     cooldown: 0.2
+    startTime: 0
   - attack: {fileID: 5785332119524234771, guid: c2d0a73390040594cb2dc0e8a5dd5dea,
       type: 3}
     patternSpawn: {fileID: 7403880616549798251}
     cooldown: 0.5
+    startTime: 0
   - attack: {fileID: 7535649719867759211, guid: 839a1b29ac62751499d6005f280dc1ce,
       type: 3}
     patternSpawn: {fileID: 7403880616549798251}
     cooldown: 0.1
+    startTime: 0
   - attack: {fileID: 3164132647910671957, guid: 74cdc0788015a1d4cb9f50dbf641cd14,
       type: 3}
     patternSpawn: {fileID: 7403880616549798251}
     cooldown: 0.5
+    startTime: 0
   - attack: {fileID: 5785332119524234771, guid: c2d0a73390040594cb2dc0e8a5dd5dea,
       type: 3}
     patternSpawn: {fileID: 7403880616549798251}
     cooldown: 0.5
+    startTime: 0
   - attack: {fileID: 7535649719867759211, guid: 839a1b29ac62751499d6005f280dc1ce,
       type: 3}
     patternSpawn: {fileID: 7403880616549798251}
     cooldown: 0.1
+    startTime: 0
   - attack: {fileID: 4530020378320582419, guid: b8b038985f5dbf948b85188392cc962f,
       type: 3}
     patternSpawn: {fileID: 59548530}
     cooldown: 0.5
+    startTime: 0
   - attack: {fileID: 7535649719867759211, guid: 839a1b29ac62751499d6005f280dc1ce,
       type: 3}
     patternSpawn: {fileID: 7403880616549798251}
     cooldown: 0.1
+    startTime: 0
   - attack: {fileID: 5785332119524234771, guid: a38d54172dc5b2e479344b534a572cdd,
       type: 3}
     patternSpawn: {fileID: 7403880616549798251}
     cooldown: 0.2
+    startTime: 0
   - attack: {fileID: 7535649719867759211, guid: 839a1b29ac62751499d6005f280dc1ce,
       type: 3}
     patternSpawn: {fileID: 15880896}
     cooldown: 0.1
+    startTime: 0
   - attack: {fileID: 5785332119524234771, guid: c2d0a73390040594cb2dc0e8a5dd5dea,
       type: 3}
     patternSpawn: {fileID: 15880896}
     cooldown: 0.5
+    startTime: 0
   - attack: {fileID: 3164132647910671957, guid: 74cdc0788015a1d4cb9f50dbf641cd14,
       type: 3}
     patternSpawn: {fileID: 7403880616549798251}
     cooldown: 0.5
+    startTime: 0
   - attack: {fileID: 7535649719867759211, guid: 5ec9ac63664824740b5f1f5a9de07ea5,
       type: 3}
     patternSpawn: {fileID: 1206019437}
     cooldown: 0.2
+    startTime: 0
   - attack: {fileID: 3164132647910671957, guid: 74cdc0788015a1d4cb9f50dbf641cd14,
       type: 3}
     patternSpawn: {fileID: 7403880616549798251}
     cooldown: 0.5
+    startTime: 0
   - attack: {fileID: 3164132647910671957, guid: 74cdc0788015a1d4cb9f50dbf641cd14,
       type: 3}
     patternSpawn: {fileID: 7403880616549798251}
     cooldown: 0.5
+    startTime: 0
   - attack: {fileID: 7535649719867759211, guid: 839a1b29ac62751499d6005f280dc1ce,
       type: 3}
     patternSpawn: {fileID: 7403880616549798251}
     cooldown: 0.1
+    startTime: 0
   - attack: {fileID: 4530020378320582419, guid: b8b038985f5dbf948b85188392cc962f,
       type: 3}
     patternSpawn: {fileID: 59548530}
     cooldown: 0.3
+    startTime: 0
   - attack: {fileID: 4530020378320582419, guid: b8b038985f5dbf948b85188392cc962f,
       type: 3}
     patternSpawn: {fileID: 59548530}
     cooldown: 0.5
+    startTime: 0
   - attack: {fileID: 7535649719867759211, guid: 839a1b29ac62751499d6005f280dc1ce,
       type: 3}
     patternSpawn: {fileID: 7403880616549798251}
     cooldown: 0.3
+    startTime: 0
   - attack: {fileID: 7535649719867759211, guid: 839a1b29ac62751499d6005f280dc1ce,
       type: 3}
     patternSpawn: {fileID: 15880896}
     cooldown: 0.3
+    startTime: 0
   - attack: {fileID: 7535649719867759211, guid: 839a1b29ac62751499d6005f280dc1ce,
       type: 3}
     patternSpawn: {fileID: 7403880616549798251}
     cooldown: 0.3
-  phaseTimer: 4
+    startTime: 0
+  _transitionCooldownTime: 0
+  _canChange: 1
 --- !u!114 &4592647486710368103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89388,7 +89620,8 @@ MonoBehaviour:
     _hp: 100
     _timeBeforeReposition: 2
   _attacksCollection: []
-  phaseTimer: 2
+  _transitionCooldownTime: 0
+  _canChange: 1
 --- !u!114 &4886198750809893996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89763,6 +89996,15 @@ MonoBehaviour:
     _dashMaxCooldown: 0
     _dashForce: 0
     _dashHeight: 0
+  dashForce: 100
+  dashDuration: 2
+  dashCooldown: 1
+  navMeshAgent: {fileID: 0}
+  ReverceDash: 0
+  DashForwardReactDist: 0
+  DashBackwardReactDist: 0
+  JumpUp: 0
+  _damageCloseCombat: 0
 --- !u!114 &5783676861980797340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89781,6 +90023,15 @@ MonoBehaviour:
     _dashMaxCooldown: 1
     _dashForce: 5
     _dashHeight: 0
+  dashForce: 100
+  dashDuration: 2
+  dashCooldown: 1
+  navMeshAgent: {fileID: 0}
+  ReverceDash: 0
+  DashForwardReactDist: 0
+  DashBackwardReactDist: 0
+  JumpUp: 0
+  _damageCloseCombat: 0
 --- !u!199 &6211294514354529987
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -118936,6 +119187,8 @@ MonoBehaviour:
   rb: {fileID: 8378566843917190522}
   deathParticlePrefab: {fileID: 3794447131822965395, guid: 6883b706c49cf5b4b8832dcb64ffd9c7,
     type: 3}
+  healDropPrefab: {fileID: 0}
+  _idEnemy: 0
 --- !u!114 &8014897829118835743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118951,6 +119204,8 @@ MonoBehaviour:
   rb: {fileID: 8378566844632242717}
   deathParticlePrefab: {fileID: 198104090543139058, guid: 4430919f14c50f84085d287cbcb2c30e,
     type: 3}
+  healDropPrefab: {fileID: 0}
+  _idEnemy: 0
 --- !u!23 &8016984890489718070
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -119337,6 +119592,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d85f3e1807a925e47b8f458f80097d86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _attackQueue: 0
 --- !u!1 &9017087857983331741
 GameObject:
   m_ObjectHideFlags: 0
@@ -119397,6 +119653,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d85f3e1807a925e47b8f458f80097d86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _attackQueue: 0
 --- !u!136 &9053648128321395859
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -119471,6 +119728,15 @@ MonoBehaviour:
     _dashMaxCooldown: 0
     _dashForce: 0
     _dashHeight: 0
+  dashForce: 100
+  dashDuration: 2
+  dashCooldown: 1
+  navMeshAgent: {fileID: 0}
+  ReverceDash: 0
+  DashForwardReactDist: 0
+  DashBackwardReactDist: 0
+  JumpUp: 0
+  _damageCloseCombat: 0
 --- !u!1001 &9101018725133193995
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -119624,7 +119890,9 @@ SceneRoots:
   - {fileID: 3863949105779868545}
   - {fileID: 8227366555936033555}
   - {fileID: 368618428}
+  - {fileID: 1744987986}
   - {fileID: 1463365454}
+  - {fileID: 1879863549}
   - {fileID: 21047315}
   - {fileID: 655591005716764161}
   - {fileID: 1423652907}
