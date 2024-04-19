@@ -38,18 +38,22 @@ public class LaserAttack : MonoBehaviour
     public float _damage = 2;
     public float _attackDuration;
     public float _chargeDuration;
+    private bool _OnReload = false;
+
     private bool _isAttacking = false;
+    private Queue<Vector3> _storedPositions = new Queue<Vector3>();
+    private Vector3 _lastPos;
 
     [Header("Visual Parametres")]
-    public Material _chargeMat;
-    public Material _targetMat;
-    private Queue<Vector3> _storedPositions = new Queue<Vector3>();
-    private ParticleSystem particle;
-    private bool _OnReload = false;
-    private Vector3 _lastPos;
+    [SerializeField] 
+    private Material _chargeMat;
+    [SerializeField]
+    private Material _targetMat;
+    private ParticleSystem _particle;
+
     void Start()
     {
-       particle = GetComponent<ParticleSystem>();
+        _particle = GetComponent<ParticleSystem>();
         gameObject.SetActive(false);
         _target = Camera.main;
     }
@@ -57,11 +61,11 @@ public class LaserAttack : MonoBehaviour
     protected void DealDamage(GameObject target)
     {
         target.TryGetComponent(out IHealth damageable);
-        damageable?.TakeDamage(_damage/3);
+        damageable?.TakeDamage(_damage);
         Debug.Log("attack from ll ");
     }
 
-    private void OnTriggerEnter(Collider collision)
+    private void OnTriggerStay(Collider collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
@@ -88,7 +92,7 @@ public class LaserAttack : MonoBehaviour
     {
 
         transform.eulerAngles = new Vector3(90,0,0);
-        var rend = particle.GetComponent<ParticleSystemRenderer>();
+        var rend = _particle.GetComponent<ParticleSystemRenderer>();
         rend.material = _chargeMat;
 
         yield return new WaitForSeconds(_chargeDuration);
@@ -97,7 +101,6 @@ public class LaserAttack : MonoBehaviour
         yield return new WaitForSeconds(_attackDuration);
         _isAttacking = false;
         gameObject.SetActive(false);
-        //gameObject.SetActive(false);
     }
 
     void Update()
