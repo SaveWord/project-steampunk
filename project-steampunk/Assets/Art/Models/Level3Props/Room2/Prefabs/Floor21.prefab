@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8305714983549021865}
   - component: {fileID: 2347643493875040213}
   - component: {fileID: 5917041748483085202}
-  - component: {fileID: 1016855782065611449}
   m_Layer: 8
   m_Name: Floor21
   m_TagString: Untagged
@@ -102,29 +101,8 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 6849450888793802452, guid: 6523094d3b0d6e14db82c1ad77b09aa5, type: 3}
---- !u!65 &1016855782065611449
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5220311480917815155}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 20, y: 1, z: 40}
-  m_Center: {x: 10, y: -0.5, z: 0}
