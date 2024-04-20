@@ -117,7 +117,7 @@ public class ParametrsUpdateDecorator : MainDecorator
 
             //vfx and animation and ui
             ShowAnimatorAndInternalImpact();
-
+            AudioManager.InstanceAudio.PlaySfxWeapon("RevolverShoot");
             //aim assist, change radius sphere cast from distance
 
             if (Physics.SphereCast(Camera.main.transform.position, 2f, Camera.main.transform.forward,
@@ -178,7 +178,10 @@ public class ParametrsUpdateDecorator : MainDecorator
                 Quaternion.FromToRotation(Vector3.forward, hit.normal));
         }
     }
-
+    public virtual void ReloadSound()
+    {
+        AudioManager.InstanceAudio.PlaySfxWeapon("RevolverReload");
+    }
     public async override void Reload(InputAction.CallbackContext context)
     {
         if ((context.started || context.performed) && Patrons < maxPatrons && isReload != true)
@@ -187,6 +190,7 @@ public class ParametrsUpdateDecorator : MainDecorator
             isReload = true;
             _animator.SetBool("reload", true);
             _animatorWeapon.SetBool("reload", true);
+            ReloadSound();
             await Task.Delay((int)ReloadSpeed * 1000);
             isReload = false;
             _animator.SetBool("reload", false);
