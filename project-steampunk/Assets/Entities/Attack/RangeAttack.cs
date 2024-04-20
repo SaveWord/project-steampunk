@@ -5,9 +5,10 @@ using UnityEngine;
 
 namespace Enemies.Attacks.Attacks
 {
-    public class RangeAttack : MonoBehaviour //rename bullet attack
+    public class RangeAttack : AttackBaseClass //rename bullet attack
     {
-        public bool Activated { get; private set; }
+        public bool Activated { get; set; }
+        public Transform patternSpawnPoint;
 
         [SerializeField] private List<Pair<BulletSpot, Bullet>> _shotQueue;
         [SerializeField] private Bullet bullet;
@@ -92,8 +93,9 @@ namespace Enemies.Attacks.Attacks
             }
         }
 
-        public void Activate(ITarget target, Transform attackSpot)
+        public override void Activate(ITarget target, Transform attackSpot)
         {
+            patternSpawnPoint = attackSpot;
             Activated = true;
             StartCoroutine(MakeShots(target, attackSpot));
         }

@@ -59,7 +59,7 @@ public class TargetAttacker : MonoBehaviour, ITargetAttacker
         yield return new WaitForSeconds(Time);
         _animator.SetBool(atkAnim, false);
         _attaksList[_attackQueue].Activate(target, attack[_attackQueue].patternSpawn);
-        StartCoroutine(Reload(attack[_attackQueue].cooldown));
+        StartCoroutine(Reload(attack[_attackQueue].timeoutAfter));
     }
     private IEnumerator Reload(float reloadTime)
     {

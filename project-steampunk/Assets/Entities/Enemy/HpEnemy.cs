@@ -77,6 +77,7 @@ public class HpEnemy : MonoBehaviour
         //_animator.SetBool("isDead", true);
         Destroy(deathparticle, 0.3f); ;
         GameObject.Destroy(this.gameObject,0.3f);
-        DeleteList(_idEnemy);
+        if(_idEnemy!= null)
+            DeleteList(_idEnemy);
     }
 }

@@ -17,6 +17,7 @@ public class HpHandler : MonoBehaviour, IHealth
     private VisualEffect enemyDamageImpact;
 
     public float CurrentHp { get { return (float)_currentHp; }}
+    public float MaxHp { get { return (float)_maxHp; } set { _maxHp = value; } }
 
     public event Action<float> OnHPChanged = delegate { };
     public event Action<float> OnTakenDamage = delegate { };
@@ -35,7 +36,7 @@ public class HpHandler : MonoBehaviour, IHealth
             transform.localPosition = GameManagerSingleton.Instance.SaveSystem.playerData.position;
         }
     }
-
+    
     public void TakeDamage(float amount)//TODO: specify damage maker
     { 
         //gameObject.TryGetComponent(out TargetDetector _targetDetector);
@@ -72,6 +73,14 @@ public class HpHandler : MonoBehaviour, IHealth
         Debug.Log("Healed "+amount);
         OnHPChanged(CurrentHp);
         OnHealedDamage(amount);
+    }
+
+    public bool HandlePercentage(int percentage)
+    {
+        if ( percentage >= (int)((100 * _currentHp) / _maxHp))
+            return true;
+        else
+            return false;
     }
 
     private void Die()

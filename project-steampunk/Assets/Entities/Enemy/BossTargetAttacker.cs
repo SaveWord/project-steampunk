@@ -10,27 +10,29 @@ public class BossTargetAttacker : MonoBehaviour, IBossTargetAttacker
     //private RangeAttack _attack;
     public int _attackQueue = 0;
     bool instanciated = false;
-    private List<RangeAttack> _attaksList= new List<RangeAttack>(); 
+    private List<AttackBaseClass> _attaksList= new List<AttackBaseClass>(); 
     private Animator _animator;
 
-    private bool _OnReload;
+    private bool _NoReload;
 
 
     private void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
-        _OnReload = true;
-      
+        _NoReload = true;
     }
 
     public void SetAttack(List<AttackConstruct> attack)
     {
+        instanciated = true;
         foreach (var atk in attack)
         {
-            var tempObject = Instantiate(atk.attack, transform);
-            _attaksList.Add(tempObject);
+            
+                var tempObject = Instantiate(atk.attacks[0], atk.patternSpawn);
+                tempObject.patternSpawnPoint = atk.patternSpawn;
+                _attaksList.Add(tempObject);
+            
         }
-        instanciated = true;
     }
 
     public void Attack(ITarget target, List<AttackConstruct> attack)
@@ -38,39 +40,27 @@ public class BossTargetAttacker : MonoBehaviour, IBossTargetAttacker
         if(!instanciated)
             SetAttack(attack);
 
-        transform.LookAt(new Vector3(target.GetPosition().x, transform.position.y, target.GetPosition().z));
-
-        if (_attackQueue == attack.Count)
+        if (_attackQueue == _attaksList.Count)
             _attackQueue = 0;
 
-        if (_OnReload) //!_attack.Activated && 
+        if (_NoReload) //!_attack.Activated && 
         {
-            _attaksList[_attackQueue].Activate(target, attack[_attackQueue].patternSpawn);
+            _attaksList[_attackQueue].gameObject.SetActive(true);
+            _attaksList[_attackQueue].Activate(target, _attaksList[_attackQueue].patternSpawnPoint);
             _animator.SetBool("isAttacking0", true);
-            StartCoroutine(Reload(attack[_attackQueue].cooldown));
-        }
-        
-        
-        
-        
+            StartCoroutine(Reload(attack[_attackQueue].timeoutAfter));
+        }       
     }
-
 
     private IEnumerator Reload(float reloadTime)
     {
-        _OnReload = false;
+        _NoReload = false;
         yield return new WaitForSeconds(reloadTime);
-        _OnReload = true;_attackQueue++;
-         _animator.SetBool("isAttacking0", false);
+        _NoReload = true;
+        _attackQueue++;
+        _animator.SetBool("isAttacking0", false);
     }
 
-    private IEnumerator DestroyBullet(float time, RangeAttack attack)
-    {
-
-        yield return new WaitForSeconds(time);
-        Destroy(attack);
-        // _animator.SetBool("isAttacking", false);
-    }
 }
 
 /*public class TargetAttacker : MonoBehaviour, ITargetAttacker
