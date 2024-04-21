@@ -9442,7 +9442,7 @@ MonoBehaviour:
   m_Use2DDistance: 0
   m_UseCameraSpace: 1
   m_ReactionSettings:
-    m_SecondaryNoise: {fileID: 0}
+    m_SecondaryNoise: {fileID: 11400000, guid: e7b845675e454c34d8a90ed58c8a6944, type: 2}
     m_AmplitudeGain: 1
     m_FrequencyGain: 1
     m_Duration: 1
@@ -31503,15 +31503,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5c3e477cf32b2a499478c246a9b2770, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testDahs: 0
   speed: 50
+  speedSlope: 0.2
   mouseSense: 0.3
+  smoothInputSpeed: 0.2
   cam: {fileID: 4615741055011588475}
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
   dotGround: {fileID: 1772693686151482536}
-  sphereRadius: 0.42
+  sphereRadius: 0.35
   verticalDamping: 0.1
   jumpHeight: 6
   jumpForceDouble: 1.5
