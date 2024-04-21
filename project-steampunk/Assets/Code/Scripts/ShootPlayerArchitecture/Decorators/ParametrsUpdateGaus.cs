@@ -10,7 +10,6 @@ using static IWeapon;
 
 public class ParametrsUpdateGaus : ParametrsUpdateDecorator
 {
-    private Transform _distanceTarget;
     private ParticleSystem _afterFireParticle;
     private List<Image> _updateGausePatronsImage;
     private List<GameObject> _poolTrail;
@@ -24,7 +23,7 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
          TextMeshProUGUI patronsText, List<Image> updateGausePatronsImage,
          Animator animator, Animator animatorWeapon, CinemachineImpulseSource recoil,
          List<GameObject> poolTrail, ParticleSystem afterFireParticle)
-         : base(weapon, updateFireRate, distanceAndDamage, updateReload, updatePatrons, updateWeaponType,
+         : base(distanceTarget,weapon, updateFireRate, distanceAndDamage, updateReload, updatePatrons, updateWeaponType,
              mask, vfxShootPrefab, vfxImpactMetalProps, vfxImpactOtherProps, patronsText, animator, animator, recoil)
     {
         _updateFireRate = updateFireRate;

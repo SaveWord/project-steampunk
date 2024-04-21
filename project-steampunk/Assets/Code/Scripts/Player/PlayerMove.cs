@@ -217,7 +217,7 @@ public class PlayerMove : MonoBehaviour
         float angle = Vector3.Angle(slopeHit.normal, Vector3.up);
         //Debug.Log(rb.velocity);
         //Debug.Log(projectedMove);
-        Debug.Log(angle);
+        //Debug.Log(angle);
         //if (inputMove.magnitude == 0) // moment stop if movement in keyboard stop
         // rb.velocity = new Vector3(0, rb.velocity.y, 0);
 
