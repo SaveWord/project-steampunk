@@ -27,7 +27,6 @@ Material:
   m_ValidKeywords:
   - _DETAIL_SCALED
   - _HALFTONESHAPE_DOT
-  - _METALLICSPECGLOSSMAP
   - _NORMALMAP
   - _TOON_SHADING_ON
   m_InvalidKeywords: []
@@ -44,7 +43,7 @@ Material:
     m_TexEnvs:
     - _BaseMap:
         m_Texture: {fileID: 2800000, guid: c22630eb4e179944dba905721d57530c, type: 3}
-        m_Scale: {x: 3, y: 3}
+        m_Scale: {x: 5, y: 5}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 2800000, guid: 8f561394075db184d92647b1ed86cade, type: 3}
@@ -92,10 +91,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: c22630eb4e179944dba905721d57530c, type: 3}
-        m_Scale: {x: 3, y: 3}
+        m_Scale: {x: 5, y: 5}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: 336bfbcd0eb523c4cb3826d848090ed7, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -177,7 +176,7 @@ Material:
     - _HatchingEnabled: 0
     - _HatchingRotation: 0
     - _HatchingSmoothness: 0.1
-    - _Metallic: 0
+    - _Metallic: 0.25
     - _Mode: 0
     - _NoiseScale: 1
     - _NoiseStrength: 0.1
@@ -193,7 +192,7 @@ Material:
     - _RimLightSmoothness: 0
     - _RimPower: 0.55
     - _SizeFalloff: 0
-    - _Smoothness: 0
+    - _Smoothness: 0.1
     - _SmoothnessTextureChannel: 0
     - _SpecClipMaskScale: 1
     - _SpecShadowStrength: 1

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8372454395190400569}
   - component: {fileID: 282456496185708508}
   - component: {fileID: 731881415177689539}
+  - component: {fileID: 7739641944284852899}
   m_Layer: 8
   m_Name: Ground
   m_TagString: Untagged
@@ -64,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6141e753b1787d84494ddc8d34cfc752, type: 2}
+  - {fileID: 2100000, guid: 2ff4b474ee9b0734ebe84b430c3f0959, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -140,5 +141,19 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3440.894, y: 44.86, z: 2371.2583}
-  m_Center: {x: 435.67725, y: 0, z: -236.62915}
+  m_Size: {x: 2058.439, y: 44.86, z: 2371.2583}
+  m_Center: {x: -255.55023, y: 0, z: -236.62915}
+--- !u!114 &7739641944284852899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3501441885406985950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08986c7cdbd07bc40bd609b4f9c8f64e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
+  damageRate: 1
