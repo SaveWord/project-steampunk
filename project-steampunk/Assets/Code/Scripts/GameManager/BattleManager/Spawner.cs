@@ -8,7 +8,7 @@ public class Spawner : MonoBehaviour
 {
     public int spawnerID;
     public float count;
-    public List<DotSpawnType> dotSpawn;
+    public List<Transform> dotSpawn;
     public Dictionary<int, GameObject> enemies;
     public List<DoorController> doors;
     [SerializeField] private GameObject enemyAntPrefab;
@@ -31,23 +31,23 @@ public class Spawner : MonoBehaviour
             foreach (var dot in dotSpawn)
             {
                 GameObject enemy = null;
-                //EnemyTypeSpawn dotSpawnType = dot.GetComponent<DotSpawnType>().enemyTypeSpawn;
-                switch (dot.enemyTypeSpawn)
+                EnemyTypeSpawn dotSpawnType = dot.GetComponent<DotSpawnType>().enemyTypeSpawn;
+                switch (dotSpawnType)
                 {
                     case EnemyTypeSpawn.Ant:
-                        enemy = Instantiate(enemyAntPrefab, dot.gameObject.transform);
+                        enemy = Instantiate(enemyAntPrefab, dot);
                         break;
                     case EnemyTypeSpawn.AntShield:
-                        enemy = Instantiate(enemyAntShieldPrefab, dot.gameObject.transform);
+                        enemy = Instantiate(enemyAntShieldPrefab, dot);
                         break;
                     case EnemyTypeSpawn.Spider:
-                        enemy = Instantiate(enemySpiderPrefab, dot.gameObject.transform);
+                        enemy = Instantiate(enemySpiderPrefab, dot);
                         break;
                     case EnemyTypeSpawn.Beetle:
-                        enemy = Instantiate(enemyBeetlePrefab, dot.gameObject.transform);
+                        enemy = Instantiate(enemyBeetlePrefab, dot);
                         break;
                     case EnemyTypeSpawn.Bee:
-                        enemy = Instantiate(enemyBeePrefab, dot.gameObject.transform);
+                        enemy = Instantiate(enemyBeePrefab, dot);
                         break;
                 }
                 enemy.transform.localPosition = Vector3.zero;
@@ -60,7 +60,6 @@ public class Spawner : MonoBehaviour
             {
                 door.DoorClose();
             }
-            AudioManager.InstanceAudio.PlayMusic("Battle", true);
             detectZone.enabled = false;
 
         }
@@ -68,12 +67,10 @@ public class Spawner : MonoBehaviour
     private void Start()
     {
         doors = new List<DoorController>();
-        doors.AddRange(GetComponentsInChildren<DoorController>());
-        doors.ForEach(door => { door.gameObject.SetActive(false); });
         enemies = new Dictionary<int, GameObject>();
+        doors.AddRange(GetComponentsInChildren<DoorController>());
         detectZone = GetComponent<BoxCollider>();
-        dotSpawn = new List<DotSpawnType>();
-        dotSpawn.AddRange(GetComponentsInChildren<DotSpawnType>());
+        dotSpawn = transform.Cast<Transform>().ToList();
 
         //load data
         GameManagerSingleton.Instance.SaveSystem.LoadSpawnerData();
@@ -107,9 +104,8 @@ public class Spawner : MonoBehaviour
             Debug.Log("ENEMYES Empty");
             foreach (var door in doors)
             {
-                door.dissolve = true;
+                door.DoorOpen();
             }
-            AudioManager.InstanceAudio.PlayMusic("Battle", false);
         }
     }
 }

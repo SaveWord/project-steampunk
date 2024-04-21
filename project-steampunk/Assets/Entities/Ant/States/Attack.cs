@@ -10,6 +10,8 @@ namespace Enemies.AntStates
         ITargetAttacker _targetAttacker;
         AntMover _antMover;
         List<AttackConstruct> _attacksCollection;
+        private float time = 0f;
+
 
         public Attack(ITargetDetector targetHolder, ITargetAttacker targetAttacker, AntMover antMover, List<AttackConstruct> attacksCollection)
         {
@@ -26,7 +28,20 @@ namespace Enemies.AntStates
 
         public void Tick()
         {
+            time += Time.deltaTime;
+            Debug.Log("jhjgfggfhjk" + time);
             var _target = _targetHolder.GetTarget();
+
+            if (time > 0.1f)
+            {
+                
+                _antMover.SideStep(_target);
+            }else if(time > 0.12f)
+            {
+                //_antMover.stop();
+                time = 0;
+            }
+            
 
             if (_target != null)
             {
