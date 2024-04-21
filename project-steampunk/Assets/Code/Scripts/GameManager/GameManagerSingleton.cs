@@ -25,6 +25,6 @@ public class GameManagerSingleton : MonoBehaviour
             spawner.spawnerID = j;
             j++;
         }
-        SceneManager.LoadScene(GameManagerSingleton.Instance.SaveSystem.playerData.sceneID);
+        //SceneManager.LoadScene(GameManagerSingleton.Instance.SaveSystem.playerData.sceneID);
     }
 }
