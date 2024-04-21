@@ -26,19 +26,29 @@ namespace Enemies
             GetShot();
         }
 
-        private void OnTriggerEnter(Collider other)
+        private void OnTriggerStay(Collider other)
         {
             var target = other.GetComponent<ITarget>();
 
             if (target != null)
             {
+                transform.LookAt(new Vector3(target.GetPosition().x, transform.position.y, target.GetPosition().z));
                 _target = target;
+            }
+        }
+        private void OnTriggerExit(Collider other)
+        {
+            var target = other.GetComponent<ITarget>();
+
+            if (target != null)
+            {
+                _target = null;
             }
         }
 
         public bool IsTargetAvailable()
         {
-            if (_target != null && IsTargetVisible())
+            if (_target != null)// && IsTargetVisible())
                 return true;
             else 
                 return false;
