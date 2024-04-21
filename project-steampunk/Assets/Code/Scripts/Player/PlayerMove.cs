@@ -8,7 +8,7 @@ public class PlayerMove : MonoBehaviour
 {
     private Animator animatorPlayer; //animator for change hands anim
 
-
+    public float testDahs;
 
     //move data
     [Header("Переменные перемещения")]
@@ -43,6 +43,7 @@ public class PlayerMove : MonoBehaviour
     //jump
     [Header("Гравитация и переменные прыжка")]
     [SerializeField] private float jumpHeight;
+    [Tooltip("Доп сила для двойного прыжка"), SerializeField] private float jumpForceDouble = 1.5f;
     private float jumpForce;
     private bool jumpTrue;
     private int doubleJump;
@@ -82,7 +83,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float dashCooldown;//время перезарядки рывка
     private float dashTimer;
     private bool dashTrue;
-    private float oldSpeed;
+    private  float standartSpeed;
 
 
     private RaycastHit slopeHit;
@@ -120,15 +121,16 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private AudioClip dashClip;
     [SerializeField] private AudioClip jumpClip;
 
-    private AudioSource audioSource;
+   // private AudioSource audioSource;
 
     private void Awake()
     {
+        standartSpeed = speed;
         //capsuleColliders = GetComponents<CapsuleCollider>();//change collider in slide
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         rb = GetComponent<Rigidbody>();
-        audioSource = GetComponent<AudioSource>();
+        //audioSource = GetComponent<AudioSource>();
         animatorPlayer = GetComponentInChildren<Animator>();
 
         //inputActions = new ActionPrototypePlayer();
@@ -190,14 +192,15 @@ public class PlayerMove : MonoBehaviour
     private void Move(Vector2 inputMove)
     {
         Physics.SphereCast(dotGround.transform.position, 1f, Vector3.down, out slopeHit, 5, groundLayer);
-        if ((inputMove != Vector2.zero) && !audioSource.isPlaying && jumpTrue == false
+        if ((inputMove != Vector2.zero) && jumpTrue == false
             && dashTrue == false)
         {
-            audioSource.clip = moveClip;
-            audioSource.Play();
+            AudioManager.InstanceAudio.PlaySfxSound("Move");
+            //audioSource.clip = moveClip;
+            //audioSource.Play();
         }
-        else if ((inputMove == Vector2.zero) && jumpTrue == false)
-            audioSource.Stop();
+       // else if ((inputMove == Vector2.zero) && jumpTrue == false)
+            //audioSource.Stop();
 
         Vector3 move = transform.right * inputMove.x + transform.forward * inputMove.y;
         Vector3 projectedMove = Vector3.ProjectOnPlane(move, slopeHit.normal).normalized;
@@ -225,7 +228,7 @@ public class PlayerMove : MonoBehaviour
                 rb.velocity = new Vector3(projectedMove.x * speed, -50, projectedMove.z * speed);
             }
             rb.velocity = new Vector3(projectedMove.x * speed, rb.velocity.y,
-                projectedMove.z * speed);
+              projectedMove.z * speed);
         }
 
         else
@@ -250,21 +253,19 @@ public class PlayerMove : MonoBehaviour
     }
     IEnumerator DashCoroutine()
     {
-
-        oldSpeed = speed;
         speed = dashSpeed;
         dashTrue = true;
         Physics.IgnoreLayerCollision(gameObject.layer, layerIgnore, true);
-
         //effects and audio
-        audioSource.Stop();
-        audioSource.PlayOneShot(dashClip);
+        AudioManager.InstanceAudio.PlaySfxSound("Dash");
+        //audioSource.Stop();
+       // audioSource.PlayOneShot(dashClip);
         effectDash.Play();
         yield return new WaitForSeconds(dashTimeLimit);
         effectDash.Stop();
         Physics.IgnoreLayerCollision(gameObject.layer, layerIgnore, false);
         dashTrue = false;
-        speed = oldSpeed;
+        speed = standartSpeed;
 
     }
 
@@ -317,6 +318,7 @@ public class PlayerMove : MonoBehaviour
         if (context.phase == InputActionPhase.Started && IsGrounded() == true)
         {
             jumpTrue = true;
+            AudioManager.InstanceAudio.PlaySfxSound("Jump");
             StartCoroutine(JumpCoroutineUpSpeed());
             animatorPlayer.SetBool("jump", true);
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
@@ -324,9 +326,12 @@ public class PlayerMove : MonoBehaviour
         else if (doubleJump == 1 && context.phase == InputActionPhase.Started)
         {
             jumpTrue = true;
+            AudioManager.InstanceAudio.PlaySfxSound("Jump");
             animatorPlayer.SetBool("jump", true);
             StartCoroutine(JumpCoroutineUpSpeed());
-            rb.AddForce(Vector3.up * jumpForce * 1.5f, ForceMode.Impulse);
+            if (rb.velocity.y < 0)
+                rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            rb.AddForce(Vector3.up * jumpForce * jumpForceDouble, ForceMode.Impulse);
             doubleJump = 0;
         }
         if (context.phase == InputActionPhase.Canceled)
@@ -338,13 +343,13 @@ public class PlayerMove : MonoBehaviour
 
     IEnumerator JumpCoroutineUpSpeed()
     {
-        speed = speed * 1.3f;
+        speed = 65;
         //audio
-        audioSource.Stop();
-        audioSource.PlayOneShot(jumpClip);
+        //audioSource.Stop();
+       // audioSource.PlayOneShot(jumpClip);
 
         yield return new WaitForSeconds(0.1f);
-        speed = speed / 1.3f;
+        speed = standartSpeed;
     }
     private bool IsGrounded()
     {

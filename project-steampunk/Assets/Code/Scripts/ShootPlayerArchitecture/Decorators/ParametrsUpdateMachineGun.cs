@@ -59,7 +59,7 @@ public class ParametrsUpdateMachineGun : ParametrsUpdateDecorator
 
             //vfx and animation and ui
             ShowAnimatorAndInternalImpact();
-
+            AudioManager.InstanceAudio.PlaySfxWeapon("MachineGunShoot");
             //shoot logic
             if (Physics.Raycast(posRay, Camera.main.transform.forward,
                    out RaycastHit hit, Range, enemyLayer, QueryTriggerInteraction.Ignore))
@@ -84,6 +84,10 @@ public class ParametrsUpdateMachineGun : ParametrsUpdateDecorator
             }
 
         }
+    }
+    public override void ReloadSound()
+    {
+        AudioManager.InstanceAudio.PlaySfxWeapon("MachineGunReload");
     }
     protected override void ShowAnimatorAndInternalImpact()
     {
