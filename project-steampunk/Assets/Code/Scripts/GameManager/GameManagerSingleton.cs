@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManagerSingleton : MonoBehaviour
 {
@@ -24,5 +25,6 @@ public class GameManagerSingleton : MonoBehaviour
             spawner.spawnerID = j;
             j++;
         }
+        SceneManager.LoadScene(GameManagerSingleton.Instance.SaveSystem.playerData.sceneID);
     }
 }

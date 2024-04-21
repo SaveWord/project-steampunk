@@ -31,7 +31,7 @@ public class HpHandler : MonoBehaviour, IHealth
         if (gameObject.layer == 7)
         {
             GameManagerSingleton.Instance.SaveSystem.LoadData();
-            _currentHp = GameManagerSingleton.Instance.SaveSystem.playerData.health;
+            //_currentHp = GameManagerSingleton.Instance.SaveSystem.playerData.health;
             transform.localPosition = GameManagerSingleton.Instance.SaveSystem.playerData.position;
         }
     }
