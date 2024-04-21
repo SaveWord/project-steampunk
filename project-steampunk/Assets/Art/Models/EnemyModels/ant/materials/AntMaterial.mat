@@ -15,6 +15,7 @@ Material:
   - _EMISSION
   - _HALFTONESHAPE_DOT
   - _METALLICSPECGLOSSMAP
+  - _NORMALMAP
   - _OUTLINE
   - _TOON_SHADING_ON
   m_InvalidKeywords: []
@@ -30,11 +31,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: e447c727b0af06f4fb76c085e1bfdde5, type: 3}
+        m_Texture: {fileID: 2800000, guid: 930fdd2548412fe40a9dabcf4c90327d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: e7cb651be72125e4db14c08e85203264, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -54,7 +55,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 2800000, guid: 47ba3450cd5ecc94abce63cb1fb797d4, type: 3}
+        m_Texture: {fileID: 2800000, guid: cc202453bf3e7e44c85d2b50ee9a7d68, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FaceShadowMap:
@@ -78,11 +79,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: e447c727b0af06f4fb76c085e1bfdde5, type: 3}
+        m_Texture: {fileID: 2800000, guid: 930fdd2548412fe40a9dabcf4c90327d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: 2a84fa392c91f1a47a146a23106a7d8f, type: 3}
+        m_Texture: {fileID: 2800000, guid: 78c00a4fbd398dc4f9defa36aa61682d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -208,7 +209,7 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 8.474188, g: 0, b: 0, a: 1}
+    - _EmissionColor: {r: 15.104688, g: 15.104688, b: 15.104688, a: 1}
     - _FaceFrontDirection: {r: 0, g: 0, b: 1, a: 0}
     - _FaceRightDirection: {r: 1, g: 0, b: 0, a: 0}
     - _HairSpecColor: {r: 0, g: 0, b: 0, a: 1}
