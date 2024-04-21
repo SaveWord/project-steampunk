@@ -32,17 +32,17 @@ public class HpHandler : MonoBehaviour, IHealth
         if (gameObject.layer == 7)
         {
             GameManagerSingleton.Instance.SaveSystem.LoadData();
-            _currentHp = GameManagerSingleton.Instance.SaveSystem.playerData.health;
+            //_currentHp = GameManagerSingleton.Instance.SaveSystem.playerData.health;
             transform.localPosition = GameManagerSingleton.Instance.SaveSystem.playerData.position;
         }
     }
     
     public void TakeDamage(float amount)//TODO: specify damage maker
-    { 
+    {
         //gameObject.TryGetComponent(out TargetDetector _targetDetector);
         //if(_targetDetector != null )
-           // _targetDetector.GetShot();
-
+        // _targetDetector.GetShot();
+        Debug.Log(amount);
         if (!_invulnerable)
         {
             if (amount <= 0)

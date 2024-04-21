@@ -15,7 +15,6 @@ Material:
   - _ALPHATEST_ON
   - _DETAIL_SCALED
   - _HALFTONESHAPE_DOT
-  - _METALLICSPECGLOSSMAP
   - _NORMALMAP
   - _TOON_SHADING_ON
   m_InvalidKeywords:
@@ -33,7 +32,7 @@ Material:
     m_TexEnvs:
     - _BaseMap:
         m_Texture: {fileID: 2800000, guid: 97da3a92cb135394e8bd66a7f35db38d, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Scale: {x: 2, y: 2}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 2800000, guid: 2d89bba03845735449e4a42307c3e3b9, type: 3}
@@ -81,10 +80,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 97da3a92cb135394e8bd66a7f35db38d, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Scale: {x: 2, y: 2}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: cb14630d87b699442a486d7ce125d094, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -166,7 +165,7 @@ Material:
     - _HatchingEnabled: 0
     - _HatchingRotation: 0
     - _HatchingSmoothness: 0.1
-    - _Metallic: 0
+    - _Metallic: 1
     - _NoiseScale: 1
     - _NoiseStrength: 0.1
     - _OcclusionStrength: 1

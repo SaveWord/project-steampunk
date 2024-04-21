@@ -8193,6 +8193,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponParametrs: {fileID: 11400000, guid: ec6dc66e72fb3eb41a7ff3d705448bb4, type: 2}
+  gausePatronsImages: []
 --- !u!95 &387633881
 Animator:
   serializedVersion: 5
@@ -9428,9 +9429,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 50
+  speedSlope: 0
   mouseSense: 0.3
-  jumpForce: 20
-  jumpLimitRbY: 0
+  smoothInputSpeed: 0
   cam: {fileID: 68235461}
   groundLayer:
     serializedVersion: 2
@@ -9438,6 +9439,11 @@ MonoBehaviour:
   dotGround: {fileID: 1065644617}
   sphereRadius: 0
   verticalDamping: 0.1
+  jumpHeight: 0
+  jumpForceDouble: 1.5
+  gravityScale: 5
+  fallingGravityScale: 5
+  yAngle: 0
   layerIgnore: 31
   dashSpeed: 220
   dashTimeLimit: 0.2
@@ -11277,6 +11283,10 @@ MonoBehaviour:
   testMenu: {fileID: 1594008329}
   testMenuDie: {fileID: 0}
   sliderSense: {fileID: 621839867}
+  mixer: {fileID: 0}
+  sliderVolume: {fileID: 0}
+  sliderVolumeMusic: {fileID: 0}
+  sliderVolumeSFX: {fileID: 0}
   optionsFileName: OptionSenseValue
 --- !u!114 &536360127
 MonoBehaviour:
@@ -13630,6 +13640,74 @@ Transform:
   - {fileID: 1639588027}
   m_Father: {fileID: 1201193179}
   m_LocalEulerAnglesHint: {x: -0.45570022, y: 0.6280861, z: -5.4907794}
+--- !u!1001 &662849984
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2107465037483941721, guid: 8ce087a9769d3d44cb1be1aa6f189db0,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -131.53024
+      objectReference: {fileID: 0}
+    - target: {fileID: 2107465037483941721, guid: 8ce087a9769d3d44cb1be1aa6f189db0,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 16.759613
+      objectReference: {fileID: 0}
+    - target: {fileID: 2107465037483941721, guid: 8ce087a9769d3d44cb1be1aa6f189db0,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.4136076
+      objectReference: {fileID: 0}
+    - target: {fileID: 2107465037483941721, guid: 8ce087a9769d3d44cb1be1aa6f189db0,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2107465037483941721, guid: 8ce087a9769d3d44cb1be1aa6f189db0,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2107465037483941721, guid: 8ce087a9769d3d44cb1be1aa6f189db0,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2107465037483941721, guid: 8ce087a9769d3d44cb1be1aa6f189db0,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2107465037483941721, guid: 8ce087a9769d3d44cb1be1aa6f189db0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2107465037483941721, guid: 8ce087a9769d3d44cb1be1aa6f189db0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2107465037483941721, guid: 8ce087a9769d3d44cb1be1aa6f189db0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2682506662434495376, guid: 8ce087a9769d3d44cb1be1aa6f189db0,
+        type: 3}
+      propertyPath: m_Name
+      value: AudioManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8ce087a9769d3d44cb1be1aa6f189db0, type: 3}
 --- !u!1 &666550917
 GameObject:
   m_ObjectHideFlags: 0
@@ -13877,6 +13955,10 @@ MonoBehaviour:
   testMenu: {fileID: 2054557228}
   testMenuDie: {fileID: 0}
   sliderSense: {fileID: 809493198}
+  mixer: {fileID: 0}
+  sliderVolume: {fileID: 0}
+  sliderVolumeMusic: {fileID: 0}
+  sliderVolumeSFX: {fileID: 0}
   optionsFileName: OptionSenseValue
 --- !u!114 &682244032
 MonoBehaviour:
@@ -14571,9 +14653,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 50
+  speedSlope: 0
   mouseSense: 0.3
-  jumpForce: 20
-  jumpLimitRbY: 0
+  smoothInputSpeed: 0
   cam: {fileID: 1647939362}
   groundLayer:
     serializedVersion: 2
@@ -14581,6 +14663,11 @@ MonoBehaviour:
   dotGround: {fileID: 389058515}
   sphereRadius: 0
   verticalDamping: 0.1
+  jumpHeight: 0
+  jumpForceDouble: 1.5
+  gravityScale: 5
+  fallingGravityScale: 5
+  yAngle: 0
   layerIgnore: 31
   dashSpeed: 220
   dashTimeLimit: 0.2
@@ -16592,6 +16679,10 @@ MonoBehaviour:
   testMenu: {fileID: 545029406}
   testMenuDie: {fileID: 0}
   sliderSense: {fileID: 432653265}
+  mixer: {fileID: 0}
+  sliderVolume: {fileID: 0}
+  sliderVolumeMusic: {fileID: 0}
+  sliderVolumeSFX: {fileID: 0}
   optionsFileName: OptionSenseValue
 --- !u!114 &790670723
 MonoBehaviour:
@@ -17216,6 +17307,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponParametrs: {fileID: 11400000, guid: ec6dc66e72fb3eb41a7ff3d705448bb4, type: 2}
+  gausePatronsImages: []
 --- !u!95 &810118201
 Animator:
   serializedVersion: 5
@@ -34934,9 +35026,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 50
+  speedSlope: 0
   mouseSense: 0.3
-  jumpForce: 20
-  jumpLimitRbY: 0
+  smoothInputSpeed: 0
   cam: {fileID: 755530647}
   groundLayer:
     serializedVersion: 2
@@ -34944,6 +35036,11 @@ MonoBehaviour:
   dotGround: {fileID: 789231652}
   sphereRadius: 0
   verticalDamping: 0.1
+  jumpHeight: 0
+  jumpForceDouble: 1.5
+  gravityScale: 5
+  fallingGravityScale: 5
+  yAngle: 0
   layerIgnore: 31
   dashSpeed: 220
   dashTimeLimit: 0.2
@@ -42628,6 +42725,99 @@ Transform:
   - {fileID: 1788666466}
   m_Father: {fileID: 820546262}
   m_LocalEulerAnglesHint: {x: 1.3895909e-15, y: 3.9062985e-23, z: 54.76197}
+--- !u!1001 &2033160275
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 344915665512942503, guid: 5935ade3adacde140a0e1fd2bc88022c,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 344915665512942503, guid: 5935ade3adacde140a0e1fd2bc88022c,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1775071753055340165, guid: 5935ade3adacde140a0e1fd2bc88022c,
+        type: 3}
+      propertyPath: _laserList
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2411392992465813033, guid: 5935ade3adacde140a0e1fd2bc88022c,
+        type: 3}
+      propertyPath: m_Name
+      value: Bee-update
+      objectReference: {fileID: 0}
+    - target: {fileID: 4861048125991529453, guid: 5935ade3adacde140a0e1fd2bc88022c,
+        type: 3}
+      propertyPath: _invulnerable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5075553687577555553, guid: 5935ade3adacde140a0e1fd2bc88022c,
+        type: 3}
+      propertyPath: _attacksCollection.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5317327680322809363, guid: 5935ade3adacde140a0e1fd2bc88022c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 22.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5317327680322809363, guid: 5935ade3adacde140a0e1fd2bc88022c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.55986786
+      objectReference: {fileID: 0}
+    - target: {fileID: 5317327680322809363, guid: 5935ade3adacde140a0e1fd2bc88022c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 37.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5317327680322809363, guid: 5935ade3adacde140a0e1fd2bc88022c,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5317327680322809363, guid: 5935ade3adacde140a0e1fd2bc88022c,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5317327680322809363, guid: 5935ade3adacde140a0e1fd2bc88022c,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5317327680322809363, guid: 5935ade3adacde140a0e1fd2bc88022c,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5317327680322809363, guid: 5935ade3adacde140a0e1fd2bc88022c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5317327680322809363, guid: 5935ade3adacde140a0e1fd2bc88022c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 5317327680322809363, guid: 5935ade3adacde140a0e1fd2bc88022c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5935ade3adacde140a0e1fd2bc88022c, type: 3}
 --- !u!1 &2033921050
 GameObject:
   m_ObjectHideFlags: 0
@@ -60349,9 +60539,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 50
+  speedSlope: 0
   mouseSense: 0.3
-  jumpForce: 20
-  jumpLimitRbY: 0
+  smoothInputSpeed: 0
   cam: {fileID: 1660524533}
   groundLayer:
     serializedVersion: 2
@@ -60359,6 +60549,11 @@ MonoBehaviour:
   dotGround: {fileID: 1807849935044364295}
   sphereRadius: 0
   verticalDamping: 0.1
+  jumpHeight: 0
+  jumpForceDouble: 1.5
+  gravityScale: 5
+  fallingGravityScale: 5
+  yAngle: 0
   layerIgnore: 31
   dashSpeed: 220
   dashTimeLimit: 0.2
@@ -67727,6 +67922,10 @@ MonoBehaviour:
   testMenu: {fileID: 7888712551183883904}
   testMenuDie: {fileID: 0}
   sliderSense: {fileID: 6838160022085240194}
+  mixer: {fileID: 0}
+  sliderVolume: {fileID: 0}
+  sliderVolumeMusic: {fileID: 0}
+  sliderVolumeSFX: {fileID: 0}
   optionsFileName: OptionSenseValue
 --- !u!4 &4120361597225276469
 Transform:
@@ -69055,9 +69254,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52d519e0a40b0d748a18284fe8350704, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stats:
-    _hp: 100
-    _timeBeforeReposition: 2
   _attacksCollection: []
   _transitionCooldownTime: 0
   _canChange: 1
@@ -115230,6 +115426,7 @@ MonoBehaviour:
   DashForwardReactDist: 0
   DashBackwardReactDist: 0
   JumpUp: 0
+  _damageCloseCombat: 0
 --- !u!114 &5785660985077642289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134316,6 +134513,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponParametrs: {fileID: 11400000, guid: ec6dc66e72fb3eb41a7ff3d705448bb4, type: 2}
+  gausePatronsImages: []
 --- !u!4 &8141596493154632109
 Transform:
   m_ObjectHideFlags: 0
@@ -136639,3 +136837,5 @@ SceneRoots:
   - {fileID: 401172169}
   - {fileID: 7811468735224397807}
   - {fileID: 391795634}
+  - {fileID: 662849984}
+  - {fileID: 2033160275}

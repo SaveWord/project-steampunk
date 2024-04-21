@@ -9,18 +9,20 @@ using UnityEngine.InputSystem;
 public class ParametrsUpdateMachineGun : ParametrsUpdateDecorator
 {
     private RecoilMachineGun _recoilMachineGun;
-    public ParametrsUpdateMachineGun(IWeapon weapon, float updateFireRate,
+    public ParametrsUpdateMachineGun(Transform distanceTarget, IWeapon weapon, float updateFireRate,
         DistanceAndDamage[] updateDamage, float updateReload, float updatePatrons,
         IWeapon.WeaponTypeDamage updateWeaponType, LayerMask mask,
         ParticleSystem vfxShootPrefab, ParticleSystem vfxImpactMetalProps, ParticleSystem vfxImpactOtherProps,
         TextMeshProUGUI patronsText, Animator animator, Animator animatorWeapon,
         CinemachineImpulseSource recoil, RecoilMachineGun recoilMachineGun)
-        : base(weapon, updateFireRate, updateDamage, updateReload, updatePatrons, updateWeaponType,
+        : base(distanceTarget,weapon, updateFireRate, updateDamage, updateReload, updatePatrons, updateWeaponType,
           mask, vfxShootPrefab, vfxImpactMetalProps, vfxImpactOtherProps, patronsText, animator, animatorWeapon, recoil)
     {
         _updateFireRate = updateFireRate;
 
         _distanceAndDamage = updateDamage;
+
+        _distanceTarget = distanceTarget;
 
         _weapon = weapon;
         _updateDamage = updateDamage.Last().damage;
@@ -59,11 +61,21 @@ public class ParametrsUpdateMachineGun : ParametrsUpdateDecorator
 
             //vfx and animation and ui
             ShowAnimatorAndInternalImpact();
-
+            AudioManager.InstanceAudio.PlaySfxWeapon("MachineGunShoot");
             //shoot logic
             if (Physics.Raycast(posRay, Camera.main.transform.forward,
                    out RaycastHit hit, Range, enemyLayer, QueryTriggerInteraction.Ignore))
             {
+                float rangeBetween = Vector3.Distance(hit.point, _distanceTarget.position);
+                for (int i = 0; i <= _distanceAndDamage.Length - 1; i++)
+                {
+                    if (rangeBetween <= _distanceAndDamage[i].range)
+                    {
+                        Damage = _distanceAndDamage[i].damage;
+                        break;
+                    }
+                }
+
                 hit.collider.TryGetComponent(out IShield impulseShield);
                 impulseShield?.ShieldImpulse();
 
@@ -84,6 +96,10 @@ public class ParametrsUpdateMachineGun : ParametrsUpdateDecorator
             }
 
         }
+    }
+    public override void ReloadSound()
+    {
+        AudioManager.InstanceAudio.PlaySfxWeapon("MachineGunReload");
     }
     protected override void ShowAnimatorAndInternalImpact()
     {
