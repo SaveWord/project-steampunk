@@ -359,19 +359,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52d519e0a40b0d748a18284fe8350704, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stats:
-    _hp: 100
-    _timeBeforeReposition: 2
   _attacksCollection:
   - attack: {fileID: 7535649719867759211, guid: 839a1b29ac62751499d6005f280dc1ce,
       type: 3}
+    attacks: []
     patternSpawn: {fileID: 1677533448417271500}
-    cooldown: 0.8
+    timeoutAfter: 5
     startTime: 0.045
   - attack: {fileID: 8458616472822595085, guid: ebae315fc2cd6e84c8520daefd5972b7,
       type: 3}
+    attacks: []
     patternSpawn: {fileID: 4870794951646045618}
-    cooldown: 0.8
+    timeoutAfter: 5
     startTime: 0.4
   _transitionCooldownTime: 0.5
   _canChange: 1
@@ -725,7 +724,7 @@ PrefabInstance:
     - target: {fileID: 4898133858155632823, guid: 2fe123112e0d1df48922242f855544ab,
         type: 3}
       propertyPath: finalScaleReference
-      value: 0.82206476
+      value: 0.8220649
       objectReference: {fileID: 0}
     - target: {fileID: 4898133858155632823, guid: 2fe123112e0d1df48922242f855544ab,
         type: 3}
