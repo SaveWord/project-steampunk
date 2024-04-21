@@ -118,10 +118,10 @@ public class PlayerMove : MonoBehaviour
     //vfx effects move
     private VisualEffect effectDash;
 
-    [Header("Звуки мувмента")]
-    [SerializeField] private AudioClip moveClip;
-    [SerializeField] private AudioClip dashClip;
-    [SerializeField] private AudioClip jumpClip;
+    //[Header("Звуки мувмента")]
+    //[SerializeField] private AudioClip moveClip;
+    //[SerializeField] private AudioClip dashClip;
+    //[SerializeField] private AudioClip jumpClip;
 
     // private AudioSource audioSource;
 
