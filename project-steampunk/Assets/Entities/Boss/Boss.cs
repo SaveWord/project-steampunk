@@ -25,7 +25,7 @@ namespace Enemies
         private List<Attack> _attackStatesCollection = new List<Attack>();
         private List<Func<bool>> _phasesConditions = new List<Func<bool>>();
         private Attack attackGround;
-
+        [SerializeField] private bool bee = false;
         public int HpPercentage;
 
         //private Attack attackGround;
@@ -57,49 +57,60 @@ namespace Enemies
             var stateOrder = 0;
 
 
-           /* foreach (PhaseConstruct phase in _phasesCollection)
+            /* foreach (PhaseConstruct phase in _phasesCollection)
+             {
+                 _attackStatesCollection.Add( new Attack(targetDetector, gameObject.AddComponent<BossTargetAttacker>() , bossMover, phase.attacksCollection));
+
+                 if (_attacksCollection[0] != null && stateOrder == 0)
+                 {
+                     _stateMachine.AddTransition(idle, _attackStatesCollection[stateOrder], TargetAvailable());
+                     _stateMachine.AddTransition(idle, _attackStatesCollection[stateOrder], AmIUnderAttack());
+                 }
+                 else
+                     _stateMachine.AddTransition(_attackStatesCollection[stateOrder - 1], _attackStatesCollection[stateOrder], HealthCondition());
+
+                 _stateMachine.AddTransition(_attackStatesCollection[stateOrder], idle, TargetNotAvailable());
+                 stateOrder++;
+             }*/
+            if (bee)
             {
-                _attackStatesCollection.Add( new Attack(targetDetector, gameObject.AddComponent<BossTargetAttacker>() , bossMover, phase.attacksCollection));
+                attackGround = new Attack(targetDetector, targetAttacker, bossMover, _attacksCollection);
 
-                if (_attacksCollection[0] != null && stateOrder == 0)
-                {
-                    _stateMachine.AddTransition(idle, _attackStatesCollection[stateOrder], TargetAvailable());
-                    _stateMachine.AddTransition(idle, _attackStatesCollection[stateOrder], AmIUnderAttack());
-                }
-                else
-                    _stateMachine.AddTransition(_attackStatesCollection[stateOrder - 1], _attackStatesCollection[stateOrder], HealthCondition());
+                _stateMachine.AddTransition(idle, attackGround, TargetAvailable());
 
-                _stateMachine.AddTransition(_attackStatesCollection[stateOrder], idle, TargetNotAvailable());
-                stateOrder++;
-            }*/
-           foreach (PhaseConstruct phase in _phasesCollection)
-            {
-                _attackStatesCollection.Add( new Attack(targetDetector, gameObject.AddComponent<BossTargetAttacker>() , bossMover, phase.attacksCollection.attacksCollection));
-
-                if (_attacksCollection[0] != null && stateOrder == 0)
-                {
-                    _stateMachine.AddTransition(idle, _attackStatesCollection[stateOrder], TargetAvailable());
-                    _stateMachine.AddTransition(idle, _attackStatesCollection[stateOrder], AmIUnderAttack());
-
-                }
-                else
-                {
-                   // _phasesConditions.Add(new Func<bool>(() => _phasesCollection[stateOrder-1].healthPercentageChangePhase > HpPercentage && HpPercentage > phase.healthPercentageChangePhase));
-                   
-                   // _stateMachine.AddTransition(_attackStatesCollection[stateOrder - 1], _attackStatesCollection[stateOrder], _phasesConditions[stateOrder-1]);
-                }
-
-                _stateMachine.AddTransition(_attackStatesCollection[stateOrder], idle, TargetNotAvailable());
-                stateOrder++;
+                _stateMachine.AddTransition(attackGround, idle, TargetNotAvailable());
+                _stateMachine.AddTransition(attackGround, idle, AmIUnderAtPeace());
             }
+            else
+            {
+                foreach (PhaseConstruct phase in _phasesCollection)
+                {
+                    _attackStatesCollection.Add(new Attack(targetDetector, gameObject.AddComponent<BossTargetAttacker>(), bossMover, phase.attacksCollection));
+
+                    if (_attackStatesCollection[0] != null && stateOrder == 0)
+                    {
+                        _stateMachine.AddTransition(idle, _attackStatesCollection[stateOrder], TargetAvailable());
+                        _stateMachine.AddTransition(idle, _attackStatesCollection[stateOrder], AmIUnderAttack());
+
+                    }
+                    else
+                    {
+                        // _phasesConditions.Add(new Func<bool>(() => _phasesCollection[stateOrder-1].healthPercentageChangePhase > HpPercentage && HpPercentage > phase.healthPercentageChangePhase));
+
+                        // _stateMachine.AddTransition(_attackStatesCollection[stateOrder - 1], _attackStatesCollection[stateOrder], _phasesConditions[stateOrder-1]);
+                    }
+
+                    _stateMachine.AddTransition(_attackStatesCollection[stateOrder], idle, TargetNotAvailable());
+                    stateOrder++;
+                }
 
 
-            _stateMachine.AddTransition(_attackStatesCollection[0], _attackStatesCollection[1], HealthCondition1());
-            _stateMachine.AddTransition(_attackStatesCollection[1], _attackStatesCollection[2], HealthCondition2());
-           // _stateMachine.AddTransition(attackGround, _attackStatesCollection[0], ArenaFinished());
-            Func<bool> HealthCondition1() => () => (_phasesCollection[0].healthPercentageChangePhase > HpPercentage) && (HpPercentage > _phasesCollection[1].healthPercentageChangePhase);
-            Func<bool> HealthCondition2() => () => (_phasesCollection[1].healthPercentageChangePhase > HpPercentage) && (HpPercentage > _phasesCollection[2].healthPercentageChangePhase);
-
+                _stateMachine.AddTransition(_attackStatesCollection[0], _attackStatesCollection[1], HealthCondition1());
+                _stateMachine.AddTransition(_attackStatesCollection[1], _attackStatesCollection[2], HealthCondition2());
+                // _stateMachine.AddTransition(attackGround, _attackStatesCollection[0], ArenaFinished());
+                Func<bool> HealthCondition1() => () => (_phasesCollection[0].healthPercentageChangePhase > HpPercentage) && (HpPercentage > _phasesCollection[1].healthPercentageChangePhase);
+                Func<bool> HealthCondition2() => () => (_phasesCollection[1].healthPercentageChangePhase > HpPercentage) && (HpPercentage > _phasesCollection[2].healthPercentageChangePhase);
+            }
             //_stateMachine.AddTransition(attack, attackGround, Health50());
             // _stateMachine.AddTransition(attackGround, attack, TargetAvailable());
             //was right it and idle invoked

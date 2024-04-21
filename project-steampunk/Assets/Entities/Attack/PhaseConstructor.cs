@@ -8,7 +8,7 @@ namespace Enemies.Attacks.Attacks
     [Serializable]
     public class PhaseConstruct
     {
-        public AttackCollection attacksCollection;
+        public List<AttackConstruct> attacksCollection;
 
         [Header("% of health when it changes to next phase")]
         public int healthPercentageChangePhase;

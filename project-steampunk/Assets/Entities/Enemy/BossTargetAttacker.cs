@@ -30,7 +30,7 @@ public class BossTargetAttacker : MonoBehaviour, IBossTargetAttacker
             
                 var tempObject = Instantiate(atk.attacks[0], atk.patternSpawn);
                 tempObject.patternSpawnPoint = atk.patternSpawn;
-                tempObject.gameObject.SetActive(false);
+                //tempObject.gameObject.SetActive(false);
                 _attaksList.Add(tempObject);
             
         }

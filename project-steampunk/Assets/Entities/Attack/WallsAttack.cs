@@ -41,7 +41,10 @@ namespace Enemies.Attacks.Attacks
                 float cos100 = Mathf.Cos(angle) * largeRadius * 100;
 
                 var sp = Instantiate(Resources.Load<GameObject>("WallBullet"));
-                sp.transform.parent = gameObject.transform;
+                //sp.transform.parent = gameObject.transform;
+                sp.transform.SetParent(gameObject.transform, false);
+                sp.transform.localPosition = Vector3.zero;
+                
                 if (axis == "z")
                 {
                     sp.transform.position = new Vector3(sin, cos, 0);
@@ -61,10 +64,12 @@ namespace Enemies.Attacks.Attacks
                 }
                 var SpotPoint = sp.transform.position;
                 var ShotDirection = sp.transform.position - transform.position;
+                
                 sp.transform.LookAt(-ShotDirection.normalized);
                 sp.transform.rotation = Quaternion.Euler(sp.transform.eulerAngles.x, sp.transform.eulerAngles.y + 90, sp.transform.eulerAngles.z);
                 bullets.Add(sp);
             }
+            gameObject.SetActive(false);
         }
 
         

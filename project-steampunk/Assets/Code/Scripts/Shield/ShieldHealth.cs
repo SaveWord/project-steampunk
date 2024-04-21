@@ -16,6 +16,7 @@ public class ShieldHealth : MonoBehaviour, IShield
     }
     void OnEnable()
     {
+        m_Material = GetComponent<Renderer>().material;
         m_Material.SetFloat("_DisolveAmount", 0f);
     }
     public void ShieldImpulse()

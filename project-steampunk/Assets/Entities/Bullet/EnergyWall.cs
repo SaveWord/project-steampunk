@@ -17,9 +17,13 @@ public class EnergyWall : MonoBehaviour
         _shield = GetComponentInChildren<ShieldHealth>();
         Physics.IgnoreLayerCollision(9, 9, true);
         Physics.IgnoreLayerCollision(6, 9, true);
-        _startPos = transform.position;
 
     }
+    void OnDisable()
+    {
+        transform.localPosition = Vector3.zero;
+    } 
+
     public void Activate(float damage, float projectileSpeed, float attackTime)
     {
         _damage = damage;
@@ -36,7 +40,6 @@ public class EnergyWall : MonoBehaviour
         Activated = true;
         yield return new WaitForSeconds(_attackTime-0.01f);
         Activated = false;
-        transform.position = _startPos;
     }
 
     // Update is called once per frame
@@ -59,7 +62,6 @@ public class EnergyWall : MonoBehaviour
                 damageScript.TakeDamage(_damage);
 
                 Activated = false;
-                transform.position = _startPos;
                 gameObject.SetActive(false);
                 
             }
