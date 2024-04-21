@@ -48,7 +48,7 @@ namespace Enemies
 
         public bool IsTargetAvailable()
         {
-            if (_target != null)// && IsTargetVisible())
+            if ((_target != null) && IsTargetVisible())
                 return true;
             else 
                 return false;
