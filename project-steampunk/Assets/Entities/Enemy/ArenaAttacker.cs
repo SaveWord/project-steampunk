@@ -59,7 +59,7 @@ public class ArenaAttacker : MonoBehaviour, IBossTargetAttacker
         {
             _animator = GetComponentInChildren<Animator>();
             _OnReload = true;
-            if (_patternQueue.Count != 0)
+            /*if (_patternQueue.Count != 0)
             {
                 foreach (GameObject child in _patternQueue)
                 {
@@ -67,7 +67,7 @@ public class ArenaAttacker : MonoBehaviour, IBossTargetAttacker
                     _patternQueue[_attackQueue].GetComponent<GroundPatterns>()._damageTime = _damageTimePattern;
                     _patternQueue[_attackQueue].GetComponent<GroundPatterns>()._chargeTime = _chargeTimePattern;
                 }
-            }
+            }*/
             _laser = _laserList.GetComponent<LaserAttack>();
             if (_laser)
             {
@@ -105,7 +105,7 @@ public class ArenaAttacker : MonoBehaviour, IBossTargetAttacker
                 }
 
                 //transform.LookAt(target.GetPosition());
-                if (_OnReload) //!_attack.Activated && 
+               /* if (_OnReload) //!_attack.Activated && 
                 {
 
                     _patternQueue[_attackQueue].GetComponent<GroundPatterns>().PulseCycle();
@@ -113,7 +113,7 @@ public class ArenaAttacker : MonoBehaviour, IBossTargetAttacker
                     _animator.SetBool("isAttacking0", true);
                     StartCoroutine(Reload(_patternQueue[_attackQueue]));
                     _attackQueue++;
-                }
+                }*/
 
                 if (_attackQueue == _patternQueue.Count)
                 {
@@ -126,14 +126,14 @@ public class ArenaAttacker : MonoBehaviour, IBossTargetAttacker
         }
 
 
-        private IEnumerator Reload(GameObject gameobject)
+       /* private IEnumerator Reload(GameObject gameobject)
         {
             _OnReload = false;
 
             yield return new WaitForSeconds(_reloadTimePattern + _chargeTimePattern + _damageTimePattern);
             _OnReload = true;
              _animator.SetBool("isAttacking0", false);
-        }
+        }*/
 
         private IEnumerator Laser()
         {

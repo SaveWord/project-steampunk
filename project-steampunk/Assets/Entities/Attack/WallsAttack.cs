@@ -61,8 +61,8 @@ namespace Enemies.Attacks.Attacks
                 }
                 var SpotPoint = sp.transform.position;
                 var ShotDirection = sp.transform.position - transform.position;
-
                 sp.transform.LookAt(-ShotDirection.normalized);
+                sp.transform.rotation = Quaternion.Euler(sp.transform.eulerAngles.x, sp.transform.eulerAngles.y + 90, sp.transform.eulerAngles.z);
                 bullets.Add(sp);
             }
         }

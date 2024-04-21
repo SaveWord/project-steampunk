@@ -50,7 +50,7 @@ namespace Enemies
             var idle = new Idle();
             var chase = new Chase(navMeshAgent, bossMover, targetDetector);
            // attack = new Attack(targetDetector, targetAttacker, bossMover, _attacksCollection);
-            attackGround = new Attack(targetDetector, arenaAttacker, bossMover, _attacksCollection);
+            //attackGround = new Attack(targetDetector, arenaAttacker, bossMover, _attacksCollection);
            // var fightBack = new FightBack(targetDetector, targetAttacker, bossMover);
 
             //dectaring state for each element in list from editor
@@ -96,7 +96,7 @@ namespace Enemies
 
             _stateMachine.AddTransition(_attackStatesCollection[0], _attackStatesCollection[1], HealthCondition1());
             _stateMachine.AddTransition(_attackStatesCollection[1], _attackStatesCollection[2], HealthCondition2());
-            _stateMachine.AddTransition(attackGround, _attackStatesCollection[0], ArenaFinished());
+           // _stateMachine.AddTransition(attackGround, _attackStatesCollection[0], ArenaFinished());
             Func<bool> HealthCondition1() => () => (_phasesCollection[0].healthPercentageChangePhase > HpPercentage) && (HpPercentage > _phasesCollection[1].healthPercentageChangePhase);
             Func<bool> HealthCondition2() => () => (_phasesCollection[1].healthPercentageChangePhase > HpPercentage) && (HpPercentage > _phasesCollection[2].healthPercentageChangePhase);
 
@@ -111,12 +111,12 @@ namespace Enemies
 
             Func<bool> TargetAvailable() => () => targetDetector.IsTargetAvailable();
             Func<bool> TargetNotAvailable() => () => !targetDetector.IsTargetAvailable();
-            Func<bool> ArenaFinished() => () => !arenaAttacker.ONReload();
+           // Func<bool> ArenaFinished() => () => !arenaAttacker.ONReload();
             Func<bool> AmIUnderAttack() => () => targetDetector.AmIUnderAttack();
             Func<bool> AmIUnderAtPeace() => () => !targetDetector.AmIUnderAttack();
 
             _stateMachine.SetState(idle);
-            InvokeRepeating("StartCoroutine(ChangeCoroutine)", 5f, 10f);
+            //InvokeRepeating("StartCoroutine(ChangeCoroutine)", 5f, 10f);
         }
 
         private void HandleHpPercentage(float currentHp)

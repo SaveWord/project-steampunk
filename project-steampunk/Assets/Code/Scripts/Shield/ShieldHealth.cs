@@ -14,7 +14,10 @@ public class ShieldHealth : MonoBehaviour, IShield
     {
         m_Material = GetComponent<Renderer>().material;
     }
-
+    void OnEnable()
+    {
+        m_Material.SetFloat("_DisolveAmount", 0f);
+    }
     public void ShieldImpulse()
     {
         StartCoroutine(ShieldImpulseVFX());
@@ -52,7 +55,6 @@ public class ShieldHealth : MonoBehaviour, IShield
     }
     public void ShieldDestroy()
     {
-        StartCoroutine(ShieldDestroyVFX());
         if (isWall)
         {
             healDropPrefab = Resources.Load<GameObject>("HealDrop");
@@ -69,6 +71,8 @@ public class ShieldHealth : MonoBehaviour, IShield
                 Instantiate(healDropPrefab, position, Quaternion.identity);
             }
         }
+        StartCoroutine(ShieldDestroyVFX());
+        
     }
     IEnumerator ShieldDestroyVFX()
     {
@@ -79,6 +83,6 @@ public class ShieldHealth : MonoBehaviour, IShield
             m_Material.SetFloat("_DisolveAmount", counter);
             yield return new WaitForSeconds(refreshRate);
         }
-        gameObject.SetActive(false);
+        transform.parent.gameObject.SetActive(false);
     }
 }

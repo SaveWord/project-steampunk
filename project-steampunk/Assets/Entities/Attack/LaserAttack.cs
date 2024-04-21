@@ -59,6 +59,7 @@ namespace Enemies.Attacks.Attacks
         private Material _targetMat;
         private ParticleSystem _particle;
 
+        private bool _damageCooldown;
         void Awake()
         {
             _particle = GetComponent<ParticleSystem>();
@@ -82,10 +83,17 @@ namespace Enemies.Attacks.Attacks
 
         private void OnTriggerStay(Collider collision)
         {
-            if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Player") && !_damageCooldown)
             {
                 DealDamage(collision.gameObject);
+                StartCoroutine(DamageReload());
             }
+        }
+        private IEnumerator DamageReload()
+        {
+            _damageCooldown= true;
+            yield return new WaitForSeconds(1f);
+            _damageCooldown = false;
         }
 
         private IEnumerator Reload()
