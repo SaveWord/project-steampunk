@@ -8,7 +8,6 @@ namespace Enemies.Attacks.Attacks
     public class RangeAttack : AttackBaseClass //rename bullet attack
     {
         public bool Activated { get; set; }
-        public Transform patternSpawnPoint;
 
         [SerializeField] private List<Pair<BulletSpot, Bullet>> _shotQueue;
         [SerializeField] private Bullet bullet;
