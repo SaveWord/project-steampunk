@@ -14127,6 +14127,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c92354a5c7e0a9c43b05900fa2908486, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _OnReload: 0
+  _laserList: {fileID: 0}
+  _laserAttackDuration: 4
+  _laserAttackChargeDuration: 1.3
+  _laserTimeout: 0
+  _laserCooldown: 0
+  _pointOfAttack: {fileID: 0}
+  _laserFollowDistance: 0
+  _laserDamage: 1
+  _patternQueue: []
+  _damagePattern: 0
+  _damageTimePattern: 0
+  _chargeTimePattern: 0
+  _reloadTimePattern: 4
+  bee: 0
 --- !u!114 &368618437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21921,6 +21936,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 24.34
       objectReference: {fileID: 0}
+    - target: {fileID: 4183500289405145706, guid: 8b6a9ffc1934b9546a14bb9d201874bd,
+        type: 3}
+      propertyPath: _laserList
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4425515616035561115, guid: 8b6a9ffc1934b9546a14bb9d201874bd,
         type: 3}
       propertyPath: m_Mesh
@@ -23299,7 +23319,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 679870742}
     m_RemovedComponents:
-    - {fileID: 4183500289405145706, guid: 8b6a9ffc1934b9546a14bb9d201874bd, type: 3}
     - {fileID: 848265369389817122, guid: 8b6a9ffc1934b9546a14bb9d201874bd, type: 3}
     m_RemovedGameObjects:
     - {fileID: 1440015877337984423, guid: 8b6a9ffc1934b9546a14bb9d201874bd, type: 3}
@@ -30587,6 +30606,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c92354a5c7e0a9c43b05900fa2908486, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _OnReload: 0
+  _laserList: {fileID: 0}
+  _laserAttackDuration: 4
+  _laserAttackChargeDuration: 1.3
+  _laserTimeout: 0
+  _laserCooldown: 0
+  _pointOfAttack: {fileID: 0}
+  _laserFollowDistance: 0
+  _laserDamage: 1
+  _patternQueue: []
+  _damagePattern: 0
+  _damageTimePattern: 0
+  _chargeTimePattern: 0
+  _reloadTimePattern: 4
+  bee: 0
 --- !u!114 &1452234811
 MonoBehaviour:
   m_ObjectHideFlags: 0
