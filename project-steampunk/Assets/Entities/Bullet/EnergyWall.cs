@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnergyWall : MonoBehaviour
 {
     public bool Activated;
+    [SerializeField]
     private float _damage;
     private float _projectileSpeed;
     private float _attackTime;

@@ -6,33 +6,48 @@ public class GroundComponent : MonoBehaviour
 {
     public bool isDamaging=false;
     public float _damage;
+    private bool _damageCooldown = false;
+
     private void OnTriggerEnter(Collider collision)
     {
-        Debug.Log("shosh " + collision.gameObject.GetInstanceID());
-
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Player") && isDamaging)
-        {
-            DealDamage(collision.gameObject);
-            isDamaging = false;
-        }
+        Damage(collision);
     }
     private void OnTriggerStay(Collider collision)
     {
+        Damage(collision);
+    }
+
+    private void Damage(Collider collision)
+    {
         Debug.Log("shosh " + collision.gameObject.GetInstanceID());
 
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Player") && isDamaging)
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Player") && isDamaging && !_damageCooldown)
         {
-            DealDamage(collision.gameObject);
-            isDamaging = false;
+            if (isDamaging)
+            {
+                DealDamage(collision.gameObject, _damage);
+                isDamaging = false;
+            }
+            else
+            {
+                DealDamage(collision.gameObject, _damage / 2);
+            }
+            DamageReload();
         }
-
     }
-    private void DealDamage(GameObject target)
+    private IEnumerator DamageReload()
+    {
+        _damageCooldown = true;
+        yield return new WaitForSeconds(1f);
+        _damageCooldown = false;
+    }
+
+    private void DealDamage(GameObject target, float damage)
     {
         //var damageable = target.GetComponent<IHealth>();
         // damageable.TakeDamage(_damage);
         target.TryGetComponent(out IHealth damageable);
-        damageable?.TakeDamage(_damage);
+        damageable?.TakeDamage(damage);
         Debug.Log("attack from pizza");
     }
 }

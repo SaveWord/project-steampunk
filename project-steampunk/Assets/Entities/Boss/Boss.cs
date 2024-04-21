@@ -74,7 +74,7 @@ namespace Enemies
             }*/
            foreach (PhaseConstruct phase in _phasesCollection)
             {
-                _attackStatesCollection.Add( new Attack(targetDetector, gameObject.AddComponent<BossTargetAttacker>() , bossMover, phase.attacksCollection));
+                _attackStatesCollection.Add( new Attack(targetDetector, gameObject.AddComponent<BossTargetAttacker>() , bossMover, phase.attacksCollection.attacksCollection));
 
                 if (_attacksCollection[0] != null && stateOrder == 0)
                 {
