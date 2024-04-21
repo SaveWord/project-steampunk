@@ -294,10 +294,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.9
-  m_Height: 7.86
+  m_Radius: 0.94
+  m_Height: 4.44
   m_Direction: 2
-  m_Center: {x: 0, y: 0.97, z: 0.31}
+  m_Center: {x: 0, y: 0.57, z: -0.7}
 --- !u!54 &4150478262391429359
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -335,7 +335,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 3.41
-  m_Speed: 10
+  m_Speed: 16
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -431,6 +431,7 @@ MonoBehaviour:
   DashForwardReactDist: 0
   DashBackwardReactDist: 0
   JumpUp: 0
+  _damageCloseCombat: 30
 --- !u!114 &8846361435030487999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -724,7 +725,7 @@ PrefabInstance:
     - target: {fileID: 4898133858155632823, guid: 2fe123112e0d1df48922242f855544ab,
         type: 3}
       propertyPath: finalScaleReference
-      value: 0.8220649
+      value: 0.82206476
       objectReference: {fileID: 0}
     - target: {fileID: 4898133858155632823, guid: 2fe123112e0d1df48922242f855544ab,
         type: 3}
