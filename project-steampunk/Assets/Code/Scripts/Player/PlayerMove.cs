@@ -159,12 +159,12 @@ public class PlayerMove : MonoBehaviour
         rb.AddForce(Physics.gravity * (standartGravityScale - 1) * rb.mass); //change gravity
 
         Vector2 inputMove = inputActions.Player.Move.ReadValue<Vector2>();
-        currentMove = Vector2.SmoothDamp(currentMove,inputMove,ref smoothInputVelocity, 
+        currentMove = Vector2.SmoothDamp(currentMove, inputMove, ref smoothInputVelocity,
             smoothInputSpeed);
-        if(inputMove.x ==0 )
-            currentMove = new Vector2(0,currentMove.y);
+        if (inputMove.x == 0)
+            currentMove = new Vector2(0, currentMove.y);
         if (inputMove.y == 0)
-            currentMove = new Vector2(currentMove.x,0);
+            currentMove = new Vector2(currentMove.x, 0);
         //Debug.Log(currentMove);
         Vector2 inputLook = inputActions.Player.Look.ReadValue<Vector2>();
         rb.velocity += Vector3.up * Physics.gravity.y * verticalDamping;
@@ -200,7 +200,8 @@ public class PlayerMove : MonoBehaviour
     }
     private void Move(Vector2 inputMove)
     {
-        Physics.SphereCast(transform.position+ Vector3.up*2, 1f, Vector3.down, out slopeHit, 10, groundLayer);
+        Debug.Log(isGrounded);
+        Physics.SphereCast(transform.position + Vector3.up * 2, 1f, Vector3.down, out slopeHit, 10, groundLayer);
         if ((inputMove != Vector2.zero) && jumpTrue == false
             && dashTrue == false)
         {
@@ -213,12 +214,12 @@ public class PlayerMove : MonoBehaviour
 
         Vector3 move = transform.right * inputMove.x + transform.forward * inputMove.y;
         Vector3 projectedMove = Vector3.ProjectOnPlane(move, slopeHit.normal).normalized;
-        float angle =Vector3.Angle(slopeHit.normal, Vector3.up);
+        float angle = Vector3.Angle(slopeHit.normal, Vector3.up);
         //Debug.Log(rb.velocity);
         //Debug.Log(projectedMove);
         Debug.Log(angle);
         //if (inputMove.magnitude == 0) // moment stop if movement in keyboard stop
-           // rb.velocity = new Vector3(0, rb.velocity.y, 0);
+        // rb.velocity = new Vector3(0, rb.velocity.y, 0);
 
         //more powerfull gravity if in air
         if (rb.velocity.y >= 0)
@@ -234,8 +235,8 @@ public class PlayerMove : MonoBehaviour
         {
             if (rb.velocity.y > 0)
             {
-                rb.velocity = new Vector3(projectedMove.x * speed *speedSlope, -50, 
-                    projectedMove.z * speed*speedSlope);
+                rb.velocity = new Vector3(projectedMove.x * speed * speedSlope, -50,
+                    projectedMove.z * speed * speedSlope);
             }
             rb.velocity = new Vector3(projectedMove.x * speed, projectedMove.y * speed,
               projectedMove.z * speed);
@@ -364,6 +365,7 @@ public class PlayerMove : MonoBehaviour
     private bool IsGrounded()
     {
         isGrounded = Physics.CheckSphere(dotGround.position, sphereRadius, groundLayer);
+        if (isGrounded == true) doubleJump = 1;
         return isGrounded;
     }
     private void OnCollisionEnter(Collision collision)
@@ -371,15 +373,13 @@ public class PlayerMove : MonoBehaviour
         if (LayerMask.LayerToName(collision.gameObject.layer) == "Ground")
         {
             jumpTrue = false;
-            doubleJump = 1;
+
         }
     }
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(dotGround.position, sphereRadius);
-
-
     }
 
     //hookShot
