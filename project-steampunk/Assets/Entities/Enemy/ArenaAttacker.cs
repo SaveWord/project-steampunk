@@ -16,7 +16,7 @@ public class ArenaAttacker : MonoBehaviour, IBossTargetAttacker
     bool instanciated = false;
     private Animator _animator;
     private List<GroundPatterns> _attacksList;
-    private bool _OnReload;
+    public bool _OnReload;
 
     private StateMachine _stateMachine;
 
@@ -55,95 +55,102 @@ public class ArenaAttacker : MonoBehaviour, IBossTargetAttacker
     public float _reloadTimePattern = 4f;
     public bool bee = false;
 
-    private void Awake()
-    {
-        _animator = GetComponentInChildren<Animator>();
-        _OnReload = true;
-        if (_patternQueue.Count != 0)
+        private void Awake()
         {
-            foreach (GameObject child in _patternQueue)
+            _animator = GetComponentInChildren<Animator>();
+            _OnReload = true;
+            if (_patternQueue.Count != 0)
             {
-                _patternQueue[_attackQueue].GetComponent<GroundPatterns>()._damage = _damagePattern;
-                _patternQueue[_attackQueue].GetComponent<GroundPatterns>()._damageTime = _damageTimePattern;
-                _patternQueue[_attackQueue].GetComponent<GroundPatterns>()._chargeTime = _chargeTimePattern;
+                foreach (GameObject child in _patternQueue)
+                {
+                    _patternQueue[_attackQueue].GetComponent<GroundPatterns>()._damage = _damagePattern;
+                    _patternQueue[_attackQueue].GetComponent<GroundPatterns>()._damageTime = _damageTimePattern;
+                    _patternQueue[_attackQueue].GetComponent<GroundPatterns>()._chargeTime = _chargeTimePattern;
+                }
             }
+            _laser = _laserList.GetComponent<LaserAttack>();
+            if (_laser)
+            {
+
+                _laser._followDistance = _laserFollowDistance;
+                _laser._damage = _laserDamage;
+                _laser._attackDuration = _laserAttackDuration;
+                _laser._chargeDuration = _laserAttackChargeDuration;
+                _laser.patternSpawnPoint = _pointOfAttack.transform;
+            }
+
         }
-        _laser = _laserList.GetComponent<LaserAttack>();
-        if (_laser)
-        {
-            
-            _laser._followDistance = _laserFollowDistance;
-            _laser._damage = _laserDamage;
-            _laser._attackDuration = _laserAttackDuration;
-            _laser._chargeDuration = _laserAttackChargeDuration;
-            _laser._pointOfAttack = _pointOfAttack;
-        }
-
-    }
-
-
-    public void Attack(ITarget target, List<AttackConstruct> attack)
-    {
-        if (bee)
+        public bool ONReload()
         {
             if (_OnReload)
-                StartCoroutine(Laser());
+                return true;
+            else
+                return false;
         }
-        else
+
+        public void Attack(ITarget target, List<AttackConstruct> attack)
         {
-            if (!instanciated)
-            //   if (_laser)
+            if (bee)
             {
-                // InvokeRepeating("Laser", 2, _laserAttackDuration + _laserTimeout);
-                instanciated = true;
+                if (_OnReload)
+                    StartCoroutine(Laser());
             }
-
-            //transform.LookAt(target.GetPosition());
-            if (_OnReload) //!_attack.Activated && 
+            else
             {
+                if (!instanciated)
+                //   if (_laser)
+                {
+                    // InvokeRepeating("Laser", 2, _laserAttackDuration + _laserTimeout);
+                    instanciated = true;
+                }
 
-                _patternQueue[_attackQueue].GetComponent<GroundPatterns>().PulseCycle();
-                //_attacksList.Add(_patternQueue[_attackQueue].GetComponent<GroundPatterns>());
-                _animator.SetBool("isAttacking0", true);
-                StartCoroutine(Reload(_patternQueue[_attackQueue]));
-                _attackQueue++;
-            }
+                //transform.LookAt(target.GetPosition());
+                if (_OnReload) //!_attack.Activated && 
+                {
 
-            if (_attackQueue == _patternQueue.Count)
-            {
+                    _patternQueue[_attackQueue].GetComponent<GroundPatterns>().PulseCycle();
+                    //_attacksList.Add(_patternQueue[_attackQueue].GetComponent<GroundPatterns>());
+                    _animator.SetBool("isAttacking0", true);
+                    StartCoroutine(Reload(_patternQueue[_attackQueue]));
+                    _attackQueue++;
+                }
 
-                StartCoroutine(Laser());
-                _attackQueue = 0;
+                if (_attackQueue == _patternQueue.Count)
+                {
 
+                    StartCoroutine(Laser());
+                    _attackQueue = 0;
+
+                }
             }
         }
-    }
 
 
-    private IEnumerator Reload(GameObject gameobject)
-    {
-        _OnReload = false;
+        private IEnumerator Reload(GameObject gameobject)
+        {
+            _OnReload = false;
 
-        yield return new WaitForSeconds(_reloadTimePattern + _chargeTimePattern + _damageTimePattern);
-        _OnReload = true;
-         _animator.SetBool("isAttacking0", false);
-    }
+            yield return new WaitForSeconds(_reloadTimePattern + _chargeTimePattern + _damageTimePattern);
+            _OnReload = true;
+             _animator.SetBool("isAttacking0", false);
+        }
 
-    private IEnumerator Laser()
-    {
+        private IEnumerator Laser()
+        {
 
-        _OnReload = false;
-        yield return new WaitForSeconds(_laserTimeout);
-        _laserList.SetActive(true);
-        _animator.SetBool("isAttacking0", true);
-        //  _laser.transform.eulerAngles = new Vector3(90, 0, 0);
-        _laser.StartAttack();
-        yield return new WaitForSeconds(_laserAttackDuration + _laserAttackChargeDuration);
-        _animator.SetBool("isAttacking0", false);
+            _OnReload = false;
+            yield return new WaitForSeconds(_laserTimeout);
+            _laserList.SetActive(true);
+            _animator.SetBool("isAttacking0", true);
+            //  _laser.transform.eulerAngles = new Vector3(90, 0, 0);
+            var target = GetComponentInChildren<ITarget>();
+            _laser.Activate(target, _pointOfAttack.transform);
+            yield return new WaitForSeconds(_laserAttackDuration + _laserAttackChargeDuration);
+            _animator.SetBool("isAttacking0", false);
 
-        yield return new WaitForSeconds(_laserCooldown);
-        _OnReload = true;
+            yield return new WaitForSeconds(_laserCooldown);
+            _OnReload = true;
 
 
-    }
+        }
 }
