@@ -16,6 +16,7 @@ namespace Enemies
         private bool _TheyAreShootingMe = false;
         private IEnumerator _timerCoroutine;
         [SerializeField] private Transform head;
+        [SerializeField] private bool bee;
 
         private void Awake()
         {
@@ -49,7 +50,9 @@ namespace Enemies
 
         public bool IsTargetAvailable()
         {
-            if (_target != null && IsTargetVisible())
+            if (bee && _target != null)
+                return true;
+            if (!bee && _target != null && IsTargetVisible())
                 return true;
             else 
                 return false;
@@ -72,26 +75,33 @@ namespace Enemies
 
         private bool SphereCastAll(out RaycastHit hitInfo)
         {
-            var hits = Physics.SphereCastAll(transform.position, 1f, _target.GetPosition() - transform.position, 100, ~_viewMask);
+            
             if (head != null)
             {
 
-                hits = Physics.SphereCastAll(head.position, 1f, _target.GetPosition() - head.position, 100, ~_viewMask);
+                 var hits = Physics.SphereCastAll(head.position, 1f, _target.GetPosition() - head.position, 100, ~_viewMask);
 
                 Debug.DrawRay(head.position, (_target.GetPosition() - head.position) * 100, Color.yellow);
+                if (hits.Length != 0) 
+                {
+                    hitInfo = FindClosestHit(hits);
+                    //_controlarrow.ChangeColorToRed();
+                    return true;
+                }
             }
             else
             { 
-                hits = Physics.SphereCastAll(transform.position, 1f, _target.GetPosition() - transform.position, 100, ~_viewMask);
+                var hits = Physics.SphereCastAll(transform.position, 1f, _target.GetPosition() - transform.position, 100, ~_viewMask);
 
                 Debug.DrawRay(transform.position, (_target.GetPosition() - transform.position) * 100, Color.yellow);
+                if (hits.Length != 0)
+                {
+                    hitInfo = FindClosestHit(hits);
+                    //_controlarrow.ChangeColorToRed();
+                    return true;
+                }
             }
-            if (hits.Length != 0) 
-            {
-                hitInfo = FindClosestHit(hits);
-                //_controlarrow.ChangeColorToRed();
-                return true;
-            }
+            
             //_controlarrow.ChangeColorToGray();
             hitInfo = default;
             return false;
