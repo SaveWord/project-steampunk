@@ -22397,7 +22397,7 @@ VFXRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4856602136603237975}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -31408,7 +31408,6 @@ GameObject:
   - component: {fileID: 8441693225563694387}
   - component: {fileID: 7467234472642638965}
   - component: {fileID: 3587579035751852566}
-  - component: {fileID: 3332063897049223139}
   - component: {fileID: 5971454957617289923}
   m_Layer: 7
   m_Name: PlayerPrefabVariant1
@@ -31416,7 +31415,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2352475379213618513
 Transform:
   m_ObjectHideFlags: 0
@@ -31514,7 +31513,7 @@ MonoBehaviour:
   dotGround: {fileID: 1772693686151482536}
   sphereRadius: 0.35
   verticalDamping: 0.1
-  jumpHeight: 6
+  jumpHeight: 4
   jumpForceDouble: 1.5
   gravityScale: 10
   fallingGravityScale: 40
@@ -31523,9 +31522,6 @@ MonoBehaviour:
   dashSpeed: 220
   dashTimeLimit: 0.2
   dashCooldown: 1
-  moveClip: {fileID: 8300000, guid: d686e6a87b35721489607a1f049af3b8, type: 3}
-  dashClip: {fileID: 8300000, guid: e407997e67098a24b83829441422ce72, type: 3}
-  jumpClip: {fileID: 8300000, guid: d91aa4ec6f6ef9c4fa6dee89349c3fcf, type: 3}
 --- !u!114 &3465674824856243931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31725,7 +31721,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.52
+  m_Radius: 0.6
   m_Height: 2.4
   m_Direction: 1
   m_Center: {x: 0, y: 0.7, z: 0}
@@ -31748,7 +31744,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.57
   m_Height: 2.5
   m_Direction: 1
   m_Center: {x: 0, y: 0.7, z: 0}
@@ -31811,32 +31807,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stepRayUpper: {fileID: 8155286929639059934}
   stepRayLower: {fileID: 4602554211718910927}
-  stepHeight: 2
   stepSmooth: 0.1
 --- !u!136 &3587579035751852566
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7638933451478547091}
-  m_Material: {fileID: 13400000, guid: 74a4149d8a9e073458707000f5e6a0a6, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.53
-  m_Height: 2.4
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.7, z: 0}
---- !u!136 &3332063897049223139
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -37407,12 +37379,12 @@ PrefabInstance:
     - target: {fileID: 6656136781511093305, guid: 26e00b8b4536f5940827fcfbeb7bbd35,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6656136781511093305, guid: 26e00b8b4536f5940827fcfbeb7bbd35,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6676987894895089813, guid: 26e00b8b4536f5940827fcfbeb7bbd35,
         type: 3}
@@ -37422,12 +37394,12 @@ PrefabInstance:
     - target: {fileID: 6817410430403316348, guid: 26e00b8b4536f5940827fcfbeb7bbd35,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6817410430403316348, guid: 26e00b8b4536f5940827fcfbeb7bbd35,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7448841257882138375, guid: 26e00b8b4536f5940827fcfbeb7bbd35,
         type: 3}
