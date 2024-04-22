@@ -144,6 +144,8 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
                 hit.collider.TryGetComponent(out IHealth damageable);
                 damageable?.TakeDamage(Damage);
 
+                if (damageable != null || destroyShield!=null || damageableProps!=null)
+                    ShowDamage(Damage + "", Color.cyan);
 
                 //vfx and animator stop
                 ShowVFXImpact(hit);

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static IWeapon;
+using TMPro;
+using UnityEngine.UI;
 
 public abstract class MainDecorator : MonoBehaviour,IWeapon
 {
@@ -51,5 +53,21 @@ public abstract class MainDecorator : MonoBehaviour,IWeapon
     public async  virtual void Reload(InputAction.CallbackContext context)
     {
         weapon.Reload(context);
+    }
+    public void ShowDamage(string message, Color color)
+    {
+        var _floatingMessage = (GameObject)Resources.Load("FloatingMessage", typeof(GameObject));
+        Debug.Log("show damage");
+        if (_floatingMessage)
+        {
+            var notice = Instantiate(_floatingMessage, new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z), UnityEngine.Quaternion.Euler(new Vector3(0, 0, 0)));
+            notice.GetComponent<TextMeshPro>().text = message;
+            notice.GetComponent<TextMeshPro>().color = color;
+            notice.transform.parent = GameObject.Find("Main Camera").transform;
+            notice.transform.localRotation = UnityEngine.Quaternion.Euler(new Vector3(0, 0, 0));
+            float randomisedPosition = (Random.Range(0.0f, 0.9f) * 2 - 1) / 3;
+            notice.transform.localPosition = new Vector3(randomisedPosition, 0, 3);
+
+        }
     }
 }
