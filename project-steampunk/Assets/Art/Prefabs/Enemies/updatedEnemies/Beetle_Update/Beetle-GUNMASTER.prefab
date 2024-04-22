@@ -214,7 +214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74edee027a7a316449c3e94c834da0ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHp: 250
+  _maxHp: 200
   healthPercentageChangePhase: 0
   _attacksCollection: []
   _phasesCollection:
@@ -279,7 +279,7 @@ MonoBehaviour:
   _viewMask:
     serializedVersion: 2
     m_Bits: 576
-  _detectionRadius: 120
+  _detectionRadius: 1000
   _timeToForgets: 100000
   head: {fileID: 0}
   bee: 1
@@ -314,8 +314,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a32c832d3fe41d4cb8378b6e39620e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHp: 250
-  _currentHp: 250
+  _maxHp: 200
+  _currentHp: 200
   _invulnerable: 0
 --- !u!114 &7307253743552916706
 MonoBehaviour:
@@ -476,9 +476,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 250
+  m_MaxValue: 200
   m_WholeNumbers: 1
-  m_Value: 250
+  m_Value: 200
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
