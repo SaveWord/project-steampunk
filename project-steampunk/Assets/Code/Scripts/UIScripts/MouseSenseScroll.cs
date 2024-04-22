@@ -144,7 +144,7 @@ public class MouseSenseScroll : MonoBehaviour
     {
         if(SceneManager.GetActiveScene().buildIndex == 1)
         {
-            transform.root.position = new Vector3(2253.692f, 578.1f, 280.7317f); 
+            transform.root.position = new Vector3(2291.97339f, 552.033325f, 552.430481f);
         }
     }
     public void ContinueDie()

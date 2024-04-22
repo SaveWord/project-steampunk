@@ -27,6 +27,7 @@ namespace Enemies.Attacks.Attacks
         [SerializeField] private float _attackTime = 10f;
         public bool Activated;
         [SerializeField] private GameObject bullet;
+        private GameObject sp;
 
         void Awake()
         {
@@ -39,8 +40,10 @@ namespace Enemies.Attacks.Attacks
                 float cos = Mathf.Cos(angle) * largeRadius;
                 float sin100 = Mathf.Sin(angle) * largeRadius * 100;
                 float cos100 = Mathf.Cos(angle) * largeRadius * 100;
-
-                var sp = Instantiate(Resources.Load<GameObject>("WallBullet"));
+                if(bullet==null)
+                    sp = Instantiate(Resources.Load<GameObject>("WallBullet"));
+                else
+                    sp = Instantiate(bullet);
                 //sp.transform.parent = gameObject.transform;
                 sp.transform.SetParent(gameObject.transform, false);
                 sp.transform.localPosition = Vector3.zero;
@@ -72,23 +75,12 @@ namespace Enemies.Attacks.Attacks
             gameObject.SetActive(false);
         }
 
-        
         public override void Activate(ITarget target, Transform attackSpot)
         {
             patternSpawnPoint = attackSpot;
             
             MakeShots();
         }
-        //del
-        private void MakeShot(ITarget target, GameObject bullet, BulletSpot bulletSpot, Transform attackSpot)
-        {
-            var projectile = Instantiate(bullet);
-
-            projectile.transform.position = attackSpot.position + bulletSpot.SpotPoint;
-            projectile.transform.LookAt(bulletSpot.ShotDirection);
-            bullets.Add(projectile);
-        }
-
         private void MakeShots()
         {
             foreach(GameObject sp in bullets)

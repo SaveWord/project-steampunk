@@ -15,6 +15,7 @@ namespace Enemies
         private controlarrow _controlarrow;
         private bool _TheyAreShootingMe = false;
         private IEnumerator _timerCoroutine;
+        [SerializeField] private Transform head;
 
         private void Awake()
         {
@@ -71,10 +72,20 @@ namespace Enemies
 
         private bool SphereCastAll(out RaycastHit hitInfo)
         {
-            var hits = Physics.SphereCastAll(transform.position, 1f, _target.GetPosition() - transform.position, 100, ~_viewMask);
+            var hits = Physics.SphereCastAll(head.position, 1f, _target.GetPosition() - head.position, 100, ~_viewMask);
+            if (head != null)
+            {
 
-            Debug.DrawRay(transform.position, (_target.GetPosition() - transform.position) * 100, Color.yellow);
+                hits = Physics.SphereCastAll(head.position, 1f, _target.GetPosition() - head.position, 100, ~_viewMask);
 
+                Debug.DrawRay(head.position, (_target.GetPosition() - head.position) * 100, Color.yellow);
+            }
+            else
+            { 
+                hits = Physics.SphereCastAll(transform.position, 1f, _target.GetPosition() - transform.position, 100, ~_viewMask);
+
+                Debug.DrawRay(transform.position, (_target.GetPosition() - transform.position) * 100, Color.yellow);
+            }
             if (hits.Length != 0) 
             {
                 hitInfo = FindClosestHit(hits);

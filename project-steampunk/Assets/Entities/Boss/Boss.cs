@@ -74,7 +74,7 @@ namespace Enemies
              }*/
             if (bee)
             {
-                attackGround = new Attack(targetDetector, targetAttacker, bossMover, _attacksCollection);
+                attackGround = new Attack(targetDetector, targetAttacker, bossMover, _phasesCollection[0].attacksCollection);
 
                 _stateMachine.AddTransition(idle, attackGround, TargetAvailable());
 
