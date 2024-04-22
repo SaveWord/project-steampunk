@@ -72,7 +72,7 @@ namespace Enemies
 
         private bool SphereCastAll(out RaycastHit hitInfo)
         {
-            var hits = Physics.SphereCastAll(head.position, 1f, _target.GetPosition() - head.position, 100, ~_viewMask);
+            var hits = Physics.SphereCastAll(transform.position, 1f, _target.GetPosition() - transform.position, 100, ~_viewMask);
             if (head != null)
             {
 

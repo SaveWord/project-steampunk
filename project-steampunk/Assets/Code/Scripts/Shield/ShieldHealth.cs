@@ -84,7 +84,9 @@ public class ShieldHealth : MonoBehaviour, IShield
             m_Material.SetFloat("_DisolveAmount", counter);
             yield return new WaitForSeconds(refreshRate);
         }
-        if(isWall)
+        if (isWall)
             transform.parent.gameObject.SetActive(false);
+        else
+            gameObject.SetActive(false);
     }
 }
