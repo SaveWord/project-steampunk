@@ -50,7 +50,10 @@ public class LiftToBossArena : MonoBehaviour
                 curPoint++;
             }
         }
-
+        if(!inLift&& transform.position != points[0].position && transform.position != points[lastPoint].position)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, points[0].position, speed * Time.deltaTime);
+        }
 
     }
 }

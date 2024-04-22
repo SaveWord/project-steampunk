@@ -21,7 +21,7 @@ namespace Enemies
         private bool _TheyAreShootingMe = false;
         private IEnumerator _timerCoroutine;
         [SerializeField] private bool bee;
-
+        [SerializeField] private bool InstantAgr;
         private void Awake()
         {
             if (_castPoint == null)
@@ -33,7 +33,11 @@ namespace Enemies
             _collider.radius = _detectionRadius;
             _controlarrow = GetComponent<controlarrow>();
             _timerCoroutine = Forget();
-            GetShot();
+            if (InstantAgr)
+            {
+                _target = GameObject.FindWithTag("Player").GetComponent<ITarget>();
+                GetShot();
+            }
         }
 
 
