@@ -10,6 +10,8 @@ public class DotSpawnType : MonoBehaviour
         AntShield,
         Spider,
         Beetle,
+        BeetleShield,
+        BeetleTurret,
         Bee
     }
     public EnemyTypeSpawn enemyTypeSpawn;
