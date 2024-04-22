@@ -158,6 +158,8 @@ public class ParametrsUpdateDecorator : MainDecorator
                 hit.collider.TryGetComponent(out IHealth damageable);
                 damageable?.TakeDamage(Damage);
 
+                if (damageable != null || damageableProps!=null)
+                    ShowDamage(Damage+"", Color.white);
 
                 ShowVFXImpact(hit);
             }
@@ -169,6 +171,7 @@ public class ParametrsUpdateDecorator : MainDecorator
             Reload(context);
         }
     }
+
     protected virtual void ShowAnimatorAndInternalImpact()
     {
         _animator.SetBool("shoot", true);

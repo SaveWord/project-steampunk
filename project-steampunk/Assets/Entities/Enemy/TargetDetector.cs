@@ -10,16 +10,24 @@ namespace Enemies
         [SerializeField] private float _detectionRadius = 20f;
         [SerializeField] private float _timeToForgets = 5f;
 
+        [Header("SphereCast")]
+        [SerializeField] private float _sphereCastRadius = 1f;
+        [SerializeField] private float _sphereCastMaxDist;
+        [SerializeField] private Transform _castPoint;
+
         private ITarget _target;
         private SphereCollider _collider;
         private controlarrow _controlarrow;
         private bool _TheyAreShootingMe = false;
         private IEnumerator _timerCoroutine;
-        [SerializeField] private Transform head;
         [SerializeField] private bool bee;
 
         private void Awake()
         {
+            if (_castPoint == null)
+                _castPoint = transform;
+            if(_sphereCastMaxDist == null)
+                _sphereCastMaxDist = _detectionRadius;
             _collider = gameObject.AddComponent<SphereCollider>();
             _collider.isTrigger = true;
             _collider.radius = _detectionRadius;
@@ -27,6 +35,7 @@ namespace Enemies
             _timerCoroutine = Forget();
             GetShot();
         }
+
 
         private void OnTriggerStay(Collider other)
         {
@@ -38,6 +47,8 @@ namespace Enemies
                 _target = target;
             }
         }
+
+
         private void OnTriggerExit(Collider other)
         {
             var target = other.GetComponent<ITarget>();
@@ -48,20 +59,22 @@ namespace Enemies
             }
         }
 
+
         public bool IsTargetAvailable()
         {
             if (bee && _target != null)
                 return true;
             if (!bee && _target != null && IsTargetVisible())
                 return true;
-            else 
+            else
                 return false;
         }
 
+
         private bool IsTargetVisible()
         {
-            if (_target != null && SphereCastAll(out RaycastHit hitInfo))
-            {                
+            if (_target != null && CastSphereToTarget(out RaycastHit hitInfo))
+            {
                 if (hitInfo.collider.gameObject.GetInstanceID() == _target.GetTargetID())
                 {
                     _controlarrow.Show();
@@ -73,62 +86,45 @@ namespace Enemies
             return false;
         }
 
-        private bool SphereCastAll(out RaycastHit hitInfo)
+
+        private bool CastSphereToTarget(out RaycastHit closestHitInfo)
         {
-            
-            if (head != null)
+            var hits = Physics.SphereCastAll(_castPoint.position, _sphereCastRadius,
+            _target.GetPosition() - _castPoint.position, _sphereCastMaxDist, ~_viewMask);
+            Debug.DrawRay(_castPoint.position,
+            _target.GetPosition() - _castPoint.position, Color.yellow);
+            if (hits.Length != 0)
             {
-
-                 var hits = Physics.SphereCastAll(head.position, 1f, _target.GetPosition() - head.position, 100, ~_viewMask);
-
-                Debug.DrawRay(head.position, (_target.GetPosition() - head.position) * 100, Color.yellow);
-                if (hits.Length != 0) 
-                {
-                    hitInfo = FindClosestHit(hits);
-                    //_controlarrow.ChangeColorToRed();
-                    return true;
-                }
+                closestHitInfo = FindClosestHit(hits);
+                return true;
             }
-            else
-            { 
-                var hits = Physics.SphereCastAll(transform.position, 1f, _target.GetPosition() - transform.position, 100, ~_viewMask);
 
-                Debug.DrawRay(transform.position, (_target.GetPosition() - transform.position) * 100, Color.yellow);
-                if (hits.Length != 0)
-                {
-                    hitInfo = FindClosestHit(hits);
-                    //_controlarrow.ChangeColorToRed();
-                    return true;
-                }
-            }
-            
-            //_controlarrow.ChangeColorToGray();
-            hitInfo = default;
+            closestHitInfo = default;
             return false;
         }
+
 
         private RaycastHit FindClosestHit(RaycastHit[] hits)
         {
             var closestHit = hits[0];
 
-            for(int i = 1; i < hits.Length; i++)
+            for (int i = 1; i < hits.Length; i++)
             {
-                if(Vector3.Distance(transform.position, hits[i].collider.transform.position) < 
-                   Vector3.Distance(transform.position, closestHit.collider.transform.position))
-                {
+                if (Vector3.Distance(_castPoint.position, hits[i].collider.transform.position) <
+                Vector3.Distance(_castPoint.position, closestHit.collider.transform.position))
                     closestHit = hits[i];
-                    
-                }
-
             }
             return closestHit;
         }
 
+
         public ITarget GetTarget()
         {
-            
+
             return _target;
         }
+
+
         public void GetShot()
         {
             _TheyAreShootingMe = true;
@@ -138,6 +134,7 @@ namespace Enemies
         }
 
         //TODO: forget that i was shot
+
 
         public bool AmIUnderAttack()
         {
@@ -154,6 +151,7 @@ namespace Enemies
             else
                 return false;
         }
+
 
         IEnumerator Forget()
         {
