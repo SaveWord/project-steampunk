@@ -357,7 +357,8 @@ public class PlayerMove : MonoBehaviour
             AudioManager.InstanceAudio.PlaySfxSound("Jump");
             StartCoroutine(JumpCoroutineUpSpeed());
             animatorPlayer.SetBool("jump", true);
-            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            if (rb.velocity.y > 0)
+                rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
         else if (doubleJump == 1 && context.phase == InputActionPhase.Started)
@@ -366,7 +367,8 @@ public class PlayerMove : MonoBehaviour
             AudioManager.InstanceAudio.PlaySfxSound("Jump");
             animatorPlayer.SetBool("jump", true);
             StartCoroutine(JumpCoroutineUpSpeed());
-            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            if (rb.velocity.y > 0)
+                rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             rb.AddForce(Vector3.up * jumpForce * jumpForceDouble, ForceMode.Impulse);
             doubleJump = 0;
         }
