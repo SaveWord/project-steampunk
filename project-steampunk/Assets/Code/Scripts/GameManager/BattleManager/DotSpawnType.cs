@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class DotSpawnType : MonoBehaviour
 {
-   public enum EnemyTypeSpawn
+    public enum EnemyTypeSpawn
     {
         Ant,
         AntShield,
         Spider,
         Beetle,
+        BeetleShield,
+        BeetleTurret,
         Bee
     }
     public EnemyTypeSpawn enemyTypeSpawn;
