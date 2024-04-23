@@ -257,6 +257,7 @@ public class PlayerMove : MonoBehaviour
             if ((rb.velocity.y > 0) && jumpTrue != true)
                 rb.AddForce(Physics.gravity * 40);
 
+            animatorPlayer.SetFloat("ADSpeed",inputMove.x, 0.1f, Time.deltaTime);
             animatorPlayer.SetFloat("speed", inputMove.magnitude, 0.1f, Time.deltaTime);
         }
     }
@@ -361,6 +362,7 @@ public class PlayerMove : MonoBehaviour
                 rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
+        /*
         else if (doubleJump == 1 && context.phase == InputActionPhase.Started)
         {
             jumpTrue = true;
@@ -372,6 +374,7 @@ public class PlayerMove : MonoBehaviour
             rb.AddForce(Vector3.up * jumpForce * jumpForceDouble, ForceMode.Impulse);
             doubleJump = 0;
         }
+        */
         if (context.phase == InputActionPhase.Canceled)
         {
             animatorPlayer.SetBool("jump", false);
@@ -399,6 +402,7 @@ public class PlayerMove : MonoBehaviour
     {
         if (LayerMask.LayerToName(collision.gameObject.layer) == "Ground")
         {
+            //animatorPlayer.SetBool("isGround", true);
             jumpTrue = false;
         }
     }
