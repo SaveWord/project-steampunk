@@ -50,7 +50,5 @@ public class LiftToBossArena : MonoBehaviour
                 curPoint++;
             }
         }
-
-
     }
 }

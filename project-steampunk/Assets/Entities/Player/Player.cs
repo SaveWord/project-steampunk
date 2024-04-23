@@ -45,6 +45,7 @@ public class Player : MonoBehaviour, ITarget
     {
         isDead = true;
        dieMenuEvent?.Invoke();
+        AudioManager.InstanceAudio.PlayMusic("Battle",false);
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     

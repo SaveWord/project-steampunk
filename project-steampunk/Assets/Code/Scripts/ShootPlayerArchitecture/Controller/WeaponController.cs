@@ -64,7 +64,7 @@ public class WeaponController : MonoBehaviour
         //use parametrs for shoot and weapon
         patronsText = GetComponentInChildren<TextMeshProUGUI>();
 
-        weapon = new ParametrsUpdateDecorator(weapon,
+        weapon = new ParametrsUpdateDecorator(transform, weapon,
             weaponParametrs.fireRate,
             weaponParametrs.distanceAndDamages
             , weaponParametrs.reloadSpeed,

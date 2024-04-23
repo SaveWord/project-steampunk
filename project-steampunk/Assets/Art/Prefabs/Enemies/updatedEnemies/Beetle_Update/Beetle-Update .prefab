@@ -294,10 +294,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.9
-  m_Height: 7.86
+  m_Radius: 0.94
+  m_Height: 4.44
   m_Direction: 2
-  m_Center: {x: 0, y: 0.97, z: 0.31}
+  m_Center: {x: 0, y: 0.57, z: -0.7}
 --- !u!54 &4150478262391429359
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -335,7 +335,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 3.41
-  m_Speed: 10
+  m_Speed: 16
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -359,20 +359,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52d519e0a40b0d748a18284fe8350704, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stats:
-    _hp: 100
-    _timeBeforeReposition: 2
   _attacksCollection:
   - attack: {fileID: 7535649719867759211, guid: 839a1b29ac62751499d6005f280dc1ce,
       type: 3}
+    attacks: []
     patternSpawn: {fileID: 1677533448417271500}
-    cooldown: 0.8
+    timeoutAfter: 0.2
+    startTime: 1
+  - attack: {fileID: 8458616472822595085, guid: ebae315fc2cd6e84c8520daefd5972b7,
+      type: 3}
+    attacks: []
+    patternSpawn: {fileID: 4870794951646045618}
+    timeoutAfter: 0.3
+    startTime: 0.01
+  - attack: {fileID: 7535649719867759211, guid: 839a1b29ac62751499d6005f280dc1ce,
+      type: 3}
+    attacks: []
+    patternSpawn: {fileID: 1677533448417271500}
+    timeoutAfter: 0.4
+    startTime: 0.045
+  - attack: {fileID: 7535649719867759211, guid: 839a1b29ac62751499d6005f280dc1ce,
+      type: 3}
+    attacks: []
+    patternSpawn: {fileID: 1677533448417271500}
+    timeoutAfter: 0.2
     startTime: 0.045
   - attack: {fileID: 8458616472822595085, guid: ebae315fc2cd6e84c8520daefd5972b7,
       type: 3}
+    attacks: []
     patternSpawn: {fileID: 4870794951646045618}
-    cooldown: 0.8
+    timeoutAfter: 0.3
     startTime: 0.4
+  - attack: {fileID: 5785332119524234771, guid: c2d0a73390040594cb2dc0e8a5dd5dea,
+      type: 3}
+    attacks: []
+    patternSpawn: {fileID: 4870794951646045618}
+    timeoutAfter: 0.2
+    startTime: 0.1
   _transitionCooldownTime: 0.5
   _canChange: 1
 --- !u!114 &6975189980409201717
@@ -404,7 +427,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 576
   _detectionRadius: 80
-  _timeToForgets: 15
+  _timeToForgets: 1000
+  head: {fileID: 0}
+  bee: 0
+  InstantAgr: 1
 --- !u!114 &4034137673910787633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -431,6 +457,7 @@ MonoBehaviour:
   DashForwardReactDist: 0
   DashBackwardReactDist: 0
   JumpUp: 0
+  _damageCloseCombat: 30
 --- !u!114 &8846361435030487999
 MonoBehaviour:
   m_ObjectHideFlags: 0

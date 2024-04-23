@@ -19,7 +19,7 @@ public class CheckPoint : MonoBehaviour
                 colliderCheckPoint.enabled = false;
             }
         }
-       spawners.AddRange(GetComponentsInChildren<Spawner>());
+        spawners.AddRange(GetComponentsInChildren<Spawner>());
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -31,10 +31,10 @@ public class CheckPoint : MonoBehaviour
             Vector3 position = other.transform.position;
             GameManagerSingleton.Instance.SaveSystem.SaveData(hp, position,sceneId);
             GameManagerSingleton.Instance.SaveSystem.SaveCheckPoint(1);
-                foreach (var spawner in spawners)
-                {
-                    spawner.SaveStaySpawner();
-                }
+            foreach (var spawner in spawners)
+            {
+                spawner.SaveStaySpawner();
+            }
 
             colliderCheckPoint.enabled = false;
 

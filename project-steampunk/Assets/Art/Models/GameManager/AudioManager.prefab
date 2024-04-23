@@ -41,7 +41,8 @@ AudioSource:
   m_GameObject: {fileID: 827685433601387226}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 1712759040028264840, guid: d536c6b796a766c439f5fa58e948f05f,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -169,7 +170,8 @@ AudioSource:
   m_GameObject: {fileID: 1750864195879674213}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 1712759040028264840, guid: d536c6b796a766c439f5fa58e948f05f,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -324,6 +326,10 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: d175eb65db403e942861618e418676b4, type: 3}
   - name: GaussReload
     clip: {fileID: 8300000, guid: 89a703c49d44afb42a818657e829be01, type: 3}
+  - name: MachineGunShoot
+    clip: {fileID: 8300000, guid: 7c75b884700d34246b5d5e56d4d01542, type: 3}
+  - name: MachineGunReload
+    clip: {fileID: 8300000, guid: 6b0fbcb6fab97b543ae447aa0787b551, type: 3}
   musicSource: {fileID: 1917684114232736872}
   sfxSource: {fileID: 758270077394257070}
   sfxWeaponSource: {fileID: 8709806671968318962}
@@ -368,7 +374,8 @@ AudioSource:
   m_GameObject: {fileID: 6038395402654342743}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -1215978644402103375, guid: d536c6b796a766c439f5fa58e948f05f,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1

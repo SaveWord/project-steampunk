@@ -32,7 +32,9 @@ namespace Enemies
         [SerializeField] private float DashForwardReactDist;
         [SerializeField] private float DashBackwardReactDist;
         [SerializeField] private bool JumpUp;
-
+        private bool damagecooldown = false;
+        private float deltaT = 0;
+        [SerializeField] private float _damageCloseCombat;
 
         public void MoveToTarget(ITarget target)
         {
@@ -56,6 +58,20 @@ namespace Enemies
 
         }
 
+        public void SideStep(ITarget target)
+        {
+            distance = Vector3.Distance(transform.position, target.GetPosition());
+            targetPosition = target.GetPosition();
+
+            //_nMeshAgent.SetDestination(transform.position + Vector3.right * 10f);
+
+        }
+
+        public void stop()
+        {
+            _nMeshAgent.ResetPath();
+        }
+
         public void Dash(ITarget target)
         {
             distance = Vector3.Distance(transform.position, target.GetPosition());//
@@ -73,6 +89,33 @@ namespace Enemies
             }
 
         }
+
+        protected void OnCollisionEnter(Collision collision)
+        {
+
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                Debug.Log("hit player");
+                IHealth damageScript = collision.gameObject.GetComponent<IHealth>();
+                if (damagecooldown)
+                {
+                    damageScript.TakeDamage(_damageCloseCombat);
+                    damagecooldown = false;
+                    deltaT = 0;
+                }
+            }
+        }
+
+        private void Update()
+        {
+            deltaT += Time.deltaTime;
+            if(deltaT > 3f)
+            {
+                damagecooldown = true;
+                deltaT = 0;
+            }
+        }
+
         IEnumerator GoDash(float time)
         {
             canDash = false;

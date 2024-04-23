@@ -11,6 +11,7 @@ using System.Linq;
 
 public class ParametrsUpdateDecorator : MainDecorator
 {
+    protected Transform _distanceTarget;
     protected IWeapon _weapon;
     protected float changeRadius = 0.1f;//radius sphere cast, change, aim assist logic
     protected DistanceAndDamage[] _distanceAndDamage;
@@ -37,7 +38,7 @@ public class ParametrsUpdateDecorator : MainDecorator
 
 
     //constructor
-    public ParametrsUpdateDecorator(IWeapon weapon, float updateFireRate,
+    public ParametrsUpdateDecorator(Transform distanceTarget, IWeapon weapon, float updateFireRate,
         DistanceAndDamage[] updateDamage, float updateReload, float updatePatrons,
         IWeapon.WeaponTypeDamage updateWeaponType, LayerMask mask,
         ParticleSystem vfxShootPrefab, ParticleSystem vfxImpactMetalProps, ParticleSystem vfxImpactOtherProps,
@@ -48,6 +49,8 @@ public class ParametrsUpdateDecorator : MainDecorator
         _updateFireRate = updateFireRate;
 
         _distanceAndDamage = updateDamage;
+
+        _distanceTarget = distanceTarget;
 
         _weapon = weapon;
         _updateDamage = updateDamage.Last().damage;
@@ -136,6 +139,16 @@ public class ParametrsUpdateDecorator : MainDecorator
             if (Physics.SphereCast(Camera.main.transform.position,changeRadius ,Camera.main.transform.forward,
                 out RaycastHit hit, Range, enemyLayer, QueryTriggerInteraction.Ignore))
             {
+                float rangeBetween = Vector3.Distance(hit.point, _distanceTarget.position);
+                for (int i = 0; i <= _distanceAndDamage.Length - 1; i++)
+                {
+                    if (rangeBetween <= _distanceAndDamage[i].range)
+                    {
+                        Damage = _distanceAndDamage[i].damage;
+                        break;
+                    }
+                }
+
                 hit.collider.TryGetComponent(out IShield impulseShield);
                 impulseShield?.ShieldImpulse();
 
@@ -145,6 +158,8 @@ public class ParametrsUpdateDecorator : MainDecorator
                 hit.collider.TryGetComponent(out IHealth damageable);
                 damageable?.TakeDamage(Damage);
 
+                if (damageable != null || damageableProps!=null)
+                    ShowDamage(Damage+"", Color.white);
 
                 ShowVFXImpact(hit);
             }
@@ -156,6 +171,7 @@ public class ParametrsUpdateDecorator : MainDecorator
             Reload(context);
         }
     }
+
     protected virtual void ShowAnimatorAndInternalImpact()
     {
         _animator.SetBool("shoot", true);

@@ -15,6 +15,8 @@ public class Spawner : MonoBehaviour
     [SerializeField] private GameObject enemyAntShieldPrefab;
     [SerializeField] private GameObject enemySpiderPrefab;
     [SerializeField] private GameObject enemyBeetlePrefab;
+    [SerializeField] private GameObject enemyBeetleShieldPrefab;
+    [SerializeField] private GameObject enemyBeetleTurretPrefab;
     [SerializeField] private GameObject enemyBeePrefab;
     //[SerializeField] private int enemiesCount;
     BoxCollider detectZone;
@@ -23,38 +25,46 @@ public class Spawner : MonoBehaviour
     {
         count = enemies.Count;
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            int j = 0;
-            foreach (var dot in dotSpawn)
+            /* int j = 0;
+             foreach (var dot in dotSpawn)
+             {
+                 GameObject enemy = null;
+                 //EnemyTypeSpawn dotSpawnType = dot.GetComponent<DotSpawnType>().enemyTypeSpawn;
+                 switch (dot.enemyTypeSpawn)
+                 {
+                     case EnemyTypeSpawn.Ant:
+                         enemy = Instantiate(enemyAntPrefab, dot.gameObject.transform);
+                         break;
+                     case EnemyTypeSpawn.AntShield:
+                         enemy = Instantiate(enemyAntShieldPrefab, dot.gameObject.transform);
+                         break;
+                     case EnemyTypeSpawn.Spider:
+                         enemy = Instantiate(enemySpiderPrefab, dot.gameObject.transform);
+                         break;
+                     case EnemyTypeSpawn.Beetle:
+                         enemy = Instantiate(enemyBeetlePrefab, dot.gameObject.transform);
+                         break;
+                     case EnemyTypeSpawn.Bee:
+                         enemy = Instantiate(enemyBeePrefab, dot.gameObject.transform);
+                         break;
+                 }
+                 enemy.transform.localPosition = Vector3.zero;
+                 enemies.Add(j, enemy);
+                 enemies[j].GetComponent<HpEnemy>()._idEnemy = j;
+                 enemies[j].GetComponent<HpEnemy>().DeleteList += DeleteList;
+                 j++;
+             }
+            */
+            int i = 0;
+            foreach (var enemy in enemies)
             {
-                GameObject enemy = null;
-                //EnemyTypeSpawn dotSpawnType = dot.GetComponent<DotSpawnType>().enemyTypeSpawn;
-                switch (dot.enemyTypeSpawn)
-                {
-                    case EnemyTypeSpawn.Ant:
-                        enemy = Instantiate(enemyAntPrefab, dot.gameObject.transform);
-                        break;
-                    case EnemyTypeSpawn.AntShield:
-                        enemy = Instantiate(enemyAntShieldPrefab, dot.gameObject.transform);
-                        break;
-                    case EnemyTypeSpawn.Spider:
-                        enemy = Instantiate(enemySpiderPrefab, dot.gameObject.transform);
-                        break;
-                    case EnemyTypeSpawn.Beetle:
-                        enemy = Instantiate(enemyBeetlePrefab, dot.gameObject.transform);
-                        break;
-                    case EnemyTypeSpawn.Bee:
-                        enemy = Instantiate(enemyBeePrefab, dot.gameObject.transform);
-                        break;
-                }
-                enemy.transform.localPosition = Vector3.zero;
-                enemies.Add(j, enemy);
-                enemies[j].GetComponent<HpEnemy>()._idEnemy = j;
-                enemies[j].GetComponent<HpEnemy>().DeleteList += DeleteList;
-                j++;
+                enemies[i].SetActive(true);
+                i++;
             }
             foreach (var door in doors)
             {
@@ -86,6 +96,42 @@ public class Spawner : MonoBehaviour
                 detectZone.enabled = false;
                 DoorCheck();
             }
+        }
+        int j = 0;
+        foreach (var dot in dotSpawn)
+        {
+            GameObject enemy = null;
+            //EnemyTypeSpawn dotSpawnType = dot.GetComponent<DotSpawnType>().enemyTypeSpawn;
+            switch (dot.enemyTypeSpawn)
+            {
+                case EnemyTypeSpawn.Ant:
+                    enemy = Instantiate(enemyAntPrefab, dot.gameObject.transform);
+                    break;
+                case EnemyTypeSpawn.AntShield:
+                    enemy = Instantiate(enemyAntShieldPrefab, dot.gameObject.transform);
+                    break;
+                case EnemyTypeSpawn.Spider:
+                    enemy = Instantiate(enemySpiderPrefab, dot.gameObject.transform);
+                    break;
+                case EnemyTypeSpawn.Beetle:
+                    enemy = Instantiate(enemyBeetlePrefab, dot.gameObject.transform);
+                    break;
+                case EnemyTypeSpawn.BeetleShield:
+                    enemy = Instantiate(enemyBeetleShieldPrefab, dot.gameObject.transform);
+                    break;
+                case EnemyTypeSpawn.BeetleTurret:
+                   enemy = Instantiate(enemyBeetleTurretPrefab, dot.gameObject.transform);
+                    break;
+                case EnemyTypeSpawn.Bee:
+                    enemy = Instantiate(enemyBeePrefab, dot.gameObject.transform);
+                    break;
+            }
+            enemy.transform.localPosition = Vector3.zero;
+            enemies.Add(j, enemy);
+            enemies[j].GetComponent<HpEnemy>()._idEnemy = j;
+            enemies[j].GetComponent<HpEnemy>().DeleteList += DeleteList;
+            enemies[j].SetActive(false);
+            j++;
         }
 
     }
