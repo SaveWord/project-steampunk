@@ -40,6 +40,7 @@ public class EnergyWall : MonoBehaviour
         Activated = true;
         yield return new WaitForSeconds(_attackTime-0.01f);
         Activated = false;
+        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -63,7 +64,6 @@ public class EnergyWall : MonoBehaviour
 
                 Activated = false;
                 gameObject.SetActive(false);
-                
             }
         }
     }
