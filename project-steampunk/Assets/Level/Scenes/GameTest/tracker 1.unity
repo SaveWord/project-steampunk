@@ -4362,6 +4362,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4963252496338463717, guid: 6aa594fb9f32f0e4ba5c231dff85d519,
+        type: 3}
+      propertyPath: _invulnerable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5047405197648694243, guid: 6aa594fb9f32f0e4ba5c231dff85d519,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9838,6 +9843,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ant-Update 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 6825347463077769274, guid: 098c749c9746b114fb8db307aa508f0a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8352144385330654741, guid: 098c749c9746b114fb8db307aa508f0a,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10116,6 +10131,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 383054632106119925, guid: 75b7b5815e28c614a9cef29ccda3bf72,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 744510492478227429, guid: 75b7b5815e28c614a9cef29ccda3bf72,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10170,6 +10190,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: 'Beetle-Update '
+      objectReference: {fileID: 0}
+    - target: {fileID: 8696169832892840548, guid: 75b7b5815e28c614a9cef29ccda3bf72,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8846361435030487999, guid: 75b7b5815e28c614a9cef29ccda3bf72,
         type: 3}
@@ -58949,31 +58974,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LittleSpider
-      objectReference: {fileID: 0}
-    - target: {fileID: 137312576085465582, guid: 8716f802747e3ad4fb85032921becdde,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3047881084150219033, guid: 8716f802747e3ad4fb85032921becdde,
-        type: 3}
-      propertyPath: dashForce
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 6420836679344510173, guid: 8716f802747e3ad4fb85032921becdde,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6420836679344510173, guid: 8716f802747e3ad4fb85032921becdde,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6420836679344510173, guid: 8716f802747e3ad4fb85032921becdde,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6420836679344510173, guid: 8716f802747e3ad4fb85032921becdde,
         type: 3}
