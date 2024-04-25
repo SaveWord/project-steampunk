@@ -23,7 +23,7 @@ public class MouseSenseScroll : MonoBehaviour
 
     public string optionsFileName;
     private string filePath;
-    private PlayerMove player;
+    private CharacterControllerMove player;
     private ActionPrototypePlayer inputActionsUI;
     private bool activeSlider = false;
     private bool activeDieMenu =false;
@@ -31,7 +31,7 @@ public class MouseSenseScroll : MonoBehaviour
     {
         Player.dieMenuEvent += ContinueDie;
         Time.timeScale = 1;
-        player = transform.root.GetComponent<PlayerMove>();
+        player = transform.root.GetComponent<CharacterControllerMove>();
         inputActionsUI = SingletonActionPlayer.Instance.inputActions;
         //inputActionsUI = new ActionPrototypePlayer();
         //inputActionsUI.Enable();
