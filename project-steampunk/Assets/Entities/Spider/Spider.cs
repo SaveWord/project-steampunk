@@ -13,25 +13,10 @@ namespace Enemies
             _stateMachine = new StateMachine();
 
             var targetDetector = gameObject.GetComponent<TargetDetector>();
-            var targetAttacker = gameObject.GetComponent<TargetAttacker>();
             var spiderMover = gameObject.GetComponent<SpiderMover>();
             var navMeshAgent = GetComponent<NavMeshAgent>();
 
-            var idle = new Idle();
             var chase = new Chase(navMeshAgent, spiderMover, targetDetector);
-            //var attack = new Attack(targetDetector, targetAttacker, antMover);
-            //var fightBack = new FightBack(targetDetector, targetAttacker, antMover);
-
-            //_stateMachine.AddTransition(idle, attack, TargetAvailable());
-            //_stateMachine.AddTransition(chase, attack, TargetAvailable());
-            //_stateMachine.AddTransition(attack, chase, TargetNotAvailable());
-            //_stateMachine.AddTransition(idle, fightBack, AmIUnderAttack());
-            //_stateMachine.AddTransition(fightBack, idle, AmIUnderAtPeace());
-
-            //Func<bool> TargetAvailable() => () => targetDetector.IsTargetAvailable();
-            //Func<bool> TargetNotAvailable() => () => !targetDetector.IsTargetAvailable();
-            //Func<bool> AmIUnderAttack() => () => targetDetector.AmIUnderAttack();
-            //Func<bool> AmIUnderAtPeace() => () => !targetDetector.AmIUnderAttack();
 
             _stateMachine.SetState(chase);
         }
