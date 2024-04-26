@@ -21,20 +21,18 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: BlueMetal
-  m_Shader: {fileID: 4800000, guid: 933f24cde1e3f6a41818f56d729421ab, type: 3}
+  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _DETAIL_SCALED
-  - _HALFTONESHAPE_DOT
   - _NORMALMAP
   - _OCCLUSIONMAP
-  - _TOON_SHADING_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2050
+  m_CustomRenderQueue: -1
   stringTagMap:
     RenderType: Opaque
   disabledShaderPasses: []
@@ -216,7 +214,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 0.40499997, g: 0.42923072, b: 0.45, a: 1}
-    - _Color: {r: 0.630785, g: 0.73337424, b: 0.764151, a: 1}
+    - _Color: {r: 0.4049999, g: 0.4292307, b: 0.45, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _FaceFrontDirection: {r: 0, g: 0, b: 1, a: 0}
     - _FaceRightDirection: {r: 1, g: 0, b: 0, a: 0}
