@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 1728639390543222635}
   - component: {fileID: 974141856091379729}
   - component: {fileID: 2326171180937927664}
-  - component: {fileID: 7306827590327924311}
+  - component: {fileID: 274494903861447072}
   - component: {fileID: 968187379263351500}
   - component: {fileID: 7799984787892103496}
   - component: {fileID: 6329660962309893479}
@@ -234,33 +234,29 @@ CapsuleCollider:
   m_Height: 3.17
   m_Direction: 2
   m_Center: {x: 0, y: 1.6, z: -0.92}
---- !u!54 &7306827590327924311
-Rigidbody:
+--- !u!136 &274494903861447072
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6117831816496777883}
-  serializedVersion: 4
-  m_Mass: 30
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 64
-  m_CollisionDetection: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.1
+  m_Height: 3.27
+  m_Direction: 2
+  m_Center: {x: 0, y: 1.6, z: -0.92}
 --- !u!195 &968187379263351500
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -343,7 +339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ea888751f5ba1249b431e29e558b051, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 7306827590327924311}
+  rb: {fileID: 0}
   deathParticlePrefab: {fileID: 3794447131822965395, guid: 6883b706c49cf5b4b8832dcb64ffd9c7,
     type: 3}
   healDropPrefab: {fileID: 0}
@@ -372,18 +368,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6640ac490ccb90b4f87730d90cce5237, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 1100
-  dashForceUp: 10
-  dashForce: 1500
-  dashDuration: 1.5
-  dashCooldown: 2
   navMeshAgent: {fileID: 968187379263351500}
-  DashDistance: 50
+  DistanceToJump: 0
+  speedFactor: 0
+  jumpTime: 0
   _damageCloseCombat: 50
   _damageJump: 25
-  dashoffset: 100
-  CooldowntimeDamage: 0
-  JumpCooldowntime: 5
+  DamageCooldown: 0
 --- !u!1 &8254089870989644237
 GameObject:
   m_ObjectHideFlags: 0

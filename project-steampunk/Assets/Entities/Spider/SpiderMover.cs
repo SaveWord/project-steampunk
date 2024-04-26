@@ -121,7 +121,7 @@ namespace Enemies
 
         }
 
-        protected void OnCollisionEnter(Collision collision)
+        protected void OnTriggerEnter(Collider collision)
         {
             if (collision.gameObject.CompareTag("Player"))
             {
