@@ -204,7 +204,9 @@ public class CharacterControllerMove : MonoBehaviour
                     * dashSpeed * Time.deltaTime);
             }
             else {
-                characterController.Move(inputMove*speed * dashSpeed * Time.deltaTime);
+                characterVelocity += Vector3.one;
+                characterVelocity = characterVelocity.normalized;
+                characterController.Move(characterVelocity*speed * dashSpeed * Time.deltaTime);
             }
               
             yield return null;
