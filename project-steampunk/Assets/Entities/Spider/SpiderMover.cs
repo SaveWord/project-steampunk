@@ -31,6 +31,7 @@ namespace Enemies
         private float damagetime = 0f;
         private bool jumping;
         private bool hurt;
+
         public void MoveToTarget(ITarget target)
         {
             if (_nMeshAgent.enabled)
@@ -121,7 +122,7 @@ namespace Enemies
 
         }
 
-        protected void OnTriggerEnter(Collider collision)
+        protected void OnCollisionEnter(Collision collision)
         {
             if (collision.gameObject.CompareTag("Player"))
             {
