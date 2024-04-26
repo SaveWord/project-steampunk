@@ -28,7 +28,7 @@ namespace Enemies.SpiderStates
             if (target != null)
             {
                 _spiderMover.MoveToTarget(target);
-                _spiderMover.Dash(target);
+                //_spiderMover.Dash(target);
             }
         }
 

@@ -364,18 +364,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6640ac490ccb90b4f87730d90cce5237, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 5
-  dashForceUp: 100
-  dashForce: 20
-  dashDuration: 2
-  dashCooldown: 1
   navMeshAgent: {fileID: 8739184082390713864}
-  DashDistance: 5
+  DistanceToJump: 10
+  speedFactor: 5
+  jumpTime: 2
   _damageCloseCombat: 50
   _damageJump: 33
-  dashoffset: 0.5
-  CooldowntimeDamage: 0
-  JumpCooldowntime: 5
+  DamageCooldown: 5
 --- !u!1 &332568703634473921
 GameObject:
   m_ObjectHideFlags: 0

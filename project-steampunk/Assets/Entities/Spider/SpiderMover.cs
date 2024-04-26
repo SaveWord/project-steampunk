@@ -11,95 +11,93 @@ namespace Enemies
     public class SpiderMover : MonoBehaviour
     {
         [Header("Basics")]
-        [SerializeField] private float _moveSpeed = 5f;
-        //[SerializeField] private Dash _dash;
-
         private NavMeshAgent _nMeshAgent;
-        ///[SerializeField] 
         private Rigidbody _rBody;
-        private controlarrow _controlarrow;
         private Animator _animator;
-
-
-        public float dashForceUp = 100f;
-        public float dashForce = 100f;
-        public float dashDuration = 2f;
-        public float dashCooldown = 1f;
-        private bool canDash = true;
-
         private float distance;
-        private Vector3 targetPosition;
+        private float speed;
         [SerializeField] private NavMeshAgent navMeshAgent;
-        [SerializeField] private float DashDistance;
-        [SerializeField] private float _damageCloseCombat;
-        [SerializeField] private float _damageJump;
-        [SerializeField] private float dashoffset;
+
+        [SerializeField] private float DistanceToJump; //jumps if the player is closer then this
+        [SerializeField] private float speedFactor;  //speed is multiplied by this factor when jumping 
+        [SerializeField] private float jumpTime;  //speed returns to normal after this amount of time
+
+        [SerializeField] private float _damageCloseCombat;  //deals this amount of damage when colliding 
+        [SerializeField] private float _damageJump;  //deals this amount of damage when jumping
         [Tooltip("Cooldown damage")]
-        [SerializeField] private float CooldowntimeDamage;
-        [SerializeField] private float JumpCooldowntime;
+        [SerializeField] private float DamageCooldown; //pause between dealing damage
 
-        private bool damagecooldown = false;
-        private bool jumpdamagecooldown = false;
-
+        private float time = 0f;
+        private float damagetime = 0f;
+        private bool jumping;
+        private bool hurt;
         public void MoveToTarget(ITarget target)
         {
-
             if (_nMeshAgent.enabled)
             {
                 _nMeshAgent.SetDestination(target.GetPosition());
-
-
-
                 _animator.SetBool("isRunning", true);
 
-                //_controlarrow.ChangeColorToGray();
-                //_controlarrow.Show();
+                distance = Vector3.Distance(transform.position, target.GetPosition());
+                if (distance<DistanceToJump&&!jumping)
+                {
+                    SpeedForward();
+                }
             }
             else
             {
                 _animator.SetBool("isRunning", false);
-                //_controlarrow.Hide();
             }
-
-
         }
 
-        public void Dash(ITarget target)
+        public void SpeedForward() //new speed for jump
         {
-            distance = Vector3.Distance(transform.position, target.GetPosition());//
-            targetPosition = target.GetPosition();
-
-            if (!canDash)
-            {
-                return;
-            }
-            if (jumpdamagecooldown)
-            {
-                return;
-            }
-            if (distance < (DashDistance + dashoffset) && distance > (DashDistance - dashoffset))
-            {
-                StartCoroutine(GoDash(dashDuration));
-                StartCoroutine(JumpCooldown(UnityEngine.Random.Range(1,5)));
-            }
-
+            navMeshAgent.speed *= speedFactor;
+            jumping = true;
         }
-        IEnumerator GoDash(float time)
+        public void ResetSpeed() //return old speed
         {
-            canDash = false;
-            ToggleControlToRBody();
-            Vector3 dashDirection = (targetPosition - transform.position).normalized;
-
-
-            _rBody.AddForce(Vector3.up * dashForceUp, ForceMode.Impulse);
-            _rBody.AddForce(dashDirection * dashForce, ForceMode.Impulse);
-
-            yield return new WaitForSeconds(time);
-            ToggleControlToNavMesh();
-            yield return new WaitForSeconds(dashCooldown);
-            canDash = true;
-
+            navMeshAgent.speed = speed;
+            jumping = false;
+            time = 0;
         }
+
+        //public void Dash(ITarget target)
+        //{
+        //    distance = Vector3.Distance(transform.position, target.GetPosition());//
+        //    targetPosition = target.GetPosition();
+
+        //    if (!canDash)
+        //    {
+        //        return;
+        //    }
+        //    if (jumpdamagecooldown)
+        //    {
+        //        return;
+        //    }
+        //    if (distance < (DashDistance + dashoffset) && distance > (DashDistance - dashoffset))
+        //    {
+        //        StartCoroutine(GoDash(dashDuration));
+        //        StartCoroutine(JumpCooldown(UnityEngine.Random.Range(1,5)));
+        //    }
+
+        //}
+        //IEnumerator GoDash(float time)
+        //{
+        //    canDash = false;
+        //    ToggleControlToRBody();
+        //    Vector3 dashDirection = (targetPosition - transform.position).normalized;
+
+
+        //    _rBody.AddForce(Vector3.up * dashForceUp, ForceMode.Impulse);
+        //    _rBody.AddForce(dashDirection * dashForce, ForceMode.Impulse);
+
+        //    yield return new WaitForSeconds(time);
+        //    ToggleControlToNavMesh();
+        //    yield return new WaitForSeconds(dashCooldown);
+        //    canDash = true;
+
+        //}
         private void ToggleControlToRBody()
         {
             _rBody.isKinematic = false;
@@ -114,74 +112,45 @@ namespace Enemies
             _nMeshAgent.enabled = true;
         }
 
-        //private void OnCollisionStay(Collision collision)
-        //{
-        //    if (collision.collider.transform.gameObject.layer == 8 && !_nMeshAgent.enabled)
-        //        ToggleControlToNavMesh();
-        //}
-
         private void Awake()
         {
             _nMeshAgent = GetComponent<NavMeshAgent>();
             _rBody = GetComponent<Rigidbody>();
-
-            //_dash = new Dash(_rBody, this);
-            //_controlarrow = GetComponent<controlarrow>();
-
             _animator = GetComponentInChildren<Animator>();
-            _moveSpeed = GameObject.FindWithTag("Player").GetComponent<PlayerMove>().GetSpeed() * 0.9f;
-
-        }
-
-        private void OnDrawGizmos()
-        {
-            if (canDash)
-            {
-                Gizmos.color = Color.yellow;
-                Gizmos.DrawCube(transform.position + Vector3.up * 10, Vector3.one * 3f);
-            }
-            else
-            {
-                Gizmos.color = Color.magenta;
-                Gizmos.DrawCube(transform.position + Vector3.up * 10, Vector3.one * 3f);
-            }
+            speed = navMeshAgent.speed;
 
         }
 
         protected void OnCollisionEnter(Collision collision)
         {
-            
             if (collision.gameObject.CompareTag("Player"))
             {
                 Debug.Log("hit player");
                 IHealth damageScript = collision.gameObject.GetComponent<IHealth>();
-                if (canDash && !damagecooldown)
+                if (!jumping)
                 {
                     damageScript.TakeDamage(_damageCloseCombat);
-                    StartCoroutine(Cooldown(CooldowntimeDamage));
+                    hurt = true;
                 }
-                else if (!damagecooldown) { 
+                else{ 
                     damageScript.TakeDamage(_damageJump);
-                    StartCoroutine(Cooldown(CooldowntimeDamage));
+                    hurt = true;
                 }
                 
             }
         }
-        IEnumerator Cooldown(float time) // damage
+        
+        public void Update()
         {
-            damagecooldown = true;
+            if (jumping) time += Time.deltaTime; //timer for jump
+            if (time >= jumpTime) ResetSpeed();
 
-            yield return new WaitForSeconds(time);
-            damagecooldown = false;
-
-        }
-        IEnumerator JumpCooldown(float time)
-        {
-            jumpdamagecooldown = true;
-
-            yield return new WaitForSeconds(time);
-            jumpdamagecooldown = false;
-
+            if(hurt) damagetime += Time.deltaTime; //timer for damage
+            if (damagetime >= DamageCooldown)
+            {
+                hurt = false;
+                damagetime = 0;
+            }
         }
     }
 }
