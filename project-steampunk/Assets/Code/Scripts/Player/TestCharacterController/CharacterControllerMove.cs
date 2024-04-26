@@ -205,7 +205,6 @@ public class CharacterControllerMove : MonoBehaviour
             }
             else {
                 characterController.Move(inputMove*speed * dashSpeed * Time.deltaTime);
-
             }
               
             yield return null;
