@@ -8,6 +8,7 @@ using static DotSpawnType;
 
 public class Spawner : MonoBehaviour
 {
+    public int timeSpawnDelay;
     public int spawnerID;
     public float count;
     public List<DotSpawnType> dotSpawn;
@@ -73,7 +74,7 @@ public class Spawner : MonoBehaviour
             {
                 enemies[i].SetActive(true);
                 i++;
-                await Task.Delay(5000);
+                await Task.Delay(timeSpawnDelay);
             }
             detectZone.enabled = false;
 
