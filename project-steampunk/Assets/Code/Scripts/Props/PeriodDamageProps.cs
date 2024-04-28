@@ -8,7 +8,7 @@ public class PeriodDamageProps : MonoBehaviour
     [SerializeField] private float damageRate;
     private float nextDamage;
 
-    private void OnCollisionStay(Collision collision)
+    private void OnTriggerStay(Collider collision)
     {
         if(collision.gameObject.CompareTag("Player") && Time.time > nextDamage)
         {

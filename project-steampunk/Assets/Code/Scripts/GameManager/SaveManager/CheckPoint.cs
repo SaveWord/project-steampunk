@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class CheckPoint : MonoBehaviour
 {
-    [SerializeField] private int idCheckPoint;
+    public int idCheckPoint;
     public List<Spawner> spawners = new List<Spawner>();
     private Collider colliderCheckPoint;
     private void Start()
@@ -27,9 +27,9 @@ public class CheckPoint : MonoBehaviour
         {
             other.TryGetComponent(out IHealth health);
            int sceneId = SceneManager.GetActiveScene().buildIndex;
-            float hp = health.CurrentHp;
-            Vector3 position = other.transform.position;
-            GameManagerSingleton.Instance.SaveSystem.SaveData(hp, position,sceneId);
+            //float hp = health.CurrentHp;
+            Vector3 position = this.transform.position;
+            GameManagerSingleton.Instance.SaveSystem.SaveData( position,sceneId);
             GameManagerSingleton.Instance.SaveSystem.SaveCheckPoint(1);
             foreach (var spawner in spawners)
             {

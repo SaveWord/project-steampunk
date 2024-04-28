@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using static DotSpawnType;
 
 public class Spawner : MonoBehaviour
 {
+    public int timeSpawnDelay;
     public int spawnerID;
     public float count;
     public List<DotSpawnType> dotSpawn;
@@ -30,49 +33,27 @@ public class Spawner : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            /* int j = 0;
-             foreach (var dot in dotSpawn)
-             {
-                 GameObject enemy = null;
-                 //EnemyTypeSpawn dotSpawnType = dot.GetComponent<DotSpawnType>().enemyTypeSpawn;
-                 switch (dot.enemyTypeSpawn)
-                 {
-                     case EnemyTypeSpawn.Ant:
-                         enemy = Instantiate(enemyAntPrefab, dot.gameObject.transform);
-                         break;
-                     case EnemyTypeSpawn.AntShield:
-                         enemy = Instantiate(enemyAntShieldPrefab, dot.gameObject.transform);
-                         break;
-                     case EnemyTypeSpawn.Spider:
-                         enemy = Instantiate(enemySpiderPrefab, dot.gameObject.transform);
-                         break;
-                     case EnemyTypeSpawn.Beetle:
-                         enemy = Instantiate(enemyBeetlePrefab, dot.gameObject.transform);
-                         break;
-                     case EnemyTypeSpawn.Bee:
-                         enemy = Instantiate(enemyBeePrefab, dot.gameObject.transform);
-                         break;
-                 }
-                 enemy.transform.localPosition = Vector3.zero;
-                 enemies.Add(j, enemy);
-                 enemies[j].GetComponent<HpEnemy>()._idEnemy = j;
-                 enemies[j].GetComponent<HpEnemy>().DeleteList += DeleteList;
-                 j++;
-             }
-            */
-            int i = 0;
-            foreach (var enemy in enemies)
-            {
-                enemies[i].SetActive(true);
-                i++;
-            }
+            AudioManager.InstanceAudio.PlayMusic("Battle", true);
+
             foreach (var door in doors)
             {
                 door.DoorClose();
             }
-            AudioManager.InstanceAudio.PlayMusic("Battle", true);
+
+            SetActiveEnemies(); // foreach set active enemies with await in async method
+
             detectZone.enabled = false;
 
+        }
+    }
+    private async void SetActiveEnemies()
+    {
+        int i = 0;
+        foreach (var enemy in enemies)
+        {
+            enemies[i].SetActive(true);
+            i++;
+            await Task.Delay(timeSpawnDelay);
         }
     }
     private void Start()
