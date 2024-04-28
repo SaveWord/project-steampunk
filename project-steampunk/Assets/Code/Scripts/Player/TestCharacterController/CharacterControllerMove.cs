@@ -43,6 +43,8 @@ public class CharacterControllerMove : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Transform dotGround;
     [SerializeField] private float sphereRadius;
+    private float groundTimer = 0f;
+    private const float groundPreventTime = 0.2f;
 
     [SerializeField] private float gravityDownForce = 20f;
 
@@ -50,8 +52,7 @@ public class CharacterControllerMove : MonoBehaviour
     [Header("Гравитация и переменные прыжка")]
     private Vector3 gravityVelocity;
     [SerializeField] private float jumpForce;
-    float m_LastTimeJumped = 0f;
-    const float k_JumpGroundingPreventionTime = 0.2f;
+
 
     [Header("Угол наклона камеры Y")]
     [SerializeField] private float yAngle;
@@ -114,8 +115,8 @@ public class CharacterControllerMove : MonoBehaviour
         IsGrounded();
         EffectsMove(inputMove);
         gravityVelocity.y += Physics.gravity.y * Time.deltaTime;
-        //if (isGrounded == true)
-        //    gravityVelocity.y = 0f;
+        if (isGrounded == true && gravityVelocity.y < 0)
+            gravityVelocity.y = 0f;
         characterController.Move((gravityVelocity * gravityDownForce) * Time.deltaTime);
     }
     //effects move
@@ -218,14 +219,14 @@ public class CharacterControllerMove : MonoBehaviour
     public void Jump(InputAction.CallbackContext context)
     {
         //Debug.Log(doubleJump);
-        if (context.started && isGrounded == true)
+        if (context.started && groundTimer > 0)
         {
+            groundTimer = 0;
             // add the jumpSpeed value upwards
             gravityVelocity.y += Mathf.Sqrt(jumpForce * -3.0f * Physics.gravity.y);
             characterController.Move((gravityVelocity * gravityDownForce) * Time.deltaTime);
             // Force grounding to false
             m_GroundNormal = Vector3.up;
-            m_LastTimeJumped = Time.time;
             //audio
             AudioManager.InstanceAudio.PlaySfxSound("Jump");
         }
@@ -242,10 +243,6 @@ public class CharacterControllerMove : MonoBehaviour
     private void IsGrounded()
     {
         Debug.Log(isGrounded);
-
-
-        if (Time.time >= m_LastTimeJumped + k_JumpGroundingPreventionTime)
-        {
             //detect ground and correct normal 
             if (Physics.CapsuleCast(GetCapsuleBottomHemisphere(), GetCapsuleTopHemisphere(characterController.height),
                    characterController.radius - Physics.defaultContactOffset,
@@ -273,10 +270,17 @@ public class CharacterControllerMove : MonoBehaviour
                 //    }
                 //}
             }
+            else
+                isGrounded = false;
+        if (isGrounded)
+        {
+            groundTimer = groundPreventTime;
         }
-        else
-            isGrounded = false;
-        
+        if(groundTimer > 0)
+        {
+            groundTimer -= Time.deltaTime;
+        }
+
     }
     void OnDrawGizmosSelected()
     {
