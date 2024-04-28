@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class CheckPoint : MonoBehaviour
 {
-    [SerializeField] private int idCheckPoint;
+    public int idCheckPoint;
     public List<Spawner> spawners = new List<Spawner>();
     private Collider colliderCheckPoint;
     private void Start()

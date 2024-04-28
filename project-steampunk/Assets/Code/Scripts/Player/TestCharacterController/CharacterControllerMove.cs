@@ -50,7 +50,8 @@ public class CharacterControllerMove : MonoBehaviour
     [Header("Гравитация и переменные прыжка")]
     private Vector3 gravityVelocity;
     [SerializeField] private float jumpForce;
-
+    float m_LastTimeJumped = 0f;
+    const float k_JumpGroundingPreventionTime = 0.2f;
 
     [Header("Угол наклона камеры Y")]
     [SerializeField] private float yAngle;
@@ -224,7 +225,7 @@ public class CharacterControllerMove : MonoBehaviour
             characterController.Move((gravityVelocity * gravityDownForce) * Time.deltaTime);
             // Force grounding to false
             m_GroundNormal = Vector3.up;
-
+            m_LastTimeJumped = Time.time;
             //audio
             AudioManager.InstanceAudio.PlaySfxSound("Jump");
         }
@@ -242,35 +243,40 @@ public class CharacterControllerMove : MonoBehaviour
     {
         Debug.Log(isGrounded);
 
-        //detect ground and correct normal 
-        if (Physics.CapsuleCast(GetCapsuleBottomHemisphere(), GetCapsuleTopHemisphere(characterController.height),
+
+        if (Time.time >= m_LastTimeJumped + k_JumpGroundingPreventionTime)
+        {
+            //detect ground and correct normal 
+            if (Physics.CapsuleCast(GetCapsuleBottomHemisphere(), GetCapsuleTopHemisphere(characterController.height),
                    characterController.radius - Physics.defaultContactOffset,
                    Vector3.down, out RaycastHit hit, sphereRadius, groundLayer,
                    QueryTriggerInteraction.Ignore))
-        {
-            //Debug.Log(hit.collider);
-            float distanceToGround = Vector3.Distance(GetCapsuleBottomHemisphere(), hit.point);
-            if (distanceToGround < characterController.height / 2)
             {
-                m_GroundNormal = hit.normal;
-
-            }
-
-            // Only consider this a valid ground hit if the ground normal goes in the same direction as the character up
-            // and if the slope angle is lower than the character controller's limit
-            if (Vector3.Dot(hit.normal, transform.up) > 0f &&
-                IsNormalUnderSlopeLimit(m_GroundNormal))
-            {
-                isGrounded = true;
-                // handle snapping to the ground
-                if (hit.distance > characterController.skinWidth)
+                //Debug.Log(hit.collider);
+                float distanceToGround = Vector3.Distance(GetCapsuleBottomHemisphere(), hit.point);
+                if (distanceToGround < characterController.height / 2)
                 {
-                    characterController.Move(Vector3.down * hit.distance);
+                    m_GroundNormal = hit.normal;
+
+                }
+
+                // Only consider this a valid ground hit if the ground normal goes in the same direction as the character up
+                // and if the slope angle is lower than the character controller's limit
+                if (Vector3.Dot(hit.normal, transform.up) > 0f &&
+                    IsNormalUnderSlopeLimit(m_GroundNormal))
+                {
+                    isGrounded = true;
+                    // handle snapping to the ground
+                    if (hit.distance > characterController.skinWidth)
+                    {
+                        characterController.Move(Vector3.down * hit.distance);
+                    }
                 }
             }
         }
         else
             isGrounded = false;
+        
     }
     void OnDrawGizmosSelected()
     {
