@@ -204,12 +204,13 @@ public class CharacterControllerMove : MonoBehaviour
                 characterController.Move((characterVelocity + transform.forward) * speed
                     * dashSpeed * Time.deltaTime);
             }
-            else {
+            else
+            {
                 characterVelocity += Vector3.one;
                 characterVelocity = characterVelocity.normalized;
-                characterController.Move(characterVelocity*speed * dashSpeed * Time.deltaTime);
+                characterController.Move(characterVelocity * speed * dashSpeed * Time.deltaTime);
             }
-              
+
             yield return null;
         }
         effectDash.Stop();
@@ -274,9 +275,14 @@ public class CharacterControllerMove : MonoBehaviour
                 }
             }
         }
-        else
+        if (!Physics.CapsuleCast(GetCapsuleBottomHemisphere(), GetCapsuleTopHemisphere(characterController.height),
+                  characterController.radius - Physics.defaultContactOffset,
+                  Vector3.down, sphereRadius, groundLayer,
+                  QueryTriggerInteraction.Ignore))
+        {
             isGrounded = false;
-        
+        }
+
     }
     void OnDrawGizmosSelected()
     {
