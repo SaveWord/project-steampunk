@@ -78,6 +78,10 @@ public class CharacterControllerMove : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        //load position
+        
+
         characterController = GetComponent<CharacterController>();
         animatorPlayer = GetComponentInChildren<Animator>();
 
@@ -90,6 +94,15 @@ public class CharacterControllerMove : MonoBehaviour
         animatorCinemachineVirtualCam = GameObject.Find("VirtualCameraAnimator").GetComponent<Animator>();
 
 
+      
+
+    }
+    private void Start()
+    {
+        GameManagerSingleton.Instance.SaveSystem.LoadData();
+        //_currentHp = GameManagerSingleton.Instance.SaveSystem.playerData.health;
+        transform.position = GameManagerSingleton.Instance.SaveSystem.playerData.position;
+        Physics.SyncTransforms();
     }
     private void OnEnable()
     {

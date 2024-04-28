@@ -29,12 +29,6 @@ public class HpHandler : MonoBehaviour, IHealth
         if (gameObject.layer == 6)
             enemyDamageImpact = GetComponentInChildren<VisualEffect>();
         _currentHp = _maxHp;
-        if (gameObject.layer == 7)
-        {
-            GameManagerSingleton.Instance.SaveSystem.LoadData();
-            //_currentHp = GameManagerSingleton.Instance.SaveSystem.playerData.health;
-            transform.position = GameManagerSingleton.Instance.SaveSystem.playerData.position;
-        }
     }
     
     public void TakeDamage(float amount)//TODO: specify damage maker
