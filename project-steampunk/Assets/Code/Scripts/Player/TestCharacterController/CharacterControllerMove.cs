@@ -114,8 +114,8 @@ public class CharacterControllerMove : MonoBehaviour
         IsGrounded();
         EffectsMove(inputMove);
         gravityVelocity.y += Physics.gravity.y * Time.deltaTime;
-        if (isGrounded == true)
-            gravityVelocity.y = 0f;
+        //if (isGrounded == true)
+        //    gravityVelocity.y = 0f;
         characterController.Move((gravityVelocity * gravityDownForce) * Time.deltaTime);
     }
     //effects move
