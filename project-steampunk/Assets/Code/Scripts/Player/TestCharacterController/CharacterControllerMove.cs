@@ -200,10 +200,15 @@ public class CharacterControllerMove : MonoBehaviour
             effectDash.Play();
             if (inputMove == Vector2.zero)
             {
-                characterController.Move((characterVelocity + transform.forward)*speed
+                characterController.Move((characterVelocity + transform.forward) * speed
                     * dashSpeed * Time.deltaTime);
             }
-            else characterController.Move(characterVelocity * dashSpeed * Time.deltaTime);
+            else {
+                characterVelocity += Vector3.one;
+                characterVelocity = characterVelocity.normalized;
+                characterController.Move(characterVelocity*speed * dashSpeed * Time.deltaTime);
+            }
+              
             yield return null;
         }
         effectDash.Stop();

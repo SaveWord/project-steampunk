@@ -6245,6 +6245,7 @@ GameObject:
   - component: {fileID: 4541966312327032672}
   - component: {fileID: 8396233517622403656}
   - component: {fileID: 5772431334207561466}
+  - component: {fileID: 5939409167124486759}
   m_Layer: 7
   m_Name: PlayerPrefabCharCon
   m_TagString: Player
@@ -6338,7 +6339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ebf169022afca944afb6eed5b7fa683, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 50
+  speed: 40
   movementSharpnessOnGround: 15
   mouseSense: 0.3
   cam: {fileID: 5071979762052684290}
@@ -6351,9 +6352,9 @@ MonoBehaviour:
   jumpForce: 0.5
   yAngle: 90
   layerIgnore: 31
-  dashSpeed: 2
+  dashSpeed: 4
   dashTimeLimit: 0.1
-  dashCooldown: 0.1
+  dashCooldown: 1
   dashForce: 2
 --- !u!114 &7924542794868063567
 MonoBehaviour:
@@ -6640,6 +6641,33 @@ CapsuleCollider:
   m_Height: 2.4
   m_Direction: 1
   m_Center: {x: 0, y: 0.7, z: 0}
+--- !u!54 &5939409167124486759
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932236437220837594}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1976729255149966353
 GameObject:
   m_ObjectHideFlags: 0

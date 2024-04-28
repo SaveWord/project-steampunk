@@ -12,18 +12,18 @@ namespace Enemies
     {
         [Header("Basics")]
         private NavMeshAgent _nMeshAgent;
-        private Rigidbody _rBody;
+        //private Rigidbody _rBody;
         private Animator _animator;
         private float distance;
         private float speed;
         [SerializeField] private NavMeshAgent navMeshAgent;
 
-        [SerializeField] private float DistanceToJump; //jumps if the player is closer then this
-        [SerializeField] private float speedFactor;  //speed is multiplied by this factor when jumping 
-        [SerializeField] private float jumpTime;  //speed returns to normal after this amount of time
+        [Tooltip("jumps if the player is closer then this"),SerializeField] private float DistanceToJump; //jumps if the player is closer then this
+        [Tooltip("speed is multiplied by this factor when jumping"),SerializeField] private float speedFactor;  //speed is multiplied by this factor when jumping 
+        [Tooltip("speed returns to normal after this amount of time"), SerializeField] private float jumpTime;  //speed returns to normal after this amount of time
 
-        [SerializeField] private float _damageCloseCombat;  //deals this amount of damage when colliding 
-        [SerializeField] private float _damageJump;  //deals this amount of damage when jumping
+        [Tooltip("deals this amount of damage when colliding"), SerializeField] private float _damageCloseCombat;  //deals this amount of damage when colliding 
+        [Tooltip("deals this amount of damage when jumping"), SerializeField] private float _damageJump;  //deals this amount of damage when jumping
         [Tooltip("Cooldown damage")]
         [SerializeField] private float DamageCooldown; //pause between dealing damage
 
@@ -31,6 +31,7 @@ namespace Enemies
         private float damagetime = 0f;
         private bool jumping;
         private bool hurt;
+
         public void MoveToTarget(ITarget target)
         {
             if (_nMeshAgent.enabled)
@@ -100,22 +101,22 @@ namespace Enemies
         //}
         private void ToggleControlToRBody()
         {
-            _rBody.isKinematic = false;
-            _rBody.useGravity = true;
+            //_rBody.isKinematic = false;
+            //_rBody.useGravity = true;
             _nMeshAgent.enabled = false;
         }
 
         private void ToggleControlToNavMesh()
         {
-            _rBody.isKinematic = true;
-            _rBody.useGravity = false;
+            //_rBody.isKinematic = true;
+            //_rBody.useGravity = false;
             _nMeshAgent.enabled = true;
         }
 
         private void Awake()
         {
             _nMeshAgent = GetComponent<NavMeshAgent>();
-            _rBody = GetComponent<Rigidbody>();
+            //_rBody = GetComponent<Rigidbody>();
             _animator = GetComponentInChildren<Animator>();
             speed = navMeshAgent.speed;
 
@@ -127,14 +128,19 @@ namespace Enemies
             {
                 Debug.Log("hit player");
                 IHealth damageScript = collision.gameObject.GetComponent<IHealth>();
-                if (!jumping)
+                damagetime = Time.time + DamageCooldown;
+                if (damagetime > Time.time)
                 {
-                    damageScript.TakeDamage(_damageCloseCombat);
-                    hurt = true;
-                }
-                else{ 
-                    damageScript.TakeDamage(_damageJump);
-                    hurt = true;
+                    if (!jumping)
+                    {
+                        damageScript.TakeDamage(_damageCloseCombat);
+                        hurt = true;
+                    }
+                    else
+                    {
+                        damageScript.TakeDamage(_damageJump);
+                        hurt = true;
+                    }
                 }
                 
             }
@@ -146,11 +152,11 @@ namespace Enemies
             if (time >= jumpTime) ResetSpeed();
 
             if(hurt) damagetime += Time.deltaTime; //timer for damage
-            if (damagetime >= DamageCooldown)
-            {
-                hurt = false;
-                damagetime = 0;
-            }
+            //if (damagetime >= DamageCooldown)
+            //{
+            //    hurt = false;
+            //    damagetime = 0;
+            //}
         }
     }
 }
