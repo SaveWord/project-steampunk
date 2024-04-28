@@ -33,37 +33,8 @@ public class Spawner : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            /* int j = 0;
-             foreach (var dot in dotSpawn)
-             {
-                 GameObject enemy = null;
-                 //EnemyTypeSpawn dotSpawnType = dot.GetComponent<DotSpawnType>().enemyTypeSpawn;
-                 switch (dot.enemyTypeSpawn)
-                 {
-                     case EnemyTypeSpawn.Ant:
-                         enemy = Instantiate(enemyAntPrefab, dot.gameObject.transform);
-                         break;
-                     case EnemyTypeSpawn.AntShield:
-                         enemy = Instantiate(enemyAntShieldPrefab, dot.gameObject.transform);
-                         break;
-                     case EnemyTypeSpawn.Spider:
-                         enemy = Instantiate(enemySpiderPrefab, dot.gameObject.transform);
-                         break;
-                     case EnemyTypeSpawn.Beetle:
-                         enemy = Instantiate(enemyBeetlePrefab, dot.gameObject.transform);
-                         break;
-                     case EnemyTypeSpawn.Bee:
-                         enemy = Instantiate(enemyBeePrefab, dot.gameObject.transform);
-                         break;
-                 }
-                 enemy.transform.localPosition = Vector3.zero;
-                 enemies.Add(j, enemy);
-                 enemies[j].GetComponent<HpEnemy>()._idEnemy = j;
-                 enemies[j].GetComponent<HpEnemy>().DeleteList += DeleteList;
-                 j++;
-             }
-            */
-           
+            AudioManager.InstanceAudio.PlayMusic("Battle", true);
+
             foreach (var door in doors)
             {
                 door.DoorClose();
@@ -76,7 +47,7 @@ public class Spawner : MonoBehaviour
                 i++;
                 await Task.Delay(timeSpawnDelay);
             }
-            AudioManager.InstanceAudio.PlayMusic("Battle", true);
+        
             detectZone.enabled = false;
 
         }
