@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using static DotSpawnType;
 
@@ -26,7 +28,7 @@ public class Spawner : MonoBehaviour
         count = enemies.Count;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private async void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
@@ -60,17 +62,19 @@ public class Spawner : MonoBehaviour
                  j++;
              }
             */
-            int i = 0;
-            foreach (var enemy in enemies)
-            {
-                enemies[i].SetActive(true);
-                i++;
-            }
+           
             foreach (var door in doors)
             {
                 door.DoorClose();
             }
             AudioManager.InstanceAudio.PlayMusic("Battle", true);
+            int i = 0;
+            foreach (var enemy in enemies)
+            {
+                enemies[i].SetActive(true);
+                i++;
+                await Task.Delay(5000);
+            }
             detectZone.enabled = false;
 
         }
