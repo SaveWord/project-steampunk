@@ -35,7 +35,7 @@ namespace Enemies.Bullets
             if (targetObject != null)
             {
                
-                _speed = targetObject.GetComponent<PlayerMove>().GetSpeed() * BulletSpeed;
+                _speed = 40 * BulletSpeed;
                 lastKnownPosition = targetObject.GetComponent<ITarget>().GetPosition();
                 continueDirection = (lastKnownPosition - transform.position).normalized;
             }

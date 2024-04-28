@@ -10,11 +10,10 @@ using static IWeapon;
 
 public class ParametrsUpdateGaus : ParametrsUpdateDecorator
 {
-    private Transform _distanceTarget;
     private ParticleSystem _afterFireParticle;
     private List<Image> _updateGausePatronsImage;
     private List<GameObject> _poolTrail;
-   private int indexPatron;
+    private int indexPatron;
 
     public ParametrsUpdateGaus(Transform distanceTarget, IWeapon weapon, float updateFireRate,
          DistanceAndDamage[] distanceAndDamage
@@ -22,9 +21,9 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
          IWeapon.WeaponTypeDamage updateWeaponType, LayerMask mask,
          ParticleSystem vfxShootPrefab, ParticleSystem vfxImpactMetalProps, ParticleSystem vfxImpactOtherProps,
          TextMeshProUGUI patronsText, List<Image> updateGausePatronsImage,
-         Animator animator, Animator animatorWeapon, CinemachineImpulseSource recoil, 
+         Animator animator, Animator animatorWeapon, CinemachineImpulseSource recoil,
          List<GameObject> poolTrail, ParticleSystem afterFireParticle)
-         : base(weapon, updateFireRate, distanceAndDamage, updateReload, updatePatrons, updateWeaponType,
+         : base(distanceTarget,weapon, updateFireRate, distanceAndDamage, updateReload, updatePatrons, updateWeaponType,
              mask, vfxShootPrefab, vfxImpactMetalProps, vfxImpactOtherProps, patronsText, animator, animator, recoil)
     {
         _updateFireRate = updateFireRate;
@@ -95,16 +94,16 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
     {
         float currentTime = Time.time;
         float timeDifference = currentTime - _updateLastShoot;
-        _afterFireParticle.Stop(true,ParticleSystemStopBehavior.StopEmittingAndClear); 
+        _afterFireParticle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
         if ((context.started || context.performed) && Patrons > 0 && timeDifference >= _updateFireRate)
         {
             _updateLastShoot = currentTime;
             Patrons--;
-          
+
 
             //vfx and animation and ui
             ShowAnimatorAndInternalImpact();
-           
+            AudioManager.InstanceAudio.PlaySfxWeapon("GaussShoot");
             //TrailPoolSpawn();
             //aim assist, change radius sphere cast from distance
 
@@ -122,7 +121,7 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
             }
 
             //shoot logic
-            if (Physics.SphereCast(Camera.main.transform.position,changeRadius ,Camera.main.transform.forward,
+            if (Physics.SphereCast(Camera.main.transform.position, changeRadius, Camera.main.transform.forward,
                 out RaycastHit hit, Range, enemyLayer, QueryTriggerInteraction.Ignore))
             {
                 float rangeBetween = Vector3.Distance(hit.point, _distanceTarget.position);
@@ -145,6 +144,8 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
                 hit.collider.TryGetComponent(out IHealth damageable);
                 damageable?.TakeDamage(Damage);
 
+                if (damageable != null || destroyShield!=null || damageableProps!=null)
+                    ShowDamage(Damage + "", Color.cyan);
 
                 //vfx and animator stop
                 ShowVFXImpact(hit);
@@ -154,7 +155,7 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
                 //    _animator.SetBool("shoot", false);
                 //    _animatorWeapon.SetBool("shoot", false);
                 //    _afterFireParticle.Play();
-                    
+
                 //}
 
             }
@@ -170,7 +171,7 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
             {
                 _poolTrail[i].transform.position = _vfxShootPrefab.transform.position;
                 _poolTrail[i].transform.rotation = _vfxShootPrefab.transform.rotation;
-                 _poolTrail[i].SetActive(true);
+                _poolTrail[i].SetActive(true);
                 break;
             }
         }
@@ -183,10 +184,16 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
         _vfxShootPrefab.Stop();
         _vfxShootPrefab.Play();
     }
+    public override void ReloadSound()
+    {
+        AudioManager.InstanceAudio.PlaySfxWeapon("GaussReload");
+    }
     public async override void Reload(InputAction.CallbackContext context)
     {
         if (Patrons < maxPatrons && isReload != true)
         {
+            //if (Patrons <= 0)
+            ReloadSound();
             indexPatron = Mathf.Clamp((int)Patrons, 0, _updateGausePatronsImage.Count - 1);
             _updateGausePatronsImage[indexPatron].enabled = true;
             Patrons++;

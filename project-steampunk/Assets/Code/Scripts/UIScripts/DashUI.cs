@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class DashUI : MonoBehaviour
 {
-    private PlayerMove playerDash;
+    private CharacterControllerMove playerDash;
     private Slider slider;
     private void OnEnable()
     {
-        playerDash = transform.root.GetComponent<PlayerMove>();
+        playerDash = transform.root.GetComponent<CharacterControllerMove>();
         slider = GetComponent<Slider>();
     }
     void Update()

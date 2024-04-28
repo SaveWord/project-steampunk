@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManagerSingleton : MonoBehaviour
 {
     public static GameManagerSingleton Instance { get; private set; }
+    public List<CheckPoint> checkPointsID = new List<CheckPoint>();
     public List<Spawner> spawnerID = new List<Spawner>();
     public SaveSystem SaveSystem { get; private set; }
     private void Awake()
@@ -24,5 +26,11 @@ public class GameManagerSingleton : MonoBehaviour
             spawner.spawnerID = j;
             j++;
         }
+        foreach (var checkPoint in checkPointsID)
+        {
+            checkPoint.idCheckPoint = j;
+            j++;
+        }
+        //SceneManager.LoadScene(GameManagerSingleton.Instance.SaveSystem.playerData.sceneID);
     }
 }

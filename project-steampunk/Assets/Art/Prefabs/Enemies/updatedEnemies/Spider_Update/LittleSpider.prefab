@@ -263,7 +263,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 1.64
-  m_Speed: 13
+  m_Speed: 20
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -287,9 +287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0d7d31acf5fd6345acbc78b608a5c91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attack: {fileID: 7535649719867759211, guid: 2c86bd058278f9b4781fd95456439195, type: 3}
-  _attackSpot: {fileID: 2019961594811965967}
-  _reloadTime: 0.8
+  _attackQueue: 0
 --- !u!114 &1416977031727045793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,6 +335,8 @@ MonoBehaviour:
   rb: {fileID: 8398590217338372074}
   deathParticlePrefab: {fileID: 198104090543139058, guid: 4430919f14c50f84085d287cbcb2c30e,
     type: 3}
+  healDropPrefab: {fileID: 0}
+  _idEnemy: 0
 --- !u!114 &7349262085587485102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -364,17 +364,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6640ac490ccb90b4f87730d90cce5237, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 5
-  dashForce: 20
-  dashDuration: 2
-  dashCooldown: 1
   navMeshAgent: {fileID: 8739184082390713864}
-  DashDistance: 5
+  DistanceToJump: 10
+  speedFactor: 5
+  jumpTime: 2
   _damageCloseCombat: 50
   _damageJump: 33
-  dashoffset: 0.5
-  Cooldowntime: 2
-  JumpCooldowntime: 5
+  DamageCooldown: 5
 --- !u!1 &332568703634473921
 GameObject:
   m_ObjectHideFlags: 0

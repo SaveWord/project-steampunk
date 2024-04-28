@@ -17,7 +17,7 @@ namespace Enemies
         private controlarrow _controlarrow;
         private Animator _animator;
 
-        public void MoveToTarget(ITarget target)
+        public void MoveToTarget(ITarget target) //переиспользование на уровне, конечно
         {
             if (_nMeshAgent.enabled)
             {

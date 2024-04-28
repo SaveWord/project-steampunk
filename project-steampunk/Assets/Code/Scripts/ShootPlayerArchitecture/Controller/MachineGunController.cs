@@ -17,7 +17,7 @@ public class MachineGunController : WeaponController
         //use parametrs for shoot and weapon
         patronsText = GetComponentInChildren<TextMeshProUGUI>();
         recoil = transform.root.GetComponentInChildren<RecoilMachineGun>();
-        weapon = new ParametrsUpdateMachineGun(weapon, weaponParametrs.fireRate,
+        weapon = new ParametrsUpdateMachineGun(transform,weapon, weaponParametrs.fireRate,
             weaponParametrs.distanceAndDamages
             , weaponParametrs.reloadSpeed,
             weaponParametrs.patrons, weaponParametrs.attackType,
