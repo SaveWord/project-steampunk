@@ -260,16 +260,16 @@ public class CharacterControllerMove : MonoBehaviour
             isGrounded = true;
             // Only consider this a valid ground hit if the ground normal goes in the same direction as the character up
             // and if the slope angle is lower than the character controller's limit
-            if (Vector3.Dot(hit.normal, transform.up) > 0f &&
-                IsNormalUnderSlopeLimit(m_GroundNormal))
-            {
+            //if (Vector3.Dot(hit.normal, transform.up) > 0f &&
+            //    IsNormalUnderSlopeLimit(m_GroundNormal))
+            //{
 
-                // handle snapping to the ground
-                if (hit.distance > characterController.skinWidth)
-                {
-                    characterController.Move(Vector3.down * hit.distance);
-                }
-            }
+            //    // handle snapping to the ground
+            //    if (hit.distance > characterController.skinWidth)
+            //    {
+            //        characterController.Move(Vector3.down * hit.distance);
+            //    }
+            //}
         }
         else
             isGrounded = false;
