@@ -68,7 +68,7 @@ public class Spawner : MonoBehaviour
             {
                 door.DoorClose();
             }
-            AudioManager.InstanceAudio.PlayMusic("Battle", true);
+
             int i = 0;
             foreach (var enemy in enemies)
             {
@@ -76,6 +76,7 @@ public class Spawner : MonoBehaviour
                 i++;
                 await Task.Delay(timeSpawnDelay);
             }
+            AudioManager.InstanceAudio.PlayMusic("Battle", true);
             detectZone.enabled = false;
 
         }
