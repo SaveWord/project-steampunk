@@ -28,7 +28,7 @@ public class CheckPoint : MonoBehaviour
             other.TryGetComponent(out IHealth health);
            int sceneId = SceneManager.GetActiveScene().buildIndex;
             float hp = health.CurrentHp;
-            Vector3 position = other.transform.position;
+            Vector3 position = this.transform.position;
             GameManagerSingleton.Instance.SaveSystem.SaveData(hp, position,sceneId);
             GameManagerSingleton.Instance.SaveSystem.SaveCheckPoint(1);
             foreach (var spawner in spawners)
