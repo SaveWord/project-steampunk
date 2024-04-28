@@ -24,9 +24,9 @@ public class SaveSystem : MonoBehaviour
         saveDataPathSpawner = Application.persistentDataPath + "/SpawnerData.json";
 
     }
-    public void SaveData(float hp, Vector3 pos, int idScene)
+    public void SaveData(Vector3 pos, int idScene)
     {
-        playerData.health = hp;
+        //playerData.health = hp;
         playerData.position = pos;
         playerData.sceneID = idScene;
         string savePlayerData = JsonUtility.ToJson(playerData);
@@ -57,7 +57,7 @@ public class SaveSystem : MonoBehaviour
         }
         else
         {
-            playerData.health = 100;
+            //playerData.health = 100;
             playerData.position = GetComponentInChildren<CheckPoint>().gameObject.transform.position;
             Debug.Log("File not found");
         }
@@ -96,7 +96,7 @@ public class CheckPointData
 }
 public class PlayerData
 {
-    public float health;
+    //public float health;
     public Vector3 position;
     public int sceneID;
 }
