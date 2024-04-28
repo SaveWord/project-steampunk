@@ -43,8 +43,6 @@ public class CharacterControllerMove : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Transform dotGround;
     [SerializeField] private float sphereRadius;
-    private float groundTimer = 0f;
-    private const float groundPreventTime = 0.2f;
 
     [SerializeField] private float gravityDownForce = 20f;
 
@@ -52,7 +50,8 @@ public class CharacterControllerMove : MonoBehaviour
     [Header("Гравитация и переменные прыжка")]
     private Vector3 gravityVelocity;
     [SerializeField] private float jumpForce;
-
+    float m_LastTimeJumped = 0f;
+    const float k_JumpGroundingPreventionTime = 0.2f;
 
     [Header("Угол наклона камеры Y")]
     [SerializeField] private float yAngle;
@@ -115,7 +114,7 @@ public class CharacterControllerMove : MonoBehaviour
         IsGrounded();
         EffectsMove(inputMove);
         gravityVelocity.y += Physics.gravity.y * Time.deltaTime;
-        if (isGrounded == true && gravityVelocity.y < 0)
+        if (isGrounded == true)
             gravityVelocity.y = 0f;
         characterController.Move((gravityVelocity * gravityDownForce) * Time.deltaTime);
     }
@@ -205,13 +204,12 @@ public class CharacterControllerMove : MonoBehaviour
                 characterController.Move((characterVelocity + transform.forward) * speed
                     * dashSpeed * Time.deltaTime);
             }
-            else
-            {
+            else {
                 characterVelocity += Vector3.one;
                 characterVelocity = characterVelocity.normalized;
-                characterController.Move(characterVelocity * speed * dashSpeed * Time.deltaTime);
+                characterController.Move(characterVelocity*speed * dashSpeed * Time.deltaTime);
             }
-
+              
             yield return null;
         }
         effectDash.Stop();
@@ -220,14 +218,14 @@ public class CharacterControllerMove : MonoBehaviour
     public void Jump(InputAction.CallbackContext context)
     {
         //Debug.Log(doubleJump);
-        if (context.started && groundTimer > 0)
+        if (context.started && isGrounded == true)
         {
-            groundTimer = 0;
             // add the jumpSpeed value upwards
             gravityVelocity.y += Mathf.Sqrt(jumpForce * -3.0f * Physics.gravity.y);
             characterController.Move((gravityVelocity * gravityDownForce) * Time.deltaTime);
             // Force grounding to false
             m_GroundNormal = Vector3.up;
+            m_LastTimeJumped = Time.time;
             //audio
             AudioManager.InstanceAudio.PlaySfxSound("Jump");
         }
@@ -244,44 +242,41 @@ public class CharacterControllerMove : MonoBehaviour
     private void IsGrounded()
     {
         Debug.Log(isGrounded);
-        //detect ground and correct normal 
-        if (Physics.CapsuleCast(GetCapsuleBottomHemisphere(), GetCapsuleTopHemisphere(characterController.height),
-               characterController.radius - Physics.defaultContactOffset,
-               Vector3.down, out RaycastHit hit, sphereRadius, groundLayer,
-               QueryTriggerInteraction.Ignore))
+
+
+        if (Time.time >= m_LastTimeJumped + k_JumpGroundingPreventionTime)
         {
-            //Debug.Log(hit.collider);
-            float distanceToGround = Vector3.Distance(GetCapsuleBottomHemisphere(), hit.point);
-            if (distanceToGround < characterController.height / 2)
+            //detect ground and correct normal 
+            if (Physics.CapsuleCast(GetCapsuleBottomHemisphere(), GetCapsuleTopHemisphere(characterController.height),
+                   characterController.radius - Physics.defaultContactOffset,
+                   Vector3.down, out RaycastHit hit, sphereRadius, groundLayer,
+                   QueryTriggerInteraction.Ignore))
             {
-                m_GroundNormal = hit.normal;
+                //Debug.Log(hit.collider);
+                float distanceToGround = Vector3.Distance(GetCapsuleBottomHemisphere(), hit.point);
+                if (distanceToGround < characterController.height / 2)
+                {
+                    m_GroundNormal = hit.normal;
 
+                }
+
+                // Only consider this a valid ground hit if the ground normal goes in the same direction as the character up
+                // and if the slope angle is lower than the character controller's limit
+                if (Vector3.Dot(hit.normal, transform.up) > 0f &&
+                    IsNormalUnderSlopeLimit(m_GroundNormal))
+                {
+                    isGrounded = true;
+                    // handle snapping to the ground
+                    if (hit.distance > characterController.skinWidth)
+                    {
+                        characterController.Move(Vector3.down * hit.distance);
+                    }
+                }
             }
-            isGrounded = true;
-            // Only consider this a valid ground hit if the ground normal goes in the same direction as the character up
-            // and if the slope angle is lower than the character controller's limit
-            //if (Vector3.Dot(hit.normal, transform.up) > 0f &&
-            //    IsNormalUnderSlopeLimit(m_GroundNormal))
-            //{
-
-            //    // handle snapping to the ground
-            //    if (hit.distance > characterController.skinWidth)
-            //    {
-            //        characterController.Move(Vector3.down * hit.distance);
-            //    }
-            //}
         }
         else
             isGrounded = false;
-        if (isGrounded)
-        {
-            groundTimer = groundPreventTime;
-        }
-        if (groundTimer > 0)
-        {
-            groundTimer -= Time.deltaTime;
-        }
-
+        
     }
     void OnDrawGizmosSelected()
     {
