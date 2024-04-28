@@ -256,7 +256,7 @@ public class CharacterControllerMove : MonoBehaviour
     private void IsGrounded()
     {
         Debug.Log(isGrounded);
-
+        Debug.Log(Vector3.Angle(transform.up, m_GroundNormal));
 
         if (Time.time >= m_LastTimeJumped + k_JumpGroundingPreventionTime)
         {

@@ -29,7 +29,7 @@ public class Spawner : MonoBehaviour
         count = enemies.Count;
     }
 
-    private async void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
@@ -40,16 +40,20 @@ public class Spawner : MonoBehaviour
                 door.DoorClose();
             }
 
-            int i = 0;
-            foreach (var enemy in enemies)
-            {
-                enemies[i].SetActive(true);
-                i++;
-                await Task.Delay(timeSpawnDelay);
-            }
-        
+            SetActiveEnemies(); // foreach set active enemies with await in async method
+
             detectZone.enabled = false;
 
+        }
+    }
+    private async void SetActiveEnemies()
+    {
+        int i = 0;
+        foreach (var enemy in enemies)
+        {
+            enemies[i].SetActive(true);
+            i++;
+            await Task.Delay(timeSpawnDelay);
         }
     }
     private void Start()
