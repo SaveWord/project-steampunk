@@ -205,12 +205,13 @@ public class CharacterControllerMove : MonoBehaviour
                 characterController.Move((characterVelocity + transform.forward) * speed
                     * dashSpeed * Time.deltaTime);
             }
-            else {
+            else
+            {
                 characterVelocity += Vector3.one;
                 characterVelocity = characterVelocity.normalized;
-                characterController.Move(characterVelocity*speed * dashSpeed * Time.deltaTime);
+                characterController.Move(characterVelocity * speed * dashSpeed * Time.deltaTime);
             }
-              
+
             yield return null;
         }
         effectDash.Stop();
@@ -243,40 +244,40 @@ public class CharacterControllerMove : MonoBehaviour
     private void IsGrounded()
     {
         Debug.Log(isGrounded);
-            //detect ground and correct normal 
-            if (Physics.CapsuleCast(GetCapsuleBottomHemisphere(), GetCapsuleTopHemisphere(characterController.height),
-                   characterController.radius - Physics.defaultContactOffset,
-                   Vector3.down, out RaycastHit hit, sphereRadius, groundLayer,
-                   QueryTriggerInteraction.Ignore))
+        //detect ground and correct normal 
+        if (Physics.CapsuleCast(GetCapsuleBottomHemisphere(), GetCapsuleTopHemisphere(characterController.height),
+               characterController.radius - Physics.defaultContactOffset,
+               Vector3.down, out RaycastHit hit, sphereRadius, groundLayer,
+               QueryTriggerInteraction.Ignore))
+        {
+            //Debug.Log(hit.collider);
+            float distanceToGround = Vector3.Distance(GetCapsuleBottomHemisphere(), hit.point);
+            if (distanceToGround < characterController.height / 2)
             {
-                //Debug.Log(hit.collider);
-                float distanceToGround = Vector3.Distance(GetCapsuleBottomHemisphere(), hit.point);
-                if (distanceToGround < characterController.height / 2)
-                {
-                    m_GroundNormal = hit.normal;
+                m_GroundNormal = hit.normal;
 
-                }
-                isGrounded = true;
-                // Only consider this a valid ground hit if the ground normal goes in the same direction as the character up
-                // and if the slope angle is lower than the character controller's limit
-                //if (Vector3.Dot(hit.normal, transform.up) > 0f &&
-                //    IsNormalUnderSlopeLimit(m_GroundNormal))
-                //{
-                    
-                //    // handle snapping to the ground
-                //    if (hit.distance > characterController.skinWidth)
-                //    {
-                //        characterController.Move(Vector3.down * hit.distance);
-                //    }
-                //}
             }
-            else
-                isGrounded = false;
+            isGrounded = true;
+            // Only consider this a valid ground hit if the ground normal goes in the same direction as the character up
+            // and if the slope angle is lower than the character controller's limit
+            if (Vector3.Dot(hit.normal, transform.up) > 0f &&
+                IsNormalUnderSlopeLimit(m_GroundNormal))
+            {
+
+                // handle snapping to the ground
+                if (hit.distance > characterController.skinWidth)
+                {
+                    characterController.Move(Vector3.down * hit.distance);
+                }
+            }
+        }
+        else
+            isGrounded = false;
         if (isGrounded)
         {
             groundTimer = groundPreventTime;
         }
-        if(groundTimer > 0)
+        if (groundTimer > 0)
         {
             groundTimer -= Time.deltaTime;
         }
