@@ -139,7 +139,6 @@ public class MouseSenseScroll : MonoBehaviour
     {
         GameManagerSingleton.Instance.SaveSystem.DeleteAllSave();
         SceneManager.LoadScene(level);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     public void BossTP()
     {
