@@ -6,7 +6,6 @@ public class SingletonActionPlayer: MonoBehaviour
 {
     public static SingletonActionPlayer Instance { get; private set; }
     public ActionPrototypePlayer inputActions;
-    [SerializeField] private GameObject player;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -17,7 +16,9 @@ public class SingletonActionPlayer: MonoBehaviour
         Instance = this;
         inputActions = new ActionPrototypePlayer();
         inputActions.Enable();
-        player.SetActive(true);
+        inputActions.Player.Disable();
+        inputActions.UI.Disable();
+        inputActions.UICustom.Enable();
     }
     private void OnDestroy()
     {
