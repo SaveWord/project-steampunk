@@ -138,13 +138,15 @@ public class MouseSenseScroll : MonoBehaviour
     public void LevelLoad(int level)
     {
         GameManagerSingleton.Instance.SaveSystem.DeleteAllSave();
-        SceneManager.LoadSceneAsync(level);
+        SceneManager.LoadScene(level);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     public void BossTP()
     {
         if(SceneManager.GetActiveScene().buildIndex == 1)
         {
             transform.root.position = new Vector3(2249.6001f, 583.549988f, 286.399994f);
+            Physics.SyncTransforms();
         }
     }
     public void ContinueDie()
