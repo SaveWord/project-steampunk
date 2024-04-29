@@ -1,12 +1,16 @@
 using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class WeaponController : MonoBehaviour
 {
+    protected CancellationTokenSource cancellationTokenSource; //async reload token cancel
+    protected bool startSwitchInisialise;
     protected IWeapon weapon;
     protected ActionPrototypePlayer inputShoot;
     protected bool isPressed;
@@ -44,11 +48,19 @@ public class WeaponController : MonoBehaviour
         inputShoot = SingletonActionPlayer.Instance.inputActions;
         //inputShoot = new ActionPrototypePlayer();
         //inputShoot.Enable();
+        if (startSwitchInisialise)
+        {
+            weapon.Switch = false;
+        }
         SubscriptionInput();
 
     }
     protected void OnDisable()
     {
+        animatorWeapon.SetBool("reload", false);
+        animatorArms.SetBool("reload", false);
+        weapon.Switch = true;
+        weapon.CancelToken();
         //inputShoot.Disable();
         UnSubscribeInput();
     }
@@ -72,6 +84,8 @@ public class WeaponController : MonoBehaviour
             weaponParametrs.enemyLayer,
             vfxShootPrefab, weaponParametrs.vfxImpactMetalProps, weaponParametrs.vfxImpactOtherProps,
             patronsText, animatorArms, animatorWeapon, recoilCinemachine);
+        weapon.Switch = false;
+        startSwitchInisialise = true;
     }
 
 

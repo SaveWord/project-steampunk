@@ -50,6 +50,8 @@ public class GausController : WeaponController
             vfxShootPrefab, weaponParametrs.vfxImpactMetalProps, weaponParametrs.vfxImpactOtherProps,
             patronsText, gausePatronsImages,
             animatorArms, animatorWeapon, recoilCinemachine,poolObjectList, afterFireSmoke);
+        weapon.Switch = false;
+        startSwitchInisialise = true;
     }
     public override void Shoot(InputAction.CallbackContext context)
     {

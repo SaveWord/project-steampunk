@@ -8,9 +8,16 @@ using static IWeapon;
 using UnityEngine.UI;
 using Cinemachine;
 using System.Linq;
+using System.Threading;
+using System;
+using Unity.VisualScripting.Antlr3.Runtime;
 
 public class ParametrsUpdateDecorator : MainDecorator
 {
+    protected CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+    protected CancellationToken _cancellationToken;
+
+    protected bool _updateSwitchWeapon; // stop animation and reload if switch
     protected Transform _distanceTarget;
     protected IWeapon _weapon;
     protected float changeRadius = 0.1f;//radius sphere cast, change, aim assist logic
@@ -72,6 +79,11 @@ public class ParametrsUpdateDecorator : MainDecorator
     }
 
     //properties
+    public override bool Switch
+    {
+        get { return _updateSwitchWeapon; }
+        set { _updateSwitchWeapon = value; }
+    }
     public override float Damage
     {
         get { return _updateDamage; }
@@ -112,7 +124,7 @@ public class ParametrsUpdateDecorator : MainDecorator
         float currentTime = Time.time;
         float timeDifference = currentTime - _updateLastShoot;
 
-        if (((context.started || context.performed) && Patrons > 0 && timeDifference >= _updateFireRate) 
+        if (((context.started || context.performed) && Patrons > 0 && timeDifference >= _updateFireRate)
             && isReload == false)
         {
             _updateLastShoot = currentTime;
@@ -136,7 +148,7 @@ public class ParametrsUpdateDecorator : MainDecorator
                 }
             }
 
-            if (Physics.SphereCast(Camera.main.transform.position,changeRadius ,Camera.main.transform.forward,
+            if (Physics.SphereCast(Camera.main.transform.position, changeRadius, Camera.main.transform.forward,
                 out RaycastHit hit, Range, enemyLayer, QueryTriggerInteraction.Ignore))
             {
                 float rangeBetween = Vector3.Distance(hit.point, _distanceTarget.position);
@@ -158,8 +170,8 @@ public class ParametrsUpdateDecorator : MainDecorator
                 hit.collider.TryGetComponent(out IHealth damageable);
                 damageable?.TakeDamage(Damage);
 
-                if (damageable != null || damageableProps!=null)
-                    ShowDamage(Damage+"", Color.white);
+                if (damageable != null || damageableProps != null)
+                    ShowDamage(Damage + "", Color.white);
 
                 ShowVFXImpact(hit);
             }
@@ -183,7 +195,7 @@ public class ParametrsUpdateDecorator : MainDecorator
     }
     protected void ShowVFXImpact(RaycastHit hit)
     {
-        if(hit.collider.gameObject.layer == 25)
+        if (hit.collider.gameObject.layer == 25)
         {
             Instantiate(_vfxImpactMetalProps, hit.point,
                 Quaternion.FromToRotation(Vector3.forward, hit.normal));
@@ -207,14 +219,26 @@ public class ParametrsUpdateDecorator : MainDecorator
             _animator.SetBool("reload", true);
             _animatorWeapon.SetBool("reload", true);
             ReloadSound();
-            await Task.Delay((int)ReloadSpeed * 1000);
+            await Task.Delay((int)ReloadSpeed * 1000, _cancellationToken);
             isReload = false;
+            if (Switch != true)
+            {
+                Debug.Log("Deactivate");
+                Patrons = maxPatrons;
+                _patronsText.text = Patrons.ToString();
+            }
             _animator.SetBool("reload", false);
             _animatorWeapon.SetBool("reload", false);
-            Debug.Log("Deactivate");
-            Patrons = maxPatrons;
-            _patronsText.text = Patrons.ToString();
             return;
         }
+    }
+    public async override Task CancelToken()
+    {
+        _cancellationToken = _cancellationTokenSource.Token;
+        _cancellationTokenSource.Cancel();
+        _cancellationTokenSource.Dispose();
+        _cancellationTokenSource = new CancellationTokenSource();
+        _cancellationToken = _cancellationTokenSource.Token;
+        isReload = false;
     }
 }

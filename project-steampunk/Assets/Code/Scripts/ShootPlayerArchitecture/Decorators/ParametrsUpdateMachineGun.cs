@@ -24,6 +24,7 @@ public class ParametrsUpdateMachineGun : ParametrsUpdateDecorator
 
         _distanceTarget = distanceTarget;
 
+
         _weapon = weapon;
         _updateDamage = updateDamage.Last().damage;
         _updateMaxRange = updateDamage.Last().range;

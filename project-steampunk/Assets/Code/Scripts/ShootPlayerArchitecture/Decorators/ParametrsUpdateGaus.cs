@@ -28,6 +28,7 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
     {
         _updateFireRate = updateFireRate;
 
+
         _weapon = weapon;
         _updateDamage = distanceAndDamage.Last().damage;
         _distanceAndDamage = distanceAndDamage;
@@ -190,7 +191,7 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
     }
     public async override void Reload(InputAction.CallbackContext context)
     {
-        if (Patrons < maxPatrons && isReload != true)
+        if (Patrons < maxPatrons && isReload != true && Switch == false)
         {
             //if (Patrons <= 0)
             ReloadSound();
