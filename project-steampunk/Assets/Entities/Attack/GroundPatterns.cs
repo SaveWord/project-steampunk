@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Enemies.Attacks.Attacks;
 
 namespace Enemies.Bullets
 {
-    public class GroundPatterns : MonoBehaviour
+    public class GroundPatterns : AttackBaseClass
     {
         public List<GameObject> _patternPartsList;
 
@@ -38,7 +38,7 @@ namespace Enemies.Bullets
             }
         }
 
-        public void PulseCycle()
+        public void Activate(ITarget target, Transform attackSpot)
         {
             foreach (GameObject child in _patternPartsList)
             {
@@ -79,13 +79,13 @@ namespace Enemies.Bullets
         private IEnumerator CooldownCoroutine()
         {
             yield return new WaitForSeconds(_chargeTime);
-           PulseCycle();
+           //PulseCycle();
             //SelfDestroy();
         }
 
         private void SelfDestroy()
         {
-            Destroy(gameObject);
+           // Destroy(gameObject);
         }
 
     }

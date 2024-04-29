@@ -6,13 +6,19 @@ public class ShieldHealth : MonoBehaviour, IShield
 {
     [SerializeField] private float disolveRate;
     [SerializeField] private float refreshRate;
+    [SerializeField] private bool isWall = false;
     private Material m_Material;
+     private GameObject healDropPrefab;
 
     private void Start()
     {
         m_Material = GetComponent<Renderer>().material;
     }
-
+    void OnEnable()
+    {
+        m_Material = GetComponent<Renderer>().material;
+        m_Material.SetFloat("_DisolveAmount", 0f);
+    }
     public void ShieldImpulse()
     {
         StartCoroutine(ShieldImpulseVFX());
@@ -50,7 +56,24 @@ public class ShieldHealth : MonoBehaviour, IShield
     }
     public void ShieldDestroy()
     {
+        if (isWall)
+        {
+            healDropPrefab = Resources.Load<GameObject>("HealDrop");
+
+           
+            // drop the heals
+            var healCount = UnityEngine.Random.Range(0, 2);
+            Debug.Log("Healed num " + healCount);
+            for (int i = 0; i <= healCount; i++)
+            {
+
+                var position = new Vector3(transform.position.x + UnityEngine.Random.Range(-10, 10), transform.position.y, transform.position.z + UnityEngine.Random.Range(-10, 10));
+
+                Instantiate(healDropPrefab, position, Quaternion.identity);
+            }
+        }
         StartCoroutine(ShieldDestroyVFX());
+        
     }
     IEnumerator ShieldDestroyVFX()
     {
@@ -61,6 +84,9 @@ public class ShieldHealth : MonoBehaviour, IShield
             m_Material.SetFloat("_DisolveAmount", counter);
             yield return new WaitForSeconds(refreshRate);
         }
-        Destroy(gameObject);
+        if (isWall)
+            transform.parent.gameObject.SetActive(false);
+        else
+            gameObject.SetActive(false);
     }
 }

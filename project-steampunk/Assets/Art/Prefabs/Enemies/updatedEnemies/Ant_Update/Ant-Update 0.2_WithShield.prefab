@@ -7451,7 +7451,7 @@ Transform:
   m_GameObject: {fileID: 6825347463077769274}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 153.8, y: 1.55, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7532,10 +7532,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.9
-  m_Height: 7.86
+  m_Radius: 1.4
+  m_Height: 7.5
   m_Direction: 2
-  m_Center: {x: 0, y: 0.97, z: 0.31}
+  m_Center: {x: -0.5, y: 2, z: -0.18}
 --- !u!54 &3546475821845316977
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7573,7 +7573,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 3.41
-  m_Speed: 7
+  m_Speed: 14
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -7597,20 +7597,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52d519e0a40b0d748a18284fe8350704, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stats:
-    _hp: 100
-    _timeBeforeReposition: 2
   _attacksCollection:
   - attack: {fileID: 5785332119524234771, guid: c2d0a73390040594cb2dc0e8a5dd5dea,
       type: 3}
+    attacks: []
     patternSpawn: {fileID: 3953723821706496543}
-    cooldown: 2
-    startTime: 0.045
+    timeoutAfter: 0.6
+    startTime: 1
   - attack: {fileID: 4530020378320582419, guid: b8b038985f5dbf948b85188392cc962f,
       type: 3}
+    attacks: []
     patternSpawn: {fileID: 5091320188286184004}
-    cooldown: 1
+    timeoutAfter: 0.1
     startTime: 0.4
+  - attack: {fileID: 5785332119524234771, guid: c2d0a73390040594cb2dc0e8a5dd5dea,
+      type: 3}
+    attacks: []
+    patternSpawn: {fileID: 3953723821706496543}
+    timeoutAfter: 0.4
+    startTime: 0.045
+  - attack: {fileID: 5785332119524234771, guid: c2d0a73390040594cb2dc0e8a5dd5dea,
+      type: 3}
+    attacks: []
+    patternSpawn: {fileID: 3953723821706496543}
+    timeoutAfter: 0.2
+    startTime: 0.045
+  - attack: {fileID: 5785332119524234771, guid: c2d0a73390040594cb2dc0e8a5dd5dea,
+      type: 3}
+    attacks: []
+    patternSpawn: {fileID: 3953723821706496543}
+    timeoutAfter: 0.4
+    startTime: 0.045
   _transitionCooldownTime: 0.5
   _canChange: 1
 --- !u!114 &7356024832876962069
@@ -7641,8 +7658,11 @@ MonoBehaviour:
   _viewMask:
     serializedVersion: 2
     m_Bits: 576
-  _detectionRadius: 70
-  _timeToForgets: 15
+  _detectionRadius: 100
+  _timeToForgets: 1000
+  head: {fileID: 0}
+  bee: 0
+  InstantAgr: 1
 --- !u!114 &2760288364705530801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7669,6 +7689,7 @@ MonoBehaviour:
   DashForwardReactDist: 0
   DashBackwardReactDist: 0
   JumpUp: 0
+  _damageCloseCombat: 20
 --- !u!114 &8996217461072520306
 MonoBehaviour:
   m_ObjectHideFlags: 0

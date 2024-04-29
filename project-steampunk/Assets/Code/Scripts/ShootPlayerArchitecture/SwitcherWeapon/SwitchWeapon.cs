@@ -66,6 +66,7 @@ public class SwitchWeapon : MonoBehaviour
         {
             if(i == selectNumberWeapon)
             {
+                AudioManager.InstanceAudio.PlaySfxWeapon("ChangeWeapon");
                 weapon.gameObject.SetActive(true);
                 StopCoroutine(ISwitch());
                 StartCoroutine(ISwitch());

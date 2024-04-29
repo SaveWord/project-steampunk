@@ -8,16 +8,16 @@ public class PlayerMove : MonoBehaviour
 {
     private Animator animatorPlayer; //animator for change hands anim
 
-    [Tooltip("Change physics, use negative value"),SerializeField] private float physicsGravity = -9.81f;
 
     //move data
     [Header("Переменные перемещения")]
     [SerializeField] private float speed;
+    [SerializeField] private float speedSlope;
     [SerializeField] private float mouseSense;
 
-    //jump
-    [SerializeField] private float jumpForce;
-    private bool jumpTrue;
+    [SerializeField] private float smoothInputSpeed;
+    private Vector2 currentMove;
+    private Vector2 smoothInputVelocity;
     public float DashSlider
     {
         get
@@ -42,15 +42,27 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float sphereRadius;
     [SerializeField] private float verticalDamping = 0.5f;
 
+    //jump
+    [Header("Гравитация и переменные прыжка")]
+    [SerializeField] private float jumpHeight;
+    [Tooltip("Доп сила для двойного прыжка"), SerializeField] private float jumpForceDouble = 1.5f;
+    private float jumpForce;
+    private bool jumpTrue;
+    private int doubleJump;
+
+    private float standartGravityScale = 5;
+    [Tooltip("Change physics,gravity"), SerializeField] private float gravityScale = 5;
+    [Tooltip("Change physics, gravity"), SerializeField] private float fallingGravityScale = 5;
+
 
     [Header("Угол наклона камеры Y")]
-   [SerializeField] private float yAngle;
+    [SerializeField] private float yAngle;
     private float xRotation;
     private Rigidbody rb;
     private ActionPrototypePlayer inputActions;
     private bool isGrounded;
 
-    private int doubleJump;
+
 
 
     //state player movement
@@ -73,7 +85,9 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float dashCooldown;//время перезарядки рывка
     private float dashTimer;
     private bool dashTrue;
-    private float oldSpeed;
+    private float standartSpeed;
+
+    [SerializeField] private float dashForce;
 
 
     private RaycastHit slopeHit;
@@ -106,22 +120,22 @@ public class PlayerMove : MonoBehaviour
     //vfx effects move
     private VisualEffect effectDash;
 
+    /*
     [Header("Звуки мувмента")]
     [SerializeField] private AudioClip moveClip;
     [SerializeField] private AudioClip dashClip;
     [SerializeField] private AudioClip jumpClip;
-
-    private AudioSource audioSource;
+   */
+    // private AudioSource audioSource;
 
     private void Awake()
     {
-
-        Physics.gravity = new Vector3(0, physicsGravity, 0); //change gravity
+        standartSpeed = speed;
         //capsuleColliders = GetComponents<CapsuleCollider>();//change collider in slide
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         rb = GetComponent<Rigidbody>();
-        audioSource = GetComponent<AudioSource>();
+        //audioSource = GetComponent<AudioSource>();
         animatorPlayer = GetComponentInChildren<Animator>();
 
         //inputActions = new ActionPrototypePlayer();
@@ -145,10 +159,19 @@ public class PlayerMove : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        rb.AddForce(Physics.gravity * (standartGravityScale - 1) * rb.mass); //change gravity
+
         Vector2 inputMove = inputActions.Player.Move.ReadValue<Vector2>();
+        currentMove = Vector2.SmoothDamp(currentMove, inputMove, ref smoothInputVelocity,
+            smoothInputSpeed);
+        if (inputMove.x == 0)
+            currentMove = new Vector2(0, currentMove.y);
+        if (inputMove.y == 0)
+            currentMove = new Vector2(currentMove.x, 0);
+        //Debug.Log(currentMove);
         Vector2 inputLook = inputActions.Player.Look.ReadValue<Vector2>();
         rb.velocity += Vector3.up * Physics.gravity.y * verticalDamping;
-        Move(inputMove);
+        Move(currentMove);
         Rotation(inputLook);
 
         //if ((inputMove.y < 0 || inputMove.x != 0) && tackleActive == true)
@@ -180,42 +203,63 @@ public class PlayerMove : MonoBehaviour
     }
     private void Move(Vector2 inputMove)
     {
-        Physics.SphereCast(dotGround.transform.position,1f ,Vector3.down, out slopeHit,5, groundLayer);
-        if((inputMove != Vector2.zero) && !audioSource.isPlaying && jumpTrue == false
-            && dashTrue == false)
-        {
-            audioSource.clip = moveClip;
-            audioSource.Play();
-        }
-       else if((inputMove == Vector2.zero) && jumpTrue == false)
-            audioSource.Stop();
-
+        Physics.SphereCast(transform.position + Vector3.up * 2, 1f, Vector3.down, out slopeHit, 10, groundLayer);
         Vector3 move = transform.right * inputMove.x + transform.forward * inputMove.y;
         Vector3 projectedMove = Vector3.ProjectOnPlane(move, slopeHit.normal).normalized;
-        float angle = Vector3.Angle(slopeHit.point,move);
-        //Debug.Log(rb.velocity);
-        //Debug.Log(projectedMove);
-        //Debug.Log(angle);
-        if (projectedMove.magnitude == 0 && jumpTrue == false)
-            rb.velocity = new Vector3(0, -50,0);
-
-        if ((angle != 0) && jumpTrue == false)
+        float angle = Vector3.Angle(slopeHit.normal, Vector3.up);
+        if (dashTrue != true)
         {
-            if(rb.velocity.y > 0)
+
+
+            if ((inputMove != Vector2.zero) && jumpTrue == false
+                && dashTrue == false)
             {
-                rb.velocity = new Vector3(rb.velocity.x, -50, rb.velocity.z);
+                AudioManager.InstanceAudio.PlaySfxSound("Move");
+                //audioSource.clip = moveClip;
+                //audioSource.Play();
             }
-            rb.velocity = new Vector3(projectedMove.x * speed, rb.velocity.y,
-                projectedMove.z * speed);   
-        }
-       
-        else
-        {
-            rb.velocity = new Vector3(move.x * speed, rb.velocity.y, move.z * speed);
-        }
+            // else if ((inputMove == Vector2.zero) && jumpTrue == false)
+            //audioSource.Stop();
 
 
-        animatorPlayer.SetFloat("speed", inputMove.magnitude, 0.1f, Time.deltaTime);
+
+            //Debug.Log(rb.velocity);
+            //Debug.Log(projectedMove);
+            //Debug.Log(angle);
+            //if (inputMove.magnitude == 0) // moment stop if movement in keyboard stop
+            // rb.velocity = new Vector3(0, rb.velocity.y, 0);
+
+            //more powerfull gravity if in air
+            if (rb.velocity.y >= 0)
+                standartGravityScale = gravityScale;
+            else if (rb.velocity.y < 0)
+                standartGravityScale = fallingGravityScale;
+
+
+            if (projectedMove.magnitude == 0 && jumpTrue == false)// stop in slope floor
+                rb.velocity = new Vector3(0, -50, 0);
+
+            if ((angle != 0) && jumpTrue == false)// slope movement
+            {
+                if (rb.velocity.y > 0)
+                {
+                    rb.velocity = new Vector3(projectedMove.x * speed * speedSlope, -50,
+                        projectedMove.z * speed * speedSlope);
+                }
+                rb.velocity = new Vector3(projectedMove.x * speed, projectedMove.y * speed,
+                  projectedMove.z * speed);
+            }
+
+            else
+            {
+                rb.velocity = new Vector3(move.x * speed, rb.velocity.y, move.z * speed);
+            }
+            if ((rb.velocity.y > 0) && jumpTrue != true)
+                rb.AddForce(Physics.gravity * 40);
+
+            animatorPlayer.SetFloat("ADSpeed",inputMove.x, 0.1f, Time.deltaTime);
+            animatorPlayer.SetFloat("speed", inputMove.magnitude, 0.1f, Time.deltaTime);
+        }
     }
 
     public void Dash(InputAction.CallbackContext context)
@@ -224,28 +268,41 @@ public class PlayerMove : MonoBehaviour
         {
             if (dashTimer <= Time.time)
             {
+
                 dashTimer = Time.time + dashCooldown;
+                //Vector2 input = inputActions.Player.Move.ReadValue<Vector2>();
+                //input = transform.right * input.x + transform.forward * input.y;
+                //if (input == Vector2.zero) input = Vector2.down;
+                //rb.velocity = rb.velocity;
+                //rb.AddForce(input.x * dashForce, 0,
+                //    input.y * dashForce, ForceMode.Impulse);
                 StartCoroutine(DashCoroutine());
             }
+
         }
     }
     IEnumerator DashCoroutine()
     {
-
-        oldSpeed = speed;
-        speed = dashSpeed;
+        Vector3 input = inputActions.Player.Move.ReadValue<Vector2>();
+        input = transform.right * input.x + transform.forward * input.y;
+        if (input == Vector3.zero) input = transform.forward;
+        Debug.Log(input);
+        rb.velocity = rb.velocity;
+        rb.AddForce(input.x * dashForce, 0,
+            input.z * dashForce, ForceMode.Impulse);
+        //speed = dashSpeed;
         dashTrue = true;
         Physics.IgnoreLayerCollision(gameObject.layer, layerIgnore, true);
-
         //effects and audio
-        audioSource.Stop();
-        audioSource.PlayOneShot(dashClip);
+        AudioManager.InstanceAudio.PlaySfxSound("Dash");
+        //audioSource.Stop();
+        // audioSource.PlayOneShot(dashClip);
         effectDash.Play();
         yield return new WaitForSeconds(dashTimeLimit);
         effectDash.Stop();
         Physics.IgnoreLayerCollision(gameObject.layer, layerIgnore, false);
         dashTrue = false;
-        speed = oldSpeed;
+        speed = standartSpeed;
 
     }
 
@@ -293,23 +350,31 @@ public class PlayerMove : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
-        Debug.Log(doubleJump);
+        jumpForce = Mathf.Sqrt(jumpHeight * -2 * (Physics.gravity.y * standartGravityScale));
+        //Debug.Log(doubleJump);
         if (context.phase == InputActionPhase.Started && IsGrounded() == true)
-        //&& tackleActive == false)
         {
             jumpTrue = true;
+            AudioManager.InstanceAudio.PlaySfxSound("Jump");
             StartCoroutine(JumpCoroutineUpSpeed());
             animatorPlayer.SetBool("jump", true);
+            if (rb.velocity.y > 0)
+                rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
+        /*
         else if (doubleJump == 1 && context.phase == InputActionPhase.Started)
         {
             jumpTrue = true;
+            AudioManager.InstanceAudio.PlaySfxSound("Jump");
             animatorPlayer.SetBool("jump", true);
             StartCoroutine(JumpCoroutineUpSpeed());
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            if (rb.velocity.y > 0)
+                rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            rb.AddForce(Vector3.up * jumpForce * jumpForceDouble, ForceMode.Impulse);
             doubleJump = 0;
         }
+        */
         if (context.phase == InputActionPhase.Canceled)
         {
             animatorPlayer.SetBool("jump", false);
@@ -319,25 +384,25 @@ public class PlayerMove : MonoBehaviour
 
     IEnumerator JumpCoroutineUpSpeed()
     {
-        speed = speed * 1.3f;
+        speed = 65;
         //audio
-        audioSource.Stop();
-        audioSource.PlayOneShot(jumpClip);
+        //audioSource.Stop();
+        // audioSource.PlayOneShot(jumpClip);
 
         yield return new WaitForSeconds(0.1f);
-        speed = speed / 1.3f;
+        speed = standartSpeed;
     }
     private bool IsGrounded()
     {
         isGrounded = Physics.CheckSphere(dotGround.position, sphereRadius, groundLayer);
-       
-        if (isGrounded == true) { doubleJump = 1;  }
+        if (isGrounded == true) doubleJump = 1;
         return isGrounded;
     }
     private void OnCollisionEnter(Collision collision)
     {
         if (LayerMask.LayerToName(collision.gameObject.layer) == "Ground")
         {
+            //animatorPlayer.SetBool("isGround", true);
             jumpTrue = false;
         }
     }
@@ -346,7 +411,7 @@ public class PlayerMove : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(dotGround.position, sphereRadius);
 
-      
+
     }
 
     //hookShot

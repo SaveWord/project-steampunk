@@ -9,9 +9,10 @@ namespace Enemies.Attacks.Attacks
     public class AttackConstruct
     {
         public RangeAttack attack;
+        public List<AttackBaseClass> attacks = new List<AttackBaseClass>();
         public Transform patternSpawn;
-        public float cooldown;
+        public float timeoutAfter;
         public float startTime;
     }
-
+   
 }

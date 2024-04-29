@@ -5,11 +5,15 @@ using UnityEngine;
 public class DeathEnvironment : MonoBehaviour
 {
     [SerializeField] float Damage=100f;
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if(collision.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<HpHandler>().TakeDamage(Damage);
+            other.gameObject.GetComponent<HpHandler>().TakeDamage(Damage);
+        }
+        if (other.gameObject.layer == 6 && other.GetType() == typeof(CapsuleCollider))
+        {
+            Destroy(other.gameObject);
         }
     }
 }

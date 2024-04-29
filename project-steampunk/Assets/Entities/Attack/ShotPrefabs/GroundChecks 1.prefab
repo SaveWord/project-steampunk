@@ -266,13 +266,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6e21d9b36ef47946b5a047da7ca7f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  patternSpawnPoint: {fileID: 0}
   _patternPartsList: []
   _materialNone: {fileID: 10758, guid: 0000000000000000f000000000000000, type: 0}
   _materialCharge: {fileID: 2100000, guid: 366e128de1b749a46a08ea14770446e0, type: 2}
   _materialDamage: {fileID: 2100000, guid: 35151fcfb4b7fb04cb1a6d2b96873d11, type: 2}
   _damageTime: 0
   _chargeTime: 2
-  _damage: 10
+  _damage: 20
 --- !u!1 &1883433202069660639
 GameObject:
   m_ObjectHideFlags: 0

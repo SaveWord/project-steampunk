@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SaveSystem : MonoBehaviour
 {
@@ -21,20 +22,21 @@ public class SaveSystem : MonoBehaviour
         saveDataPath = Application.persistentDataPath + "/PlayerData.json";
         saveDataPathCheckPoint = Application.persistentDataPath + "/CheckPoint.json";
         saveDataPathSpawner = Application.persistentDataPath + "/SpawnerData.json";
-        
+
     }
-    public void SaveData(float hp, Vector3 pos )
+    public void SaveData(float hp, Vector3 pos, int idScene)
     {
         playerData.health = hp;
         playerData.position = pos;
-        string savePlayerData = JsonUtility.ToJson( playerData );
-        File.WriteAllText( saveDataPath, savePlayerData );
+        playerData.sceneID = idScene;
+        string savePlayerData = JsonUtility.ToJson(playerData);
+        File.WriteAllText(saveDataPath, savePlayerData);
         Debug.Log("FileSave");
     }
     public void SaveSpawnerData(int disable)
     {
         spawnerData.disableSpawner.Add(disable);
-        string saveDataSpawner = JsonUtility.ToJson( spawnerData );
+        string saveDataSpawner = JsonUtility.ToJson(spawnerData);
         File.WriteAllText(saveDataPathSpawner, saveDataSpawner);
         Debug.Log("FileSpawnerSave");
     }
@@ -53,15 +55,16 @@ public class SaveSystem : MonoBehaviour
             playerData = JsonUtility.FromJson<PlayerData>(loadPlayerData);
             Debug.Log("FileLoad");
         }
-        else {
+        else
+        {
             playerData.health = 100;
             playerData.position = GetComponentInChildren<CheckPoint>().gameObject.transform.position;
-            Debug.Log("File not found"); 
+            Debug.Log("File not found");
         }
     }
     public void LoadSpawnerData()
     {
-        if(File.Exists(saveDataPathSpawner))
+        if (File.Exists(saveDataPathSpawner))
         {
             string loadSpawnerData = File.ReadAllText(saveDataPathSpawner);
             spawnerData = JsonUtility.FromJson<SpawnerData>(loadSpawnerData);
@@ -86,6 +89,7 @@ public class SaveSystem : MonoBehaviour
         File.Delete(saveDataPathCheckPoint);
     }
 }
+
 public class CheckPointData
 {
     public List<int> disablePoint = new List<int>();
@@ -94,6 +98,7 @@ public class PlayerData
 {
     public float health;
     public Vector3 position;
+    public int sceneID;
 }
 public class SpawnerData
 {

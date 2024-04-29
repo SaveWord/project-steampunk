@@ -13,8 +13,8 @@ public class DamageTakenEffect : MonoBehaviour
     void Start()
     {
         //_volume = GetComponent<Volume>();
-        Volume volume = gameObject.GetComponent<Volume>();
-        if (volume.profile.TryGet<Vignette>(out _vignette))
+        _volume = gameObject.GetComponent<Volume>();
+        if (_volume.profile.TryGet<Vignette>(out _vignette))
 
             if (!_vignette)
             Debug.Log("set up vignette");
@@ -23,6 +23,8 @@ public class DamageTakenEffect : MonoBehaviour
 
     public IEnumerator TakeDamageEffect()
     {
+
+        _volume.priority = 111;
         _vignetteIntensity = 0.4f;
         ParticleSystem part = gameObject.GetComponent<ParticleSystem>();
         if(part)
@@ -35,7 +37,7 @@ public class DamageTakenEffect : MonoBehaviour
             if (_vignetteIntensity < 0) _vignetteIntensity = 0;
             _vignette.intensity.Override(_vignetteIntensity);
             yield return new WaitForSeconds(0.1f);
-
+            _volume.priority = 98;
         }
         yield break;
     }
