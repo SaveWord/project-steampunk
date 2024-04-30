@@ -219,7 +219,7 @@ public class CharacterControllerMove : MonoBehaviour
             }
             else
             {
-                characterVelocity += Vector3.one;
+                characterVelocity *= 10;
                 characterVelocity = characterVelocity.normalized;
                 characterController.Move(characterVelocity * speed * dashSpeed * Time.deltaTime);
             }
@@ -260,12 +260,14 @@ public class CharacterControllerMove : MonoBehaviour
 
         if (Time.time >= m_LastTimeJumped + k_JumpGroundingPreventionTime)
         {
+            //isGrounded = Physics.CheckSphere(dotGround.position, 0.4f, groundLayer);
             //detect ground and correct normal 
             if (Physics.CapsuleCast(GetCapsuleBottomHemisphere(), GetCapsuleTopHemisphere(characterController.height),
                    characterController.radius - Physics.defaultContactOffset,
                    Vector3.down, out RaycastHit hit, sphereRadius, groundLayer,
                    QueryTriggerInteraction.Ignore))
             {
+                isGrounded = true;
                 //Debug.Log(hit.collider);
                 float distanceToGround = Vector3.Distance(GetCapsuleBottomHemisphere(), hit.point);
                 if (distanceToGround < characterController.height / 2)
@@ -279,7 +281,7 @@ public class CharacterControllerMove : MonoBehaviour
                 if (Vector3.Dot(hit.normal, transform.up) > 0f &&
                     IsNormalUnderSlopeLimit(m_GroundNormal))
                 {
-                    isGrounded = true;
+                    
                     // handle snapping to the ground
                     if (hit.distance > characterController.skinWidth)
                     {
