@@ -35,33 +35,40 @@ public class DeathByPlatform : MonoBehaviour
         //    Destroy(other.gameObject);
         //}
     }
-
-        //}
-        // Start is called before the first frame update
-        //private void OnTriggerEnter(Collider other)
-        //{
-        //    if (other.CompareTag("Player")&&once)
-        //    {
-        //        deathVector.x=other.transform.position.x;
-        //        deathVector.z=other.transform.position.z;
-        //        once = false;
-        //        source.Play();
-        //        StartCoroutine(waitForSound(other));
-        //    }
-        //    if (other.gameObject.layer==6 && other.GetType()==typeof(CapsuleCollider))
-        //    {         
-        //        Destroy(other.gameObject);
-        //    }
-
-        //}
-        //IEnumerator waitForSound(Collider other)
-        //{       
-        //    while (source.isPlaying)
-        //    {
-        //        other.transform.position = deathVector;
-        //        other.GetComponent<Rigidbody>().Sleep();
-        //        yield return null;
-        //    }
-        //    other.GetComponent<HpHandler>().TakeDamage(1000f);
-        //}
+    public void Stopp()
+    {
+        animator.Play("stop", 0, offset);
+        //animator.StopPlayback(); 
+        //animator.enabled = false;
+        Debug.Log("here22");
     }
+
+    //}
+    // Start is called before the first frame update
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.CompareTag("Player")&&once)
+    //    {
+    //        deathVector.x=other.transform.position.x;
+    //        deathVector.z=other.transform.position.z;
+    //        once = false;
+    //        source.Play();
+    //        StartCoroutine(waitForSound(other));
+    //    }
+    //    if (other.gameObject.layer==6 && other.GetType()==typeof(CapsuleCollider))
+    //    {         
+    //        Destroy(other.gameObject);
+    //    }
+
+    //}
+    //IEnumerator waitForSound(Collider other)
+    //{       
+    //    while (source.isPlaying)
+    //    {
+    //        other.transform.position = deathVector;
+    //        other.GetComponent<Rigidbody>().Sleep();
+    //        yield return null;
+    //    }
+    //    other.GetComponent<HpHandler>().TakeDamage(1000f);
+    //}
+}
