@@ -31,6 +31,6 @@ public class GameManagerSingleton : MonoBehaviour
             checkPoint.idCheckPoint = j;
             j++;
         }
-        //SceneManager.LoadScene(GameManagerSingleton.Instance.SaveSystem.playerData.sceneID);
+        
     }
 }

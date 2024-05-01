@@ -29,7 +29,9 @@ public class CheckPoint : MonoBehaviour
            int sceneId = SceneManager.GetActiveScene().buildIndex;
             //float hp = health.CurrentHp;
             Vector3 position = this.transform.position;
-            GameManagerSingleton.Instance.SaveSystem.SaveData( position,sceneId);
+            //Vector3 position = transform.GetChild(0).position;
+            Vector3 rotatotion = other.transform.rotation.eulerAngles;
+            GameManagerSingleton.Instance.SaveSystem.SaveData(position,sceneId,rotatotion);
             GameManagerSingleton.Instance.SaveSystem.SaveCheckPoint(1);
             foreach (var spawner in spawners)
             {

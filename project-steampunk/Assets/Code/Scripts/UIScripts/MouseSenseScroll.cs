@@ -137,6 +137,7 @@ public class MouseSenseScroll : MonoBehaviour
     }
     public void LevelLoad(int level)
     {
+        transform.root.SetParent(null);
         GameManagerSingleton.Instance.SaveSystem.DeleteAllSave();
         SceneManager.LoadScene(level);
     }
@@ -182,5 +183,11 @@ public class MouseSenseScroll : MonoBehaviour
     public void OnVolumeChanged(float sound)
     {
         mixer.SetFloat(_mixerVolume, Mathf.Log10(sound) * 20);
+    }
+    // main menu TestButton
+    public void StartGame()
+    {
+        GameManagerSingleton.Instance.SaveSystem.LoadData();
+        SceneManager.LoadScene(GameManagerSingleton.Instance.SaveSystem.playerData.sceneID);
     }
 }

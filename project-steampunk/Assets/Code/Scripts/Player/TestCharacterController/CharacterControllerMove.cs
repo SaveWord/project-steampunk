@@ -102,6 +102,7 @@ public class CharacterControllerMove : MonoBehaviour
         GameManagerSingleton.Instance.SaveSystem.LoadData();
         //_currentHp = GameManagerSingleton.Instance.SaveSystem.playerData.health;
         transform.position = GameManagerSingleton.Instance.SaveSystem.playerData.position;
+        transform.rotation = Quaternion.Euler(GameManagerSingleton.Instance.SaveSystem.playerData.rotation);
         Physics.SyncTransforms();
     }
     private void OnEnable()

@@ -40,7 +40,7 @@ public class Spawner : MonoBehaviour
                 door.DoorClose();
             }
 
-            SetActiveEnemies(); // foreach set active enemies with await in async method
+            SetActiveEnemies();// foreach set active enemies with await in async method
 
             detectZone.enabled = false;
 

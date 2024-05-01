@@ -24,11 +24,18 @@ public class SaveSystem : MonoBehaviour
         saveDataPathSpawner = Application.persistentDataPath + "/SpawnerData.json";
 
     }
-    public void SaveData(Vector3 pos, int idScene)
+    public void SaveScene(int idScene)
+    {
+        playerData.sceneID = idScene;
+        string savePlayerData = JsonUtility.ToJson(playerData);
+        File.WriteAllText(saveDataPath, savePlayerData);
+    }
+    public void SaveData(Vector3 pos, int idScene, Vector3 rot)
     {
         //playerData.health = hp;
         playerData.position = pos;
         playerData.sceneID = idScene;
+        playerData.rotation = rot;
         string savePlayerData = JsonUtility.ToJson(playerData);
         File.WriteAllText(saveDataPath, savePlayerData);
         Debug.Log("FileSave");
@@ -98,6 +105,7 @@ public class PlayerData
 {
     //public float health;
     public Vector3 position;
+    public Vector3 rotation;
     public int sceneID;
 }
 public class SpawnerData
