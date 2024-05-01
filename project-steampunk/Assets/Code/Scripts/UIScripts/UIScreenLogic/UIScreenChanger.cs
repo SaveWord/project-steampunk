@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class UIScreenChanger: MonoBehaviour
@@ -24,7 +25,7 @@ public class UIScreenChanger: MonoBehaviour
     }
 
     
-    public void ChangeScreen(UIScreen screen)
+    public void ChangeToScreen(UIScreen screen)
     {
         _actualScreen.Close();
         _actualScreen = screen;
@@ -45,7 +46,7 @@ public class UIScreenChanger: MonoBehaviour
         if(_actualScreen.IsActive)
         {
             if(lastScreen != null)
-                ChangeScreen(_actualScreen.GetLast());
+                ChangeToScreen(_actualScreen.GetLast());
             else
                 _actualScreen.Close();
         }
@@ -65,5 +66,11 @@ public class UIScreenChanger: MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
+
+
+    public void TakeOffScreenSelections()
+    {
+        EventSystem.current.SetSelectedGameObject(null);
     }
 }
