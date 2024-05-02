@@ -48,11 +48,11 @@ public class Spawner : MonoBehaviour
     }
     private async void SetActiveEnemies()
     {
-        int i = 0;
-        foreach (var enemy in enemies)
+        //int i = 0;
+        foreach (var enemy in enemies.Values)
         {
-            enemies[i].SetActive(true);
-            i++;
+            enemy.SetActive(true);
+           // i++;
             await Task.Delay(timeSpawnDelay);
         }
     }

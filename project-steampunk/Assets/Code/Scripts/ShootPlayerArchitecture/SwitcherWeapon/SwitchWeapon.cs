@@ -92,7 +92,9 @@ public class SwitchWeapon : MonoBehaviour
         SelectedWeapon();
     }
     public void WeaponUnlockMethod()
-    {
+    { 
         weaponUnlock++;
+        if (weaponUnlock == 2)
+            weaponUnlock++;
     }
 }
