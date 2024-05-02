@@ -170,8 +170,8 @@ namespace Enemies
             _dash = new Dash(_rBody, this);
             _controlarrow = GetComponent<controlarrow>();
 
-            _animator = GetComponentInChildren<Animator>();
-            
+            _animator = GameObject.FindGameObjectWithTag("animated").GetComponent<Animator>();
+
         }
 
         private void OnDrawGizmos()

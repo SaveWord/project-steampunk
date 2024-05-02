@@ -13,6 +13,7 @@ public class HpEnemy : MonoBehaviour
 
     private float jumpForce;
     private Animator _animator;
+
     [SerializeField] private Rigidbody rb;
     [SerializeField] private GameObject deathParticlePrefab;
     [SerializeField] private GameObject healDropPrefab;
@@ -74,10 +75,10 @@ public class HpEnemy : MonoBehaviour
             Instantiate(healDropPrefab, position, Quaternion.identity);
         }
         //animation of death
-        //_animator.SetBool("isDead", true);
-         DeleteList(_idEnemy);
-        Destroy(deathparticle, 0.3f); 
-        GameObject.Destroy(this.gameObject);
+        _animator.SetBool("isDead", true);
+        DeleteList(_idEnemy);
+        //Destroy(deathparticle, 2.5f); 
+        GameObject.Destroy(this.gameObject, 0.001f);
        
     }
 }
