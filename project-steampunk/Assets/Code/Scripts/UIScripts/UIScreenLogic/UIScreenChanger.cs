@@ -1,16 +1,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class UIScreenChanger: MonoBehaviour
 {
     [SerializeField] private UIScreen _actualScreen;
+    [SerializeField] private UnityEvent _onUIClose; 
 
 
     private void OnEnable()
     {
+
         var onEscape =  SingletonActionPlayer.Instance.inputActions.UICustom.SenseESCBuild;
 
         onEscape.started += ToggleScreen;
@@ -35,6 +38,10 @@ public class UIScreenChanger: MonoBehaviour
 
     public void CloseScreen(UIScreen screen)
     {
+        if(screen.GetLast() == null)
+        {
+            _onUIClose?.Invoke();
+        }
         _actualScreen.Close();
     }
 
@@ -47,7 +54,7 @@ public class UIScreenChanger: MonoBehaviour
         {
             if(lastScreen != null)
                 ChangeToScreen(_actualScreen.GetLast());
-            else
+            else if(_actualScreen.DeactivateByEscape)
                 _actualScreen.Close();
         }
         else

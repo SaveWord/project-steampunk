@@ -29,13 +29,13 @@ public class MouseSenseScroll : MonoBehaviour
     private bool activeDieMenu =false;
     private void OnEnable()
     {
-        Player.dieMenuEvent += ContinueDie;
+        //Player.dieMenuEvent += ContinueDie;
         Time.timeScale = 1;
         player = transform.root.GetComponent<CharacterControllerMove>();
         inputActionsUI = SingletonActionPlayer.Instance.inputActions;
         //inputActionsUI = new ActionPrototypePlayer();
         //inputActionsUI.Enable();
-        inputActionsUI.UICustom.SenseESCBuild.started += context => ActiveSlider(context);
+        //inputActionsUI.UICustom.SenseESCBuild.started += context => ActiveSlider(context);
         filePath = Application.dataPath + "/" + optionsFileName;
         LoadSense();
 
@@ -54,9 +54,9 @@ public class MouseSenseScroll : MonoBehaviour
     }
     private void OnDisable()
     {
-        Player.dieMenuEvent -= ContinueDie;
+        //Player.dieMenuEvent -= ContinueDie;
         player.MouseSense = sliderSense.value;
-        inputActionsUI.UICustom.SenseESCBuild.started -= context => ActiveSlider(context);
+        //inputActionsUI.UICustom.SenseESCBuild.started -= context => ActiveSlider(context);
         SaveSense();
 
     }

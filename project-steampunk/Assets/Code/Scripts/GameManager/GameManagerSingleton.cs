@@ -33,4 +33,16 @@ public class GameManagerSingleton : MonoBehaviour
         }
         
     }
+    public void PauseGame()
+    {
+        SingletonActionPlayer.Instance.inputActions.Player.Disable();
+        SingletonActionPlayer.Instance.inputActions.UICustom.Enable();
+        Time.timeScale = 0f;
+    }
+    public void UnPauseGame()
+    {
+        SingletonActionPlayer.Instance.inputActions.Player.Enable();
+        //SingletonActionPlayer.Instance.inputActions.UICustom.Disable();
+        Time.timeScale = 1f;
+    }
 }

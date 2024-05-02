@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class UIScreen : MonoBehaviour
 {
     public bool IsActive { get {return gameObject.activeSelf;}}
+    public bool DeactivateByEscape { get {return _deactivateByEscape;}}
     [SerializeField] private UnityEvent _onOpen;
     [SerializeField] private UnityEvent _onClose;
     [SerializeField] private UIScreen _lastScreen;

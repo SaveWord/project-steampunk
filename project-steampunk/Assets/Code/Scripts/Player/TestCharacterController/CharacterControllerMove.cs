@@ -123,6 +123,7 @@ public class CharacterControllerMove : MonoBehaviour
     {
         inputMove = inputActions.Player.Move.ReadValue<Vector2>();
         Vector2 inputLook = inputActions.Player.Look.ReadValue<Vector2>();
+        Debug.Log(inputMove);
         Move(inputMove);
         Rotation(inputLook);
         IsGrounded();

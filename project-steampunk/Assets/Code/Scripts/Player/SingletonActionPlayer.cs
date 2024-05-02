@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SingletonActionPlayer: MonoBehaviour
 {
+    public GameObject player;
     public static SingletonActionPlayer Instance { get; private set; }
     public ActionPrototypePlayer inputActions;
     private void Awake()
@@ -16,9 +17,7 @@ public class SingletonActionPlayer: MonoBehaviour
         Instance = this;
         inputActions = new ActionPrototypePlayer();
         inputActions.Enable();
-        inputActions.Player.Disable();
-        inputActions.UI.Disable();
-        inputActions.UICustom.Enable();
+        player.SetActive(true);
     }
     private void OnDestroy()
     {

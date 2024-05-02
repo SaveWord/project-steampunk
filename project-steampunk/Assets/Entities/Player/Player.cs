@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public class Player : MonoBehaviour, ITarget
 {
@@ -13,7 +14,7 @@ public class Player : MonoBehaviour, ITarget
     private DamageTakenEffect damageEffect;
     [SerializeField]
     private DamageTakenEffect healEffect;
-    public static Action dieMenuEvent;
+    public  UnityEvent OnPlayerDeath;
 
     public int GetTargetID()
     {
@@ -44,7 +45,7 @@ public class Player : MonoBehaviour, ITarget
     private void HandlePlayerDied()
     {
         isDead = true;
-       dieMenuEvent?.Invoke();
+       OnPlayerDeath?.Invoke();
         AudioManager.InstanceAudio.PlayMusic("Battle",false);
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
