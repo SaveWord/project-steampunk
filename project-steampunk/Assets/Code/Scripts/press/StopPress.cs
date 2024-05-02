@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class StopPress : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> listt = new List<GameObject>();
-    private void OnTriggerEnter(Collider other)
+    [SerializeField] private GameObject[] _environmentObjects;
+    /*private void OnTriggerEnter(Collider other)
     {
         Debug.Log("here");
         if (other.CompareTag("bullet") || other.CompareTag("Player"))
@@ -16,6 +16,19 @@ public class StopPress : MonoBehaviour
                 Debug.Log("here");
             }
 
+        }
+    }*/
+    void Start()
+    {
+        _environmentObjects = GameObject.FindGameObjectsWithTag("stoppableEnv");
+    }
+
+    void OnDisable()
+    {
+        foreach (GameObject obj in _environmentObjects)
+        {
+            obj.GetComponent<DeathByPlatform>().Stopp();
+            Debug.Log("presses stop");
         }
     }
 }
