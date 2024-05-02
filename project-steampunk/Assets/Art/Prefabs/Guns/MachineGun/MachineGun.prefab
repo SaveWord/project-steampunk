@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1741042757381375890}
   - component: {fileID: 8338639213098376171}
   - component: {fileID: 1714683690679149623}
+  - component: {fileID: 3643409601941400309}
   m_Layer: 7
   m_Name: crosshair red
   m_TagString: Untagged
@@ -58,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 0.33333334}
+  m_Color: {r: 0.6698113, g: 0.06634923, b: 0.06634923, a: 0.6039216}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -75,6 +76,27 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &3643409601941400309
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 317833704455850689}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dfeb07bc8e2abe24fac66fff74718415, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &802977352807336864
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,7 +218,7 @@ Animator:
   m_GameObject: {fileID: 1934408250400668003}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 39a12822159673f4d8bbdc1691a6d36a, type: 2}
+  m_Controller: {fileID: 9100000, guid: 090b8685b14ad8642831f4e479374351, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -345,6 +367,9 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 2112
+  transparentLayer:
+    serializedVersion: 2
+    m_Bits: 536872611
   weaponParametrs: {fileID: 11400000, guid: 02158e44d11b8634f9fadf2847d6ac0e, type: 2}
   changeRadius: 0.1
 --- !u!1 &3623225012365156692

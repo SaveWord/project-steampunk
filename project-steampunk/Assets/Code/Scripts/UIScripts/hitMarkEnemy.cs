@@ -12,27 +12,15 @@ public class hitMarkEnemy : MonoBehaviour
     [SerializeField] private LayerMask transparentLayer;
     [SerializeField] private WeaponTypeScriptableObj weaponParametrs;
     public float changeRadius;
+    private Animator smoothChangeOfCrosshair;
     void Start()
     {
         standardCross.gameObject.SetActive(true);
         redCross.gameObject.SetActive(false);
+        smoothChangeOfCrosshair = GameObject.FindGameObjectWithTag("animated").GetComponent<Animator>();
     }
     void Update()
     {
-        /*
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
-                out RaycastHit hit, weaponParametrs.distanceAndDamages.Last().range,enemyLayer, QueryTriggerInteraction.Ignore))
-        {
-                redCross.gameObject.SetActive(true);
-                standardCross.gameObject.SetActive(false);      
-        }
-        else
-        {
-            redCross.gameObject.SetActive(false);
-            standardCross.gameObject.SetActive(true);
-        }
-        */
-
         if (Physics.SphereCast(Camera.main.transform.position, 1f, Camera.main.transform.forward,
                  out RaycastHit hit, weaponParametrs.distanceAndDamages.Last().range, enemyLayer, QueryTriggerInteraction.Ignore))
         {
@@ -72,17 +60,5 @@ public class hitMarkEnemy : MonoBehaviour
                 standardCross.gameObject.SetActive(true);
             }
         }
-
-        /*if (Physics.SphereCast(Camera.main.transform.position, changeRadius, Camera.main.transform.forward,
-                out RaycastHit hit_1, weaponParametrs.distanceAndDamages.Last().range, enemyLayer, QueryTriggerInteraction.Ignore))
-        {
-            redCross.gameObject.SetActive(true);
-            standardCross.gameObject.SetActive(false);
-        }
-        else
-        {
-            redCross.gameObject.SetActive(false);
-            standardCross.gameObject.SetActive(true);
-        }*/
     }
 }
