@@ -8,9 +8,14 @@ namespace Enemies
     [RequireComponent(typeof(TargetAttacker), typeof(TargetDetector), typeof(SpiderMover))]
     public class Spider : Enemy
     {
+        [SerializeField]
+        private bool _canChange = true;
+
         private void Awake()
         {
             _stateMachine = new StateMachine();
+
+            GetComponentInParent<IHealth>().OnDied += HandleDie;
 
             var targetDetector = gameObject.GetComponent<TargetDetector>();
             var spiderMover = gameObject.GetComponent<SpiderMover>();
@@ -21,9 +26,15 @@ namespace Enemies
             _stateMachine.SetState(chase);
         }
 
+        private void HandleDie()
+        {
+            _canChange = false;
+        }
+
         private void Update()
         {
-            _stateMachine.Tick();
+            if(_canChange)
+                _stateMachine.Tick();
         }
 
         private void OnDrawGizmos()

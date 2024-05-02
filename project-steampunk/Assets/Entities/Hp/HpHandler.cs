@@ -41,15 +41,18 @@ public class HpHandler : MonoBehaviour, IHealth
         {
             if (amount <= 0)
                 throw new ArgumentOutOfRangeException("Invalid Damage amount specified: " + amount);
-
-            _currentHp -= amount;
-            if (gameObject.layer == 6) {
-                if(gameObject.GetComponent<TargetDetector>()!=null) 
-                    gameObject.GetComponent<TargetDetector>().GetShot();
-                enemyDamageImpact.Play(); }
-            OnHPChanged(CurrentHp);
-            OnTakenDamage(amount);
-
+            if (_currentHp > 0)
+            {
+                _currentHp -= amount;
+                if (gameObject.layer == 6)
+                {
+                    if (gameObject.GetComponent<TargetDetector>() != null)
+                        gameObject.GetComponent<TargetDetector>().GetShot();
+                    enemyDamageImpact.Play();
+                }
+                OnHPChanged(CurrentHp);
+                OnTakenDamage(amount);
+            }
             if (_currentHp <= 0)
                 Die();
         }

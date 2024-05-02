@@ -44,14 +44,14 @@ namespace Enemies
 
                 
 
-                _animator.SetBool("isRunning", true);
+               // _animator.SetBool("isRunning", true);
 
                 _controlarrow.ChangeColorToGray();
                 _controlarrow.Show();
             }
             else
             {
-                _animator.SetBool("isRunning", false);
+                //_animator.SetBool("isRunning", false);
                 _controlarrow.Hide();
             }
                 
