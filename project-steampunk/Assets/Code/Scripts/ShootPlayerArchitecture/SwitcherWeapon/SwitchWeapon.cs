@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SwitchWeapon : MonoBehaviour
 {
-    [SerializeField] private int weaponUnlock;
+    public int weaponUnlock;
     public int selectNumberWeapon;
     private ActionPrototypePlayer inputActions;
     private Animator animator;
@@ -17,7 +17,12 @@ public class SwitchWeapon : MonoBehaviour
         inputActions.Player.Weapon1.started += context => Weapon1();
         inputActions.Player.Weapon2.started += context => Weapon2();
         inputActions.Player.Weapon3.started += context => Weapon3();
-        animator = transform.root.GetComponentInChildren<Animator>();
+        animator = transform.root.GetComponentInChildren<Animator>(); 
+    }
+    private void Start()
+    {
+        GameManagerSingleton.Instance.SaveSystem.LoadData();
+        weaponUnlock = GameManagerSingleton.Instance.SaveSystem.playerData.switchWeapon;
     }
     IEnumerator ISwitch()
     {

@@ -5,6 +5,16 @@ using UnityEngine;
 public class PickUpWeapon : MonoBehaviour
 {
     public float rotateSpeed;
+    public int idPickUp;
+
+    private void Start()
+    {
+        GameManagerSingleton.Instance.SaveSystem.LoadData();
+        if (idPickUp < GameManagerSingleton.Instance.SaveSystem.playerData.switchWeapon)
+        {
+            gameObject.SetActive(false);
+        }
+    }
     void Update()
     {
         transform.Rotate(0,Time.deltaTime * rotateSpeed,0);

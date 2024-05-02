@@ -24,6 +24,12 @@ public class SaveSystem : MonoBehaviour
         saveDataPathSpawner = Application.persistentDataPath + "/SpawnerData.json";
 
     }
+    public void SaveSwitchWeapon(int switchWp) 
+    {
+        playerData.switchWeapon = switchWp;
+        string savePlayerData = JsonUtility.ToJson(playerData);
+        File.WriteAllText(saveDataPath, savePlayerData);
+    }
     public void SaveScene(int idScene)
     {
         playerData.sceneID = idScene;
@@ -106,6 +112,7 @@ public class PlayerData
     //public float health;
     public Vector3 position;
     public Vector3 rotation;
+    public int switchWeapon;
     public int sceneID;
 }
 public class SpawnerData

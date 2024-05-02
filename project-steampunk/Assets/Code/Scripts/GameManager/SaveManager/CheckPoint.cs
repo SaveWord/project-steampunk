@@ -25,13 +25,14 @@ public class CheckPoint : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.TryGetComponent(out IHealth health);
-           int sceneId = SceneManager.GetActiveScene().buildIndex;
-            //float hp = health.CurrentHp;
+          
+            int sceneId = SceneManager.GetActiveScene().buildIndex;
+            int wepUnlock = other.GetComponentInChildren<SwitchWeapon>().weaponUnlock;
             Vector3 position = this.transform.position;
             //Vector3 position = transform.GetChild(0).position;
             Vector3 rotatotion = other.transform.rotation.eulerAngles;
             GameManagerSingleton.Instance.SaveSystem.SaveData(position,sceneId,rotatotion);
+            GameManagerSingleton.Instance.SaveSystem.SaveSwitchWeapon(wepUnlock);
             GameManagerSingleton.Instance.SaveSystem.SaveCheckPoint(1);
             foreach (var spawner in spawners)
             {
