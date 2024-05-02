@@ -33662,7 +33662,6 @@ GameObject:
   - component: {fileID: 487765420718357768}
   - component: {fileID: 5234831967581416027}
   - component: {fileID: 5713141576382798242}
-  - component: {fileID: 7337463789644044515}
   - component: {fileID: 7527454559158481519}
   m_Layer: 0
   m_Name: Laser
@@ -38512,29 +38511,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!136 &7337463789644044515
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9195648013021820872}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 2
-  m_Height: 400
-  m_Direction: 2
-  m_Center: {x: 0, y: 0, z: 204.4}
 --- !u!114 &7527454559158481519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38555,5 +38531,8 @@ MonoBehaviour:
   _attackDuration: 7
   _chargeDuration: 3
   _laserCooldown: 0
+  transparentLayer:
+    serializedVersion: 2
+    m_Bits: 536872611
   _chargeMat: {fileID: 2100000, guid: 8043c4c9f35a7e647ae8669c48ca4487, type: 2}
   _targetMat: {fileID: 2100000, guid: dee19067b69aea849a8d363ec19d6b3d, type: 2}

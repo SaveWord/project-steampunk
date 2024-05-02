@@ -43,6 +43,8 @@ namespace Enemies.Attacks.Attacks
         [SerializeField]
         private float _laserCooldown;
 
+        [SerializeField] private LayerMask transparentLayer;
+
         private bool _OnReload = false;
 
         private bool _isAttacking = false;
@@ -59,7 +61,7 @@ namespace Enemies.Attacks.Attacks
         private Material _targetMat;
         private ParticleSystem _particle;
 
-        private bool _damageCooldown;
+        private bool _damageCooldown = false;
         void Awake()
         {
             _particle = GetComponent<ParticleSystem>();
@@ -77,18 +79,11 @@ namespace Enemies.Attacks.Attacks
 
         protected void DealDamage(GameObject target)
         {
+            StartCoroutine(DamageReload());
             target.TryGetComponent(out IHealth damageable);
             damageable?.TakeDamage(_damage);
         }
 
-        private void OnTriggerStay(Collider collision)
-        {
-            if (collision.gameObject.layer == LayerMask.NameToLayer("Player") && !_damageCooldown)
-            {
-                DealDamage(collision.gameObject);
-                StartCoroutine(DamageReload());
-            }
-        }
         private IEnumerator DamageReload()
         {
             _damageCooldown= true;
@@ -147,6 +142,25 @@ namespace Enemies.Attacks.Attacks
                     }
                 }
                 _lastPos = _target.transform.position;
+
+
+
+                var hits = Physics.SphereCastAll(transform.position, 2f, _target.transform.position, 400, ~transparentLayer, QueryTriggerInteraction.Ignore);
+                Debug.DrawRay(transform.position, (_target.transform.position - transform.position) * 100, Color.yellow);
+                if (hits.Length != 0)
+                {
+                    var closestHit = hits[0];
+
+                    for (int i = 1; i < hits.Length; i++)
+                    {
+                        if (hits[i].distance < closestHit.distance)
+                        {
+                            closestHit = hits[i];
+                        }
+                    }
+                    if (closestHit.collider.gameObject.layer == 7 )
+                        DealDamage(GetComponent<Collider>().gameObject);
+                }
             }
         }
     }
