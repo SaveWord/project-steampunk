@@ -19,9 +19,9 @@ public class SaveSystem : MonoBehaviour
         playerData = new PlayerData();
         checkPointData = new CheckPointData();
         spawnerData = new SpawnerData();
-        saveDataPath = Application.persistentDataPath + "/PlayerData.json";
-        saveDataPathCheckPoint = Application.persistentDataPath + "/CheckPoint.json";
-        saveDataPathSpawner = Application.persistentDataPath + "/SpawnerData.json";
+        saveDataPath = Application.dataPath + "/PlayerData.json";
+        saveDataPathCheckPoint = Application.dataPath + "/CheckPoint.json";
+        saveDataPathSpawner = Application.dataPath + "/SpawnerData.json";
 
     }
     public void SaveSwitchWeapon(int switchWp)

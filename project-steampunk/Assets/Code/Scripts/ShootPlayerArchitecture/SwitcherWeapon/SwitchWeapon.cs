@@ -88,18 +88,18 @@ public class SwitchWeapon : MonoBehaviour
     }
     private void Weapon2()
     {
-        selectNumberWeapon = (weaponUnlock > selectNumberWeapon) ? 1 : selectNumberWeapon;
+        selectNumberWeapon = (weaponUnlock >= 1) ? 1 : selectNumberWeapon;
         SelectedWeapon();
     }
     private void Weapon3()
     {
-        selectNumberWeapon = (weaponUnlock > selectNumberWeapon) ? 2 : selectNumberWeapon;
+        selectNumberWeapon = (weaponUnlock >= 2) ? 2 : selectNumberWeapon;
         SelectedWeapon();
     }
     public void WeaponUnlockMethod()
     { 
         weaponUnlock++;
-        if (weaponUnlock == 2)
-            weaponUnlock++;
+        selectNumberWeapon = weaponUnlock;
+        SelectedWeapon();
     }
 }
