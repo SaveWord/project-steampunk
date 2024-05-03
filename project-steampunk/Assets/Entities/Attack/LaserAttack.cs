@@ -33,7 +33,7 @@ namespace Enemies.Attacks.Attacks
         */
         [Header("Attack Parametres")]
         public Transform patternSpawnPoint;
-        public Camera _target;
+        public ITarget _target;
 
         public int _followDistance;
         public float _damage = 1;
@@ -66,11 +66,11 @@ namespace Enemies.Attacks.Attacks
         {
             _particle = GetComponent<ParticleSystem>();
             gameObject.SetActive(false);
-            _target = Camera.main;
         }
 
         public override void Activate(ITarget target, Transform attackSpot)
         {
+            _target = target;
             patternSpawnPoint = attackSpot;
             Activated = true;
             StartCoroutine(Charge());
@@ -87,7 +87,7 @@ namespace Enemies.Attacks.Attacks
         private IEnumerator DamageReload()
         {
             _damageCooldown= true;
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.5f);
             _damageCooldown = false;
         }
 
@@ -122,10 +122,10 @@ namespace Enemies.Attacks.Attacks
             if (Activated)
             {
                 transform.position = patternSpawnPoint.position;
-                _storedPositions.Enqueue(_target.transform.position);
+                _storedPositions.Enqueue(_target.GetPosition());
                 if (_lastPos != null)
                 {
-                    var distance = Vector3.Distance(_target.transform.position, _lastPos);
+                    var distance = Vector3.Distance(_target.GetPosition(), _lastPos);
                     if (distance >= 4 && !_OnReload)
                         StartCoroutine(Reload());
                 }
@@ -139,28 +139,32 @@ namespace Enemies.Attacks.Attacks
                         Vector3 direction = pos - transform.position;
                         Quaternion bulletRotation = Quaternion.LookRotation(direction, Vector3.up);
                         transform.rotation = bulletRotation;
-                    }
-                }
-                _lastPos = _target.transform.position;
 
-
-
-                var hits = Physics.SphereCastAll(transform.position, 2f, _target.transform.position, 400, ~transparentLayer, QueryTriggerInteraction.Ignore);
-                Debug.DrawRay(transform.position, (_target.transform.position - transform.position) * 100, Color.yellow);
-                if (hits.Length != 0)
-                {
-                    var closestHit = hits[0];
-
-                    for (int i = 1; i < hits.Length; i++)
-                    {
-                        if (hits[i].distance < closestHit.distance)
+                        var hits = Physics.SphereCastAll(transform.position, 1f, (pos - transform.position), 400, ~transparentLayer, QueryTriggerInteraction.Ignore);
+                        Debug.DrawRay(transform.position, (pos - transform.position), Color.yellow);
+                        if (hits.Length != 0)
                         {
-                            closestHit = hits[i];
+                            var closestHit = hits[0];
+
+                            for (int i = 1; i < hits.Length; i++)
+                            {
+                                if (hits[i].distance < closestHit.distance)
+                                {
+                                    closestHit = hits[i];
+                                }
+                            }
+                            Debug.Log("suqa " + closestHit.collider.gameObject.layer);
+                            if (closestHit.collider.gameObject.layer == 7 && !_damageCooldown)
+                                DealDamage(closestHit.collider.gameObject);
                         }
+
                     }
-                    if (closestHit.collider.gameObject.layer == 7 )
-                        DealDamage(GetComponent<Collider>().gameObject);
                 }
+                _lastPos = _target.GetPosition();
+
+
+
+               
             }
         }
     }

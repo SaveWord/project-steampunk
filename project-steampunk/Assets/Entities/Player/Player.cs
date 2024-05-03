@@ -15,6 +15,9 @@ public class Player : MonoBehaviour, ITarget
     private DamageTakenEffect healEffect;
     public static Action dieMenuEvent;
 
+    [SerializeField]
+    private GameObject positionObject;
+
     public int GetTargetID()
     {
         return gameObject.GetInstanceID();
@@ -22,7 +25,7 @@ public class Player : MonoBehaviour, ITarget
 
     public Vector3 GetPosition()
     {
-        return Camera.main.transform.position;
+        return positionObject.transform.position;
     }
     
     public void HandlePlayerDamage(float damage)

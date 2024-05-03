@@ -59,7 +59,7 @@ public class BossTargetAttacker : MonoBehaviour, IBossTargetAttacker
         yield return new WaitForSeconds(reloadTime);
         _NoReload = true;
         _attackQueue++;
-        _animator.SetBool("isAttacking0", false);
+        //_animator.SetBool("isAttacking0", false);
     }
 
 }

@@ -136,6 +136,7 @@ Transform:
   - {fileID: 3269965545308050368}
   - {fileID: 1247139519215082847}
   - {fileID: 3081142626066630136}
+  - {fileID: 6144434912754164468}
   - {fileID: 8909492869954142662}
   - {fileID: 4986191860117470920}
   - {fileID: 7344059941592714823}
@@ -319,7 +320,7 @@ MonoBehaviour:
     attacks:
     - {fileID: 7527454559158481519, guid: e6c4b3c42d1597d4dbb0641183890040, type: 3}
     patternSpawn: {fileID: 3081142626066630136}
-    timeoutAfter: 5
+    timeoutAfter: 10
     startTime: 0.045
   _phasesCollection:
   - attacksCollection:
@@ -333,32 +334,13 @@ MonoBehaviour:
       attacks:
       - {fileID: 273394534811164708, guid: 7db7774c3dc9b1a46a627b2416321fb5, type: 3}
       patternSpawn: {fileID: 3081142626066630136}
-      timeoutAfter: 0.6
-      startTime: 0.2
-    - attack: {fileID: 8458616472822595085, guid: ebae315fc2cd6e84c8520daefd5972b7,
-        type: 3}
-      attacks:
-      - {fileID: 8458616472822595085, guid: ebae315fc2cd6e84c8520daefd5972b7, type: 3}
-      patternSpawn: {fileID: 8909492869954142662}
-      timeoutAfter: 1
-      startTime: 0.045
-    - attack: {fileID: 0}
-      attacks:
-      - {fileID: 273394534811164708, guid: 7db7774c3dc9b1a46a627b2416321fb5, type: 3}
-      patternSpawn: {fileID: 3081142626066630136}
-      timeoutAfter: 0.2
-      startTime: 0.2
-    - attack: {fileID: 0}
-      attacks:
-      - {fileID: 273394534811164708, guid: 7db7774c3dc9b1a46a627b2416321fb5, type: 3}
-      patternSpawn: {fileID: 3081142626066630136}
       timeoutAfter: 1.3
       startTime: 0.2
     - attack: {fileID: 0}
       attacks:
       - {fileID: 7527454559158481519, guid: e6c4b3c42d1597d4dbb0641183890040, type: 3}
       patternSpawn: {fileID: 3081142626066630136}
-      timeoutAfter: 1
+      timeoutAfter: 10
       startTime: 0.045
     - attack: {fileID: 8458616472822595085, guid: ebae315fc2cd6e84c8520daefd5972b7,
         type: 3}
@@ -367,6 +349,12 @@ MonoBehaviour:
       patternSpawn: {fileID: 8909492869954142662}
       timeoutAfter: 0.4
       startTime: 0.045
+    - attack: {fileID: 0}
+      attacks:
+      - {fileID: 273394534811164708, guid: 7db7774c3dc9b1a46a627b2416321fb5, type: 3}
+      patternSpawn: {fileID: 3081142626066630136}
+      timeoutAfter: 1.3
+      startTime: 0.2
     - attack: {fileID: 0}
       attacks:
       - {fileID: 273394534811164708, guid: 7db7774c3dc9b1a46a627b2416321fb5, type: 3}
@@ -830,6 +818,61 @@ Transform:
   - {fileID: 5188980824265927279}
   m_Father: {fileID: 5317327680322809363}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7182361105436612184
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6144434912754164468}
+  - component: {fileID: 2696257097839334952}
+  m_Layer: 8
+  m_Name: AerialPoint 1 (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6144434912754164468
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7182361105436612184}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 9.93, z: 6.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5317327680322809363}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &2696257097839334952
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7182361105436612184}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7992037251527399946
 GameObject:
   m_ObjectHideFlags: 0
