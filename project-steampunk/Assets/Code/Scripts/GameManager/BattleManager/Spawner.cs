@@ -40,20 +40,21 @@ public class Spawner : MonoBehaviour
                 door.DoorClose();
             }
 
-            SetActiveEnemies();// foreach set active enemies with await in async method
+            StartCoroutine(SetActiveEnemies());// foreach set active enemies with await in async method
 
             detectZone.enabled = false;
 
         }
     }
-    private async void SetActiveEnemies()
+    private IEnumerator SetActiveEnemies()
     {
         //int i = 0;
         foreach (var enemy in enemies.Values)
         {
             enemy.SetActive(true);
-           // i++;
-            await Task.Delay(timeSpawnDelay);
+            // i++;
+            yield return new WaitForSeconds(timeSpawnDelay / 1000);
+           //await Task.Delay(timeSpawnDelay);
         }
     }
     private void Start()
