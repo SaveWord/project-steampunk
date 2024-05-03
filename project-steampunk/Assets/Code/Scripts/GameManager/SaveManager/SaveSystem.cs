@@ -24,7 +24,7 @@ public class SaveSystem : MonoBehaviour
         saveDataPathSpawner = Application.persistentDataPath + "/SpawnerData.json";
 
     }
-    public void SaveSwitchWeapon(int switchWp) 
+    public void SaveSwitchWeapon(int switchWp)
     {
         playerData.switchWeapon = switchWp;
         string savePlayerData = JsonUtility.ToJson(playerData);
@@ -71,7 +71,9 @@ public class SaveSystem : MonoBehaviour
         else
         {
             //playerData.health = 100;
-            playerData.position = GetComponentInChildren<CheckPoint>().gameObject.transform.position;
+            playerData.sceneID = 1;
+            if (SceneManager.GetActiveScene().buildIndex != 0)
+                playerData.position = GetComponentInChildren<CheckPoint>().gameObject.transform.position;
             Debug.Log("File not found");
         }
     }
