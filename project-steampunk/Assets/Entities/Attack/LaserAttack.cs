@@ -33,7 +33,7 @@ namespace Enemies.Attacks.Attacks
         */
         [Header("Attack Parametres")]
         public Transform patternSpawnPoint;
-        public Camera _target;
+        public ITarget _target;
 
         public int _followDistance;
         public float _damage = 1;
@@ -42,6 +42,8 @@ namespace Enemies.Attacks.Attacks
         
         [SerializeField]
         private float _laserCooldown;
+
+        [SerializeField] private LayerMask transparentLayer;
 
         private bool _OnReload = false;
 
@@ -59,16 +61,16 @@ namespace Enemies.Attacks.Attacks
         private Material _targetMat;
         private ParticleSystem _particle;
 
-        private bool _damageCooldown;
+        private bool _damageCooldown = false;
         void Awake()
         {
             _particle = GetComponent<ParticleSystem>();
             gameObject.SetActive(false);
-            _target = Camera.main;
         }
 
         public override void Activate(ITarget target, Transform attackSpot)
         {
+            _target = target;
             patternSpawnPoint = attackSpot;
             Activated = true;
             StartCoroutine(Charge());
@@ -77,22 +79,15 @@ namespace Enemies.Attacks.Attacks
 
         protected void DealDamage(GameObject target)
         {
+            StartCoroutine(DamageReload());
             target.TryGetComponent(out IHealth damageable);
             damageable?.TakeDamage(_damage);
         }
 
-        private void OnTriggerStay(Collider collision)
-        {
-            if (collision.gameObject.layer == LayerMask.NameToLayer("Player") && !_damageCooldown)
-            {
-                DealDamage(collision.gameObject);
-                StartCoroutine(DamageReload());
-            }
-        }
         private IEnumerator DamageReload()
         {
             _damageCooldown= true;
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.5f);
             _damageCooldown = false;
         }
 
@@ -127,10 +122,10 @@ namespace Enemies.Attacks.Attacks
             if (Activated)
             {
                 transform.position = patternSpawnPoint.position;
-                _storedPositions.Enqueue(_target.transform.position);
+                _storedPositions.Enqueue(_target.GetPosition());
                 if (_lastPos != null)
                 {
-                    var distance = Vector3.Distance(_target.transform.position, _lastPos);
+                    var distance = Vector3.Distance(_target.GetPosition(), _lastPos);
                     if (distance >= 4 && !_OnReload)
                         StartCoroutine(Reload());
                 }
@@ -144,9 +139,32 @@ namespace Enemies.Attacks.Attacks
                         Vector3 direction = pos - transform.position;
                         Quaternion bulletRotation = Quaternion.LookRotation(direction, Vector3.up);
                         transform.rotation = bulletRotation;
+
+                        var hits = Physics.SphereCastAll(transform.position, 1f, (pos - transform.position), 400, ~transparentLayer, QueryTriggerInteraction.Ignore);
+                        Debug.DrawRay(transform.position, (pos - transform.position), Color.yellow);
+                        if (hits.Length != 0)
+                        {
+                            var closestHit = hits[0];
+
+                            for (int i = 1; i < hits.Length; i++)
+                            {
+                                if (hits[i].distance < closestHit.distance)
+                                {
+                                    closestHit = hits[i];
+                                }
+                            }
+                            Debug.Log("suqa " + closestHit.collider.gameObject.layer);
+                            if (closestHit.collider.gameObject.layer == 7 && !_damageCooldown)
+                                DealDamage(closestHit.collider.gameObject);
+                        }
+
                     }
                 }
-                _lastPos = _target.transform.position;
+                _lastPos = _target.GetPosition();
+
+
+
+               
             }
         }
     }

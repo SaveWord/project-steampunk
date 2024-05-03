@@ -13,6 +13,7 @@ public class HpEnemy : MonoBehaviour
 
     private float jumpForce;
     private Animator _animator;
+
     [SerializeField] private Rigidbody rb;
     [SerializeField] private GameObject deathParticlePrefab;
     [SerializeField] private GameObject healDropPrefab;
@@ -62,9 +63,15 @@ public class HpEnemy : MonoBehaviour
 
     private void HandleEnemyDied()
     {
-        var deathparticle = Instantiate(deathParticlePrefab, transform.position, transform.rotation);
+        //var deathparticle = Instantiate(deathParticlePrefab, transform.position, transform.rotation);
+        //animation of death
+        _animator.SetBool("isDead", true);
+        DeleteList(_idEnemy);
+        //Destroy(deathparticle, 2.5f); 
+        GameObject.Destroy(this.gameObject, 1.5f);
+
         // drop the heals
-        var healCount = UnityEngine.Random.Range(0, 2);
+        var healCount = UnityEngine.Random.Range(1, 2);
         Debug.Log("Healed num " +healCount);
         for (int i=0; i <= healCount; i++)
         {
@@ -73,11 +80,7 @@ public class HpEnemy : MonoBehaviour
 
             Instantiate(healDropPrefab, position, Quaternion.identity);
         }
-        //animation of death
-        //_animator.SetBool("isDead", true);
-         DeleteList(_idEnemy);
-        Destroy(deathparticle, 0.3f); 
-        GameObject.Destroy(this.gameObject);
+        
        
     }
 }
