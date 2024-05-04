@@ -31,7 +31,9 @@ public class GameManagerSingleton : MonoBehaviour
             checkPoint.idCheckPoint = j;
             j++;
         }
-        
+        if (SceneManager.GetActiveScene().buildIndex != 0)
+            GameManagerSingleton.Instance.SaveSystem.SaveScene(SceneManager.GetActiveScene().buildIndex);
+
     }
     public void PauseGame()
     {

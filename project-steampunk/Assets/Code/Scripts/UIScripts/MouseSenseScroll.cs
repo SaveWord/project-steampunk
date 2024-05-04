@@ -140,7 +140,7 @@ public class MouseSenseScroll : MonoBehaviour
     }
     public void NewGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(1);
         GameManagerSingleton.Instance.SaveSystem.DeleteAllSave();
     }
     public void LevelLoad(int level)

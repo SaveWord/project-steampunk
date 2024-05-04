@@ -191,7 +191,7 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
     }
     public async override void Reload(InputAction.CallbackContext context)
     {
-        if (Patrons < maxPatrons && isReload != true && Switch == false)
+        if (Patrons < maxPatrons && isReload != true)
         {
             //if (Patrons <= 0)
             ReloadSound();

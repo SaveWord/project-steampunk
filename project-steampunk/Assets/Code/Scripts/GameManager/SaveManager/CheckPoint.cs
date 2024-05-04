@@ -20,6 +20,7 @@ public class CheckPoint : MonoBehaviour
             }
         }
         spawners.AddRange(GetComponentsInChildren<Spawner>());
+        if (SceneManager.GetActiveScene().buildIndex == 2 && idCheckPoint == 0) GameManagerSingleton.Instance.SaveSystem.SaveSwitchWeapon(2);
     }
     private void OnTriggerEnter(Collider other)
     {
