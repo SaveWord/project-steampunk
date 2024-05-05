@@ -7575,7 +7575,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 3.41
-  m_Speed: 14
+  m_Speed: 20
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -7603,28 +7603,32 @@ MonoBehaviour:
   - attack: {fileID: 5785332119524234771, guid: c2d0a73390040594cb2dc0e8a5dd5dea,
       type: 3}
     attacks: []
-    patternSpawn: {fileID: 3953723821706496543}
+    patternSpawn: {fileID: 1950564744961441217, guid: fdba5687a61a5474ab3e4d05853a55b9,
+      type: 3}
     timeoutAfter: 0.1
     startTime: 0.4
   - attack: {fileID: 5785332119524234771, guid: c2d0a73390040594cb2dc0e8a5dd5dea,
       type: 3}
     attacks: []
-    patternSpawn: {fileID: 3953723821706496543}
+    patternSpawn: {fileID: 1950564744961441217, guid: fdba5687a61a5474ab3e4d05853a55b9,
+      type: 3}
     timeoutAfter: 0.1
     startTime: 0.4
   - attack: {fileID: 4530020378320582419, guid: b8b038985f5dbf948b85188392cc962f,
       type: 3}
     attacks: []
-    patternSpawn: {fileID: 5091320188286184004}
-    timeoutAfter: 0.3
+    patternSpawn: {fileID: 7739363595050409370, guid: fdba5687a61a5474ab3e4d05853a55b9,
+      type: 3}
+    timeoutAfter: 0.7
     startTime: 0.4
   - attack: {fileID: 5785332119524234771, guid: c2d0a73390040594cb2dc0e8a5dd5dea,
       type: 3}
     attacks: []
-    patternSpawn: {fileID: 3953723821706496543}
+    patternSpawn: {fileID: 1950564744961441217, guid: fdba5687a61a5474ab3e4d05853a55b9,
+      type: 3}
     timeoutAfter: 0.1
     startTime: 0.4
-  _transitionCooldownTime: 0.5
+  _transitionCooldownTime: 0.2
   _canChange: 1
 --- !u!114 &7356024832876962069
 MonoBehaviour:
