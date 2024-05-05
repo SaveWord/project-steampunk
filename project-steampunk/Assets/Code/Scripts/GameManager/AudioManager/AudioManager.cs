@@ -9,7 +9,7 @@ public class AudioManager : MonoBehaviour
 
     public Sound[] music, sfxSound, sfxSoundWeapon;
 
-    public AudioSource musicSource, sfxSource, sfxWeaponSource;
+    public AudioSource musicSource, sfxSource, sfxWeaponSource, sfxEnemySource;
     private void Awake()
     {
         if (InstanceAudio == null)
@@ -28,6 +28,13 @@ public class AudioManager : MonoBehaviour
         else if (sfx.name != "ChangeWeapon")
             sfxWeaponSource.PlayOneShot(sfx.clip);
     }
+
+    public void PlaySfxEnemy(string name)
+    {
+        Sound sfx = Array.Find(sfxSound, x => x.name == name);
+        sfxEnemySource.PlayOneShot(sfx.clip);
+    }
+
     public void PlaySfxSound(string name)
     {
         Sound sfx = Array.Find(sfxSound, x => x.name == name);

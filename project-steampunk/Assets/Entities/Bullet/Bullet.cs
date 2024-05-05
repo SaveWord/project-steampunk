@@ -59,7 +59,7 @@ namespace Enemies.Bullets
 
         protected void SelfDestroy()
         {
-            AudioManager.InstanceAudio.PlaySfxSound("BulletDestroyed");
+            AudioManager.InstanceAudio.PlaySfxEnemy("BulletDestroyed");
             Debug.Log("Die");
             StartCoroutine(SelfDestroyCoroutine());
         }

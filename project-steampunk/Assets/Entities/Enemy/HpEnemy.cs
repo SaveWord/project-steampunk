@@ -43,7 +43,7 @@ public class HpEnemy : MonoBehaviour
     }
     private void HandleEnemyTakenDamage()
     {
-        AudioManager.InstanceAudio.PlaySfxSound("EnemyDamaged");
+        AudioManager.InstanceAudio.PlaySfxEnemy("EnemyDamaged");
         if (gameObject.GetComponent<TargetDetector>() != null)
             gameObject.GetComponent<TargetDetector>().GetShot();
         enemyDamageImpact.Play();
@@ -54,7 +54,7 @@ public class HpEnemy : MonoBehaviour
         //var deathparticle = Instantiate(deathParticlePrefab, transform.position, transform.rotation);
         //animation of death
         _animator.SetBool("isDead", true);
-        AudioManager.InstanceAudio.PlaySfxSound("EnemyDeath");
+        AudioManager.InstanceAudio.PlaySfxEnemy("EnemyDeath");
         DeleteList(_idEnemy);
         //Destroy(deathparticle, 2.5f); 
         GameObject.Destroy(this.gameObject, 1.5f);
