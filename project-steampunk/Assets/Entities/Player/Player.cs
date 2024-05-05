@@ -31,10 +31,12 @@ public class Player : MonoBehaviour, ITarget
     
     public void HandlePlayerDamage(float damage)
     {
+        AudioManager.InstanceAudio.PlaySfxSound("PlayerDamaged");
         StartCoroutine(damageEffect.TakeDamageEffect());
     }
     public void HandlePlayerHeal(float damage)
     {
+        AudioManager.InstanceAudio.PlaySfxSound("PlayerHealed");
         StartCoroutine(healEffect.TakeDamageEffect());
     }
     private void Start()
@@ -47,8 +49,10 @@ public class Player : MonoBehaviour, ITarget
 
     private void HandlePlayerDied()
     {
+        if(!isDead)
+            AudioManager.InstanceAudio.PlaySfxSound("PlayerDeath");
         isDead = true;
-       OnPlayerDeath?.Invoke();
+        OnPlayerDeath?.Invoke();
         AudioManager.InstanceAudio.PlayMusic("Battle",false);
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }

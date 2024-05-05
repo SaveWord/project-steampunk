@@ -36,7 +36,6 @@ public class AudioManager : MonoBehaviour
         else if (sfx.name != "Move")
             sfxSource.PlayOneShot(sfx.clip);
     }
-
     public void PlayMusic(string name, bool musicState)
     {
         Sound ms = Array.Find(music, x => x.name == name);
