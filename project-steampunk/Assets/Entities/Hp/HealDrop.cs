@@ -13,8 +13,8 @@ public class HealDrop : MonoBehaviour
     private ParticleSystem.MinMaxGradient _healOriginalColor;
     void Awake()
     {
-        var m_Rigidbody = GetComponent<Rigidbody>();
-        m_Rigidbody.velocity = new Vector3(0, -_speed, 0);
+       // var m_Rigidbody = GetComponent<Rigidbody>();
+      // m_Rigidbody.velocity = new Vector3(0, -_speed, 0);
         
 
         _healParticleSystem = GetComponentInChildren<ParticleSystem>().main;

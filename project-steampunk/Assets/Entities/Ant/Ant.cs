@@ -17,6 +17,7 @@ namespace Enemies
         private float _transitionCooldownTime;
         [SerializeField] 
         private bool _canChange = true;
+        private TargetAttacker targetAttacker;
 
         private void Awake()
         {
@@ -24,7 +25,7 @@ namespace Enemies
 
             GetComponentInParent<IHealth>().OnDied += HandleDie;
             var targetDetector = gameObject.GetComponent<TargetDetector>();
-            var targetAttacker = gameObject.GetComponent<TargetAttacker>();
+            targetAttacker = gameObject.GetComponent<TargetAttacker>();
             var antMover = gameObject.GetComponent<AntMover>();
             var navMeshAgent = GetComponent<NavMeshAgent>();
 
@@ -48,7 +49,7 @@ namespace Enemies
         }
 
         private IEnumerator CooldownTransition()
-        {
+        { 
             _stateMachine.Tick();
             _canChange = false;
             yield return new WaitForSeconds(_transitionCooldownTime);
@@ -56,11 +57,14 @@ namespace Enemies
         }
         private void HandleDie()
         {
+            targetAttacker.enabled = false;
+            this.enabled = false;
+            gameObject.GetComponent<CapsuleCollider>().enabled = false;
             _canChange = false;
         }
         private void Update()
         {
-            if (_canChange)
+            if(_canChange)
                 StartCoroutine(CooldownTransition());
         }
 

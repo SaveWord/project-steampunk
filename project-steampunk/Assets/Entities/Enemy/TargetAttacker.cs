@@ -65,11 +65,4 @@ public class TargetAttacker : MonoBehaviour, ITargetAttacker
         _attackQueue++;
     }
 
-    private IEnumerator DestroyBullet(float time, RangeAttack attack)
-    {
-
-        yield return new WaitForSeconds(time);
-        Destroy(attack);
-        // _animator.SetBool("isAttacking", false);
-    }
 }

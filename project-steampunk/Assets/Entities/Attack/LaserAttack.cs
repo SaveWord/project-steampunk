@@ -60,7 +60,7 @@ namespace Enemies.Attacks.Attacks
         [SerializeField]
         private Material _targetMat;
         private ParticleSystem _particle;
-
+        [SerializeField]
         private bool _damageCooldown = false;
         void Awake()
         {
@@ -73,6 +73,7 @@ namespace Enemies.Attacks.Attacks
             _target = target;
             patternSpawnPoint = attackSpot;
             Activated = true;
+            _damageCooldown = false;
             StartCoroutine(Charge());
 
         }

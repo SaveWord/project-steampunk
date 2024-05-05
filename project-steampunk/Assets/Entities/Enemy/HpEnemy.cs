@@ -57,7 +57,7 @@ public class HpEnemy : MonoBehaviour
         AudioManager.InstanceAudio.PlaySfxEnemy("EnemyDeath");
         DeleteList(_idEnemy);
         //Destroy(deathparticle, 2.5f); 
-        GameObject.Destroy(this.gameObject, 1.5f);
+        GameObject.Destroy(this.gameObject, 0.5f);
 
         // drop the heals
         var healCount = UnityEngine.Random.Range(1, 2);
@@ -65,7 +65,7 @@ public class HpEnemy : MonoBehaviour
         for (int i=0; i <= healCount; i++)
         {
 
-            var position = new Vector3(transform.position.x+ UnityEngine.Random.Range(-10, 10), transform.position.y, transform.position.z+ UnityEngine.Random.Range(-10, 10));
+            var position = new Vector3(transform.position.x+ UnityEngine.Random.Range(-10, 10), transform.position.y+2, transform.position.z+ UnityEngine.Random.Range(-10, 10));
 
             Instantiate(healDropPrefab, position, Quaternion.identity);
         }
