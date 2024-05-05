@@ -86,7 +86,8 @@ public class ParametrsUpdateMachineGun : ParametrsUpdateDecorator
                 hit.collider.TryGetComponent(out IHealth damageable);
                 damageable?.TakeDamage(Damage);
 
-                if(damageable!=null || damageableProps!=null) 
+
+                if (damageable!=null || damageableProps!=null) 
                     ShowDamage(Damage + "", Color.gray);
 
                 ShowVFXImpact(hit);

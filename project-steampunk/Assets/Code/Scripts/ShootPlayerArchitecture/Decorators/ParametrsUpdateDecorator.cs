@@ -5,12 +5,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static IWeapon;
-using UnityEngine.UI;
 using Cinemachine;
 using System.Linq;
 using System.Threading;
-using System;
-using Unity.VisualScripting.Antlr3.Runtime;
 
 public class ParametrsUpdateDecorator : MainDecorator
 {

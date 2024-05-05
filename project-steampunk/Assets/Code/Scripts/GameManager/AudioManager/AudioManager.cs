@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
@@ -19,6 +20,11 @@ public class AudioManager : MonoBehaviour
         }
         else
             Destroy(gameObject);
+
+        musicSource.Stop();
+        sfxSource.Stop();
+        sfxWeaponSource.Stop();
+        musicSource.Play();
     }
     public void PlaySfxWeapon(string name)
     {
@@ -50,6 +56,7 @@ public class AudioManager : MonoBehaviour
         {
             case true:
                 musicSource.clip = ms.clip;
+                musicSource.Stop();
                 musicSource.Play();
                 break;
             case false:
@@ -67,8 +74,17 @@ public class AudioManager : MonoBehaviour
 
             yield return null;
         }
-
+        int scene = SceneManager.GetActiveScene().buildIndex;
         audioSource.Stop();
         audioSource.volume = startVolume;
+        switch (scene)
+        {
+            case 1:
+                PlayMusic("Embient1", true);
+                break;
+            case 2:
+                PlayMusic("Embient2", true);
+                break;
+        }
     }
 }
