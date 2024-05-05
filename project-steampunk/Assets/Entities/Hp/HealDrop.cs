@@ -34,13 +34,8 @@ public class HealDrop : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        
-        if (other.gameObject.layer == 7)
-        {
-            gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, other.gameObject.transform.position, _speed * Time.deltaTime);
-           
+        if (other.gameObject.layer == 7) //player
             PickUpHeal(other.gameObject);  Debug.Log("Healed"+ other.name);
-        }
     }
 
     void PickUpHeal(GameObject player)
@@ -48,6 +43,7 @@ public class HealDrop : MonoBehaviour
         var playerHealth = player.GetComponent<HpHandler>();
         if (playerHealth.CurrentHp < playerHealth.MaxHp)
         {
+            gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, player.transform.position, _speed * Time.deltaTime);
             playerHealth.Heal(_healAmount);
             Destroy(gameObject);
         }
