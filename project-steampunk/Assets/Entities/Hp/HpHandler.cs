@@ -17,7 +17,7 @@ public class HpHandler : MonoBehaviour, IHealth
     private VisualEffect enemyDamageImpact;
 
     public float CurrentHp { get { return (float)_currentHp; }}
-    public float MaxHp { get { return (float)_maxHp; } set { _maxHp = value; } }
+    public float MaxHp { get { return (float)_maxHp; } }
 
     public event Action<float> OnHPChanged = delegate { };
     public event Action<float> OnTakenDamage = delegate { };
