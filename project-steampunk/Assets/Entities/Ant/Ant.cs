@@ -36,7 +36,7 @@ namespace Enemies
 
             _stateMachine.AddTransition(idle, attack, TargetAvailable());
             _stateMachine.AddTransition(chase, attack, TargetAvailable());
-            _stateMachine.AddTransition(attack, chase, TargetNotAvailable());
+            _stateMachine.AddTransition(attack, chase, TargetAvailable());
             _stateMachine.AddTransition(idle, attack, AmIUnderAttack());
             _stateMachine.AddTransition(attack, idle, AmIUnderAtPeace());
 
