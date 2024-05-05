@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.VFX;
+using Enemies;
 
 public class HpEnemy : MonoBehaviour
 {
@@ -18,47 +19,34 @@ public class HpEnemy : MonoBehaviour
     [SerializeField] private GameObject deathParticlePrefab;
     [SerializeField] private GameObject healDropPrefab;
 
+    //vfxGraphTakeDamage
+    private VisualEffect enemyDamageImpact;
+
     //delete ListSpawner and check door
     public int _idEnemy;
     public event Action<int> DeleteList;
 
-    private void OnTriggerEnter(Collider other)
-      {
-          //if (other.CompareTag("bullet")||other.CompareTag("killzone"))
-          //{
-          //    state = other.gameObject.GetComponent<damage_interface>().getstate();
-          //    Debug.Log(state);
-          //    switch (state)
-          //    {
-          //        case "frozen":
-          //            playerPosition = transform.position;
-          //            immovable = true;
-          //            Debug.Log(false);
-          //            break;
-          //        case "jump":
-          //            jumpForce = other.gameObject.GetComponent<damage_interface>().getDamage();
-          //            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-          //            Debug.Log(true);
-          //            break;
-          //        default: break;
-
-          //    }
-          //}
-      }
-
-      private void OnTriggerStay(Collider other)
-      {
+     private void OnTriggerStay(Collider other)
+     {
           if (immovable)
           {
               transform.position = playerPosition;
           }
-      } 
+     } 
 
     private void Start()
     {
         GetComponent<IHealth>().OnDied += HandleEnemyDied;
         _animator = GetComponentInChildren<Animator>();
+        enemyDamageImpact = GetComponentInChildren<VisualEffect>();
         healDropPrefab = Resources.Load<GameObject>("HealDrop");
+    }
+    private void HandleEnemyTakenDamage()
+    {
+        AudioManager.InstanceAudio.PlaySfxSound("EnemyDamaged");
+        if (gameObject.GetComponent<TargetDetector>() != null)
+            gameObject.GetComponent<TargetDetector>().GetShot();
+        enemyDamageImpact.Play();
     }
 
     private void HandleEnemyDied()
@@ -66,6 +54,7 @@ public class HpEnemy : MonoBehaviour
         //var deathparticle = Instantiate(deathParticlePrefab, transform.position, transform.rotation);
         //animation of death
         _animator.SetBool("isDead", true);
+        AudioManager.InstanceAudio.PlaySfxSound("EnemyDeath");
         DeleteList(_idEnemy);
         //Destroy(deathparticle, 2.5f); 
         GameObject.Destroy(this.gameObject, 1.5f);

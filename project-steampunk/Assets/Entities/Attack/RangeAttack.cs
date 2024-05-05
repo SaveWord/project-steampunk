@@ -94,6 +94,8 @@ namespace Enemies.Attacks.Attacks
 
         public override void Activate(ITarget target, Transform attackSpot)
         {
+
+            AudioManager.InstanceAudio.PlaySfxSound("EnemyAttackBullet");
             patternSpawnPoint = attackSpot;
             Activated = true;
             StartCoroutine(MakeShots(target, attackSpot));

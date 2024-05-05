@@ -17,7 +17,7 @@ public class hitMarkEnemy : MonoBehaviour
     {
         standardCross.gameObject.SetActive(true);
         redCross.gameObject.SetActive(false);
-        smoothChangeOfCrosshair = GameObject.FindGameObjectWithTag("animated").GetComponent<Animator>();
+       // smoothChangeOfCrosshair = GameObject.FindGameObjectWithTag("animated").GetComponent<Animator>();
     }
     void Update()
     {

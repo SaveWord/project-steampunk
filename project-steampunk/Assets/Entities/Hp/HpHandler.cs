@@ -13,8 +13,6 @@ public class HpHandler : MonoBehaviour, IHealth
     private float _currentHp;
     [SerializeField]
     public bool _invulnerable = false;
-    //vfxGraphTakeDamage
-    private VisualEffect enemyDamageImpact;
 
     public float CurrentHp { get { return (float)_currentHp; }}
     public float MaxHp { get { return (float)_maxHp; } }
@@ -26,8 +24,6 @@ public class HpHandler : MonoBehaviour, IHealth
 
     private void Start()
     {
-        if (gameObject.layer == 6)
-            enemyDamageImpact = GetComponentInChildren<VisualEffect>();
         _currentHp = _maxHp;
     }
     
@@ -44,12 +40,6 @@ public class HpHandler : MonoBehaviour, IHealth
             if (_currentHp > 0)
             {
                 _currentHp -= amount;
-                if (gameObject.layer == 6)
-                {
-                    if (gameObject.GetComponent<TargetDetector>() != null)
-                        gameObject.GetComponent<TargetDetector>().GetShot();
-                    enemyDamageImpact.Play();
-                }
                 OnHPChanged(CurrentHp);
                 OnTakenDamage(amount);
             }
