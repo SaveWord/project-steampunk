@@ -10,7 +10,6 @@ public class GausController : WeaponController
 {
     InputAction.CallbackContext context;//null context
    [SerializeField] private List<Image> gausePatronsImages;
-    private List<GameObject> poolObjectList;
     private ParticleSystem afterFireSmoke;
     protected override void SubscriptionInput()
     {
@@ -28,15 +27,6 @@ public class GausController : WeaponController
     {
         ParticleSystem[] particle = GetComponentsInChildren<ParticleSystem>();
         afterFireSmoke = particle[particle.Length - 2];
-        //ObjectPool
-        GameObject tmp;
-        poolObjectList = new List<GameObject>();
-        for (int i = 0; i <= 6; i++)
-        {
-            tmp = Instantiate(weaponParametrs.prefabTrail);
-            tmp.SetActive(false);
-            poolObjectList.Add(tmp);
-        }
 
 
         patronsText = GetComponentInChildren<TextMeshProUGUI>();
@@ -49,7 +39,7 @@ public class GausController : WeaponController
             weaponParametrs.enemyLayer,
             vfxShootPrefab, weaponParametrs.vfxImpactMetalProps, weaponParametrs.vfxImpactOtherProps,
             patronsText, gausePatronsImages,
-            animatorArms, animatorWeapon, recoilCinemachine,poolObjectList, afterFireSmoke);
+            animatorArms, animatorWeapon, recoilCinemachine,afterFireSmoke);
         weapon.Switch = false;
         startSwitchInisialise = true;
     }

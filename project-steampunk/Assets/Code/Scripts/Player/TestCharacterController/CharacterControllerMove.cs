@@ -126,12 +126,12 @@ public class CharacterControllerMove : MonoBehaviour
         Debug.Log(inputMove);
         Move(inputMove);
         Rotation(inputLook);
+        IsGrounded();
         EffectsMove(inputMove);
         gravityVelocity.y += Physics.gravity.y * Time.deltaTime;
         if (isGrounded == true)
             gravityVelocity.y = 0f;
         characterController.Move((gravityVelocity * gravityDownForce) * Time.deltaTime);
-        IsGrounded();
     }
     //effects move
     public void EffectsMove(Vector2 _inputMove)
