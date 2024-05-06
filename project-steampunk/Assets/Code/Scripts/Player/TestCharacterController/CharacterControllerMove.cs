@@ -126,12 +126,12 @@ public class CharacterControllerMove : MonoBehaviour
         Debug.Log(inputMove);
         Move(inputMove);
         Rotation(inputLook);
-        IsGrounded();
         EffectsMove(inputMove);
         gravityVelocity.y += Physics.gravity.y * Time.deltaTime;
         if (isGrounded == true)
             gravityVelocity.y = 0f;
         characterController.Move((gravityVelocity * gravityDownForce) * Time.deltaTime);
+        IsGrounded();
     }
     //effects move
     public void EffectsMove(Vector2 _inputMove)
@@ -140,6 +140,8 @@ public class CharacterControllerMove : MonoBehaviour
         { camNoise.m_AmplitudeGain = _inputMove.magnitude * 2; }
         else { camNoise.m_AmplitudeGain = 0; }
         animatorCinemachineVirtualCam.SetFloat("rotateCam", _inputMove.x, 0.1f, Time.deltaTime);
+
+        animatorPlayer.SetBool("isGround", isGrounded);
     }
     //Movement
     private void Rotation(Vector2 inputLook)
@@ -168,7 +170,7 @@ public class CharacterControllerMove : MonoBehaviour
     Vector3 GetCapsuleTopHemisphere(float atHeight)
     {
         Vector3 centerOfSphere2 = transform.position + Vector3.up *
-            (characterController.height - characterController.radius + Physics.defaultContactOffset);
+            (characterController.height - characterController.radius - Physics.defaultContactOffset);
         return centerOfSphere2;//transform.position + (transform.up * (atHeight - characterController.radius));
     }
     private void Move(Vector2 inputMove)
@@ -265,7 +267,7 @@ public class CharacterControllerMove : MonoBehaviour
             //isGrounded = Physics.CheckSphere(dotGround.position, 0.4f, groundLayer);
             //detect ground and correct normal 
             if (Physics.CapsuleCast(GetCapsuleBottomHemisphere(), GetCapsuleTopHemisphere(characterController.height),
-                   characterController.radius - Physics.defaultContactOffset,
+                   characterController.radius + Physics.defaultContactOffset,
                    Vector3.down, out RaycastHit hit, sphereRadius, groundLayer,
                    QueryTriggerInteraction.Ignore))
             {
