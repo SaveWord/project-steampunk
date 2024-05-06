@@ -23,13 +23,15 @@ public class TargetAttacker : MonoBehaviour, ITargetAttacker
 
     public void SetAttack(List<AttackConstruct> attack)
     {
+        instanciated = true;
         foreach (var atk in attack)
         {
-            var tempObject = Instantiate(atk.attack, transform);
+            var tempObject = Instantiate(atk.attack, atk.patternSpawn);
+            tempObject.patternSpawnPoint = atk.patternSpawn;
             _attaksList.Add(tempObject);
         }
-        instanciated = true;
     }
+
 
     public void Attack(ITarget target, List<AttackConstruct> attack)
     {

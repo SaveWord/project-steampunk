@@ -19,8 +19,10 @@ namespace Enemies.Attacks.Attacks
         [SerializeField] private float largeRadius = 10f;
         [SerializeField] private float smallRadius = 3f;
         [SerializeField] private string axis="y";
+
         void Update()
         {
+            //this is a script to spawn circles of bullets in editor (makeChildren always false)
             if (makeChildren)
             {
                 
@@ -92,9 +94,10 @@ namespace Enemies.Attacks.Attacks
             }
         }
 
+
         public override void Activate(ITarget target, Transform attackSpot)
         {
-
+            var audioSource = transform.parent.gameObject.GetComponentInParent<AudioSource>();
             AudioManager.InstanceAudio.PlaySfxEnemy("EnemyAttackBullet");
             patternSpawnPoint = attackSpot;
             Activated = true;
@@ -103,15 +106,23 @@ namespace Enemies.Attacks.Attacks
 
         private void MakeShot(ITarget target, Bullet bullet, BulletSpot bulletSpot, Transform attackSpot)
         {
-            var projectile = Instantiate(bullet);
+            if (!instanciated)
+            {
+                instanciated = true;
 
-            projectile.Target = target;
-            projectile.transform.position = attackSpot.position + bulletSpot.SpotPoint;
+                var projectile = Instantiate(bullet);
 
-            if(bulletSpot.LookAtTarget) 
-                projectile.StartFly(target.GetPosition() + bulletSpot.ShotDirection);
-            else 
-                projectile.StartFly(bulletSpot.ShotDirection);
+                // записать их в массив
+                projectile.Target = target;
+                projectile.transform.position = attackSpot.position + bulletSpot.SpotPoint;
+
+                if (bulletSpot.LookAtTarget)
+                    projectile.StartFly(target.GetPosition() + bulletSpot.ShotDirection);
+                else
+                    projectile.StartFly(bulletSpot.ShotDirection);
+            }
+            //подтягивать из массива и включать висибилити
+            
         }
 
         private IEnumerator MakeShots(ITarget target, Transform attackSpot)

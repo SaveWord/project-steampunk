@@ -39,6 +39,7 @@ namespace Enemies.Bullets
         }
         private void Start()
         {
+            var audioSource = transform.parent.gameObject.GetComponentInParent<AudioSource>();
             AudioManager.InstanceAudio.PlaySfxEnemy("EnemyAttackRing");
             transform.rotation = Quaternion.Euler(0, 0, 0);
             StartCoroutine(DestructTime(_lifetime));
