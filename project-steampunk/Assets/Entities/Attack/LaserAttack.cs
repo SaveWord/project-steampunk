@@ -7,31 +7,7 @@ namespace Enemies.Attacks.Attacks
     {
         public bool Activated { get; set; }
 
-        /*
-        // Update is called once per frame
-        void Update()
-        {
-            Vector3 direction = Camera.main.transform.position - transform.position;
-            Quaternion bulletRotation = Quaternion.LookRotation(direction, Vector3.up);
-            transform.rotation = bulletRotation;
-        }
-
-        protected void DealDamage(GameObject target)
-        {
-            target.TryGetComponent(out IHealth damageable);
-            damageable?.TakeDamage(10);
-            Debug.Log("attack from ll ");
-        }
-
-        private void OnTriggerEnter(Collider collision)
-        {
-            if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
-            {
-                DealDamage(collision.gameObject);
-            }
-        }
-        */
-        [Header("Attack Parametres")]
+        [Header("Laser Attack Params")]
         public Transform patternSpawnPoint;
         public ITarget _target;
 
@@ -42,15 +18,14 @@ namespace Enemies.Attacks.Attacks
         
         [SerializeField]
         private float _laserCooldown;
-
-        [SerializeField] private LayerMask transparentLayer;
+        [SerializeField] 
+        private LayerMask transparentLayer;
 
         private bool _OnReload = false;
-
+        private bool _damageCooldown = false;
         private bool _isAttacking = false;
         private Queue<Vector3> _storedPositions = new Queue<Vector3>();
         private Vector3 _lastPos;
-
         private LaserAttack _laser;
 
         [Header("Visual Parametres")]
@@ -61,7 +36,6 @@ namespace Enemies.Attacks.Attacks
         private Material _targetMat;
         private ParticleSystem _particle;
 
-        private bool _damageCooldown = false;
         void Awake()
         {
             _particle = GetComponent<ParticleSystem>();
@@ -129,7 +103,7 @@ namespace Enemies.Attacks.Attacks
                     if (distance >= 4 && !_OnReload)
                         StartCoroutine(Reload());
                 }
-                //if (_target.transform.position)
+
                 if (_storedPositions.Count >= _followDistance)
                 {
                     var pos = _storedPositions.Dequeue();
@@ -153,19 +127,40 @@ namespace Enemies.Attacks.Attacks
                                     closestHit = hits[i];
                                 }
                             }
-                            Debug.Log("suqa " + closestHit.collider.gameObject.layer);
                             if (closestHit.collider.gameObject.layer == 7 && !_damageCooldown)
                                 DealDamage(closestHit.collider.gameObject);
                         }
-
                     }
                 }
-                _lastPos = _target.GetPosition();
-
-
-
-               
+                _lastPos = _target.GetPosition(); 
             }
         }
     }
 }
+
+
+//line laser not pivot laser
+/*
+// Update is called once per frame
+void Update()
+{
+    Vector3 direction = Camera.main.transform.position - transform.position;
+    Quaternion bulletRotation = Quaternion.LookRotation(direction, Vector3.up);
+    transform.rotation = bulletRotation;
+}
+
+protected void DealDamage(GameObject target)
+{
+    target.TryGetComponent(out IHealth damageable);
+    damageable?.TakeDamage(10);
+    Debug.Log("attack from ll ");
+}
+
+private void OnTriggerEnter(Collider collision)
+{
+    if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+    {
+        DealDamage(collision.gameObject);
+    }
+}
+*/

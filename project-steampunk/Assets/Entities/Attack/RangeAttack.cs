@@ -19,13 +19,14 @@ namespace Enemies.Attacks.Attacks
         [SerializeField] private float largeRadius = 10f;
         [SerializeField] private float smallRadius = 3f;
         [SerializeField] private string axis="y";
+        private bool instanciated = false;
+        public List<Bullet> _listOfAllBullets = new List<Bullet>();
 
         void Update()
         {
             //this is a script to spawn circles of bullets in editor (makeChildren always false)
             if (makeChildren)
             {
-                
                 if (destroyChildren)
                 {   
                     var count = 0;
@@ -43,7 +44,6 @@ namespace Enemies.Attacks.Attacks
 
                 for (int i = 0; i < sphereCount; i++)
                 {
-                    
                     float angle = (Mathf.PI * 2 * i) / sphereCount;
 
                     float sin = Mathf.Sin(angle) * largeRadius;
@@ -86,14 +86,10 @@ namespace Enemies.Attacks.Attacks
                     _shotQueue[i].Value = bullet;
                     if (destroyChildren)
                          Destroy(sp);
-
-
                 }
                 makeChildren = false;
-                
             }
         }
-
 
         public override void Activate(ITarget target, Transform attackSpot)
         {
@@ -104,33 +100,35 @@ namespace Enemies.Attacks.Attacks
             StartCoroutine(MakeShots(target, attackSpot));
         }
 
-        private void MakeShot(ITarget target, Bullet bullet, BulletSpot bulletSpot, Transform attackSpot)
+        private void MakeShot(ITarget target, Bullet bullet, BulletSpot bulletSpot, Transform attackSpot, int bulletIndex)
         {
-            if (!instanciated)
-            {
-                instanciated = true;
+            var attackBullet = _listOfAllBullets[bulletIndex];
+            attackBullet.gameObject.SetActive(false);
+            attackBullet.Target = target;
+            attackBullet.transform.position = attackSpot.position + bulletSpot.SpotPoint;
+            attackBullet.gameObject.SetActive(true);
 
-                var projectile = Instantiate(bullet);
-
-                // записать их в массив
-                projectile.Target = target;
-                projectile.transform.position = attackSpot.position + bulletSpot.SpotPoint;
-
-                if (bulletSpot.LookAtTarget)
-                    projectile.StartFly(target.GetPosition() + bulletSpot.ShotDirection);
-                else
-                    projectile.StartFly(bulletSpot.ShotDirection);
-            }
-            //подтягивать из массива и включать висибилити
-            
+            if (bulletSpot.LookAtTarget)
+                attackBullet.StartFly(target.GetPosition() + bulletSpot.ShotDirection);
+            else
+                attackBullet.StartFly(bulletSpot.ShotDirection);
         }
 
         private IEnumerator MakeShots(ITarget target, Transform attackSpot)
         {
-            foreach(var shot in _shotQueue)
+            if (!instanciated)
+            {
+                instanciated = true;
+                foreach (var shot in _shotQueue)
+                {
+                    var bulletSpawned = Instantiate(shot.Value);
+                    _listOfAllBullets.Add(bulletSpawned);
+                }
+            }
+            foreach (var shot in _shotQueue)
             {
                 yield return new WaitForSeconds(shot.Key.ShotDelay);
-                MakeShot(target, shot.Value, shot.Key, attackSpot);
+                MakeShot(target, shot.Value, shot.Key, attackSpot, _shotQueue.IndexOf(shot));
             }
             Activated = false;
         }
