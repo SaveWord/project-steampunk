@@ -93,11 +93,11 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
     {
         float currentTime = Time.time;
         float timeDifference = currentTime - _updateLastShoot;
-        if (Patrons <= 0)
-        {
-            _animator.SetBool("shoot", false);
-            _animatorWeapon.SetBool("shoot", false);
-        }
+        //if (Patrons <= 0)
+        //{
+        //    _animator.SetBool("shoot", false);
+        //    _animatorWeapon.SetBool("shoot", false);
+        //}
         if ((context.started || context.performed) && Patrons > 0 && timeDifference >= _updateFireRate)
         {
 
