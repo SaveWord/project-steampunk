@@ -191,7 +191,6 @@ GameObject:
   - component: {fileID: 3886064814643493129}
   - component: {fileID: 4150478262391429359}
   - component: {fileID: 604563145763096206}
-  - component: {fileID: 2973544116007077497}
   - component: {fileID: 6975189980409201717}
   - component: {fileID: 4025995523967434965}
   - component: {fileID: 4034137673910787633}
@@ -348,45 +347,6 @@ NavMeshAgent:
   m_BaseOffset: 0.35
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &2973544116007077497
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8696169832892840548}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52d519e0a40b0d748a18284fe8350704, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _attacksCollection:
-  - attack: {fileID: 7535649719867759211, guid: 839a1b29ac62751499d6005f280dc1ce,
-      type: 3}
-    attacks: []
-    patternSpawn: {fileID: 1677533448417271500}
-    timeoutAfter: 0.2
-    startTime: 1
-  - attack: {fileID: 8458616472822595085, guid: ebae315fc2cd6e84c8520daefd5972b7,
-      type: 3}
-    attacks: []
-    patternSpawn: {fileID: 4870794951646045618}
-    timeoutAfter: 0.3
-    startTime: 0.01
-  - attack: {fileID: 7535649719867759211, guid: 839a1b29ac62751499d6005f280dc1ce,
-      type: 3}
-    attacks: []
-    patternSpawn: {fileID: 1677533448417271500}
-    timeoutAfter: 0.4
-    startTime: 0.045
-  - attack: {fileID: 5785332119524234771, guid: c2d0a73390040594cb2dc0e8a5dd5dea,
-      type: 3}
-    attacks: []
-    patternSpawn: {fileID: 4870794951646045618}
-    timeoutAfter: 0.2
-    startTime: 0.1
-  _transitionCooldownTime: 0.5
-  _canChange: 1
 --- !u!114 &6975189980409201717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -415,8 +375,10 @@ MonoBehaviour:
   _viewMask:
     serializedVersion: 2
     m_Bits: 576
-  _detectionRadius: 120
+  _detectionRadius: 300
   _timeToForgets: 1000
+  _sphereCastMaxDist: 0
+  _castPoint: {fileID: 1677533448417271500}
   head: {fileID: 0}
   bee: 0
   InstantAgr: 1
@@ -511,27 +473,27 @@ MonoBehaviour:
       type: 3}
     attacks: []
     patternSpawn: {fileID: 1677533448417271500}
-    timeoutAfter: 0.2
-    startTime: 0.9
+    timeoutAfter: 1
+    startTime: 0.5
   - attack: {fileID: 8458616472822595085, guid: ebae315fc2cd6e84c8520daefd5972b7,
       type: 3}
     attacks: []
     patternSpawn: {fileID: 4870794951646045618}
-    timeoutAfter: 0.3
-    startTime: 0.9
+    timeoutAfter: 1
+    startTime: 0.5
   - attack: {fileID: 7535649719867759211, guid: 839a1b29ac62751499d6005f280dc1ce,
       type: 3}
     attacks: []
     patternSpawn: {fileID: 1677533448417271500}
-    timeoutAfter: 0.4
-    startTime: 0.9
+    timeoutAfter: 1
+    startTime: 0.5
   - attack: {fileID: 5785332119524234771, guid: c2d0a73390040594cb2dc0e8a5dd5dea,
       type: 3}
     attacks: []
     patternSpawn: {fileID: 4870794951646045618}
-    timeoutAfter: 0.2
-    startTime: 0.2
-  _transitionCooldownTime: 0.5
+    timeoutAfter: 1
+    startTime: 0.5
+  _transitionCooldownTime: 0.1
   _canChange: 1
 --- !u!1001 &2667859705382727227
 PrefabInstance:
