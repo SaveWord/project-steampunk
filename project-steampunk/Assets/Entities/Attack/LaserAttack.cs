@@ -7,32 +7,7 @@ namespace Enemies.Attacks.Attacks
     {
         public bool Activated { get; set; }
 
-        /*
-        // Update is called once per frame
-        void Update()
-        {
-            Vector3 direction = Camera.main.transform.position - transform.position;
-            Quaternion bulletRotation = Quaternion.LookRotation(direction, Vector3.up);
-            transform.rotation = bulletRotation;
-        }
-
-        protected void DealDamage(GameObject target)
-        {
-            target.TryGetComponent(out IHealth damageable);
-            damageable?.TakeDamage(10);
-            Debug.Log("attack from ll ");
-        }
-
-        private void OnTriggerEnter(Collider collision)
-        {
-            if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
-            {
-                DealDamage(collision.gameObject);
-            }
-        }
-        */
         [Header("Attack Parametres")]
-        public Transform patternSpawnPoint;
         public ITarget _target;
 
         public int _followDistance;
@@ -62,8 +37,12 @@ namespace Enemies.Attacks.Attacks
         private ParticleSystem _particle;
         [SerializeField]
         private bool _damageCooldown = false;
+
+        [SerializeField] private EnemyAudioCollection _audioSource;
+
         void Awake()
         {
+            _audioSource = transform.parent.gameObject.transform.parent.GetComponentInChildren<EnemyAudioCollection>();
             _particle = GetComponent<ParticleSystem>();
             gameObject.SetActive(false);
         }
@@ -114,14 +93,19 @@ namespace Enemies.Attacks.Attacks
             _isAttacking = true;
             yield return new WaitForSeconds(_attackDuration);
             _isAttacking = false;
-            gameObject.SetActive(false);
             Activated = false;
+
+            _audioSource.sfxSource.loop = false;
+            _audioSource.sfxSource.Stop();
+            gameObject.SetActive(false);
         }
 
         void Update()
         {
             if (Activated)
             {
+                _audioSource.sfxSource.loop = true;
+                _audioSource.PlaySfxEnemy("EnemyAttackLaser");
                 transform.position = patternSpawnPoint.position;
                 _storedPositions.Enqueue(_target.GetPosition());
                 if (_lastPos != null)

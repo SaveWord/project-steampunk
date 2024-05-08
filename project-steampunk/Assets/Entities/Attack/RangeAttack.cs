@@ -23,7 +23,7 @@ namespace Enemies.Attacks.Attacks
         public List<Bullet> _listOfAllBullets = new List<Bullet>();
 
         [SerializeField] private EnemyAudioCollection _audioSource;
-
+        
         void Update()
         {
             //this is a script to spawn circles of bullets in editor (makeChildren always false)
@@ -120,7 +120,7 @@ namespace Enemies.Attacks.Attacks
             if (!instanciated)
             {
                 instanciated = true;
-                _audioSource = transform.parent.gameObject.GetComponentInParent<EnemyAudioCollection>();
+                _audioSource = transform.parent.gameObject.transform.parent.GetComponentInChildren<EnemyAudioCollection>();
                 foreach (var shot in _shotQueue)
                 {
                     var bulletSpawned = Instantiate(shot.Value);
@@ -128,7 +128,7 @@ namespace Enemies.Attacks.Attacks
                 }
             }
 
-           // _audioSource.PlaySfxEnemy("EnemyAttackBullet");
+            _audioSource.PlaySfxEnemy("EnemyAttackBullet");
             foreach (var shot in _shotQueue)
             {
                 yield return new WaitForSeconds(shot.Key.ShotDelay);

@@ -1062,6 +1062,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6954585744960176376, guid: 48ed84ccbb2f1334b83e0033e580c555,
+        type: 3}
+      propertyPath: sfxLaserSource
+      value: 
+      objectReference: {fileID: 6776626769511108035}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 9036638533118596639, guid: 48ed84ccbb2f1334b83e0033e580c555, type: 3}
@@ -1071,6 +1076,12 @@ PrefabInstance:
 --- !u!4 &5052951808448989232 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6695920722373475399, guid: 48ed84ccbb2f1334b83e0033e580c555,
+    type: 3}
+  m_PrefabInstance: {fileID: 1941896475503654007}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &6776626769511108035 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 4969839470416673204, guid: 48ed84ccbb2f1334b83e0033e580c555,
     type: 3}
   m_PrefabInstance: {fileID: 1941896475503654007}
   m_PrefabAsset: {fileID: 0}

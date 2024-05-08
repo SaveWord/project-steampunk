@@ -43,10 +43,12 @@ namespace Enemies.Bullets
 
         private void Update()
         {
+
+            _startingRadius += Time.deltaTime * _waveSpeed;
             if (_isAttackReset)
                 _startingRadius = 5f;
             else
-            {
+            {   /*  old circle cycle ( works i quess the same, idk how to remove twisting )
                 _startingRadius += Time.deltaTime * _waveSpeed;
                 float angleStep = 2f * Mathf.PI / _subdivision;
                 _lineRenderer.positionCount = _subdivision;
@@ -56,8 +58,23 @@ namespace Enemies.Bullets
                     float zPosition = _startingRadius * Mathf.Sin(angleStep * i);
                     Vector3 pointInCircle = new Vector3(xPosition, 0f, zPosition);
                     _lineRenderer.SetPosition(i, pointInCircle);
-
                 }
+                */
+                _lineRenderer.useWorldSpace = false;
+                _lineRenderer.startWidth = 1;
+                _lineRenderer.endWidth = 1;
+                _lineRenderer.positionCount = _subdivision + 1;
+
+                var pointCount = _subdivision + 1;
+                var points = new Vector3[pointCount];
+
+                for (int i = 0; i < pointCount; i++)
+                {
+                    var rad = Mathf.Deg2Rad * (i * 360f / _subdivision);
+                    points[i] = new Vector3(Mathf.Sin(rad) * _startingRadius, 0, Mathf.Cos(rad) * _startingRadius);
+                }
+
+                _lineRenderer.SetPositions(points);
                 Mesh mesh = new Mesh();
                 _lineRenderer.BakeMesh(mesh, true);
                 _meshCollider.sharedMesh = mesh;
@@ -115,7 +132,7 @@ namespace Enemies.Bullets
             {
                 _isOnReload = true;
                 DealDamage(collision.gameObject);
-                StartCoroutine(DamageTime(3f));
+                StartCoroutine(DamageTime(0.1f));
 
             }
         }
