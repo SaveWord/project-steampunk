@@ -167,8 +167,9 @@ public class ParametrsUpdateDecorator : MainDecorator
                         break;
                     }
                 }
-                
 
+                hit.collider.TryGetComponent(out IHealth vfx);
+                vfx?.ChangeTransformVFXImpact(hit.point);
 
                 hit.collider.TryGetComponent(out IShield impulseShield);
                 impulseShield?.ShieldImpulse();

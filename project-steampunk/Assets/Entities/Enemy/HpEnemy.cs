@@ -37,6 +37,7 @@ public class HpEnemy : MonoBehaviour
     private void Start()
     {
         GetComponent<IHealth>().OnDied += HandleEnemyDied;
+        GetComponent<IHealth>().ChangeVfxImpact += HandleVfxPos;
         _animator = GetComponentInChildren<Animator>();
         enemyDamageImpact = GetComponentInChildren<VisualEffect>();
         healDropPrefab = Resources.Load<GameObject>("HealDrop");
@@ -46,6 +47,14 @@ public class HpEnemy : MonoBehaviour
         AudioManager.InstanceAudio.PlaySfxEnemy("EnemyDamaged");
         if (gameObject.GetComponent<TargetDetector>() != null)
             gameObject.GetComponent<TargetDetector>().GetShot();
+        //enemyDamageImpact.Play();
+    }
+    private void HandleVfxPos(Vector3 pos)
+    {
+        Vector3 direction = pos.normalized; 
+        Quaternion rotation = Quaternion.LookRotation(-direction);
+        enemyDamageImpact.transform.position = pos;
+        enemyDamageImpact.transform.rotation = rotation;
         enemyDamageImpact.Play();
     }
 
