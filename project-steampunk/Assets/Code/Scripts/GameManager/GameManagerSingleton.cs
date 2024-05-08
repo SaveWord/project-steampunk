@@ -45,4 +45,9 @@ public class GameManagerSingleton : MonoBehaviour
         //SingletonActionPlayer.Instance.inputActions.UICustom.Disable();
         Time.timeScale = 1f;
     }
+
+    public bool CheckpointExists()
+    {
+        return SaveSystem.CheckpointExists();
+    }
 }
