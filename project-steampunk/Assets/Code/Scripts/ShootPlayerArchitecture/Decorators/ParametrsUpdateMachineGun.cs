@@ -79,7 +79,7 @@ public class ParametrsUpdateMachineGun : ParametrsUpdateDecorator
                         break;
                     }
                 }
-                raycastHit = hit;
+          
 
                 hit.collider.TryGetComponent(out IShield impulseShield);
                 impulseShield?.ShieldImpulse();
@@ -96,6 +96,7 @@ public class ParametrsUpdateMachineGun : ParametrsUpdateDecorator
 
                 ShowVFXImpact(hit);
             }
+            raycastHit = hit;
             PoolActive();
             if (Patrons == 0 && isReload == false)
             {
