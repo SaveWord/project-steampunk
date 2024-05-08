@@ -15,6 +15,8 @@ public class Weapon : IWeapon
     public WeaponTypeDamage AttackType { get; set; } = WeaponTypeDamage.Physical;
     LayerMask IWeapon.enemyLayer { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
     public bool Switch { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public RaycastHit hitLine { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+
     public void Shoot(InputAction.CallbackContext context)
     {
 

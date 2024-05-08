@@ -13,13 +13,15 @@ public class DeathByPlatform : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] float Damage = 100f;
     // Vector3 deathVector;
-    // AudioSource source;
+    [SerializeField] AudioClip upPlatform;
+    [SerializeField] AudioClip downPlatform;
+    AudioSource source;
     Animator animator;
     //bool once=true;
     private void Start()
     {
         //deathVector=deathposition.position;
-       // source = GetComponent<AudioSource>();
+        source = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         animator.Play("CrashingPlatform", 0, offset);
         animator.speed = speed;
@@ -42,7 +44,14 @@ public class DeathByPlatform : MonoBehaviour
         //animator.enabled = false;
         Debug.Log("here22");
     }
-
+    public void SoundUpPlatform()
+    {
+        source.PlayOneShot(upPlatform);
+    }
+    public void SoundDownPlatform()
+    {
+        source.PlayOneShot(downPlatform);
+    }
     //}
     // Start is called before the first frame update
     //private void OnTriggerEnter(Collider other)

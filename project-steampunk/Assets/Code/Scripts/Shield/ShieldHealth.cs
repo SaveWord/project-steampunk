@@ -8,10 +8,14 @@ public class ShieldHealth : MonoBehaviour, IShield
     [SerializeField] private float refreshRate;
     [SerializeField] private bool isWall = false;
     private Material m_Material;
-     private GameObject healDropPrefab;
+    private GameObject healDropPrefab;
+    [SerializeField] private AudioClip audioClipImpulse;
+    [SerializeField] private AudioClip audioClipDeath;
+    private AudioSource audioSource;
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         m_Material = GetComponent<Renderer>().material;
     }
     void OnEnable()
@@ -21,6 +25,7 @@ public class ShieldHealth : MonoBehaviour, IShield
     }
     public void ShieldImpulse()
     {
+        audioSource.PlayOneShot(audioClipImpulse);
         StartCoroutine(ShieldImpulseVFX());
     }
     IEnumerator ShieldImpulseVFX()
@@ -60,7 +65,7 @@ public class ShieldHealth : MonoBehaviour, IShield
         {
             healDropPrefab = Resources.Load<GameObject>("HealDrop");
 
-           
+
             // drop the heals
             var healCount = UnityEngine.Random.Range(0, 2);
             Debug.Log("Healed num " + healCount);
@@ -72,8 +77,9 @@ public class ShieldHealth : MonoBehaviour, IShield
                 Instantiate(healDropPrefab, position, Quaternion.identity);
             }
         }
+        audioSource.PlayOneShot(audioClipDeath);
         StartCoroutine(ShieldDestroyVFX());
-        
+
     }
     IEnumerator ShieldDestroyVFX()
     {

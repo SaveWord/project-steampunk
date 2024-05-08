@@ -30,8 +30,8 @@ public class GameManagerSingleton : MonoBehaviour
         {
             checkPoint.idCheckPoint = j;
             j++;
-        }
-        
+        }    
+
     }
     public void PauseGame()
     {

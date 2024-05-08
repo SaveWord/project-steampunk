@@ -53,7 +53,7 @@ public class Player : MonoBehaviour, ITarget
             AudioManager.InstanceAudio.PlaySfxSound("PlayerDeath");
         isDead = true;
         OnPlayerDeath?.Invoke();
-        AudioManager.InstanceAudio.PlayMusic("Battle",false);
+        AudioManager.InstanceAudio.musicSource.Stop();
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     

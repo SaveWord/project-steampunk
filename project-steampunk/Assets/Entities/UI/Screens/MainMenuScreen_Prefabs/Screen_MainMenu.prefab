@@ -367,12 +367,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3431384cc1ef6574891a21e49a8cc128, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _onActivation:
+  _onOpen:
     m_PersistentCalls:
       m_Calls: []
-  _onDeactivation:
+  _onClose:
     m_PersistentCalls:
       m_Calls: []
+  _lastScreen: {fileID: 0}
   _deactivateByEscape: 1
 --- !u!1 &2793720383306529257
 GameObject:

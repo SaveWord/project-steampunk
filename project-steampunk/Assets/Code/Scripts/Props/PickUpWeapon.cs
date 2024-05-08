@@ -24,6 +24,7 @@ public class PickUpWeapon : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             other.GetComponentInChildren<SwitchWeapon>().WeaponUnlockMethod();
+            AudioManager.InstanceAudio.PlaySfxWeapon((idPickUp == 0) ? "MachineGunPickUp" : "GaussPickUp");
             gameObject.SetActive(false);
         }
     }

@@ -14,6 +14,14 @@ public class MachineGunController : WeaponController
     Vector3 current;
     protected override void Start()
     {
+        lineRenderers = new List<LineRenderer>();
+        LineRenderer tmp;
+        for (int i = 0; i < 10; i++)
+        {
+            tmp = Instantiate(lineRenderer);
+            tmp.enabled = false;
+            lineRenderers.Add(tmp);
+        }
         //use parametrs for shoot and weapon
         patronsText = GetComponentInChildren<TextMeshProUGUI>();
         recoil = transform.root.GetComponentInChildren<RecoilMachineGun>();
@@ -23,7 +31,7 @@ public class MachineGunController : WeaponController
             weaponParametrs.patrons, weaponParametrs.attackType,
             weaponParametrs.enemyLayer,
             vfxShootPrefab, weaponParametrs.vfxImpactMetalProps, weaponParametrs.vfxImpactOtherProps,
-            patronsText, animatorArms, animatorWeapon, recoilCinemachine,recoil);
+            patronsText, animatorArms, animatorWeapon, recoilCinemachine,recoil, lineRenderers);
         weapon.Switch = false;
         startSwitchInisialise = true;
     }

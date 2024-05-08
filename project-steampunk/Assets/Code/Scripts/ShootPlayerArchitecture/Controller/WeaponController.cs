@@ -20,6 +20,8 @@ public class WeaponController : MonoBehaviour
 
     //visual
     protected ParticleSystem vfxShootPrefab;
+    protected List<LineRenderer> lineRenderers;
+    [SerializeField]protected LineRenderer lineRenderer;
 
     protected CinemachineImpulseSource recoilCinemachine;
     protected Animator animatorArms;
@@ -53,6 +55,7 @@ public class WeaponController : MonoBehaviour
             weapon.Switch = false;
         }
         SubscriptionInput();
+        
 
     }
     protected void OnDisable()
@@ -73,6 +76,15 @@ public class WeaponController : MonoBehaviour
     }
     protected virtual void Start()
     {
+        lineRenderers = new List<LineRenderer>();
+        LineRenderer tmp;
+        for (int i = 0; i < 10; i++)
+        {
+            tmp = Instantiate(lineRenderer);
+            tmp.enabled = false;
+            lineRenderers.Add(tmp);
+        }
+
         //use parametrs for shoot and weapon
         patronsText = GetComponentInChildren<TextMeshProUGUI>();
 
@@ -83,7 +95,7 @@ public class WeaponController : MonoBehaviour
             weaponParametrs.patrons, weaponParametrs.attackType,
             weaponParametrs.enemyLayer,
             vfxShootPrefab, weaponParametrs.vfxImpactMetalProps, weaponParametrs.vfxImpactOtherProps,
-            patronsText, animatorArms, animatorWeapon, recoilCinemachine);
+            patronsText, animatorArms, animatorWeapon, recoilCinemachine,lineRenderers);
         weapon.Switch = false;
         startSwitchInisialise = true;
     }
@@ -92,16 +104,14 @@ public class WeaponController : MonoBehaviour
     public virtual void Shoot(InputAction.CallbackContext context)
     {
         //One Shoot
-        if (context.started)
-            weapon.Shoot(context);
-        //Shoot Pressed
-        if (context.performed)
-        {
-            Debug.Log(weapon.GetType().Name);
-            Debug.Log(this.GetType().Name);
-            isPressedContext = context;
-            isPressed = true;
-        }
+        //if (context.started)
+            //weapon.Shoot(context); PoolActive();
+            //Shoot Pressed
+            if (context.performed)
+            {
+                isPressedContext = context;
+                isPressed = true;
+            }
         //Cancel action
         if (context.canceled)
         {
@@ -111,6 +121,7 @@ public class WeaponController : MonoBehaviour
             animatorWeapon.SetBool("shoot", false);
         }
     }
+
     //reload func
     public virtual async void Reload(InputAction.CallbackContext context)
     {

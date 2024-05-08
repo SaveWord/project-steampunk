@@ -19,10 +19,18 @@ public class SaveSystem : MonoBehaviour
         playerData = new PlayerData();
         checkPointData = new CheckPointData();
         spawnerData = new SpawnerData();
-        saveDataPath = Application.persistentDataPath + "/PlayerData.json";
-        saveDataPathCheckPoint = Application.persistentDataPath + "/CheckPoint.json";
-        saveDataPathSpawner = Application.persistentDataPath + "/SpawnerData.json";
+        CreateDirectoriesIfNotExist();
+        saveDataPath = Path.Combine(Application.streamingAssetsPath, "PlayerData.json");
+        saveDataPathCheckPoint = Path.Combine(Application.streamingAssetsPath, "CheckPoint.json");
+        saveDataPathSpawner = Path.Combine(Application.streamingAssetsPath, "SpawnerData.json");
 
+    }
+    private void CreateDirectoriesIfNotExist()
+    {
+        if (!Directory.Exists(Application.streamingAssetsPath))
+        {
+            Directory.CreateDirectory(Application.streamingAssetsPath);
+        }
     }
     public void SaveSwitchWeapon(int switchWp)
     {

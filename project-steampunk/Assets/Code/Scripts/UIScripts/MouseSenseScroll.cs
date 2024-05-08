@@ -36,7 +36,8 @@ public class MouseSenseScroll : MonoBehaviour
         //inputActionsUI = new ActionPrototypePlayer();
         //inputActionsUI.Enable();
         //inputActionsUI.UICustom.SenseESCBuild.started += context => ActiveSlider(context);
-        filePath = Application.dataPath + "/" + optionsFileName;
+        CreateDirectoriesIfNotExist();
+        filePath =Path.Combine(Application.streamingAssetsPath,optionsFileName);
         LoadSense();
 
         //AddListener Slider sound
@@ -44,6 +45,13 @@ public class MouseSenseScroll : MonoBehaviour
         sliderVolumeSFX.onValueChanged.AddListener(OnSFXChanged);
         sliderVolumeMusic.onValueChanged.AddListener(OnMusicChanged);
 
+    }
+    private void CreateDirectoriesIfNotExist()
+    {
+        if (!Directory.Exists(Application.streamingAssetsPath))
+        {
+            Directory.CreateDirectory(Application.streamingAssetsPath);
+        }
     }
     private void Start()
     {
@@ -132,13 +140,13 @@ public class MouseSenseScroll : MonoBehaviour
     }
     public void NewGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(1);
         GameManagerSingleton.Instance.SaveSystem.DeleteAllSave();
     }
     public void LevelLoad(int level)
     {
-        transform.root.SetParent(null);
-        GameManagerSingleton.Instance.SaveSystem.DeleteAllSave();
+        //transform.root.SetParent(null);
+        //GameManagerSingleton.Instance.SaveSystem.DeleteAllSave();
         SceneManager.LoadScene(level);
     }
     public void BossTP()

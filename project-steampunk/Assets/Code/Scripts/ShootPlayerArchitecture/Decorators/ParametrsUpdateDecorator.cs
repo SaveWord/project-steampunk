@@ -5,17 +5,16 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static IWeapon;
-using UnityEngine.UI;
 using Cinemachine;
 using System.Linq;
 using System.Threading;
-using System;
-using Unity.VisualScripting.Antlr3.Runtime;
 
 public class ParametrsUpdateDecorator : MainDecorator
 {
     protected CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
     protected CancellationToken _cancellationToken;
+    protected RaycastHit raycastHit;
+    protected List<LineRenderer> _lineRenderers;
 
     protected bool _updateSwitchWeapon; // stop animation and reload if switch
     protected Transform _distanceTarget;
@@ -50,7 +49,8 @@ public class ParametrsUpdateDecorator : MainDecorator
         IWeapon.WeaponTypeDamage updateWeaponType, LayerMask mask,
         ParticleSystem vfxShootPrefab, ParticleSystem vfxImpactMetalProps, ParticleSystem vfxImpactOtherProps,
         TextMeshProUGUI patronsText,
-        Animator animator, Animator animatorWeapon, CinemachineImpulseSource recoil) : base(weapon)
+        Animator animator, Animator animatorWeapon, CinemachineImpulseSource recoil,
+        List<LineRenderer> lineRenderers) : base(weapon)
     {
 
         _updateFireRate = updateFireRate;
@@ -76,6 +76,7 @@ public class ParametrsUpdateDecorator : MainDecorator
         _animator = animator;
         _animatorWeapon = animatorWeapon;
         _recoil = recoil;
+        _lineRenderers = lineRenderers;
     }
 
     //properties
@@ -118,6 +119,11 @@ public class ParametrsUpdateDecorator : MainDecorator
         get { return _updateEnemyLayer; }
         set { }
     }
+    public override RaycastHit hitLine
+    {
+        get { return raycastHit; }
+        set { }
+    }
     //methods decorator shoot and reload logic
     public override void Shoot(InputAction.CallbackContext context)
     {
@@ -132,6 +138,7 @@ public class ParametrsUpdateDecorator : MainDecorator
 
             //vfx and animation and ui
             ShowAnimatorAndInternalImpact();
+
             AudioManager.InstanceAudio.PlaySfxWeapon("RevolverShoot");
             //aim assist, change radius sphere cast from distance
 
@@ -161,6 +168,9 @@ public class ParametrsUpdateDecorator : MainDecorator
                     }
                 }
 
+                hit.collider.TryGetComponent(out IHealth vfx);
+                vfx?.ChangeTransformVFXImpact(hit.point);
+
                 hit.collider.TryGetComponent(out IShield impulseShield);
                 impulseShield?.ShieldImpulse();
 
@@ -175,6 +185,8 @@ public class ParametrsUpdateDecorator : MainDecorator
 
                 ShowVFXImpact(hit);
             }
+            raycastHit = hit;
+            PoolActive();
         }
         if (Patrons == 0 && isReload == false)
         {
@@ -183,7 +195,34 @@ public class ParametrsUpdateDecorator : MainDecorator
             Reload(context);
         }
     }
-
+    protected LineRenderer GetPooledObject()
+    {
+        for (int i = 0; i < _lineRenderers.Count; i++)
+        {
+            if (!_lineRenderers[i].enabled)
+            {
+                return _lineRenderers[i];
+            }
+        }
+        return null;
+    }
+    protected void PoolActive()
+    {
+        LineRenderer lineTmp = GetPooledObject();
+        if (lineTmp != null)
+        {
+            lineTmp.SetPosition(0, _vfxShootPrefab.transform.position);
+            
+            if (hitLine.point == Vector3.zero)
+            {
+                Vector3 tmpVec = _vfxShootPrefab.transform.position +
+                    _vfxShootPrefab.transform.forward * 30;
+                lineTmp.SetPosition(1, tmpVec); }
+            else lineTmp.SetPosition(1, hitLine.point);
+            lineTmp.enabled = true;
+            return;
+        }
+    }
     protected virtual void ShowAnimatorAndInternalImpact()
     {
         _animator.SetBool("shoot", true);

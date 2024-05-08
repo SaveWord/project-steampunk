@@ -21,6 +21,7 @@ public class HpHandler : MonoBehaviour, IHealth
     public event Action<float> OnTakenDamage = delegate { };
     public event Action<float> OnHealedDamage = delegate { };
     public event Action OnDied = delegate { };
+    public event Action <Vector3>ChangeVfxImpact;
 
     private void Start()
     {
@@ -46,6 +47,10 @@ public class HpHandler : MonoBehaviour, IHealth
             if (_currentHp <= 0)
                 Die();
         }
+    }
+    public void ChangeTransformVFXImpact(Vector3 position)
+    {
+        ChangeVfxImpact?.Invoke(position);
     }
 
     public void Heal(float amount)

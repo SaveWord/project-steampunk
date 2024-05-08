@@ -11,7 +11,6 @@ public class ChangeLevel : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             GameManagerSingleton.Instance.SaveSystem.DeleteAllSave();
-            GameManagerSingleton.Instance.SaveSystem.SaveScene(sceneName);
             SceneManager.LoadSceneAsync(sceneName);
         }
     }

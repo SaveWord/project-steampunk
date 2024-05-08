@@ -21,10 +21,11 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
          IWeapon.WeaponTypeDamage updateWeaponType, LayerMask mask,
          ParticleSystem vfxShootPrefab, ParticleSystem vfxImpactMetalProps, ParticleSystem vfxImpactOtherProps,
          TextMeshProUGUI patronsText, List<Image> updateGausePatronsImage,
-         Animator animator, Animator animatorWeapon, CinemachineImpulseSource recoil,
-         List<GameObject> poolTrail, ParticleSystem afterFireParticle)
-         : base(distanceTarget,weapon, updateFireRate, distanceAndDamage, updateReload, updatePatrons, updateWeaponType,
-             mask, vfxShootPrefab, vfxImpactMetalProps, vfxImpactOtherProps, patronsText, animator, animator, recoil)
+         Animator animator, Animator animatorWeapon, CinemachineImpulseSource recoil, 
+         ParticleSystem afterFireParticle, List<LineRenderer> lineRenderers)
+         : base(distanceTarget, weapon, updateFireRate, distanceAndDamage, updateReload, updatePatrons, updateWeaponType,
+             mask, vfxShootPrefab, vfxImpactMetalProps, vfxImpactOtherProps, patronsText, 
+             animator, animator, recoil,lineRenderers)
     {
         _updateFireRate = updateFireRate;
 
@@ -49,8 +50,8 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
         _animator = animator;
         _animatorWeapon = animatorWeapon;
         _recoil = recoil;
-        _poolTrail = poolTrail;
         _afterFireParticle = afterFireParticle;
+        _lineRenderers = lineRenderers;
     }
 
     //properties
@@ -95,13 +96,21 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
     {
         float currentTime = Time.time;
         float timeDifference = currentTime - _updateLastShoot;
-        _afterFireParticle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        //if (Patrons <= 0)
+        //{
+        //    _animator.SetBool("shoot", false);
+        //    _animatorWeapon.SetBool("shoot", false);
+        //}
         if ((context.started || context.performed) && Patrons > 0 && timeDifference >= _updateFireRate)
         {
+
             _updateLastShoot = currentTime;
             Patrons--;
 
-
+            if (Patrons <= 0)
+                _afterFireParticle.Play();
+            else
+                _afterFireParticle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             //vfx and animation and ui
             ShowAnimatorAndInternalImpact();
             AudioManager.InstanceAudio.PlaySfxWeapon("GaussShoot");
@@ -135,6 +144,8 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
                         break;
                     }
                 }
+              
+
                 hit.collider.TryGetComponent(out IShield destroyShield);
                 destroyShield?.ShieldDestroy();
 
@@ -145,37 +156,22 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
                 hit.collider.TryGetComponent(out IHealth damageable);
                 damageable?.TakeDamage(Damage);
 
-                if (damageable != null || destroyShield!=null || damageableProps!=null)
+                if (damageable != null || destroyShield != null || damageableProps != null)
                     ShowDamage(Damage + "", Color.cyan);
 
                 //vfx and animator stop
                 ShowVFXImpact(hit);
 
-                //if (Patrons <= 0)
-                //{
-                //    _animator.SetBool("shoot", false);
-                //    _animatorWeapon.SetBool("shoot", false);
-                //    _afterFireParticle.Play();
 
-                //}
 
             }
+            raycastHit = hit;
+            PoolActive();
         }
+
         indexPatron = Mathf.Clamp((int)Patrons, 0, _updateGausePatronsImage.Count - 1);
         _updateGausePatronsImage[indexPatron].enabled = false;
-    }
-    private void TrailPoolSpawn()
-    {
-        for (int i = 0; i < _poolTrail.Count; i++)
-        {
-            if (!_poolTrail[i].activeInHierarchy)
-            {
-                _poolTrail[i].transform.position = _vfxShootPrefab.transform.position;
-                _poolTrail[i].transform.rotation = _vfxShootPrefab.transform.rotation;
-                _poolTrail[i].SetActive(true);
-                break;
-            }
-        }
+       
     }
     protected override void ShowAnimatorAndInternalImpact()
     {
@@ -184,6 +180,7 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
         _recoil.GenerateImpulse();
         _vfxShootPrefab.Stop();
         _vfxShootPrefab.Play();
+
     }
     public override void ReloadSound()
     {
@@ -191,7 +188,7 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
     }
     public async override void Reload(InputAction.CallbackContext context)
     {
-        if (Patrons < maxPatrons && isReload != true && Switch == false)
+        if (Patrons < maxPatrons && isReload != true)
         {
             //if (Patrons <= 0)
             ReloadSound();
