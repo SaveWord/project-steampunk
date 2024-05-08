@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public interface IWeapon
 {
+    RaycastHit hitLine { get; set; }
     bool Switch { get; set; }
     float Damage { get; set; }
     float Range { get; set; }

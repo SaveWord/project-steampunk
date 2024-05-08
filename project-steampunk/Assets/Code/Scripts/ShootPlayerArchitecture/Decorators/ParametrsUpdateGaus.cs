@@ -21,9 +21,11 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
          IWeapon.WeaponTypeDamage updateWeaponType, LayerMask mask,
          ParticleSystem vfxShootPrefab, ParticleSystem vfxImpactMetalProps, ParticleSystem vfxImpactOtherProps,
          TextMeshProUGUI patronsText, List<Image> updateGausePatronsImage,
-         Animator animator, Animator animatorWeapon, CinemachineImpulseSource recoil, ParticleSystem afterFireParticle)
+         Animator animator, Animator animatorWeapon, CinemachineImpulseSource recoil, 
+         ParticleSystem afterFireParticle, List<LineRenderer> lineRenderers)
          : base(distanceTarget, weapon, updateFireRate, distanceAndDamage, updateReload, updatePatrons, updateWeaponType,
-             mask, vfxShootPrefab, vfxImpactMetalProps, vfxImpactOtherProps, patronsText, animator, animator, recoil)
+             mask, vfxShootPrefab, vfxImpactMetalProps, vfxImpactOtherProps, patronsText, 
+             animator, animator, recoil,lineRenderers)
     {
         _updateFireRate = updateFireRate;
 
@@ -49,6 +51,7 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
         _animatorWeapon = animatorWeapon;
         _recoil = recoil;
         _afterFireParticle = afterFireParticle;
+        _lineRenderers = lineRenderers;
     }
 
     //properties
@@ -141,6 +144,8 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
                         break;
                     }
                 }
+                raycastHit = hit;
+
                 hit.collider.TryGetComponent(out IShield destroyShield);
                 destroyShield?.ShieldDestroy();
 
@@ -160,7 +165,7 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
 
 
             }
-
+            PoolActive();
         }
 
         indexPatron = Mathf.Clamp((int)Patrons, 0, _updateGausePatronsImage.Count - 1);

@@ -14,9 +14,11 @@ public class ParametrsUpdateMachineGun : ParametrsUpdateDecorator
         IWeapon.WeaponTypeDamage updateWeaponType, LayerMask mask,
         ParticleSystem vfxShootPrefab, ParticleSystem vfxImpactMetalProps, ParticleSystem vfxImpactOtherProps,
         TextMeshProUGUI patronsText, Animator animator, Animator animatorWeapon,
-        CinemachineImpulseSource recoil, RecoilMachineGun recoilMachineGun)
+        CinemachineImpulseSource recoil, RecoilMachineGun recoilMachineGun, 
+        List<LineRenderer> lineRenderers)
         : base(distanceTarget,weapon, updateFireRate, updateDamage, updateReload, updatePatrons, updateWeaponType,
-          mask, vfxShootPrefab, vfxImpactMetalProps, vfxImpactOtherProps, patronsText, animator, animatorWeapon, recoil)
+          mask, vfxShootPrefab, vfxImpactMetalProps, vfxImpactOtherProps, patronsText, 
+          animator, animatorWeapon, recoil, lineRenderers)
     {
         _updateFireRate = updateFireRate;
 
@@ -43,6 +45,7 @@ public class ParametrsUpdateMachineGun : ParametrsUpdateDecorator
         _patronsText = patronsText;
         _animator = animator;
         _animatorWeapon = animatorWeapon;
+        _lineRenderers = lineRenderers;
     }
     public override void Shoot(InputAction.CallbackContext context)
     {
@@ -76,6 +79,7 @@ public class ParametrsUpdateMachineGun : ParametrsUpdateDecorator
                         break;
                     }
                 }
+                raycastHit = hit;
 
                 hit.collider.TryGetComponent(out IShield impulseShield);
                 impulseShield?.ShieldImpulse();
@@ -92,6 +96,7 @@ public class ParametrsUpdateMachineGun : ParametrsUpdateDecorator
 
                 ShowVFXImpact(hit);
             }
+            PoolActive();
             if (Patrons == 0 && isReload == false)
             {
                 _animator.SetBool("shoot", false);

@@ -50,6 +50,7 @@ public abstract class MainDecorator : MonoBehaviour,IWeapon
     }
 
     public virtual bool Switch { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public virtual RaycastHit hitLine { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
     public virtual void Shoot(InputAction.CallbackContext context)
     {
