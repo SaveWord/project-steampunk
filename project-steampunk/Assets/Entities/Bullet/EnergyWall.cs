@@ -30,6 +30,8 @@ public class EnergyWall : MonoBehaviour
         
         _projectileSpeed = projectileSpeed;
         _attackTime = attackTime;
+
+        AudioManager.InstanceAudio.PlaySfxEnemy("EnemyAttackWall");
         _shield.gameObject.SetActive(true);
         
         StartCoroutine(Duration());

@@ -34,27 +34,36 @@ BlendTree:
   m_Name: Blend Tree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 6177058390737533607, guid: 84144ec74d496544880ab8a0a21a0fcd,
+    m_Motion: {fileID: -2793881161634203566, guid: a9ade74f25d17f84a8cb52b686bf8a2f,
       type: 3}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
-    m_TimeScale: 0.135
+    m_TimeScale: 0.3
     m_CycleOffset: 0
     m_DirectBlendParameter: weaponType
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: -1841769225762364984, guid: 3de0eaea823ca6e49a22aea41d900958,
+    m_Motion: {fileID: -8027942682490387856, guid: 2c319fc895bac3c40a709b723f248faf,
       type: 3}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}
-    m_TimeScale: 0.28
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: weaponType
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -2041509822626986714, guid: 5857b2b0be064bd4b870821b6d2193ff,
+      type: 3}
+    m_Threshold: 2
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 0.2
     m_CycleOffset: 0
     m_DirectBlendParameter: weaponType
     m_Mirror: 0
   m_BlendParameter: weaponType
   m_BlendParameterY: weaponType
   m_MinThreshold: 0
-  m_MaxThreshold: 1
+  m_MaxThreshold: 2
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
@@ -202,7 +211,7 @@ BlendTree:
   m_Name: Blend Tree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: -2446245313998203574, guid: de898bfa00e183240a5251e4711c1dd9,
+    m_Motion: {fileID: -6281982966347923222, guid: 627aa504714a5bd4789f81819eb614ad,
       type: 3}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
@@ -211,9 +220,18 @@ BlendTree:
     m_DirectBlendParameter: weaponType
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: -8498592517179661043, guid: 5389a4c15645abe4385b40081081f52d,
+    m_Motion: {fileID: -2991336480109837501, guid: 85142ff0e3f4679419c8596de9b9d241,
       type: 3}
     m_Threshold: 1
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: weaponType
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -6365801861221734953, guid: f679c301fe7a6cb4ea3a79868809e06d,
+      type: 3}
+    m_Threshold: 2
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -222,10 +240,61 @@ BlendTree:
   m_BlendParameter: weaponType
   m_BlendParameterY: weaponType
   m_MinThreshold: 0
-  m_MaxThreshold: 1
+  m_MaxThreshold: 2
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
+--- !u!206 &-4611251157296093942
+BlendTree:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MachineGun
+  m_Childs:
+  - serializedVersion: 2
+    m_Motion: {fileID: -6286931951362034529, guid: 6aa296ef75f73474a8decc29aad4929f,
+      type: 3}
+    m_Threshold: 0
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: weaponType
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 8364153066215272391, guid: 5d7856b9d043698449368b57f38243ba,
+      type: 3}
+    m_Threshold: 0.33333334
+    m_Position: {x: 1, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: weaponType
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 8402816325511872610, guid: 09c9a5a50b97a1840b5b7e4650367120,
+      type: 3}
+    m_Threshold: 0.6666667
+    m_Position: {x: 0, y: -1}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: weaponType
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -7087986237666236934, guid: 6a7f7b7048fb648439936874765d7fd8,
+      type: 3}
+    m_Threshold: 1
+    m_Position: {x: 0, y: 1}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: weaponType
+    m_Mirror: 0
+  m_BlendParameter: speed
+  m_BlendParameterY: ADSpeed
+  m_MinThreshold: 0
+  m_MaxThreshold: 1
+  m_UseAutomaticThresholds: 1
+  m_NormalizedBlendValues: 0
+  m_BlendType: 1
 --- !u!1101 &-3812159654307220686
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -234,8 +303,8 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 2
-    m_ConditionEvent: jump
+  - m_ConditionMode: 1
+    m_ConditionEvent: isGround
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 2408428387281496907}
@@ -359,7 +428,7 @@ BlendTree:
   m_Name: RevolverArm
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: -7694323012560469241, guid: c1ad1c7903fff1246af48966c4bddb0c,
+    m_Motion: {fileID: 8113735556740711258, guid: 9e2303fce4cbee64f82a57f4ae8a8cd2,
       type: 3}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
@@ -368,7 +437,7 @@ BlendTree:
     m_DirectBlendParameter: weaponType
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: -8128175865521194449, guid: 5ddcf1263d6e2244a9d83905cc664c1e,
+    m_Motion: {fileID: -4473120873281824935, guid: a66a2efcae5a5654eaa1d8c0dd6a1846,
       type: 3}
     m_Threshold: 0.33333334
     m_Position: {x: 1, y: 0}
@@ -377,7 +446,8 @@ BlendTree:
     m_DirectBlendParameter: weaponType
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 033a2ebbf3d639c4b9f3977b036df2dc, type: 2}
+    m_Motion: {fileID: -406504640943075008, guid: 0941ad77459bb074fabb8123d1508a50,
+      type: 3}
     m_Threshold: 0.6666667
     m_Position: {x: 0, y: -1}
     m_TimeScale: 1
@@ -385,7 +455,8 @@ BlendTree:
     m_DirectBlendParameter: weaponType
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 5d28e444e27dea44b9ca9777c8045612, type: 2}
+    m_Motion: {fileID: 8767104747237222455, guid: 42bb84c156e5dee4d98e56cd52888caf,
+      type: 3}
     m_Threshold: 1
     m_Position: {x: 0, y: 1}
     m_TimeScale: 1
@@ -497,8 +568,16 @@ BlendTree:
     m_DirectBlendParameter: speed
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 4049746583535715961}
+    m_Motion: {fileID: -4611251157296093942}
     m_Threshold: 1
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: weaponType
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 4049746583535715961}
+    m_Threshold: 2
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -507,7 +586,7 @@ BlendTree:
   m_BlendParameter: weaponType
   m_BlendParameterY: Blend
   m_MinThreshold: 0
-  m_MaxThreshold: 1
+  m_MaxThreshold: 2
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
@@ -666,8 +745,8 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: jump
+  - m_ConditionMode: 2
+    m_ConditionEvent: isGround
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 5770061623840682252}
@@ -692,7 +771,7 @@ BlendTree:
   m_Name: Blend Tree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 5969458041558098842, guid: a8d0e69061ea6554b81ae07cdda48ee0,
+    m_Motion: {fileID: 8969920355116299218, guid: 602e82e184c9e874b864647822cc0936,
       type: 3}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
@@ -701,9 +780,18 @@ BlendTree:
     m_DirectBlendParameter: weaponType
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: -3854963039251108215, guid: 3914861b0357b764bb9a3fd1338fbeea,
+    m_Motion: {fileID: 5913349980913412992, guid: 0f2ea4bce881a594297d268fdee670d5,
       type: 3}
     m_Threshold: 1
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: weaponType
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 7618121654522582920, guid: 674fcf91759edb143b61a5c3aa6d23a4,
+      type: 3}
+    m_Threshold: 2
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -712,7 +800,7 @@ BlendTree:
   m_BlendParameter: weaponType
   m_BlendParameterY: weaponType
   m_MinThreshold: 0
-  m_MaxThreshold: 1
+  m_MaxThreshold: 2
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
@@ -838,7 +926,7 @@ BlendTree:
   m_Name: GaussArm
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: -2457086978624540551, guid: 335fa7037dd3403449232db48114473c,
+    m_Motion: {fileID: 1674418296073746368, guid: 8a5a295ed57b1444286a17f701054448,
       type: 3}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
@@ -847,10 +935,28 @@ BlendTree:
     m_DirectBlendParameter: weaponType
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 3383932905396185906, guid: 522cad7d42a03944692efeff879f1254,
+    m_Motion: {fileID: 8807405428720908344, guid: 80f650d1528a06b4ab4be62145357a62,
+      type: 3}
+    m_Threshold: 0.11111112
+    m_Position: {x: 1, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: weaponType
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -3574267812433504176, guid: 5e0edca2c590b284cb0684bb678261d4,
+      type: 3}
+    m_Threshold: 0.22222224
+    m_Position: {x: 0, y: -1}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: weaponType
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -6028976264139509885, guid: 96ba3f02012a8744dbb1b817d7fb2760,
       type: 3}
     m_Threshold: 0.33333334
-    m_Position: {x: 1, y: 0}
+    m_Position: {x: 0, y: 1}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: weaponType
@@ -871,7 +977,7 @@ BlendTree:
   m_Name: Blend Tree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 5539831331247536789, guid: d0bfbe9ceb6ee104fa7e914f93a34ccf,
+    m_Motion: {fileID: 4566885419623744905, guid: 018a46dab3a6ebb418637845ecd0d8ac,
       type: 3}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
@@ -880,9 +986,18 @@ BlendTree:
     m_DirectBlendParameter: weaponType
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: -2993534804863918692, guid: 5e32a27b0e5b353429e5096241d4ee8b,
+    m_Motion: {fileID: 5124526587923549715, guid: 7e4722c9e15bcd24bbbb562febff0bd5,
       type: 3}
     m_Threshold: 1
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: weaponType
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -8054992691470330818, guid: 1ed3ce3b7cf1f6844b03916efdfe0acd,
+      type: 3}
+    m_Threshold: 2
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -891,7 +1006,7 @@ BlendTree:
   m_BlendParameter: weaponType
   m_BlendParameterY: weaponType
   m_MinThreshold: 0
-  m_MaxThreshold: 1
+  m_MaxThreshold: 2
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0

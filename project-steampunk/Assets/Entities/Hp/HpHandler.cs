@@ -13,21 +13,18 @@ public class HpHandler : MonoBehaviour, IHealth
     private float _currentHp;
     [SerializeField]
     public bool _invulnerable = false;
-    //vfxGraphTakeDamage
-    private VisualEffect enemyDamageImpact;
 
     public float CurrentHp { get { return (float)_currentHp; }}
-    public float MaxHp { get { return (float)_maxHp; } set { _maxHp = value; } }
+    public float MaxHp { get { return (float)_maxHp; } }
 
     public event Action<float> OnHPChanged = delegate { };
     public event Action<float> OnTakenDamage = delegate { };
     public event Action<float> OnHealedDamage = delegate { };
     public event Action OnDied = delegate { };
+    public event Action <Vector3>ChangeVfxImpact;
 
     private void Start()
     {
-        if (gameObject.layer == 6)
-            enemyDamageImpact = GetComponentInChildren<VisualEffect>();
         _currentHp = _maxHp;
     }
     
@@ -41,18 +38,19 @@ public class HpHandler : MonoBehaviour, IHealth
         {
             if (amount <= 0)
                 throw new ArgumentOutOfRangeException("Invalid Damage amount specified: " + amount);
-
-            _currentHp -= amount;
-            if (gameObject.layer == 6) {
-                if(gameObject.GetComponent<TargetDetector>()!=null) 
-                    gameObject.GetComponent<TargetDetector>().GetShot();
-                enemyDamageImpact.Play(); }
-            OnHPChanged(CurrentHp);
-            OnTakenDamage(amount);
-
+            if (_currentHp > 0)
+            {
+                _currentHp -= amount;
+                OnHPChanged(CurrentHp);
+                OnTakenDamage(amount);
+            }
             if (_currentHp <= 0)
                 Die();
         }
+    }
+    public void ChangeTransformVFXImpact(Vector3 position)
+    {
+        ChangeVfxImpact?.Invoke(position);
     }
 
     public void Heal(float amount)

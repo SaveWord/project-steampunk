@@ -39,6 +39,7 @@ namespace Enemies.Bullets
         }
         private void Start()
         {
+            AudioManager.InstanceAudio.PlaySfxEnemy("EnemyAttackRing");
             transform.rotation = Quaternion.Euler(0, 0, 0);
             StartCoroutine(DestructTime(_lifetime));
         }

@@ -1,10 +1,13 @@
 using System.Collections;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public interface IWeapon
 {
+    RaycastHit hitLine { get; set; }
+    bool Switch { get; set; }
     float Damage { get; set; }
     float Range { get; set; }
     float ReloadSpeed { get; set; }
@@ -24,4 +27,5 @@ public interface IWeapon
     {
         
     }
+    public async Task CancelToken() { }
 }

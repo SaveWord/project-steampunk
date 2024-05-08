@@ -19,16 +19,37 @@ public class SaveSystem : MonoBehaviour
         playerData = new PlayerData();
         checkPointData = new CheckPointData();
         spawnerData = new SpawnerData();
-        saveDataPath = Application.persistentDataPath + "/PlayerData.json";
-        saveDataPathCheckPoint = Application.persistentDataPath + "/CheckPoint.json";
-        saveDataPathSpawner = Application.persistentDataPath + "/SpawnerData.json";
+        CreateDirectoriesIfNotExist();
+        saveDataPath = Path.Combine(Application.streamingAssetsPath, "PlayerData.json");
+        saveDataPathCheckPoint = Path.Combine(Application.streamingAssetsPath, "CheckPoint.json");
+        saveDataPathSpawner = Path.Combine(Application.streamingAssetsPath, "SpawnerData.json");
 
     }
-    public void SaveData(Vector3 pos, int idScene)
+    private void CreateDirectoriesIfNotExist()
+    {
+        if (!Directory.Exists(Application.streamingAssetsPath))
+        {
+            Directory.CreateDirectory(Application.streamingAssetsPath);
+        }
+    }
+    public void SaveSwitchWeapon(int switchWp)
+    {
+        playerData.switchWeapon = switchWp;
+        string savePlayerData = JsonUtility.ToJson(playerData);
+        File.WriteAllText(saveDataPath, savePlayerData);
+    }
+    public void SaveScene(int idScene)
+    {
+        playerData.sceneID = idScene;
+        string savePlayerData = JsonUtility.ToJson(playerData);
+        File.WriteAllText(saveDataPath, savePlayerData);
+    }
+    public void SaveData(Vector3 pos, int idScene, Vector3 rot)
     {
         //playerData.health = hp;
         playerData.position = pos;
         playerData.sceneID = idScene;
+        playerData.rotation = rot;
         string savePlayerData = JsonUtility.ToJson(playerData);
         File.WriteAllText(saveDataPath, savePlayerData);
         Debug.Log("FileSave");
@@ -58,7 +79,9 @@ public class SaveSystem : MonoBehaviour
         else
         {
             //playerData.health = 100;
-            playerData.position = GetComponentInChildren<CheckPoint>().gameObject.transform.position;
+            playerData.sceneID = 1;
+            if (SceneManager.GetActiveScene().buildIndex != 0)
+                playerData.position = GetComponentInChildren<CheckPoint>().gameObject.transform.position;
             Debug.Log("File not found");
         }
     }
@@ -98,6 +121,8 @@ public class PlayerData
 {
     //public float health;
     public Vector3 position;
+    public Vector3 rotation;
+    public int switchWeapon;
     public int sceneID;
 }
 public class SpawnerData

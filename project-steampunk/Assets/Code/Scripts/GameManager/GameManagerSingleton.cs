@@ -31,6 +31,20 @@ public class GameManagerSingleton : MonoBehaviour
             checkPoint.idCheckPoint = j;
             j++;
         }
-        //SceneManager.LoadScene(GameManagerSingleton.Instance.SaveSystem.playerData.sceneID);
+        if (SceneManager.GetActiveScene().buildIndex != 0)
+            GameManagerSingleton.Instance.SaveSystem.SaveScene(SceneManager.GetActiveScene().buildIndex);
+
+    }
+    public void PauseGame()
+    {
+        SingletonActionPlayer.Instance.inputActions.Player.Disable();
+        SingletonActionPlayer.Instance.inputActions.UICustom.Enable();
+        Time.timeScale = 0f;
+    }
+    public void UnPauseGame()
+    {
+        SingletonActionPlayer.Instance.inputActions.Player.Enable();
+        //SingletonActionPlayer.Instance.inputActions.UICustom.Disable();
+        Time.timeScale = 1f;
     }
 }

@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 using static IWeapon;
 using TMPro;
 using UnityEngine.UI;
+using System.Threading;
+using System.Threading.Tasks;
 
 public abstract class MainDecorator : MonoBehaviour,IWeapon
 {
@@ -46,6 +48,10 @@ public abstract class MainDecorator : MonoBehaviour,IWeapon
         get { return weapon.enemyLayer; }
         set { }
     }
+
+    public virtual bool Switch { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public virtual RaycastHit hitLine { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+
     public virtual void Shoot(InputAction.CallbackContext context)
     {
         weapon.Shoot(context);
@@ -54,6 +60,7 @@ public abstract class MainDecorator : MonoBehaviour,IWeapon
     {
         weapon.Reload(context);
     }
+    public async virtual Task CancelToken() { }
     public void ShowDamage(string message, Color color)
     {
         var _floatingMessage = (GameObject)Resources.Load("FloatingMessage", typeof(GameObject));

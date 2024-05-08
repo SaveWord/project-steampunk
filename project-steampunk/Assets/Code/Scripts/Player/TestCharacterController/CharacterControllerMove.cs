@@ -102,6 +102,7 @@ public class CharacterControllerMove : MonoBehaviour
         GameManagerSingleton.Instance.SaveSystem.LoadData();
         //_currentHp = GameManagerSingleton.Instance.SaveSystem.playerData.health;
         transform.position = GameManagerSingleton.Instance.SaveSystem.playerData.position;
+        transform.rotation = Quaternion.Euler(GameManagerSingleton.Instance.SaveSystem.playerData.rotation);
         Physics.SyncTransforms();
     }
     private void OnEnable()
@@ -122,6 +123,7 @@ public class CharacterControllerMove : MonoBehaviour
     {
         inputMove = inputActions.Player.Move.ReadValue<Vector2>();
         Vector2 inputLook = inputActions.Player.Look.ReadValue<Vector2>();
+        Debug.Log(inputMove);
         Move(inputMove);
         Rotation(inputLook);
         IsGrounded();
@@ -138,6 +140,8 @@ public class CharacterControllerMove : MonoBehaviour
         { camNoise.m_AmplitudeGain = _inputMove.magnitude * 2; }
         else { camNoise.m_AmplitudeGain = 0; }
         animatorCinemachineVirtualCam.SetFloat("rotateCam", _inputMove.x, 0.1f, Time.deltaTime);
+
+        animatorPlayer.SetBool("isGround", isGrounded);
     }
     //Movement
     private void Rotation(Vector2 inputLook)
@@ -166,7 +170,7 @@ public class CharacterControllerMove : MonoBehaviour
     Vector3 GetCapsuleTopHemisphere(float atHeight)
     {
         Vector3 centerOfSphere2 = transform.position + Vector3.up *
-            (characterController.height - characterController.radius + Physics.defaultContactOffset);
+            (characterController.height - characterController.radius - Physics.defaultContactOffset);
         return centerOfSphere2;//transform.position + (transform.up * (atHeight - characterController.radius));
     }
     private void Move(Vector2 inputMove)
@@ -219,7 +223,7 @@ public class CharacterControllerMove : MonoBehaviour
             }
             else
             {
-                characterVelocity += Vector3.one;
+                characterVelocity *= 10;
                 characterVelocity = characterVelocity.normalized;
                 characterController.Move(characterVelocity * speed * dashSpeed * Time.deltaTime);
             }
@@ -260,12 +264,14 @@ public class CharacterControllerMove : MonoBehaviour
 
         if (Time.time >= m_LastTimeJumped + k_JumpGroundingPreventionTime)
         {
+            //isGrounded = Physics.CheckSphere(dotGround.position, 0.4f, groundLayer);
             //detect ground and correct normal 
             if (Physics.CapsuleCast(GetCapsuleBottomHemisphere(), GetCapsuleTopHemisphere(characterController.height),
-                   characterController.radius - Physics.defaultContactOffset,
+                   characterController.radius + Physics.defaultContactOffset,
                    Vector3.down, out RaycastHit hit, sphereRadius, groundLayer,
                    QueryTriggerInteraction.Ignore))
             {
+                isGrounded = true;
                 //Debug.Log(hit.collider);
                 float distanceToGround = Vector3.Distance(GetCapsuleBottomHemisphere(), hit.point);
                 if (distanceToGround < characterController.height / 2)
@@ -279,7 +285,7 @@ public class CharacterControllerMove : MonoBehaviour
                 if (Vector3.Dot(hit.normal, transform.up) > 0f &&
                     IsNormalUnderSlopeLimit(m_GroundNormal))
                 {
-                    isGrounded = true;
+                    
                     // handle snapping to the ground
                     if (hit.distance > characterController.skinWidth)
                     {

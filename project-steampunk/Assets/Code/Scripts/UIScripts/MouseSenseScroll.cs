@@ -29,14 +29,15 @@ public class MouseSenseScroll : MonoBehaviour
     private bool activeDieMenu =false;
     private void OnEnable()
     {
-        Player.dieMenuEvent += ContinueDie;
+        //Player.dieMenuEvent += ContinueDie;
         Time.timeScale = 1;
         player = transform.root.GetComponent<CharacterControllerMove>();
         inputActionsUI = SingletonActionPlayer.Instance.inputActions;
         //inputActionsUI = new ActionPrototypePlayer();
         //inputActionsUI.Enable();
-        inputActionsUI.UICustom.SenseESCBuild.started += context => ActiveSlider(context);
-        filePath = Application.dataPath + "/" + optionsFileName;
+        //inputActionsUI.UICustom.SenseESCBuild.started += context => ActiveSlider(context);
+        CreateDirectoriesIfNotExist();
+        filePath =Path.Combine(Application.streamingAssetsPath,optionsFileName);
         LoadSense();
 
         //AddListener Slider sound
@@ -44,6 +45,13 @@ public class MouseSenseScroll : MonoBehaviour
         sliderVolumeSFX.onValueChanged.AddListener(OnSFXChanged);
         sliderVolumeMusic.onValueChanged.AddListener(OnMusicChanged);
 
+    }
+    private void CreateDirectoriesIfNotExist()
+    {
+        if (!Directory.Exists(Application.streamingAssetsPath))
+        {
+            Directory.CreateDirectory(Application.streamingAssetsPath);
+        }
     }
     private void Start()
     {
@@ -54,9 +62,9 @@ public class MouseSenseScroll : MonoBehaviour
     }
     private void OnDisable()
     {
-        Player.dieMenuEvent -= ContinueDie;
+        //Player.dieMenuEvent -= ContinueDie;
         player.MouseSense = sliderSense.value;
-        inputActionsUI.UICustom.SenseESCBuild.started -= context => ActiveSlider(context);
+        //inputActionsUI.UICustom.SenseESCBuild.started -= context => ActiveSlider(context);
         SaveSense();
 
     }
@@ -132,19 +140,21 @@ public class MouseSenseScroll : MonoBehaviour
     }
     public void NewGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(1);
         GameManagerSingleton.Instance.SaveSystem.DeleteAllSave();
     }
     public void LevelLoad(int level)
     {
-        GameManagerSingleton.Instance.SaveSystem.DeleteAllSave();
-        SceneManager.LoadSceneAsync(level);
+        //transform.root.SetParent(null);
+        //GameManagerSingleton.Instance.SaveSystem.DeleteAllSave();
+        SceneManager.LoadScene(level);
     }
     public void BossTP()
     {
         if(SceneManager.GetActiveScene().buildIndex == 1)
         {
             transform.root.position = new Vector3(2249.6001f, 583.549988f, 286.399994f);
+            Physics.SyncTransforms();
         }
     }
     public void ContinueDie()
@@ -181,5 +191,11 @@ public class MouseSenseScroll : MonoBehaviour
     public void OnVolumeChanged(float sound)
     {
         mixer.SetFloat(_mixerVolume, Mathf.Log10(sound) * 20);
+    }
+    // main menu TestButton
+    public void StartGame()
+    {
+        GameManagerSingleton.Instance.SaveSystem.LoadData();
+        SceneManager.LoadScene(GameManagerSingleton.Instance.SaveSystem.playerData.sceneID);
     }
 }

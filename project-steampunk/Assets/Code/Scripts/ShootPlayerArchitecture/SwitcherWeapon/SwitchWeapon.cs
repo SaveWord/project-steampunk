@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SwitchWeapon : MonoBehaviour
 {
+    public int weaponUnlock;
     public int selectNumberWeapon;
     private ActionPrototypePlayer inputActions;
     private Animator animator;
@@ -16,14 +17,19 @@ public class SwitchWeapon : MonoBehaviour
         inputActions.Player.Weapon1.started += context => Weapon1();
         inputActions.Player.Weapon2.started += context => Weapon2();
         inputActions.Player.Weapon3.started += context => Weapon3();
-        animator = transform.root.GetComponentInChildren<Animator>();
+        animator = transform.root.GetComponentInChildren<Animator>(); 
+    }
+    private void Start()
+    {
+        GameManagerSingleton.Instance.SaveSystem.LoadData();
+        weaponUnlock = GameManagerSingleton.Instance.SaveSystem.playerData.switchWeapon;
     }
     IEnumerator ISwitch()
     {
         animator.SetBool("switch", true);
         yield return new WaitForSeconds(0.2f);
         animator.SetBool("switch", false);
-    } 
+    }
     private void OnDisable()
     {
         //inputActions.Disable();
@@ -41,30 +47,30 @@ public class SwitchWeapon : MonoBehaviour
     private void MouseScroll(Vector2 _input)
     {
         int previouseSelect = selectNumberWeapon;
-        if(_input.y > 0)
+        if (_input.y > 0)
         {
-            if (selectNumberWeapon >= transform.childCount - 1)
+            if (selectNumberWeapon >= weaponUnlock)
             {
                 selectNumberWeapon = 0;
             }
             else selectNumberWeapon++;
         }
-        if(_input.y < 0)
+        if (_input.y < 0)
         {
-            if(selectNumberWeapon <= 0)
+            if (selectNumberWeapon <= 0)
             {
-                selectNumberWeapon = transform.childCount - 1;
+                selectNumberWeapon = weaponUnlock;
             }
             else selectNumberWeapon--;
         }
-        if(previouseSelect != selectNumberWeapon) { SelectedWeapon(); }
+        if (previouseSelect != selectNumberWeapon) { SelectedWeapon(); }
     }
     private void SelectedWeapon()
     {
-        int i =0;
+        int i = 0;
         foreach (Transform weapon in transform)
         {
-            if(i == selectNumberWeapon)
+            if (i == selectNumberWeapon)
             {
                 AudioManager.InstanceAudio.PlaySfxWeapon("ChangeWeapon");
                 weapon.gameObject.SetActive(true);
@@ -82,12 +88,18 @@ public class SwitchWeapon : MonoBehaviour
     }
     private void Weapon2()
     {
-        selectNumberWeapon = 1;
+        selectNumberWeapon = (weaponUnlock >= 1) ? 1 : selectNumberWeapon;
         SelectedWeapon();
     }
     private void Weapon3()
     {
-        selectNumberWeapon = 2;
+        selectNumberWeapon = (weaponUnlock >= 2) ? 2 : selectNumberWeapon;
+        SelectedWeapon();
+    }
+    public void WeaponUnlockMethod()
+    { 
+        weaponUnlock++;
+        selectNumberWeapon = weaponUnlock;
         SelectedWeapon();
     }
 }

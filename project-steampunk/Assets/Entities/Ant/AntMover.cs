@@ -44,14 +44,14 @@ namespace Enemies
 
                 
 
-                _animator.SetBool("isRunning", true);
+               // _animator.SetBool("isRunning", true);
 
                 _controlarrow.ChangeColorToGray();
                 _controlarrow.Show();
             }
             else
             {
-                _animator.SetBool("isRunning", false);
+                //_animator.SetBool("isRunning", false);
                 _controlarrow.Hide();
             }
                 
@@ -170,8 +170,8 @@ namespace Enemies
             _dash = new Dash(_rBody, this);
             _controlarrow = GetComponent<controlarrow>();
 
-            _animator = GetComponentInChildren<Animator>();
-            
+            _animator = GameObject.FindGameObjectWithTag("animated").GetComponent<Animator>();
+
         }
 
         private void OnDrawGizmos()

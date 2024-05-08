@@ -13,13 +13,15 @@ public class DeathByPlatform : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] float Damage = 100f;
     // Vector3 deathVector;
-    // AudioSource source;
+    [SerializeField] AudioClip upPlatform;
+    [SerializeField] AudioClip downPlatform;
+    AudioSource source;
     Animator animator;
     //bool once=true;
     private void Start()
     {
         //deathVector=deathposition.position;
-       // source = GetComponent<AudioSource>();
+        source = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         animator.Play("CrashingPlatform", 0, offset);
         animator.speed = speed;
@@ -35,33 +37,47 @@ public class DeathByPlatform : MonoBehaviour
         //    Destroy(other.gameObject);
         //}
     }
-
-        //}
-        // Start is called before the first frame update
-        //private void OnTriggerEnter(Collider other)
-        //{
-        //    if (other.CompareTag("Player")&&once)
-        //    {
-        //        deathVector.x=other.transform.position.x;
-        //        deathVector.z=other.transform.position.z;
-        //        once = false;
-        //        source.Play();
-        //        StartCoroutine(waitForSound(other));
-        //    }
-        //    if (other.gameObject.layer==6 && other.GetType()==typeof(CapsuleCollider))
-        //    {         
-        //        Destroy(other.gameObject);
-        //    }
-
-        //}
-        //IEnumerator waitForSound(Collider other)
-        //{       
-        //    while (source.isPlaying)
-        //    {
-        //        other.transform.position = deathVector;
-        //        other.GetComponent<Rigidbody>().Sleep();
-        //        yield return null;
-        //    }
-        //    other.GetComponent<HpHandler>().TakeDamage(1000f);
-        //}
+    public void Stopp()
+    {
+        animator.Play("stop", 0, offset);
+        //animator.StopPlayback(); 
+        //animator.enabled = false;
+        Debug.Log("here22");
     }
+    public void SoundUpPlatform()
+    {
+        source.PlayOneShot(upPlatform);
+    }
+    public void SoundDownPlatform()
+    {
+        source.PlayOneShot(downPlatform);
+    }
+    //}
+    // Start is called before the first frame update
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.CompareTag("Player")&&once)
+    //    {
+    //        deathVector.x=other.transform.position.x;
+    //        deathVector.z=other.transform.position.z;
+    //        once = false;
+    //        source.Play();
+    //        StartCoroutine(waitForSound(other));
+    //    }
+    //    if (other.gameObject.layer==6 && other.GetType()==typeof(CapsuleCollider))
+    //    {         
+    //        Destroy(other.gameObject);
+    //    }
+
+    //}
+    //IEnumerator waitForSound(Collider other)
+    //{       
+    //    while (source.isPlaying)
+    //    {
+    //        other.transform.position = deathVector;
+    //        other.GetComponent<Rigidbody>().Sleep();
+    //        yield return null;
+    //    }
+    //    other.GetComponent<HpHandler>().TakeDamage(1000f);
+    //}
+}

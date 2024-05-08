@@ -4,28 +4,51 @@ using UnityEngine;
 
 public class BigWheel : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if(other.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
-            other.gameObject.transform.SetParent(transform, true);
-            
+            collision.gameObject.transform.SetParent(transform, true);
+
         }
-            
     }
-    private void OnTriggerStay(Collider other)
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if(other.CompareTag("Player"))
+    //    {
+    //        other.gameObject.transform.SetParent(transform, true);
+
+    //    }
+
+    //}
+    private void OnCollisionStay(Collision collision)
     {
-        if (other.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
-            Vector3 playerrotate = other.gameObject.transform.rotation.eulerAngles;
+            Vector3 playerrotate = collision.gameObject.transform.rotation.eulerAngles;
             playerrotate.z = 0;
             playerrotate.x = 0;
-            other.gameObject.transform.rotation = Quaternion.Euler(playerrotate);
+            collision.gameObject.transform.rotation = Quaternion.Euler(playerrotate);
         }
     }
-    private void OnTriggerExit(Collider other)
+    //private void OnTriggerStay(Collider other)
+    //{
+    //    if (other.CompareTag("Player"))
+    //    {
+    //        Vector3 playerrotate = other.gameObject.transform.rotation.eulerAngles;
+    //        playerrotate.z = 0;
+    //        playerrotate.x = 0;
+    //        other.gameObject.transform.rotation = Quaternion.Euler(playerrotate);
+    //    }
+    //}
+    private void OnCollisionExit(Collision collision)
     {
-        if (other.CompareTag("Player"))
-            other.gameObject.transform.SetParent(null);
+        if (collision.gameObject.CompareTag("Player"))
+            collision.gameObject.transform.SetParent(null);
     }
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if (other.CompareTag("Player"))
+    //        other.gameObject.transform.SetParent(null);
+    //}
 }

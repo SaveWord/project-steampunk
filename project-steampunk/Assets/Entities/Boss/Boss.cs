@@ -11,8 +11,7 @@ namespace Enemies
     [RequireComponent(typeof(HpHandler), typeof(TargetDetector), typeof(BossMover))]
     public class Boss : Enemy
     {
-        [SerializeField]
-        private float _maxHp;
+       
 
         [Header("% of health when it changes to next phase")]
         [SerializeField]
@@ -27,7 +26,7 @@ namespace Enemies
         private Attack attackGround;
         [SerializeField] private bool bee = false;
         public int HpPercentage;
-
+        private float _maxHp;
         //private Attack attackGround;
         private void Awake()
         {
@@ -42,7 +41,7 @@ namespace Enemies
             var navMeshAgent = GetComponent<NavMeshAgent>();
 
             var bossHealth = GetComponent<HpHandler>();
-            bossHealth.MaxHp = _maxHp;
+            _maxHp = bossHealth.MaxHp;
 
             GetComponentInParent<IHealth>().OnHPChanged += HandleHpPercentage;
 

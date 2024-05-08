@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.VFX;
+using Enemies;
 
 public class HpEnemy : MonoBehaviour
 {
@@ -13,58 +14,62 @@ public class HpEnemy : MonoBehaviour
 
     private float jumpForce;
     private Animator _animator;
+
     [SerializeField] private Rigidbody rb;
     [SerializeField] private GameObject deathParticlePrefab;
     [SerializeField] private GameObject healDropPrefab;
+
+    //vfxGraphTakeDamage
+    private VisualEffect enemyDamageImpact;
 
     //delete ListSpawner and check door
     public int _idEnemy;
     public event Action<int> DeleteList;
 
-    private void OnTriggerEnter(Collider other)
-      {
-          //if (other.CompareTag("bullet")||other.CompareTag("killzone"))
-          //{
-          //    state = other.gameObject.GetComponent<damage_interface>().getstate();
-          //    Debug.Log(state);
-          //    switch (state)
-          //    {
-          //        case "frozen":
-          //            playerPosition = transform.position;
-          //            immovable = true;
-          //            Debug.Log(false);
-          //            break;
-          //        case "jump":
-          //            jumpForce = other.gameObject.GetComponent<damage_interface>().getDamage();
-          //            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-          //            Debug.Log(true);
-          //            break;
-          //        default: break;
-
-          //    }
-          //}
-      }
-
-      private void OnTriggerStay(Collider other)
-      {
+     private void OnTriggerStay(Collider other)
+     {
           if (immovable)
           {
               transform.position = playerPosition;
           }
-      } 
+     } 
 
     private void Start()
     {
         GetComponent<IHealth>().OnDied += HandleEnemyDied;
+        GetComponent<IHealth>().ChangeVfxImpact += HandleVfxPos;
         _animator = GetComponentInChildren<Animator>();
+        enemyDamageImpact = GetComponentInChildren<VisualEffect>();
         healDropPrefab = Resources.Load<GameObject>("HealDrop");
+    }
+    private void HandleEnemyTakenDamage()
+    {
+        AudioManager.InstanceAudio.PlaySfxEnemy("EnemyDamaged");
+        if (gameObject.GetComponent<TargetDetector>() != null)
+            gameObject.GetComponent<TargetDetector>().GetShot();
+        //enemyDamageImpact.Play();
+    }
+    private void HandleVfxPos(Vector3 pos)
+    {
+        Vector3 direction = pos.normalized; 
+        Quaternion rotation = Quaternion.LookRotation(-direction);
+        enemyDamageImpact.transform.position = pos;
+        enemyDamageImpact.transform.rotation = rotation;
+        enemyDamageImpact.Play();
     }
 
     private void HandleEnemyDied()
     {
-        var deathparticle = Instantiate(deathParticlePrefab, transform.position, transform.rotation);
+        //var deathparticle = Instantiate(deathParticlePrefab, transform.position, transform.rotation);
+        //animation of death
+        _animator.SetBool("isDead", true);
+        AudioManager.InstanceAudio.PlaySfxEnemy("EnemyDeath");
+        DeleteList(_idEnemy);
+        //Destroy(deathparticle, 2.5f); 
+        GameObject.Destroy(this.gameObject, 1.5f);
+
         // drop the heals
-        var healCount = UnityEngine.Random.Range(0, 2);
+        var healCount = UnityEngine.Random.Range(1, 2);
         Debug.Log("Healed num " +healCount);
         for (int i=0; i <= healCount; i++)
         {
@@ -73,11 +78,7 @@ public class HpEnemy : MonoBehaviour
 
             Instantiate(healDropPrefab, position, Quaternion.identity);
         }
-        //animation of death
-        //_animator.SetBool("isDead", true);
-        Destroy(deathparticle, 0.3f); ;
-        GameObject.Destroy(this.gameObject);
-        if(_idEnemy!= null)
-            DeleteList(_idEnemy);
+        
+       
     }
 }

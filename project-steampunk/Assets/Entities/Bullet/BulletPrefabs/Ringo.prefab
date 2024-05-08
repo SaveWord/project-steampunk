@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 27721135908235660}
   - component: {fileID: 9086790863746126876}
   - component: {fileID: 2218711292512657590}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ringo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ MonoBehaviour:
   _damage: 20
   _waveSpeed: 20
   _startingRadius: 1
-  subdivision: 90
+  subdivision: 40
   _lifetime: 5
 --- !u!120 &2218711292512657590
 LineRenderer:
@@ -76,7 +76,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b2c6aec7f880f5c468b9c58424bc85d6, type: 2}
+  - {fileID: 2100000, guid: e800b3de68c02f342b210430c8bf58f7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -166,7 +166,7 @@ LineRenderer:
       m_NumAlphaKeys: 2
     numCornerVertices: 0
     numCapVertices: 0
-    alignment: 0
+    alignment: 1
     textureMode: 4
     textureScale: {x: 1, y: 1}
     shadowBias: 0.5
