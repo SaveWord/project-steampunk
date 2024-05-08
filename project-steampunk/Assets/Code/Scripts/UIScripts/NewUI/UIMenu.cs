@@ -38,6 +38,8 @@ public class UIMenu : MonoBehaviour
 
     public void TakeOffSelections()
     {
-        EventSystem.current.SetSelectedGameObject(null);
+        //EventSystem.current.SetSelectedGameObject(null);
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
     }
 }
