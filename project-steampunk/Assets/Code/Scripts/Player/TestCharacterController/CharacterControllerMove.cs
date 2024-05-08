@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 using Cinemachine;
 using UnityEngine.VFX;
 using UnityEngine.InputSystem.XR;
+using UnityEngine.SceneManagement;
 
 public class CharacterControllerMove : MonoBehaviour
 {
@@ -80,7 +81,7 @@ public class CharacterControllerMove : MonoBehaviour
         Cursor.visible = false;
 
         //load position
-        
+
 
         characterController = GetComponent<CharacterController>();
         animatorPlayer = GetComponentInChildren<Animator>();
@@ -94,7 +95,7 @@ public class CharacterControllerMove : MonoBehaviour
         animatorCinemachineVirtualCam = GameObject.Find("VirtualCameraAnimator").GetComponent<Animator>();
 
 
-      
+
 
     }
     private void Start()
@@ -104,6 +105,8 @@ public class CharacterControllerMove : MonoBehaviour
         transform.position = GameManagerSingleton.Instance.SaveSystem.playerData.position;
         transform.rotation = Quaternion.Euler(GameManagerSingleton.Instance.SaveSystem.playerData.rotation);
         Physics.SyncTransforms();
+        if (SceneManager.GetActiveScene().buildIndex != 0)
+            GameManagerSingleton.Instance.SaveSystem.SaveScene(SceneManager.GetActiveScene().buildIndex);
     }
     private void OnEnable()
     {
@@ -285,7 +288,7 @@ public class CharacterControllerMove : MonoBehaviour
                 if (Vector3.Dot(hit.normal, transform.up) > 0f &&
                     IsNormalUnderSlopeLimit(m_GroundNormal))
                 {
-                    
+
                     // handle snapping to the ground
                     if (hit.distance > characterController.skinWidth)
                     {
