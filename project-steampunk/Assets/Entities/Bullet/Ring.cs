@@ -20,9 +20,12 @@ namespace Enemies.Bullets
         private bool _isOnReload =false ;
         // [SerializeField] private float _lifeTime = 10f;
         private bool _isAttackReset = false;
+        private EnemyAudioCollection _audioSource;
 
         private void Awake()
         {
+
+            //_audioSource = gameObject.GetComponentInParent<EnemyAudioCollection>();
             _lineRenderer = GetComponent<LineRenderer>();
             _meshCollider = gameObject.AddComponent<MeshCollider>();
             //transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -32,8 +35,8 @@ namespace Enemies.Bullets
         private void OnEnable()
         {
             //TODO: restore and add prefab to ant
-            // var audioSource = transform.parent.gameObject.GetComponentInParent<AudioSource>();
-            //AudioManager.InstanceAudio.PlaySfxEnemy("EnemyAttackRing");
+            // 
+            //_audioSource.PlaySfxEnemy("EnemyAttackRing");
             _isAttackReset = false;
             transform.rotation = Quaternion.Euler(0, 0, 0);
         }

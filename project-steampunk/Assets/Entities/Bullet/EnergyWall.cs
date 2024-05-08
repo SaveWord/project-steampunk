@@ -11,10 +11,14 @@ public class EnergyWall : MonoBehaviour
     private float _attackTime;
     private ShieldHealth _shield;
     private Vector3 _startPos;
+
+    private EnemyAudioCollection _audioSource;
+
     // Start is called before the first frame update
     protected void Awake()
     {
         _shield = GetComponentInChildren<ShieldHealth>();
+        _audioSource = gameObject.GetComponentInParent<EnemyAudioCollection>();
         Physics.IgnoreLayerCollision(9, 9, true);
         Physics.IgnoreLayerCollision(6, 9, true);
 
@@ -31,8 +35,7 @@ public class EnergyWall : MonoBehaviour
         _projectileSpeed = projectileSpeed;
         _attackTime = attackTime;
 
-        var audioSource = transform.parent.gameObject.GetComponentInParent<AudioSource>();
-        AudioManager.InstanceAudio.PlaySfxEnemy("EnemyAttackWall");
+        _audioSource.PlaySfxEnemy("EnemyAttackWall");
         _shield.gameObject.SetActive(true);
         
         StartCoroutine(Duration());

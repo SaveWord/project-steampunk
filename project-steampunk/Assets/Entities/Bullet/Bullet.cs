@@ -65,8 +65,7 @@ namespace Enemies.Bullets
 
         protected void SelfDestroy()
         {
-            var audioSource = gameObject.GetComponentInParent<AudioSource>();
-            AudioManager.InstanceAudio.PlaySfxEnemy("BulletDestroyed");
+            //AudioManager.InstanceAudio.PlaySfxEnemy("BulletDestroyed");
             Debug.Log("Die");
             StartCoroutine(SelfDestroyCoroutine());
         }

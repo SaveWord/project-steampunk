@@ -22,6 +22,8 @@ namespace Enemies.Attacks.Attacks
         private bool instanciated = false;
         public List<Bullet> _listOfAllBullets = new List<Bullet>();
 
+        [SerializeField] private EnemyAudioCollection _audioSource;
+
         void Update()
         {
             //this is a script to spawn circles of bullets in editor (makeChildren always false)
@@ -93,8 +95,7 @@ namespace Enemies.Attacks.Attacks
 
         public override void Activate(ITarget target, Transform attackSpot)
         {
-            var audioSource = transform.parent.gameObject.GetComponentInParent<AudioSource>();
-            AudioManager.InstanceAudio.PlaySfxEnemy("EnemyAttackBullet");
+           
             patternSpawnPoint = attackSpot;
             Activated = true;
             StartCoroutine(MakeShots(target, attackSpot));
@@ -107,7 +108,7 @@ namespace Enemies.Attacks.Attacks
             attackBullet.Target = target;
             attackBullet.transform.position = attackSpot.position + bulletSpot.SpotPoint;
             attackBullet.gameObject.SetActive(true);
-
+            
             if (bulletSpot.LookAtTarget)
                 attackBullet.StartFly(target.GetPosition() + bulletSpot.ShotDirection);
             else
@@ -119,15 +120,19 @@ namespace Enemies.Attacks.Attacks
             if (!instanciated)
             {
                 instanciated = true;
+                _audioSource = transform.parent.gameObject.GetComponentInParent<EnemyAudioCollection>();
                 foreach (var shot in _shotQueue)
                 {
                     var bulletSpawned = Instantiate(shot.Value);
                     _listOfAllBullets.Add(bulletSpawned);
                 }
             }
+
+           // _audioSource.PlaySfxEnemy("EnemyAttackBullet");
             foreach (var shot in _shotQueue)
             {
                 yield return new WaitForSeconds(shot.Key.ShotDelay);
+                transform.LookAt(shot.Key.ShotDirection);
                 MakeShot(target, shot.Value, shot.Key, attackSpot, _shotQueue.IndexOf(shot));
             }
             Activated = false;
