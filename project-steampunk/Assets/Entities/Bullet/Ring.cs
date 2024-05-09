@@ -6,67 +6,97 @@ namespace Enemies.Bullets
 {
     public class Ring : Bullet
     {
-        public ITarget Target;
+        [Header("Ring Basics")]
 
-        [Header("Basics")]
-        [SerializeField] private float _damage;
-        [SerializeField] private float _waveSpeed;
-        //[SerializeField] private bool FollowForSomeTime;
+        [SerializeField] 
+        private float _waveSpeed;
+        [SerializeField] 
+        private float _startingRadius = 5f;
+        [SerializeField] 
+        private int _subdivision = 30;
 
-        private GameObject targetObject;
-        //private float followDuration = 15f;
-        // private Vector3 lastKnownPosition;
-
-        private Rigidbody _rBody;
-        private float _timeOnFly;
-
-
-        private LineRenderer _lineRenderer;
         private MeshCollider _meshCollider;
-        [SerializeField] private float _startingRadius = 5f;
-        [SerializeField] private int subdivision = 10;
-        private bool _OnReload =false ;
-        [SerializeField] private float _lifetime = 10f;
-        private bool a = true;
+        private LineRenderer _lineRenderer;
+        private bool _isOnReload =false ;
+        // [SerializeField] private float _lifeTime = 10f;
+        private bool _isAttackReset = false;
+        private EnemyAudioCollection _audioSource;
+
         private void Awake()
         {
+
+            //_audioSource = gameObject.GetComponentInParent<EnemyAudioCollection>();
             _lineRenderer = GetComponent<LineRenderer>();
             _meshCollider = gameObject.AddComponent<MeshCollider>();
-            //_rBody = GetComponent<Rigidbody>();
-            // targetObject = GameObject.FindGameObjectWithTag("Player");
             //transform.rotation = Quaternion.Euler(0, 0, 0);
 
         }
-        private void Start()
+
+        private void OnEnable()
         {
-            AudioManager.InstanceAudio.PlaySfxEnemy("EnemyAttackRing");
+            //TODO: restore and add prefab to ant
+            // 
+            //_audioSource.PlaySfxEnemy("EnemyAttackRing");
+            _isAttackReset = false;
             transform.rotation = Quaternion.Euler(0, 0, 0);
-            StartCoroutine(DestructTime(_lifetime));
         }
 
         private void Update()
         {
-            _startingRadius += Time.deltaTime * _waveSpeed;
-             float angleStep = 2f * Mathf.PI / subdivision;
-            _lineRenderer.positionCount = subdivision;
-            for (int i = 0; i < subdivision; i++)
-            {
-                 float xPosition = _startingRadius * Mathf.Cos(angleStep * i);
-                 float zPosition = _startingRadius * Mathf.Sin(angleStep * i);
-                 Vector3 pointInCircle = new Vector3(xPosition, 0f, zPosition);
-                 _lineRenderer.SetPosition(i, pointInCircle);
 
-            }
+            _startingRadius += Time.deltaTime * _waveSpeed;
+            if (_isAttackReset)
+                _startingRadius = 5f;
+            else
+            {   /*  old circle cycle ( works i quess the same, idk how to remove twisting )
+                _startingRadius += Time.deltaTime * _waveSpeed;
+                float angleStep = 2f * Mathf.PI / _subdivision;
+                _lineRenderer.positionCount = _subdivision;
+                for (int i = 0; i < _subdivision; i++)
+                {
+                    float xPosition = _startingRadius * Mathf.Cos(angleStep * i);
+                    float zPosition = _startingRadius * Mathf.Sin(angleStep * i);
+                    Vector3 pointInCircle = new Vector3(xPosition, 0f, zPosition);
+                    _lineRenderer.SetPosition(i, pointInCircle);
+                }
+                */
+                _lineRenderer.useWorldSpace = false;
+                _lineRenderer.startWidth = 1;
+                _lineRenderer.endWidth = 1;
+                _lineRenderer.positionCount = _subdivision + 1;
+
+                var pointCount = _subdivision + 1;
+                var points = new Vector3[pointCount];
+
+                for (int i = 0; i < pointCount; i++)
+                {
+                    var rad = Mathf.Deg2Rad * (i * 360f / _subdivision);
+                    points[i] = new Vector3(Mathf.Sin(rad) * _startingRadius, 0, Mathf.Cos(rad) * _startingRadius);
+                }
+
+                _lineRenderer.SetPositions(points);
                 Mesh mesh = new Mesh();
                 _lineRenderer.BakeMesh(mesh, true);
                 _meshCollider.sharedMesh = mesh;
                 //_meshCollider.isTrigger = true;
                 _meshCollider.enabled = true;
+            }
         }
+
         private void OnFly()
         {
             _timeOnFly += Time.deltaTime;
             gameObject.transform.localScale += new Vector3(1 * _waveSpeed, 0, 1 * _waveSpeed);
+        }
+
+        override public void StartFly(Vector3 direction)
+        {
+            _startingRadius = 5f;
+            // _collider = gameObject.GetComponent<SphereCollider>();
+            // _collider.enabled = true;
+            //transform.LookAt(direction);
+            StartCoroutine(DestructTime(_lifeTime));
+            //_rBody.velocity = transform.forward * _speed;
         }
 
         protected void DealDamage(GameObject target)
@@ -80,33 +110,32 @@ namespace Enemies.Bullets
         {
             
             yield return new WaitForSeconds(reloadTime);
-            Destroy(gameObject);
+            _startingRadius = 5f;
+            _isAttackReset = true;
+            gameObject.SetActive(false);
         }
+
         private IEnumerator DamageTime(float reloadTime)
         {
 
             yield return new WaitForSeconds(reloadTime);
-            _OnReload = false;
+            _isOnReload = false;
         }
+
         private void OnTriggerEnter(Collider collision)
         {
-            Debug.Log("shosh " + collision.gameObject.GetInstanceID());
             if (collision.gameObject.layer == LayerMask.NameToLayer("Ground") || collision.gameObject.layer == LayerMask.NameToLayer("Props"))
             {
                 Destroy(gameObject);
             }
-            else if (collision.gameObject.layer == LayerMask.NameToLayer("Player") && !_OnReload)
+            else if (collision.gameObject.layer == LayerMask.NameToLayer("Player") && !_isOnReload)
             {
-                _OnReload = true;
+                _isOnReload = true;
                 DealDamage(collision.gameObject);
-                StartCoroutine(DamageTime(3f));
+                StartCoroutine(DamageTime(0.1f));
 
             }
-
         }
-
-       
-
     }
 }
 

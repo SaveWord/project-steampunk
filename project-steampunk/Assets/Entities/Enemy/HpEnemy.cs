@@ -25,8 +25,9 @@ public class HpEnemy : MonoBehaviour
     //delete ListSpawner and check door
     public int _idEnemy;
     public event Action<int> DeleteList;
+    [SerializeField] private EnemyAudioCollection _audioSource ;
 
-     private void OnTriggerStay(Collider other)
+    private void OnTriggerStay(Collider other)
      {
           if (immovable)
           {
@@ -41,10 +42,12 @@ public class HpEnemy : MonoBehaviour
         _animator = GetComponentInChildren<Animator>();
         enemyDamageImpact = GetComponentInChildren<VisualEffect>();
         healDropPrefab = Resources.Load<GameObject>("HealDrop");
+
+        _audioSource = gameObject.GetComponentInChildren<EnemyAudioCollection>();
     }
     private void HandleEnemyTakenDamage()
     {
-        AudioManager.InstanceAudio.PlaySfxEnemy("EnemyDamaged");
+        _audioSource.PlaySfxEnemy("EnemyDamaged");
         if (gameObject.GetComponent<TargetDetector>() != null)
             gameObject.GetComponent<TargetDetector>().GetShot();
         //enemyDamageImpact.Play();
@@ -63,10 +66,10 @@ public class HpEnemy : MonoBehaviour
         //var deathparticle = Instantiate(deathParticlePrefab, transform.position, transform.rotation);
         //animation of death
         _animator.SetBool("isDead", true);
-        AudioManager.InstanceAudio.PlaySfxEnemy("EnemyDeath");
+        _audioSource.PlaySfxEnemy("EnemyDeath");
         DeleteList(_idEnemy);
         //Destroy(deathparticle, 2.5f); 
-        GameObject.Destroy(this.gameObject, 1.5f);
+        GameObject.Destroy(this.gameObject, 0.5f);
 
         // drop the heals
         var healCount = UnityEngine.Random.Range(1, 2);
@@ -74,7 +77,7 @@ public class HpEnemy : MonoBehaviour
         for (int i=0; i <= healCount; i++)
         {
 
-            var position = new Vector3(transform.position.x+ UnityEngine.Random.Range(-10, 10), transform.position.y, transform.position.z+ UnityEngine.Random.Range(-10, 10));
+            var position = new Vector3(transform.position.x+ UnityEngine.Random.Range(-10, 10), transform.position.y+2, transform.position.z+ UnityEngine.Random.Range(-10, 10));
 
             Instantiate(healDropPrefab, position, Quaternion.identity);
         }

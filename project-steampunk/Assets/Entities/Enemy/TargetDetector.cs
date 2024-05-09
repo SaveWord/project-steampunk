@@ -5,29 +5,48 @@ namespace Enemies
 {
     public class TargetDetector : MonoBehaviour, ITargetDetector
     {
-        [Header("Basics")]
-        [SerializeField] private LayerMask _viewMask;
-        [SerializeField] private float _detectionRadius = 20f;
-        [SerializeField] private float _timeToForgets = 5f;
+        [Header("Detector params")]
+        [SerializeField] 
+        private LayerMask _viewMask;
+        [SerializeField] 
+        private float _detectionRadius = 20f;
+        [SerializeField] 
+        private float _timeToForgets = 60f;
+        [SerializeField] 
+        private float _sphereCastMaxDist;
+        [SerializeField] 
+        private Transform _castPoint;
 
+        [Header("Target params")]
         private ITarget _target;
-        private SphereCollider _collider;
-        private controlarrow _controlarrow;
-        private bool _TheyAreShootingMe = false;
-        private IEnumerator _timerCoroutine;
-        [SerializeField] private Transform head;
-        [SerializeField] private bool bee;
-        [SerializeField] private bool InstantAgr;
+        private SphereCollider _thisEnemyCollider;
+        private controlarrow _enemyArrow;
+        private IEnumerator _forgetTimerCoroutine;
+
+        [Header("Enemy behavior switches")]
+        [SerializeField]
+        private bool _isShotByPlayer = false;
+        [SerializeField] 
+        private bool _isBee;
+        [SerializeField] 
+        private bool _isInstantlyAggred;
+
         private void Awake()
         {
-            _collider = gameObject.AddComponent<SphereCollider>();
-            _collider.isTrigger = true;
-            _collider.radius = _detectionRadius;
-            _controlarrow = GetComponent<controlarrow>();
-            _timerCoroutine = Forget();
-            if (InstantAgr)
+            if (_castPoint == null)
+                _castPoint = transform;
+            if (_sphereCastMaxDist == null)
+                _sphereCastMaxDist = _detectionRadius;
+
+            _thisEnemyCollider = gameObject.AddComponent<SphereCollider>();
+            _thisEnemyCollider.isTrigger = true;
+            _thisEnemyCollider.radius = _detectionRadius;
+
+            _enemyArrow = GetComponent<controlarrow>();
+
+            _forgetTimerCoroutine = Forget();
+            if (_isInstantlyAggred)
             {
-                _target = GameObject.FindWithTag("Player").GetComponent<ITarget>();
                 GetShot();
             }
         }
@@ -42,6 +61,7 @@ namespace Enemies
                 _target = target;
             }
         }
+
         private void OnTriggerExit(Collider other)
         {
             var target = other.GetComponent<ITarget>();
@@ -54,9 +74,9 @@ namespace Enemies
 
         public bool IsTargetAvailable()
         {
-            if (bee && _target != null)
+            if (_isBee && _target != null)
                 return true;
-            if (!bee && _target != null && IsTargetVisible())
+            if (!_isBee && _target != null)// && IsTargetVisible())
                 return true;
             else
                 return false;
@@ -64,50 +84,45 @@ namespace Enemies
 
         private bool IsTargetVisible()
         {
-            if (_target != null && SphereCastAll(out RaycastHit hitInfo))
+            if (_target != null && CastSphereToTarget(out RaycastHit hitInfo))
             {
                 if (hitInfo.collider.gameObject.GetInstanceID() == _target.GetTargetID())
                 {
-                    _controlarrow.Show();
-                    _controlarrow.ChangeColorToRed();
+                    _enemyArrow.Show();
+                    _enemyArrow.ChangeColorToRed();
                     return true;
                 }
             }
-            _controlarrow.Hide();
+            _enemyArrow.Hide();
             return false;
         }
 
-        private bool SphereCastAll(out RaycastHit hitInfo)
+        public bool AmIUnderAttack()
         {
-
-            if (head != null)
+            if (_isShotByPlayer)
             {
+                _target = GameObject.FindWithTag("Player").GetComponent<ITarget>();
+                if (_target == null)
+                    return false;
 
-                var hits = Physics.SphereCastAll(head.position, 1f, _target.GetPosition() - head.position, 100, ~_viewMask);
-
-                Debug.DrawRay(head.position, (_target.GetPosition() - head.position) * 100, Color.yellow);
-                if (hits.Length != 0)
-                {
-                    hitInfo = FindClosestHit(hits);
-                    //_controlarrow.ChangeColorToRed();
-                    return true;
-                }
+                return true;
             }
             else
+                return false;
+        }
+
+        private bool CastSphereToTarget(out RaycastHit closestHitInfo)
+        {
+            var hits = Physics.SphereCastAll(_castPoint.position, 2f,
+            _target.GetPosition() - _castPoint.position, _sphereCastMaxDist, ~_viewMask);
+            Debug.DrawRay(_castPoint.position,
+            _target.GetPosition() - _castPoint.position, Color.yellow);
+            if (hits.Length != 0)
             {
-                var hits = Physics.SphereCastAll(transform.position, 1f, _target.GetPosition() - transform.position, 100, ~_viewMask);
-
-                Debug.DrawRay(transform.position, (_target.GetPosition() - transform.position) * 100, Color.yellow);
-                if (hits.Length != 0)
-                {
-                    hitInfo = FindClosestHit(hits);
-                    //_controlarrow.ChangeColorToRed();
-                    return true;
-                }
+                closestHitInfo = FindClosestHit(hits);
+                return true;
             }
-
-            //_controlarrow.ChangeColorToGray();
-            hitInfo = default;
+            closestHitInfo = default;
             return false;
         }
 
@@ -121,48 +136,28 @@ namespace Enemies
                    Vector3.Distance(transform.position, closestHit.collider.transform.position))
                 {
                     closestHit = hits[i];
-
                 }
-
             }
             return closestHit;
         }
 
         public ITarget GetTarget()
         {
-
             return _target;
         }
+
         public void GetShot()
         {
-            _TheyAreShootingMe = true;
-            //StopCoroutine(_timerCoroutine);
-            //_timerCoroutine = Forget();
-            //StartCoroutine(_timerCoroutine);
-        }
-
-        //TODO: forget that i was shot
-
-        public bool AmIUnderAttack()
-        {
-            if (_TheyAreShootingMe)
-            {
-                _target = GameObject.FindWithTag("Player").GetComponent<ITarget>();
-                if (_target == null)
-                {
-                    return false;
-                }
-
-                return true;
-            }
-            else
-                return false;
+            _isShotByPlayer = true;
+            StopCoroutine(_forgetTimerCoroutine);
+            _forgetTimerCoroutine = Forget();
+            StartCoroutine(_forgetTimerCoroutine);
         }
 
         IEnumerator Forget()
         {
             yield return new WaitForSeconds(_timeToForgets);
-            _TheyAreShootingMe = false;
+            _isShotByPlayer = false;
             _target = null;
         }
     }

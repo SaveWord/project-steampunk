@@ -7,23 +7,30 @@ namespace Enemies.Bullets
     {
         public ITarget Target;
 
-        [Header("Basics")]
-        [SerializeField] protected float _damage;
-        [SerializeField] protected float _lifeTime;
-        [SerializeField] private float BulletSpeed;
-        protected float _speed;
-        //[SerializeField] private bool FollowForSomeTime;
+        [Header("Bullet Class Basics")]
 
+        [SerializeField] 
+        protected float _damage;
+        [SerializeField] 
+        protected float _lifeTime;
+        [SerializeField] 
+        private float BulletSpeed;
+
+        protected float _speed;
         protected GameObject targetObject; 
-       
+        private SphereCollider _collider;
         protected Vector3 lastKnownPosition;
         protected Vector3 continueDirection;
+        protected Vector3 direction;
         protected Rigidbody _rBody;
         protected float _timeOnFly = 4f;
 
         [Header("VFX")]
-        [SerializeField] protected GameObject sphereDie;
-        [SerializeField] protected float coroutineTimeDie;
+
+        [SerializeField] 
+        protected GameObject sphereDie;
+        [SerializeField] 
+        protected float coroutineTimeDie;
 
         protected void Awake()
         {
@@ -54,12 +61,11 @@ namespace Enemies.Bullets
         {
             _timeOnFly += Time.deltaTime;
             if (_timeOnFly >= _lifeTime) SelfDestroy();
-            
         }
 
         protected void SelfDestroy()
         {
-            AudioManager.InstanceAudio.PlaySfxEnemy("BulletDestroyed");
+            //AudioManager.InstanceAudio.PlaySfxEnemy("BulletDestroyed");
             Debug.Log("Die");
             StartCoroutine(SelfDestroyCoroutine());
         }
@@ -67,7 +73,8 @@ namespace Enemies.Bullets
         {
             sphereDie.SetActive(true);
             yield return new WaitForSeconds(coroutineTimeDie);
-            Destroy(gameObject);
+            sphereDie.SetActive(false);
+            gameObject.SetActive(false);
         }
 
         protected void OnTriggerEnter(Collider collision)
@@ -88,14 +95,12 @@ namespace Enemies.Bullets
 
         protected void DealDamage(GameObject target)
         {
-            //var damageable = target.GetComponent<IHealth>();
-           // damageable.TakeDamage(_damage);
             target.TryGetComponent(out IHealth damageable);
                 damageable?.TakeDamage(_damage);
             Debug.Log("attack from bullet");
         }
 
-        public void StartFly(Vector3 direction)
+        virtual public void StartFly(Vector3 direction)
         {
             transform.LookAt(direction);
             _rBody.velocity = transform.forward * _speed;

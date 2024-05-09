@@ -111,6 +111,10 @@ public class SaveSystem : MonoBehaviour
         File.Delete(saveDataPathSpawner);
         File.Delete(saveDataPathCheckPoint);
     }
+    public bool CheckpointExists()
+    {
+        return File.Exists(saveDataPath);
+    }
 }
 
 public class CheckPointData

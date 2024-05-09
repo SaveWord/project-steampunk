@@ -144,7 +144,7 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
                         break;
                     }
                 }
-                raycastHit = hit;
+              
 
                 hit.collider.TryGetComponent(out IShield destroyShield);
                 destroyShield?.ShieldDestroy();
@@ -165,6 +165,7 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
 
 
             }
+            raycastHit = hit;
             PoolActive();
         }
 

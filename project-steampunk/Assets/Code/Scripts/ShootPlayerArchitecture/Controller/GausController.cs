@@ -29,6 +29,15 @@ public class GausController : WeaponController
     {
         ParticleSystem[] particle = GetComponentsInChildren<ParticleSystem>();
         afterFireSmoke = particle[particle.Length - 2];
+        
+        lineRenderers = new List<LineRenderer>();
+        LineRenderer tmp;
+        for (int i = 0; i < 10; i++)
+        {
+            tmp = Instantiate(lineRenderer);
+            tmp.enabled = false;
+            lineRenderers.Add(tmp);
+        }
 
 
         patronsText = GetComponentInChildren<TextMeshProUGUI>();

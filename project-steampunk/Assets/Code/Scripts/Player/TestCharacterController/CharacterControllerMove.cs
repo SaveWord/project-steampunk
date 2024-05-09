@@ -107,6 +107,8 @@ public class CharacterControllerMove : MonoBehaviour
         Physics.SyncTransforms();
         if (SceneManager.GetActiveScene().buildIndex != 0)
             GameManagerSingleton.Instance.SaveSystem.SaveScene(SceneManager.GetActiveScene().buildIndex);
+        if (SceneManager.GetActiveScene().buildIndex == 2)
+            GameManagerSingleton.Instance.SaveSystem.SaveSwitchWeapon(2);
     }
     private void OnEnable()
     {
@@ -126,7 +128,6 @@ public class CharacterControllerMove : MonoBehaviour
     {
         inputMove = inputActions.Player.Move.ReadValue<Vector2>();
         Vector2 inputLook = inputActions.Player.Look.ReadValue<Vector2>();
-        Debug.Log(inputMove);
         Move(inputMove);
         Rotation(inputLook);
         IsGrounded();
@@ -135,6 +136,7 @@ public class CharacterControllerMove : MonoBehaviour
         if (isGrounded == true)
             gravityVelocity.y = 0f;
         characterController.Move((gravityVelocity * gravityDownForce) * Time.deltaTime);
+        Debug.Log(characterController.velocity);
     }
     //effects move
     public void EffectsMove(Vector2 _inputMove)
@@ -262,8 +264,8 @@ public class CharacterControllerMove : MonoBehaviour
     }
     private void IsGrounded()
     {
-        Debug.Log(isGrounded);
-        Debug.Log(Vector3.Angle(transform.up, m_GroundNormal));
+        // Debug.Log(isGrounded);
+        //Debug.Log(Vector3.Angle(transform.up, m_GroundNormal));
 
         if (Time.time >= m_LastTimeJumped + k_JumpGroundingPreventionTime)
         {
