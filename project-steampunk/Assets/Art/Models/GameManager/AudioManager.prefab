@@ -323,21 +323,9 @@ MonoBehaviour:
   - name: PlayerHealed
     clip: {fileID: 8300000, guid: 4daeb102a07106e48aff2c5f1753c778, type: 3}
   - name: PlayerDamaged
-    clip: {fileID: 8300000, guid: cd047b52a1860934498b6cf63d606957, type: 3}
+    clip: {fileID: 8300000, guid: f9232ed63050ff84eb7f45a1f90ffd8b, type: 3}
   - name: PlayerDeath
     clip: {fileID: 8300000, guid: 649118f5b2ae7854eb0c84b4775afd9d, type: 3}
-  - name: EnemyDamaged
-    clip: {fileID: 8300000, guid: cd047b52a1860934498b6cf63d606957, type: 3}
-  - name: EnemyDeath
-    clip: {fileID: 8300000, guid: 9c19bd215efc63b4db4f7fb8dfed42aa, type: 3}
-  - name: BulletDestroyed
-    clip: {fileID: 8300000, guid: 7c2d6dcb9cd8c42439b47a087f0521a3, type: 3}
-  - name: EnemyAttackWall
-    clip: {fileID: 8300000, guid: 0c2cdeb4228409c48b08d17384f69778, type: 3}
-  - name: EnemyAttackRing
-    clip: {fileID: 8300000, guid: 5ea0647dc846a4d48bf4f4f8b6483e0d, type: 3}
-  - name: EnemyAttackBullet
-    clip: {fileID: 8300000, guid: 90fe63a7be6b27141b7ac15397f3d7c6, type: 3}
   sfxSoundWeapon:
   - name: RevolverShoot
     clip: {fileID: 8300000, guid: b0c8963b5ca066d498768b259af3f8e5, type: 3}
@@ -349,10 +337,14 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: d175eb65db403e942861618e418676b4, type: 3}
   - name: GaussReload
     clip: {fileID: 8300000, guid: 89a703c49d44afb42a818657e829be01, type: 3}
+  - name: GaussPickUp
+    clip: {fileID: 8300000, guid: 09dcef5b4f752314bbb6590b6e122950, type: 3}
   - name: MachineGunShoot
     clip: {fileID: 8300000, guid: 7c75b884700d34246b5d5e56d4d01542, type: 3}
   - name: MachineGunReload
     clip: {fileID: 8300000, guid: 6b0fbcb6fab97b543ae447aa0787b551, type: 3}
+  - name: MachineGunPickUp
+    clip: {fileID: 8300000, guid: a9a283ed2cd92cc4e9b832fe4f9f699d, type: 3}
   musicSource: {fileID: 1917684114232736872}
   sfxSource: {fileID: 758270077394257070}
   sfxWeaponSource: {fileID: 8709806671968318962}

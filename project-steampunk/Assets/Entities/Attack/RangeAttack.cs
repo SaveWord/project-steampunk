@@ -19,11 +19,16 @@ namespace Enemies.Attacks.Attacks
         [SerializeField] private float largeRadius = 10f;
         [SerializeField] private float smallRadius = 3f;
         [SerializeField] private string axis="y";
+        private bool instanciated = false;
+        public List<Bullet> _listOfAllBullets = new List<Bullet>();
+
+        [SerializeField] private EnemyAudioCollection _audioSource;
+        
         void Update()
         {
+            //this is a script to spawn circles of bullets in editor (makeChildren always false)
             if (makeChildren)
             {
-                
                 if (destroyChildren)
                 {   
                     var count = 0;
@@ -41,7 +46,6 @@ namespace Enemies.Attacks.Attacks
 
                 for (int i = 0; i < sphereCount; i++)
                 {
-                    
                     float angle = (Mathf.PI * 2 * i) / sphereCount;
 
                     float sin = Mathf.Sin(angle) * largeRadius;
@@ -84,42 +88,52 @@ namespace Enemies.Attacks.Attacks
                     _shotQueue[i].Value = bullet;
                     if (destroyChildren)
                          Destroy(sp);
-
-
                 }
                 makeChildren = false;
-                
             }
         }
 
         public override void Activate(ITarget target, Transform attackSpot)
         {
-
-            AudioManager.InstanceAudio.PlaySfxEnemy("EnemyAttackBullet");
+           
             patternSpawnPoint = attackSpot;
             Activated = true;
             StartCoroutine(MakeShots(target, attackSpot));
         }
 
-        private void MakeShot(ITarget target, Bullet bullet, BulletSpot bulletSpot, Transform attackSpot)
+        private void MakeShot(ITarget target, Bullet bullet, BulletSpot bulletSpot, Transform attackSpot, int bulletIndex)
         {
-            var projectile = Instantiate(bullet);
-
-            projectile.Target = target;
-            projectile.transform.position = attackSpot.position + bulletSpot.SpotPoint;
-
-            if(bulletSpot.LookAtTarget) 
-                projectile.StartFly(target.GetPosition() + bulletSpot.ShotDirection);
-            else 
-                projectile.StartFly(bulletSpot.ShotDirection);
+            var attackBullet = _listOfAllBullets[bulletIndex];
+            attackBullet.gameObject.SetActive(false);
+            attackBullet.Target = target;
+            attackBullet.transform.position = attackSpot.position + bulletSpot.SpotPoint;
+            attackBullet.gameObject.SetActive(true);
+            
+            if (bulletSpot.LookAtTarget)
+                attackBullet.StartFly(target.GetPosition() + bulletSpot.ShotDirection);
+            else
+                attackBullet.StartFly(bulletSpot.ShotDirection);
         }
 
         private IEnumerator MakeShots(ITarget target, Transform attackSpot)
         {
-            foreach(var shot in _shotQueue)
+            if (!instanciated)
+            {
+                instanciated = true;
+                _audioSource = transform.parent.gameObject.transform.parent.GetComponentInChildren<EnemyAudioCollection>();
+                foreach (var shot in _shotQueue)
+                {
+                    var bulletSpawned = Instantiate(shot.Value);
+                    _listOfAllBullets.Add(bulletSpawned);
+                }
+            }
+
+            _audioSource.PlaySfxEnemy("EnemyAttackBullet");
+            foreach (var shot in _shotQueue)
             {
                 yield return new WaitForSeconds(shot.Key.ShotDelay);
-                MakeShot(target, shot.Value, shot.Key, attackSpot);
+                transform.LookAt(shot.Key.ShotDirection);
+                MakeShot(target, shot.Value, shot.Key, attackSpot, _shotQueue.IndexOf(shot));
             }
             Activated = false;
         }

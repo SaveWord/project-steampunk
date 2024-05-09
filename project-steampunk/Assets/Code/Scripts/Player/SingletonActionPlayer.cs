@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class SingletonActionPlayer: MonoBehaviour
+public class SingletonActionPlayer : MonoBehaviour
 {
     public GameObject player;
     public static SingletonActionPlayer Instance { get; private set; }
@@ -17,7 +18,8 @@ public class SingletonActionPlayer: MonoBehaviour
         Instance = this;
         inputActions = new ActionPrototypePlayer();
         inputActions.Enable();
-        player.SetActive(true);
+        if (SceneManager.GetActiveScene().buildIndex != 0)
+            player.SetActive(true);
     }
     private void OnDestroy()
     {

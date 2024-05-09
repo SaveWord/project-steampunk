@@ -44,74 +44,75 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0709ddf791f9a5a4398a74fe5e245a66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  patternSpawnPoint: {fileID: 0}
   _shotQueue:
   - _key:
       SpotPoint: {x: 0, y: 10, z: 0}
       ShotDirection: {x: 0, y: 0, z: 0}
-      ShotDelay: 0.02
+      ShotDelay: 0.03
       LookAtTarget: 1
     _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
       type: 3}
   - _key:
       SpotPoint: {x: 5.8778524, y: 8.09017, z: 0}
       ShotDirection: {x: 0, y: 0, z: 0}
-      ShotDelay: 0.02
+      ShotDelay: 0.03
       LookAtTarget: 1
     _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
       type: 3}
   - _key:
       SpotPoint: {x: 9.510566, y: 3.0901697, z: 0}
       ShotDirection: {x: 0, y: 0, z: 0}
-      ShotDelay: 0.02
+      ShotDelay: 0.03
       LookAtTarget: 1
     _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
       type: 3}
   - _key:
       SpotPoint: {x: 9.510565, y: -3.0901704, z: 0}
       ShotDirection: {x: 0, y: 0, z: 0}
-      ShotDelay: 0.02
+      ShotDelay: 0.03
       LookAtTarget: 1
     _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
       type: 3}
   - _key:
       SpotPoint: {x: 5.877852, y: -8.090171, z: 0}
       ShotDirection: {x: 0, y: 0, z: 0}
-      ShotDelay: 0.02
+      ShotDelay: 0.03
       LookAtTarget: 1
     _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
       type: 3}
   - _key:
       SpotPoint: {x: -0.0000008742278, y: -10, z: 0}
       ShotDirection: {x: 0, y: 0, z: 0}
-      ShotDelay: 0.02
+      ShotDelay: 0.03
       LookAtTarget: 1
     _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
       type: 3}
   - _key:
       SpotPoint: {x: -5.8778534, y: -8.09017, z: 0}
       ShotDirection: {x: 0, y: 0, z: 0}
-      ShotDelay: 0.02
+      ShotDelay: 0.03
       LookAtTarget: 1
     _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
       type: 3}
   - _key:
       SpotPoint: {x: -9.510565, y: -3.0901709, z: 0}
       ShotDirection: {x: 0, y: 0, z: 0}
-      ShotDelay: 0.02
+      ShotDelay: 0.03
       LookAtTarget: 1
     _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
       type: 3}
   - _key:
       SpotPoint: {x: -9.510565, y: 3.0901713, z: 0}
       ShotDirection: {x: 0, y: 0, z: 0}
-      ShotDelay: 0.02
+      ShotDelay: 0.03
       LookAtTarget: 1
     _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
       type: 3}
   - _key:
       SpotPoint: {x: -5.8778496, y: 8.090173, z: 0}
       ShotDirection: {x: 0, y: 0, z: 0}
-      ShotDelay: 0.02
+      ShotDelay: 0.03
       LookAtTarget: 1
     _value: {fileID: 7718402993339949998, guid: dea20785586040f4c9d90f1bb0601904,
       type: 3}
@@ -124,3 +125,5 @@ MonoBehaviour:
   largeRadius: 10
   smallRadius: 3
   axis: z
+  _listOfAllBullets: []
+  _audioSource: {fileID: 0}

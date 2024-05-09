@@ -26,7 +26,7 @@ public class MouseSenseScroll : MonoBehaviour
     private CharacterControllerMove player;
     private ActionPrototypePlayer inputActionsUI;
     private bool activeSlider = false;
-    private bool activeDieMenu =false;
+    private bool activeDieMenu = false;
     private void OnEnable()
     {
         //Player.dieMenuEvent += ContinueDie;
@@ -37,7 +37,7 @@ public class MouseSenseScroll : MonoBehaviour
         //inputActionsUI.Enable();
         //inputActionsUI.UICustom.SenseESCBuild.started += context => ActiveSlider(context);
         CreateDirectoriesIfNotExist();
-        filePath =Path.Combine(Application.streamingAssetsPath,optionsFileName);
+        filePath = Path.Combine(Application.streamingAssetsPath, optionsFileName);
         LoadSense();
 
         //AddListener Slider sound
@@ -63,7 +63,8 @@ public class MouseSenseScroll : MonoBehaviour
     private void OnDisable()
     {
         //Player.dieMenuEvent -= ContinueDie;
-        player.MouseSense = sliderSense.value;
+        if (SceneManager.GetActiveScene().buildIndex != 0)
+            player.MouseSense = sliderSense.value;
         //inputActionsUI.UICustom.SenseESCBuild.started -= context => ActiveSlider(context);
         SaveSense();
 
@@ -80,11 +81,12 @@ public class MouseSenseScroll : MonoBehaviour
             string sliderString = File.ReadAllText(filePath);
             string[] values = sliderString.Split(' ');
             sliderSense.value = float.Parse(values[0]);
-            player.MouseSense = float.Parse(values[0]);
+            if (SceneManager.GetActiveScene().buildIndex != 0)
+                player.MouseSense = float.Parse(values[0]);
 
 
             sliderVolume.value = float.Parse(values[1]);
-     
+
             sliderVolumeMusic.value = float.Parse(values[2]);
 
             sliderVolumeSFX.value = float.Parse(values[3]);
@@ -151,7 +153,7 @@ public class MouseSenseScroll : MonoBehaviour
     }
     public void BossTP()
     {
-        if(SceneManager.GetActiveScene().buildIndex == 1)
+        if (SceneManager.GetActiveScene().buildIndex == 1)
         {
             transform.root.position = new Vector3(2249.6001f, 583.549988f, 286.399994f);
             Physics.SyncTransforms();
@@ -182,7 +184,7 @@ public class MouseSenseScroll : MonoBehaviour
     }
     public void OnMusicChanged(float music)
     {
-        mixer.SetFloat(_mixerMusic,Mathf.Log10(music)*20);
+        mixer.SetFloat(_mixerMusic, Mathf.Log10(music) * 20);
     }
     public void OnSFXChanged(float sfx)
     {

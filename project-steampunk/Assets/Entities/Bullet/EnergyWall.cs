@@ -9,16 +9,20 @@ public class EnergyWall : MonoBehaviour
     private float _damage;
     private float _projectileSpeed;
     private float _attackTime;
-    private ShieldHealth _shield;
+    [SerializeField] private ShieldHealth _shield;
     private Vector3 _startPos;
-    // Start is called before the first frame update
-    protected void Awake()
+
+    private EnemyAudioCollection _audioSource;
+
+    void OnAwake()
     {
-        _shield = GetComponentInChildren<ShieldHealth>();
+
+
         Physics.IgnoreLayerCollision(9, 9, true);
         Physics.IgnoreLayerCollision(6, 9, true);
-
+        
     }
+
     void OnDisable()
     {
         transform.localPosition = Vector3.zero;
@@ -30,8 +34,8 @@ public class EnergyWall : MonoBehaviour
         
         _projectileSpeed = projectileSpeed;
         _attackTime = attackTime;
-
-        AudioManager.InstanceAudio.PlaySfxEnemy("EnemyAttackWall");
+        //_audioSource = transform.parent.gameObject.transform.parent.GetComponentInChildren<EnemyAudioCollection>();
+        //_audioSource.PlaySfxEnemy("EnemyAttackWall");
         _shield.gameObject.SetActive(true);
         
         StartCoroutine(Duration());
@@ -54,6 +58,7 @@ public class EnergyWall : MonoBehaviour
             
         }
     }
+
     protected void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))

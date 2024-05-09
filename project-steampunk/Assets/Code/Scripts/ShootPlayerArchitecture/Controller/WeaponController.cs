@@ -55,14 +55,7 @@ public class WeaponController : MonoBehaviour
             weapon.Switch = false;
         }
         SubscriptionInput();
-        lineRenderers = new List<LineRenderer>();
-        LineRenderer tmp;
-        for (int i = 0; i < 10; i++)
-        {
-            tmp = Instantiate(lineRenderer);
-            tmp.enabled = false;
-            lineRenderers.Add(tmp);
-        }
+        
 
     }
     protected void OnDisable()
@@ -83,6 +76,15 @@ public class WeaponController : MonoBehaviour
     }
     protected virtual void Start()
     {
+        lineRenderers = new List<LineRenderer>();
+        LineRenderer tmp;
+        for (int i = 0; i < 10; i++)
+        {
+            tmp = Instantiate(lineRenderer);
+            tmp.enabled = false;
+            lineRenderers.Add(tmp);
+        }
+
         //use parametrs for shoot and weapon
         patronsText = GetComponentInChildren<TextMeshProUGUI>();
 
