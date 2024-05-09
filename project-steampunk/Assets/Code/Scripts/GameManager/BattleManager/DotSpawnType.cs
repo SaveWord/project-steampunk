@@ -12,7 +12,9 @@ public class DotSpawnType : MonoBehaviour
         Beetle,
         BeetleShield,
         BeetleTurret,
-        Bee
+        Bee,
+        BeeVlad,
+        LaBoss
     }
     public EnemyTypeSpawn enemyTypeSpawn;
 }

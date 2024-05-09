@@ -21,6 +21,8 @@ public class Spawner : MonoBehaviour
     [SerializeField] private GameObject enemyBeetleShieldPrefab;
     [SerializeField] private GameObject enemyBeetleTurretPrefab;
     [SerializeField] private GameObject enemyBeePrefab;
+    [SerializeField] private GameObject enemyBeeForVladPrefab;
+    [SerializeField] private GameObject enemyBossPrefab;
     //[SerializeField] private int enemiesCount;
     BoxCollider detectZone;
 
@@ -106,6 +108,12 @@ public class Spawner : MonoBehaviour
                     break;
                 case EnemyTypeSpawn.Bee:
                     enemy = Instantiate(enemyBeePrefab, dot.gameObject.transform);
+                    break;
+                case EnemyTypeSpawn.BeeVlad:
+                    enemy = enemy = Instantiate(enemyBeeForVladPrefab, dot.gameObject.transform);
+                    break;
+                case EnemyTypeSpawn.LaBoss:
+                    enemy = enemy = Instantiate(enemyBossPrefab, dot.gameObject.transform);
                     break;
             }
             enemy.transform.localPosition = Vector3.zero;
