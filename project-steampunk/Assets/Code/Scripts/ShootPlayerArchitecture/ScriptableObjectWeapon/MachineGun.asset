@@ -16,10 +16,16 @@ MonoBehaviour:
   reloadSpeed: 2
   patrons: 100
   distanceAndDamages:
+  - damage: 11
+    range: 30
+    radiusRay: 0.1
   - damage: 10
     range: 60
     radiusRay: 0.1
   - damage: 7
+    range: 90
+    radiusRay: 0.5
+  - damage: 6
     range: 120
     radiusRay: 0.5
   - damage: 5
@@ -36,4 +42,3 @@ MonoBehaviour:
     type: 3}
   vfxImpactOtherProps: {fileID: 7258679735602562000, guid: 608cb554bb30cb746956424c326042ca,
     type: 3}
-  prefabTrail: {fileID: 0}
