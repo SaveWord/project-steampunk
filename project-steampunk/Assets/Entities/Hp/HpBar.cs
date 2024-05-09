@@ -9,10 +9,12 @@ public class HpBar : MonoBehaviour
     private Camera playerCamera;
     private bool fullHp = true;
     private ITarget player;
+    [SerializeField] GameObject _enemyHealthPrefab;
     private void Start()
     {
         playerCamera = Camera.main;
         GetComponentInParent<IHealth>().OnHPChanged += HandleHPSliderChanged;
+        GetComponentInParent<IHealth>().OnDied += HandleCloseHpBar;
         player = GetComponentInParent<ITarget>();
         if (player !=null)
             _healthSlider = GetComponentInChildren<Slider>();
@@ -20,7 +22,7 @@ public class HpBar : MonoBehaviour
 
     private void FixedUpdate()
     {
-        HpBarRotation();
+       // HpBarRotation();
     }
 
     private void HandleHPSliderChanged(float currentHp)
@@ -28,15 +30,19 @@ public class HpBar : MonoBehaviour
         if (fullHp)
         {
             fullHp = false; 
-            HandleEnemySliderShow();
+            HandleEnemySliderShow(currentHp);
         }
         _healthSlider.value = currentHp;
     }
 
-    private void HandleEnemySliderShow()
+    private void HandleEnemySliderShow(float currentHp)
     {
         var hpCanvas = (GameObject)Resources.Load("EnemyHealth", typeof(GameObject));
-        if (hpCanvas && player == null)
+       
+        _healthSlider = _enemyHealthPrefab.GetComponentInChildren<Slider>();
+        _enemyHealthPrefab.SetActive(true);
+        
+        if (hpCanvas && player == null && _healthSlider==null)
         {  var canvasObject = Instantiate(hpCanvas, new Vector3(playerCamera.transform.position.x,
                     playerCamera.transform.position.y,
                     playerCamera.transform.position.z),
@@ -47,6 +53,12 @@ public class HpBar : MonoBehaviour
             canvasObject.SetActive(false);
         }
     }
+    private void HandleCloseHpBar()
+    {
+        if(_enemyHealthPrefab!=null)
+            _enemyHealthPrefab.SetActive(false);
+    }
+
     private void HpBarRotation()
     {
         if (player == null && _healthSlider)
