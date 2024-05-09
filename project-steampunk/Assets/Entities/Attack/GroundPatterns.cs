@@ -36,9 +36,10 @@ namespace Enemies.Bullets
                 child.GetComponent<GroundComponent>()._damage = _damage;
                 child.SetActive(false);
             }
+            gameObject.SetActive(false);
         }
 
-        public void Activate(ITarget target, Transform attackSpot)
+        public override void Activate(ITarget target, Transform attackSpot)
         {
             foreach (GameObject child in _patternPartsList)
             {
@@ -80,14 +81,7 @@ namespace Enemies.Bullets
         {
             yield return new WaitForSeconds(_chargeTime);
            //PulseCycle();
-            //SelfDestroy();
         }
-
-        private void SelfDestroy()
-        {
-           // Destroy(gameObject);
-        }
-
     }
 }
 
