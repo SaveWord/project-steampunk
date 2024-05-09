@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 2226160887189304051}
   - component: {fileID: 2560702974864925041}
   - component: {fileID: 7029339823607747451}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Maze04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &9100669122995139171
 Transform:
@@ -41,7 +41,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2148982818615533105}
-  m_Mesh: {fileID: -3416997127779727100, guid: 97af62232d21a4a419e3189e82817aa2, type: 3}
+  m_Mesh: {fileID: 4743242468514370386, guid: 97af62232d21a4a419e3189e82817aa2, type: 3}
 --- !u!23 &2560702974864925041
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -62,7 +62,11 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 22b7ca48f3584b74a89e3ccfb81b44b7, type: 2}
+  - {fileID: 2100000, guid: 48254bca1970f1a4f95d58ed6cfdb72e, type: 2}
+  - {fileID: 2100000, guid: d3997cbb6ab3de64ab3ee5207d58fa58, type: 2}
+  - {fileID: 2100000, guid: d3997cbb6ab3de64ab3ee5207d58fa58, type: 2}
+  - {fileID: 2100000, guid: 3114293bc80771c45b72f356403f007d, type: 2}
+  - {fileID: 2100000, guid: 3593a199d60fd0d438b839eb12190887, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -105,4 +109,4 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: -3416997127779727100, guid: 97af62232d21a4a419e3189e82817aa2, type: 3}
+  m_Mesh: {fileID: -2851079093861420022, guid: 85a8c103aa67e404aaa732f109a3657e, type: 3}
