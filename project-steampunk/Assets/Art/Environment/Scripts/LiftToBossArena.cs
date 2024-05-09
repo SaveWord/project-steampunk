@@ -9,9 +9,10 @@ public class LiftToBossArena : MonoBehaviour
     [SerializeField] float speed;
     int lastPoint;
     int curPoint;
-    bool inLift;
-    Rigidbody rb;
     AudioSource source;
+    Vector3 playerposition;
+    Transform player;
+    bool inLift;
 
     private void Start()
     {
@@ -20,13 +21,13 @@ public class LiftToBossArena : MonoBehaviour
         source = GetComponent<AudioSource>();
         lastPoint = points.Length - 1;
     }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && curPoint!=lastPoint)
+        if (other.CompareTag("Player") && transform.position != points[lastPoint].position)
         {
             inLift = true;
-            rb = other.GetComponent<Rigidbody>();
-            rb.transform.SetParent(transform);
+            player = other.transform;
             source.Play();
         }
     }
@@ -34,21 +35,22 @@ public class LiftToBossArena : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            rb.transform.SetParent(null);
             inLift = false;
             source.Stop();
-        }     
+        }
     }
 
     void Update()
     {
-        if (inLift && curPoint!=lastPoint)
+        if (inLift && transform.position != points[lastPoint].position)
         {
-            transform.position = Vector3.MoveTowards(transform.position, points[curPoint+1].position,speed*Time.deltaTime);
-            if(transform.position == points[curPoint+1].position)
-            {
-                curPoint++;
-            }
+            transform.position = Vector3.MoveTowards(transform.position, points[lastPoint].position, speed * Time.deltaTime);
+            playerposition = new Vector3(player.position.x, transform.position.y+1,player.position.z);
+            player.position = playerposition;
+        }
+        if(!inLift&& transform.position != points[lastPoint].position)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, points[curPoint].position, speed * Time.deltaTime);
         }
     }
 }
