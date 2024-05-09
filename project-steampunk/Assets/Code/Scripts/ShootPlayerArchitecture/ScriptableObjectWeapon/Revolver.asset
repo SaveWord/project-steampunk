@@ -16,17 +16,68 @@ MonoBehaviour:
   reloadSpeed: 4
   patrons: 6
   distanceAndDamages:
-  - damage: 40
+  - damage: 65
+    range: 10
+    radiusRay: 0.1
+  - damage: 60
+    range: 20
+    radiusRay: 0.1
+  - damage: 55
     range: 30
     radiusRay: 0.1
-  - damage: 35
-    range: 60
+  - damage: 50
+    range: 50
     radiusRay: 0.5
-  - damage: 30
-    range: 90
+  - damage: 45
+    range: 100
     radiusRay: 1.5
-  - damage: 25
+  - damage: 40
+    range: 110
+    radiusRay: 2
+  - damage: 39
     range: 120
+    radiusRay: 2
+  - damage: 38
+    range: 130
+    radiusRay: 2
+  - damage: 37
+    range: 140
+    radiusRay: 2
+  - damage: 36
+    range: 150
+    radiusRay: 2
+  - damage: 35
+    range: 160
+    radiusRay: 2
+  - damage: 34
+    range: 170
+    radiusRay: 2
+  - damage: 33
+    range: 180
+    radiusRay: 2
+  - damage: 32
+    range: 190
+    radiusRay: 2
+  - damage: 31
+    range: 200
+    radiusRay: 2
+  - damage: 30
+    range: 210
+    radiusRay: 2
+  - damage: 25
+    range: 220
+    radiusRay: 2
+  - damage: 24
+    range: 230
+    radiusRay: 2
+  - damage: 23
+    range: 240
+    radiusRay: 2
+  - damage: 22
+    range: 250
+    radiusRay: 2
+  - damage: 21
+    range: 260
     radiusRay: 2
   - damage: 20
     range: 300
@@ -39,4 +90,3 @@ MonoBehaviour:
     type: 3}
   vfxImpactOtherProps: {fileID: 7258679735602562000, guid: 608cb554bb30cb746956424c326042ca,
     type: 3}
-  prefabTrail: {fileID: 0}
