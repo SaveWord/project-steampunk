@@ -27,7 +27,8 @@ public class LiftToBossArena : MonoBehaviour
         if (other.CompareTag("Player") && transform.position != points[lastPoint].position)
         {
             inLift = true;
-            player = other.transform;
+            //player = other.transform;
+            other.gameObject.transform.SetParent(transform);
             source.Play();
         }
     }
@@ -36,21 +37,34 @@ public class LiftToBossArena : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             inLift = false;
+            other.gameObject.transform.SetParent(null);
             source.Stop();
         }
     }
-
-    void Update()
+    private void FixedUpdate()
     {
         if (inLift && transform.position != points[lastPoint].position)
         {
             transform.position = Vector3.MoveTowards(transform.position, points[lastPoint].position, speed * Time.deltaTime);
-            playerposition = new Vector3(player.position.x, transform.position.y+1,player.position.z);
-            player.position = playerposition;
+            //playerposition = new Vector3(player.position.x, transform.position.y + 1, player.position.z);
+           // player.position = playerposition;
         }
-        if(!inLift&& transform.position != points[lastPoint].position)
+        if (!inLift && transform.position != points[lastPoint].position)
         {
             transform.position = Vector3.MoveTowards(transform.position, points[curPoint].position, speed * Time.deltaTime);
         }
     }
+    //void Update()
+    //{
+    //    if (inLift && transform.position != points[lastPoint].position)
+    //    {
+    //        transform.position = Vector3.MoveTowards(transform.position, points[lastPoint].position, speed * Time.deltaTime);
+    //        playerposition = new Vector3(player.position.x, transform.position.y+1,player.position.z);
+    //        player.position = playerposition;
+    //    }
+    //    if(!inLift&& transform.position != points[lastPoint].position)
+    //    {
+    //        transform.position = Vector3.MoveTowards(transform.position, points[curPoint].position, speed * Time.deltaTime);
+    //    }
+    //}
 }

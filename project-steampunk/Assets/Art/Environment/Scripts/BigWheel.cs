@@ -4,33 +4,46 @@ using UnityEngine;
 
 public class BigWheel : MonoBehaviour
 {
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            collision.gameObject.transform.SetParent(transform, true);
-
-        }
-    }
-    //private void OnTriggerEnter(Collider other)
+    bool inLift;
+    Transform player;
+    //private void OnCollisionEnter(Collision collision)
     //{
-    //    if(other.CompareTag("Player"))
+    //    if (collision.gameObject.CompareTag("Player"))
     //    {
-    //        other.gameObject.transform.SetParent(transform, true);
+    //        collision.gameObject.transform.SetParent(transform, true);
 
     //    }
-
     //}
-    private void OnCollisionStay(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
-            Vector3 playerrotate = collision.gameObject.transform.rotation.eulerAngles;
+            inLift = true;
+            other.gameObject.transform.SetParent(transform, true);
+            player = other.gameObject.transform;
+        }
+
+    }
+    private void FixedUpdate()
+    {
+        if (inLift)
+        {
+            Vector3 playerrotate = player.rotation.eulerAngles;
             playerrotate.z = 0;
             playerrotate.x = 0;
-            collision.gameObject.transform.rotation = Quaternion.Euler(playerrotate);
+            player.rotation = Quaternion.Euler(playerrotate);
         }
     }
+    //private void OnCollisionStay(Collision collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Player"))
+    //    {
+    //        Vector3 playerrotate = collision.gameObject.transform.rotation.eulerAngles;
+    //        playerrotate.z = 0;
+    //        playerrotate.x = 0;
+    //        collision.gameObject.transform.rotation = Quaternion.Euler(playerrotate);
+    //    }
+    //}
     //private void OnTriggerStay(Collider other)
     //{
     //    if (other.CompareTag("Player"))
@@ -41,14 +54,17 @@ public class BigWheel : MonoBehaviour
     //        other.gameObject.transform.rotation = Quaternion.Euler(playerrotate);
     //    }
     //}
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-            collision.gameObject.transform.SetParent(null);
-    }
-    //private void OnTriggerExit(Collider other)
+    //private void OnCollisionExit(Collision collision)
     //{
-    //    if (other.CompareTag("Player"))
-    //        other.gameObject.transform.SetParent(null);
+    //    if (collision.gameObject.CompareTag("Player"))
+    //        collision.gameObject.transform.SetParent(null);
     //}
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            inLift = false;
+            other.gameObject.transform.SetParent(null);
+        }
+    }
 }
