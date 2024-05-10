@@ -50,11 +50,9 @@ MonoBehaviour:
   BulletSpeed: 0
   sphereDie: {fileID: 0}
   coroutineTimeDie: 0
-  _damage: 20
   _waveSpeed: 60
   _startingRadius: 1
-  subdivision: 40
-  _lifetime: 10
+  _subdivision: 90
 --- !u!120 &2218711292512657590
 LineRenderer:
   serializedVersion: 2
@@ -64,19 +62,19 @@ LineRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7137891573904251990}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 0
-  m_LightProbeUsage: 0
+  m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 35151fcfb4b7fb04cb1a6d2b96873d11, type: 2}
+  - {fileID: 2100000, guid: b2c6aec7f880f5c468b9c58424bc85d6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -167,7 +165,7 @@ LineRenderer:
     numCornerVertices: 0
     numCapVertices: 0
     alignment: 0
-    textureMode: 4
+    textureMode: 1
     textureScale: {x: 1, y: 1}
     shadowBias: 0.5
     generateLightingData: 0
