@@ -93,7 +93,7 @@ public class GausController : WeaponController
             isPressed = false;
             animatorArms.SetBool("shoot", false);
             animatorWeapon.SetBool("shoot", false);
-            InvokeRepeating("ReloadInvoke", 1f, weapon.ReloadSpeed);
+            InvokeRepeating("ReloadInvoke", 3f, weapon.ReloadSpeed);
         }
     }
     private void ReloadInvoke()
