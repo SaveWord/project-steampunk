@@ -227,7 +227,7 @@ public class ParametrsUpdateDecorator : MainDecorator
     {
         _animator.SetBool("shoot", true);
         _animatorWeapon.SetBool("shoot", true);
-        _recoil.GenerateImpulse();
+        _recoil.GenerateImpulse(1.5f);
         _vfxShootPrefab.Stop();
         _vfxShootPrefab.Play();
         _patronsText.text = Patrons.ToString();

@@ -177,7 +177,7 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
     {
         _animator.SetBool("shoot", true);
         _animatorWeapon.SetBool("shoot", true);
-        _recoil.GenerateImpulse();
+        _recoil.GenerateImpulse(1);
         _vfxShootPrefab.Stop();
         _vfxShootPrefab.Play();
 

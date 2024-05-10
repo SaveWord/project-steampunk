@@ -115,7 +115,7 @@ public class ParametrsUpdateMachineGun : ParametrsUpdateDecorator
     {
         _animator.SetBool("shoot", true);
         _animatorWeapon.SetBool("shoot", true);
-
+        _recoil.GenerateImpulse(0.2f);
         _vfxShootPrefab.Stop();
         _vfxShootPrefab.Play();
         _patronsText.text = Patrons.ToString();
