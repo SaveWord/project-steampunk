@@ -38,9 +38,11 @@ public class HpBar : MonoBehaviour
     private void HandleEnemySliderShow(float currentHp)
     {
         var hpCanvas = (GameObject)Resources.Load("EnemyHealth", typeof(GameObject));
-       
-        _healthSlider = _enemyHealthPrefab.GetComponentInChildren<Slider>();
-        _enemyHealthPrefab.SetActive(true);
+        if (_enemyHealthPrefab != null)
+        {
+            _healthSlider = _enemyHealthPrefab.GetComponentInChildren<Slider>();
+            _enemyHealthPrefab.SetActive(true);
+        }
         
         if (hpCanvas && player == null && _healthSlider==null)
         {  var canvasObject = Instantiate(hpCanvas, new Vector3(playerCamera.transform.position.x,
