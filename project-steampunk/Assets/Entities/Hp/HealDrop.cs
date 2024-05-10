@@ -11,10 +11,12 @@ public class HealDrop : MonoBehaviour
     public float _healDestroyTime = 10f;
     ParticleSystem.MainModule _healParticleSystem;
     private ParticleSystem.MinMaxGradient _healOriginalColor;
+    private bool _onTheGround = false;
+
     void Awake()
     {
-       // var m_Rigidbody = GetComponent<Rigidbody>();
-      // m_Rigidbody.velocity = new Vector3(0, -_speed, 0);
+        // var m_Rigidbody = GetComponent<Rigidbody>();
+        // m_Rigidbody.velocity = new Vector3(0, -_speed, 0);
         
 
         _healParticleSystem = GetComponentInChildren<ParticleSystem>().main;
@@ -24,16 +26,27 @@ public class HealDrop : MonoBehaviour
         InvokeRepeating("ChangeColor", _healDestroyTime / 3 + 0.15f, 0.3f);
 
     }
+
+    void Update()
+    {
+        if (_onTheGround == false)
+            transform.Translate(Vector3.down * Time.deltaTime * 20, Space.World);
+    }
+
     private void ChangeOpacity()
     {
        _healParticleSystem.startColor = new Color(13, 180, 0, 0);
     }
+
     private void ChangeColor()
     {
         _healParticleSystem.startColor = _healOriginalColor;
     }
+
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.layer == 8) //ground
+            _onTheGround = true;
         if (other.gameObject.layer == 7) //player
             PickUpHeal(other.gameObject);  Debug.Log("Healed"+ other.name);
     }
