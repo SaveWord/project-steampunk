@@ -56,6 +56,26 @@ MonoBehaviour:
       normalBlend: 0
   m_CopyDepthPS: {fileID: 4800000, guid: d6dae50ee9e1bfa4db75f19f99355220, type: 3}
   m_DBufferClear: {fileID: 4800000, guid: f056d8bd2a1c7e44e9729144b4c70395, type: 3}
+--- !u!114 &-2077853413261108155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cbabd8e2cb2e4f8a930752453adf79a, type: 3}
+  m_Name: Beautify
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  shader: {fileID: 4800000, guid: 55d70ca4ea7504a38b66170bbe587b2f, type: 3}
+  renderPassEvent: 500
+  ignorePostProcessingOption: 0
+  clearXRColorBuffer: 0
+  cameraLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!114 &-1398300274641096028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90,10 +110,11 @@ MonoBehaviour:
       type: 3}
     hdrDebugViewPS: {fileID: 4800000, guid: 573620ae32aec764abd4d728906d2587, type: 3}
   m_RendererFeatures:
+  - {fileID: -2077853413261108155}
   - {fileID: -1398300274641096028}
   - {fileID: -2843075537927344334}
   - {fileID: -5797199983080535094}
-  m_RendererFeatureMap: a4b2af084f3d98ec32ef3c8cdc5d8bd8ca8b958c54358caf
+  m_RendererFeatureMap: 451c3d5f54fb29e3a4b2af084f3d98ec32ef3c8cdc5d8bd8ca8b958c54358caf
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
