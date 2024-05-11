@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UIContinueButton : MonoBehaviour
 {
-    private void Awake()
+    private void Start()
     {
         if (GameManagerSingleton.Instance.CheckpointExists())
             gameObject.SetActive(true);
