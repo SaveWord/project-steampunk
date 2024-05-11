@@ -31,13 +31,16 @@ namespace Enemies.Bullets
         protected GameObject sphereDie;
         [SerializeField] 
         protected float coroutineTimeDie;
+        private Vector3 movement;
+        public float smoothTime = 0.5f;
+        Vector3 velocity;
 
         protected void Awake()
         {
             Physics.IgnoreLayerCollision(9, 9, true);
             Physics.IgnoreLayerCollision(6, 9, true);
             _timeOnFly = 0;
-            _rBody = GetComponent<Rigidbody>();
+            //_rBody = GetComponent<Rigidbody>();
             targetObject = GameObject.FindGameObjectWithTag("Player");
             if (targetObject != null)
             {
@@ -54,6 +57,9 @@ namespace Enemies.Bullets
 
         protected void Update()
         {
+
+            transform.position += transform.forward * Time.deltaTime * _speed;
+
             OnFly();
         }
 
@@ -102,8 +108,11 @@ namespace Enemies.Bullets
 
         virtual public void StartFly(Vector3 direction)
         {
-            transform.LookAt(direction);
-            _rBody.velocity = transform.forward * _speed;
+            _timeOnFly = 0;
+            //some randomo hehe
+            transform.LookAt(direction+new Vector3(UnityEngine.Random.Range(0, 3), UnityEngine.Random.Range(0, 3),UnityEngine.Random.Range(0, 3)));
+            //_rBody.velocity = transform.forward * _speed;
+            movement = direction;
         }
     }
 }

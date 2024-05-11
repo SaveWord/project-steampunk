@@ -92,7 +92,7 @@ public class ParametrsUpdateMachineGun : ParametrsUpdateDecorator
 
 
                 if (damageable!=null || damageableProps!=null) 
-                    ShowDamage(Damage + "", Color.gray);
+                    ShowDamage(Damage + "", Color.white);
 
                 ShowVFXImpact(hit);
             }

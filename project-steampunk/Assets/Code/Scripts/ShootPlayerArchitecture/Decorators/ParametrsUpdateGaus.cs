@@ -157,7 +157,7 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
                 damageable?.TakeDamage(Damage);
 
                 if (damageable != null || destroyShield != null || damageableProps != null)
-                    ShowDamage(Damage + "", Color.cyan);
+                    ShowDamage(Damage + "", Color.white);
 
                 //vfx and animator stop
                 ShowVFXImpact(hit);

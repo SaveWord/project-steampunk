@@ -72,8 +72,9 @@ public abstract class MainDecorator : MonoBehaviour,IWeapon
             notice.GetComponent<TextMeshPro>().color = color;
             notice.transform.parent = GameObject.Find("Main Camera").transform;
             notice.transform.localRotation = UnityEngine.Quaternion.Euler(new Vector3(0, 0, 0));
-            float randomisedPosition = (Random.Range(0.0f, 0.9f) * 2 - 1) / 3;
-            notice.transform.localPosition = new Vector3(randomisedPosition, 0, 3);
+            float randomisedPositionx = (Random.Range(0.0f, 0.9f) * 2 - 1) / 3;
+            float randomisedPositiony = (Random.Range(0.0f, 0.9f) * 2 - 1) / 3;
+            notice.transform.localPosition = new Vector3(randomisedPositionx, randomisedPositiony, 3);
 
         }
     }
