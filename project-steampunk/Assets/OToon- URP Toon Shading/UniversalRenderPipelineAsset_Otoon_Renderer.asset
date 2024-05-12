@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e24ebbb7d133da548993d68fbfe52030, type: 3}
   m_Name: OutlineFilter
   m_EditorClassIdentifier: 
-  m_Active: 1
+  m_Active: 0
   _event: 350
   _pass: {fileID: 2144927784208966683}
   _blitShader: {fileID: 4800000, guid: c17132b1f77d20942aa75f8429c0f8bc, type: 3}
@@ -70,7 +70,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 1
   shader: {fileID: 4800000, guid: 55d70ca4ea7504a38b66170bbe587b2f, type: 3}
-  renderPassEvent: 500
+  renderPassEvent: 450
   ignorePostProcessingOption: 0
   clearXRColorBuffer: 0
   cameraLayerMask:
@@ -92,7 +92,7 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 4294967295
-  Event: 300
+  Event: 500
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
