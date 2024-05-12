@@ -51,6 +51,8 @@ public class CharacterControllerMove : MonoBehaviour
     [Header("Гравитация и переменные прыжка")]
     private Vector3 gravityVelocity;
     [SerializeField] private float jumpForce;
+    private bool jumpCan;
+    private bool isJumping;
     float m_LastTimeJumped = 0f;
     const float k_JumpGroundingPreventionTime = 0.2f;
 
@@ -113,11 +115,13 @@ public class CharacterControllerMove : MonoBehaviour
     private void OnEnable()
     {
         inputActions.Player.Jump.started += Jump;
+        inputActions.Player.Jump.canceled += Jump;
         inputActions.Player.Dash.started += Dash;
     }
     private void OnDisable()
     {
         inputActions.Player.Jump.started -= Jump;
+        inputActions.Player.Jump.canceled -= Jump;
         inputActions.Player.Dash.started -= Dash;
     }
     public float GetSpeed()
@@ -130,12 +134,14 @@ public class CharacterControllerMove : MonoBehaviour
         Vector2 inputLook = inputActions.Player.Look.ReadValue<Vector2>();
         Move(inputMove);
         Rotation(inputLook);
-        IsGrounded();
         EffectsMove(inputMove);
         gravityVelocity.y += Physics.gravity.y * Time.deltaTime;
         if (isGrounded == true)
             gravityVelocity.y = 0f;
+        if (!isJumping)
+            JumpTryUpdate(); isJumping = true;
         characterController.Move((gravityVelocity * gravityDownForce) * Time.deltaTime);
+        IsGrounded();
         Debug.Log(characterController.velocity);
     }
     //effects move
@@ -241,6 +247,7 @@ public class CharacterControllerMove : MonoBehaviour
     public void Jump(InputAction.CallbackContext context)
     {
         //Debug.Log(doubleJump);
+        /*
         if (context.started && isGrounded == true)
         {
             // add the jumpSpeed value upwards
@@ -256,6 +263,27 @@ public class CharacterControllerMove : MonoBehaviour
         {
             animatorPlayer.SetBool("jump", false);
         }
+        */
+        if (context.started && isGrounded == true)
+            jumpCan = true;
+        if (context.canceled)
+            jumpCan = false; isJumping = false;
+    }
+    private void JumpTryUpdate()
+    {
+        Debug.Log(jumpCan);
+        if (jumpCan)
+        {
+            // add the jumpSpeed value upwards
+            gravityVelocity.y += Mathf.Sqrt(jumpForce * -3.0f * Physics.gravity.y);
+            //characterController.Move((gravityVelocity * gravityDownForce) * Time.deltaTime);
+            // Force grounding to false
+            m_GroundNormal = Vector3.up;
+            m_LastTimeJumped = Time.time;
+            //audio
+            AudioManager.InstanceAudio.PlaySfxSound("Jump");
+        }
+        else animatorPlayer.SetBool("jump", false);
     }
 
     bool IsNormalUnderSlopeLimit(Vector3 normal)

@@ -97,14 +97,13 @@ public class ParametrsUpdateMachineGun : ParametrsUpdateDecorator
                 ShowVFXImpact(hit);
             }
             raycastHit = hit;
-            PoolActive();
-            if (Patrons == 0 && isReload == false)
-            {
-                _animator.SetBool("shoot", false);
-                _animatorWeapon.SetBool("shoot", false);
-                Reload(context);
-            }
-
+            PoolActive();  
+        }
+        if (Patrons == 0 && isReload == false)
+        {
+            _animator.SetBool("shoot", false);
+            _animatorWeapon.SetBool("shoot", false);
+            Reload(context);
         }
     }
     public override void ReloadSound()
