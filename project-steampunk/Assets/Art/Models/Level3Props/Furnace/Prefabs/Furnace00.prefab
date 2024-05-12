@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 115362810799818223}
   - component: {fileID: 5250959086613442636}
   - component: {fileID: 2318310742041992769}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Furnace00
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2527292482884682482
 Transform:
@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 499717307005172152}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -41,7 +41,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 499717307005172152}
-  m_Mesh: {fileID: 6239881831769578202, guid: 4de780a538c605e4da6a003ebe0143f6, type: 3}
+  m_Mesh: {fileID: 3057175862888048016, guid: 4de780a538c605e4da6a003ebe0143f6, type: 3}
 --- !u!23 &5250959086613442636
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 22b7ca48f3584b74a89e3ccfb81b44b7, type: 2}
+  - {fileID: 2100000, guid: d3997cbb6ab3de64ab3ee5207d58fa58, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -105,4 +105,4 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 6239881831769578202, guid: 4de780a538c605e4da6a003ebe0143f6, type: 3}
+  m_Mesh: {fileID: 3057175862888048016, guid: 4de780a538c605e4da6a003ebe0143f6, type: 3}
