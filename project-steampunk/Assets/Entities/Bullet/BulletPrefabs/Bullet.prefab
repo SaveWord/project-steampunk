@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7407436253468492702}
   - component: {fileID: 495264360840767276}
   - component: {fileID: 7718402993339949998}
+  - component: {fileID: 4374914795920056977}
   m_Layer: 9
   m_Name: Bullet
   m_TagString: Untagged
@@ -125,6 +126,34 @@ MonoBehaviour:
   BulletSpeed: 1
   sphereDie: {fileID: 8932771318933276109}
   coroutineTimeDie: 0.2
+  smoothTime: 0.5
+--- !u!54 &4374914795920056977
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 263692760881314371}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &4399226551340059934
 GameObject:
   m_ObjectHideFlags: 0
