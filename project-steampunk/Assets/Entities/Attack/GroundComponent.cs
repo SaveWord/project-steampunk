@@ -30,7 +30,7 @@ public class GroundComponent : MonoBehaviour
             }
             else
             {
-                DealDamage(collision.gameObject, _damage / 2);
+                //DealDamage(collision.gameObject, _damage / 2);
             }
             DamageReload();
         }
@@ -38,7 +38,7 @@ public class GroundComponent : MonoBehaviour
     private IEnumerator DamageReload()
     {
         _damageCooldown = true;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.2f);
         _damageCooldown = false;
     }
 

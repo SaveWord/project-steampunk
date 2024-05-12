@@ -19,6 +19,12 @@ namespace Enemies.Bullets
         [SerializeField]
         private Material _materialDamage;
 
+        private Color groundColor;
+
+        [SerializeField]
+        [Range (0f,1f)]
+        private float _transparency;
+
         [Header("No need")]
         public float _damageTime;
         public float _chargeTime;
@@ -50,28 +56,44 @@ namespace Enemies.Bullets
 
         private IEnumerator ChargeCoroutine(GameObject gameObject)
         {
-            foreach (Transform child in gameObject.transform)
-            {
-                child.gameObject.GetComponent<MeshRenderer>().material = _materialCharge;
-            }
-            yield return new WaitForSeconds(_chargeTime);
+
+            gameObject.GetComponent<MeshRenderer>().materials[0] = _materialCharge;
+            groundColor = gameObject.GetComponent<MeshRenderer>().materials[1].color;
+            groundColor.a = 0f;
+            gameObject.GetComponent<MeshRenderer>().materials[1].color = groundColor;
+            yield return new WaitForSeconds(_chargeTime/5);
+            groundColor.a = 0.2f;
+            gameObject.GetComponent<MeshRenderer>().materials[1].color = groundColor;
+
+            yield return new WaitForSeconds(_chargeTime / 5);
+            groundColor.a = 0.4f;
+            gameObject.GetComponent<MeshRenderer>().materials[1].color = groundColor;
+
+            yield return new WaitForSeconds(_chargeTime / 5);
+            groundColor.a = 0.6f;
+            gameObject.GetComponent<MeshRenderer>().materials[1].color = groundColor;
+
+            yield return new WaitForSeconds(_chargeTime / 5);
+            groundColor.a = 0.8f;
+            gameObject.GetComponent<MeshRenderer>().materials[1].color = groundColor;
+
+            yield return new WaitForSeconds(_chargeTime / 5);
+            groundColor.a = 1f;
+            gameObject.GetComponent<MeshRenderer>().materials[1].color = groundColor;
+
 
 
             gameObject.GetComponent<GroundComponent>().isDamaging = true;
-            foreach (Transform child in gameObject.transform)
-            {
-                child.gameObject.GetComponent<MeshRenderer>().material = _materialDamage;
-            }
-           
+
+            gameObject.GetComponent<MeshRenderer>().materials[0] = _materialDamage;
+            
             // damage dealing time frame
             yield return new WaitForSeconds(_damageTime);
 
-
             gameObject.GetComponent<GroundComponent>().isDamaging = false;
-            foreach (Transform child in gameObject.transform)
-            {
-                child.gameObject.GetComponent<MeshRenderer>().material = _materialNone;
-            }
+
+            gameObject.GetComponent<MeshRenderer>().materials[0] = _materialNone;
+            
             gameObject.SetActive(false);
            
             //StartCoroutine(CooldownCoroutine());
