@@ -32,8 +32,8 @@ public class GameManagerSingleton : MonoBehaviour
         {
             checkPoint.idCheckPoint = j;
             j++;
-        }    
-
+        }
+        _mixer.SetFloat("MuteParam", Mathf.Log10(0) * 20);
     }
     public void PauseGame()
     {
