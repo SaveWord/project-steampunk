@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 public class GameManagerSingleton : MonoBehaviour
@@ -9,6 +10,7 @@ public class GameManagerSingleton : MonoBehaviour
     public List<CheckPoint> checkPointsID = new List<CheckPoint>();
     public List<Spawner> spawnerID = new List<Spawner>();
     public SaveSystem SaveSystem { get; private set; }
+    public AudioMixer _mixer;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -37,11 +39,13 @@ public class GameManagerSingleton : MonoBehaviour
     {
         SingletonActionPlayer.Instance.inputActions.Player.Disable();
         SingletonActionPlayer.Instance.inputActions.UICustom.Enable();
+        _mixer.SetFloat("MuteParam", Mathf.Log10(1) * 20);
         Time.timeScale = 0f;
     }
     public void UnPauseGame()
     {
         SingletonActionPlayer.Instance.inputActions.Player.Enable();
+        _mixer.SetFloat("MuteParam", Mathf.Log10(0) * 20);
         //SingletonActionPlayer.Instance.inputActions.UICustom.Disable();
         Time.timeScale = 1f;
     }

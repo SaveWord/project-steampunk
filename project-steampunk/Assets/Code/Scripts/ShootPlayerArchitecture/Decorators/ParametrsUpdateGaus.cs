@@ -108,7 +108,10 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
             Patrons--;
 
             if (Patrons <= 0)
+            {   
                 _afterFireParticle.Play();
+                AudioManager.InstanceAudio.PlaySfxWeapon("GaussEmpty");
+            }
             else
                 _afterFireParticle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             //vfx and animation and ui
@@ -157,7 +160,7 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
                 damageable?.TakeDamage(Damage);
 
                 if (damageable != null || destroyShield != null || damageableProps != null)
-                    ShowDamage(Damage + "", Color.cyan);
+                    ShowDamage(Damage + "", Color.white);
 
                 //vfx and animator stop
                 ShowVFXImpact(hit);
