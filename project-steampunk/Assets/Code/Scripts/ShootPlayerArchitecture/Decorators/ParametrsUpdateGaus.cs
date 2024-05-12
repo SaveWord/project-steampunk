@@ -108,7 +108,10 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
             Patrons--;
 
             if (Patrons <= 0)
+            {   
                 _afterFireParticle.Play();
+                AudioManager.InstanceAudio.PlaySfxWeapon("GaussEmpty");
+            }
             else
                 _afterFireParticle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             //vfx and animation and ui
