@@ -65,9 +65,10 @@ public class GausController : WeaponController
                 isPressed = false;
                 animatorArms.SetBool("shoot", false);
                 animatorWeapon.SetBool("shoot", false);
+                InvokeRepeating("ReloadInvoke", 3f, weapon.ReloadSpeed);
             }
         }
-        if(weapon.Patrons == 0) animatorArms.SetBool("reload", true); 
+        if (weapon.Patrons == 0) animatorArms.SetBool("reload", true); 
         else animatorArms.SetBool("reload", false);
     }
     public override void Shoot(InputAction.CallbackContext context)
