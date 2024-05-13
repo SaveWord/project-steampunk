@@ -1050,6 +1050,7 @@ MonoBehaviour:
   sliderVolumeSFX: {fileID: 1883433592}
   video: {fileID: 2076455656}
   screenCredits: {fileID: 0}
+  rawImage: {fileID: 0}
   optionsFileName: OptionSenseValue
 --- !u!82 &1177814128
 AudioSource:
@@ -2779,6 +2780,80 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1564188132
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2107465037483941721, guid: 8ce087a9769d3d44cb1be1aa6f189db0,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -131.53024
+      objectReference: {fileID: 0}
+    - target: {fileID: 2107465037483941721, guid: 8ce087a9769d3d44cb1be1aa6f189db0,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 16.759613
+      objectReference: {fileID: 0}
+    - target: {fileID: 2107465037483941721, guid: 8ce087a9769d3d44cb1be1aa6f189db0,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.4136076
+      objectReference: {fileID: 0}
+    - target: {fileID: 2107465037483941721, guid: 8ce087a9769d3d44cb1be1aa6f189db0,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2107465037483941721, guid: 8ce087a9769d3d44cb1be1aa6f189db0,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2107465037483941721, guid: 8ce087a9769d3d44cb1be1aa6f189db0,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2107465037483941721, guid: 8ce087a9769d3d44cb1be1aa6f189db0,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2107465037483941721, guid: 8ce087a9769d3d44cb1be1aa6f189db0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2107465037483941721, guid: 8ce087a9769d3d44cb1be1aa6f189db0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2107465037483941721, guid: 8ce087a9769d3d44cb1be1aa6f189db0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2682506662434495376, guid: 8ce087a9769d3d44cb1be1aa6f189db0,
+        type: 3}
+      propertyPath: m_Name
+      value: AudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 6047103764447701859, guid: 8ce087a9769d3d44cb1be1aa6f189db0,
+        type: 3}
+      propertyPath: mixer
+      value: 
+      objectReference: {fileID: 24100000, guid: d536c6b796a766c439f5fa58e948f05f,
+        type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8ce087a9769d3d44cb1be1aa6f189db0, type: 3}
 --- !u!114 &1711587647 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3013604931474105616, guid: 766ec20347a34674d86b9906da344de5,
@@ -3121,3 +3196,4 @@ SceneRoots:
   - {fileID: 1177814126}
   - {fileID: 633102710}
   - {fileID: 1524736914}
+  - {fileID: 1564188132}

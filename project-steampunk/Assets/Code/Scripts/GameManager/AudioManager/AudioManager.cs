@@ -2,11 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager InstanceAudio;
+    public AudioMixer mixer;
 
     public Sound[] music, sfxSound, sfxSoundWeapon;
 
@@ -25,6 +27,7 @@ public class AudioManager : MonoBehaviour
         sfxSource.Stop();
         sfxWeaponSource.Stop();
         musicSource.Play();
+        mixer.SetFloat("MuteParam", Mathf.Log10(0) * 20);
     }
     public void PlaySfxWeapon(string name)
     {
