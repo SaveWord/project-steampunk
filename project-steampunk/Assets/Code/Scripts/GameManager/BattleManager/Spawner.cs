@@ -4,10 +4,12 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static DotSpawnType;
 
 public class Spawner : MonoBehaviour
 {
+    public bool spawnerBoss;
     public int timeSpawnDelay;
     public int spawnerID;
     public float count;
@@ -36,7 +38,21 @@ public class Spawner : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            AudioManager.InstanceAudio.PlayMusic("Battle", true);
+            int scene = SceneManager.GetActiveScene().buildIndex;
+            if (spawnerBoss != true)
+            {
+                switch (scene)
+                {
+                    case 1:
+                        AudioManager.InstanceAudio.PlayMusic("Battle", true);
+                        break;
+                    case 2:
+                        AudioManager.InstanceAudio.PlayMusic("Battle2", true);
+                        break;
+                }
+            }
+            else
+                AudioManager.InstanceAudio.PlayMusic("BattleBoss", true);
 
             foreach (var door in doors)
             {
@@ -149,7 +165,16 @@ public class Spawner : MonoBehaviour
             {
                 door.dissolve = true;
             }
-            AudioManager.InstanceAudio.PlayMusic("Battle", false);
+            int scene = SceneManager.GetActiveScene().buildIndex;
+            switch (scene)
+            {
+                case 1:
+                    AudioManager.InstanceAudio.PlayMusic("Battle", false);
+                    break;
+                case 2:
+                    AudioManager.InstanceAudio.PlayMusic("Battle2", false);
+                    break;
+            }
         }
     }
 }

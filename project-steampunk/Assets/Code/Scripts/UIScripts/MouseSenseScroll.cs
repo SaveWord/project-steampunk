@@ -210,15 +210,14 @@ public class MouseSenseScroll : MonoBehaviour
     {
         Time.timeScale = 1;
         screenCredits.SetActive(true); rawImage.SetActive(false);
-        //добавить звук финальных титров
-        //mixer.SetFloat("MuteParam", Mathf.Log10(0) * 20);
+        mixer.SetFloat("MuteParam", Mathf.Log10(0) * 20);
+        AudioManager.InstanceAudio.PlayMusic("Credits", true);
 
     }
     public void LoadMainMenuAfterCredits()
     {
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
-        mixer.SetFloat("MuteParam", Mathf.Log10(0) * 20);
         SceneManager.LoadScene(0);
     }
     private void SkipFinalScene(InputAction.CallbackContext context)
