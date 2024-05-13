@@ -22,7 +22,7 @@ public class HpBoss : MonoBehaviour
 
     [SerializeField] private EnemyAudioCollection _audioSource;
 
-   public static event Action OnBossDefeated = delegate { };
+    public static event Action OnBossDefeated = delegate { };
 
     private void Start()
     {
@@ -38,7 +38,8 @@ public class HpBoss : MonoBehaviour
 
     private void HandleEnemyTakenDamage()
     {
-        //_audioSource.PlaySfxEnemy("EnemyDamaged");
+        if (_audioSource != null)
+            _audioSource.PlaySfxEnemy("EnemyDamaged");
         if (gameObject.GetComponent<TargetDetector>() != null)
             gameObject.GetComponent<TargetDetector>().GetShot();
     }
@@ -57,9 +58,8 @@ public class HpBoss : MonoBehaviour
         //var deathparticle = Instantiate(deathParticlePrefab, transform.position, transform.rotation);
         //animation of death
         _animator.SetBool("isDead", true);
-        //_audioSource.PlaySfxEnemy("EnemyDeath");
 
-       // GameObject.Destroy(this.gameObject, 0.5f);
+        // GameObject.Destroy(this.gameObject, 0.5f);
         // DeleteList(_idEnemy);
 
         //Destroy(deathparticle, 2.5f); 
@@ -68,6 +68,8 @@ public class HpBoss : MonoBehaviour
     public void BossDied()
     {
         Debug.Log("boss died ^(");
+        if (_audioSource != null)
+            _audioSource.PlaySfxEnemy("EnemyDeath");
         OnBossDefeated();
         GameObject.Destroy(this.gameObject);
     }

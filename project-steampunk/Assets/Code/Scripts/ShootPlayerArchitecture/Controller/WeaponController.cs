@@ -55,13 +55,16 @@ public class WeaponController : MonoBehaviour
             weapon.Switch = false;
         }
         SubscriptionInput();
-        
 
     }
     protected void OnDisable()
     {
+        inputShoot.Player.Shoot.Reset();
+        inputShoot.Player.Reload.Reset();
         animatorWeapon.SetBool("reload", false);
         animatorArms.SetBool("reload", false);
+        animatorArms.SetBool("shoot", false);
+        animatorWeapon.SetBool("shoot", false);
         weapon.Switch = true;
         weapon.CancelToken();
         //inputShoot.Disable();
