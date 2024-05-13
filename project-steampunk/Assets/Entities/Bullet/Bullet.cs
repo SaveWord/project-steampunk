@@ -66,7 +66,7 @@ namespace Enemies.Bullets
         public virtual void OnFly()
         {
             _timeOnFly += Time.deltaTime;
-            if (_timeOnFly >= _lifeTime) SelfDestroy();
+            //if (_timeOnFly >= _lifeTime) SelfDestroy();
         }
 
         protected void SelfDestroy()
