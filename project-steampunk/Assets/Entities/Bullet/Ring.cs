@@ -15,11 +15,20 @@ namespace Enemies.Bullets
         [SerializeField] 
         private int _subdivision = 30;
 
+        [SerializeField]
+        private int _thickness = 1;
+
         private MeshCollider _meshCollider;
         private LineRenderer _lineRenderer;
         private bool _isOnReload =false ;
         // [SerializeField] private float _lifeTime = 10f;
         private bool _isAttackReset = false;
+
+        [Header("Ring Visual")]
+
+        [SerializeField]
+        private ParticleSystem _particleRing;
+
         private EnemyAudioCollection _audioSource;
 
         private void Awake()
@@ -28,6 +37,13 @@ namespace Enemies.Bullets
             //_audioSource = gameObject.GetComponentInParent<EnemyAudioCollection>();
             _lineRenderer = GetComponent<LineRenderer>();
             _meshCollider = gameObject.AddComponent<MeshCollider>();
+
+            //_particleFlames = segment.GetComponentInChildren<ParticleSystem>();
+            /*_particleRing = gameObject.GetComponent<ParticleSystem>();
+            foreach (Transform segment in gameObject.transform)
+            {
+                
+            }*/
             //transform.rotation = Quaternion.Euler(0, 0, 0);
 
         }
@@ -39,6 +55,8 @@ namespace Enemies.Bullets
             //_audioSource.PlaySfxEnemy("EnemyAttackRing");
             _isAttackReset = false;
             transform.rotation = Quaternion.Euler(0, 0, 0);
+            //var mainModule = _particleFlames.main;
+            //mainModule.startSize = 4.5f * _startingRadius;
         }
 
         private void Update()
@@ -61,8 +79,8 @@ namespace Enemies.Bullets
                 }
                 */
                 _lineRenderer.useWorldSpace = false;
-                _lineRenderer.startWidth = 1;
-                _lineRenderer.endWidth = 1;
+                _lineRenderer.startWidth = _thickness;
+                _lineRenderer.endWidth = _thickness;
                 _lineRenderer.positionCount = _subdivision + 1;
 
                 var pointCount = _subdivision + 1;
@@ -73,6 +91,12 @@ namespace Enemies.Bullets
                     var rad = Mathf.Deg2Rad * (i * 360f / _subdivision);
                     points[i] = new Vector3(Mathf.Sin(rad) * _startingRadius, 0, Mathf.Cos(rad) * _startingRadius);
                 }
+                var shapeModule = _particleRing.shape;
+                shapeModule.donutRadius = _startingRadius-0.5f;
+
+                //var mainModule = _particleFlames.main;
+                //mainModule.startSize = 0.45f* _startingRadius;
+                //_effect.transform.localScale = new Vector3(_startingRadius/10, 2f, _startingRadius/10);
 
                 _lineRenderer.SetPositions(points);
                 Mesh mesh = new Mesh();
