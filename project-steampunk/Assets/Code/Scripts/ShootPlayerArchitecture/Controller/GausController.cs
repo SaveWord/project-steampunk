@@ -50,7 +50,7 @@ public class GausController : WeaponController
             weaponParametrs.enemyLayer,
             vfxShootPrefab, weaponParametrs.vfxImpactMetalProps, weaponParametrs.vfxImpactOtherProps,
             patronsText, gausePatronsImages,
-            animatorArms, animatorWeapon, recoilCinemachine, afterFireSmoke, lineRenderers);
+            animatorArms, animatorWeapon, recoilCinemachine, afterFireSmoke, lineRenderers,dotLine);
         weapon.Switch = false;
         startSwitchInisialise = true;
     }

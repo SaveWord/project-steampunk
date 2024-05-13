@@ -31,7 +31,7 @@ public class MachineGunController : WeaponController
             weaponParametrs.patrons, weaponParametrs.attackType,
             weaponParametrs.enemyLayer,
             vfxShootPrefab, weaponParametrs.vfxImpactMetalProps, weaponParametrs.vfxImpactOtherProps,
-            patronsText, animatorArms, animatorWeapon, recoilCinemachine,recoil, lineRenderers);
+            patronsText, animatorArms, animatorWeapon, recoilCinemachine,recoil, lineRenderers,dotLine);
         weapon.Switch = false;
         startSwitchInisialise = true;
     }

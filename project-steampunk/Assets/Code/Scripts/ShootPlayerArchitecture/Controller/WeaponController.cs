@@ -21,6 +21,7 @@ public class WeaponController : MonoBehaviour
     //visual
     protected ParticleSystem vfxShootPrefab;
     protected List<LineRenderer> lineRenderers;
+    [SerializeField]protected Transform dotLine;
     [SerializeField]protected LineRenderer lineRenderer;
 
     protected CinemachineImpulseSource recoilCinemachine;
@@ -98,7 +99,7 @@ public class WeaponController : MonoBehaviour
             weaponParametrs.patrons, weaponParametrs.attackType,
             weaponParametrs.enemyLayer,
             vfxShootPrefab, weaponParametrs.vfxImpactMetalProps, weaponParametrs.vfxImpactOtherProps,
-            patronsText, animatorArms, animatorWeapon, recoilCinemachine,lineRenderers);
+            patronsText, animatorArms, animatorWeapon, recoilCinemachine,lineRenderers,dotLine);
         weapon.Switch = false;
         startSwitchInisialise = true;
     }
