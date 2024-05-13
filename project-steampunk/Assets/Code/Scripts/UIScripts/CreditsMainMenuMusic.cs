@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class CreditsMainMenuMusic : MonoBehaviour
@@ -5,6 +6,7 @@ public class CreditsMainMenuMusic : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip clipMain;
     public AudioClip clipCredits;
+
     private void OnEnable()
     {
         audioSource.clip = clipCredits; audioSource.Play();
@@ -13,4 +15,5 @@ public class CreditsMainMenuMusic : MonoBehaviour
     {
         audioSource.clip = clipMain; audioSource.Play();
     }
+   
 }

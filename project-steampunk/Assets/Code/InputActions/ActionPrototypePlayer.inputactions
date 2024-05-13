@@ -346,6 +346,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "CatSceneSkip",
+                    "type": "Button",
+                    "id": "c03e6339-b3ec-428d-807e-ed6fa3c71517",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -764,6 +773,17 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "TrackedDeviceOrientation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "26e7c114-293b-48ca-a2b0-50b92d480ca5",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CatSceneSkip",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

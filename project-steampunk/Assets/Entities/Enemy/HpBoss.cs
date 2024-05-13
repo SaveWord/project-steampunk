@@ -22,7 +22,7 @@ public class HpBoss : MonoBehaviour
 
     [SerializeField] private EnemyAudioCollection _audioSource;
 
-    static event Action OnBossDefeated = delegate { };
+   public static event Action OnBossDefeated = delegate { };
 
     private void Start()
     {
