@@ -1041,141 +1041,167 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74edee027a7a316449c3e94c834da0ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stats:
-    _hp: 100
-    _timeBeforeReposition: 2
+  healthPercentageChangePhase: 0
   _attacksCollection:
   - attack: {fileID: 5785332119524234771, guid: 118dd973688601b49852e7db17ba9595,
       type: 3}
+    attacks: []
     patternSpawn: {fileID: 2871848954326510096}
-    cooldown: 0.2
+    timeoutAfter: 0
     startTime: 0
   - attack: {fileID: 7535649719867759211, guid: db621ac3383a11c4da08f04278f3d5f1,
       type: 3}
+    attacks: []
     patternSpawn: {fileID: 2871848954326510096}
-    cooldown: 0.1
+    timeoutAfter: 0
     startTime: 0
   - attack: {fileID: 7535649719867759211, guid: db621ac3383a11c4da08f04278f3d5f1,
       type: 3}
+    attacks: []
     patternSpawn: {fileID: 2871848954326510096}
-    cooldown: 0.1
+    timeoutAfter: 0
     startTime: 0
   - attack: {fileID: 8458616472822595085, guid: 4a3cde4bc1626964a8f7a1a2600ca65b,
       type: 3}
+    attacks: []
     patternSpawn: {fileID: 1859400726094651597}
-    cooldown: 0.2
+    timeoutAfter: 0
     startTime: 0
   - attack: {fileID: 4530020378320582419, guid: 8a618f48d88528949be01f185260da6f,
       type: 3}
+    attacks: []
     patternSpawn: {fileID: 8365207585346295421}
-    cooldown: 0.2
+    timeoutAfter: 0
     startTime: 0
   - attack: {fileID: 4530020378320582419, guid: 8a618f48d88528949be01f185260da6f,
       type: 3}
+    attacks: []
     patternSpawn: {fileID: 8365207585346295421}
-    cooldown: 0.5
+    timeoutAfter: 0
     startTime: 0
   - attack: {fileID: 5785332119524234771, guid: 118dd973688601b49852e7db17ba9595,
       type: 3}
+    attacks: []
     patternSpawn: {fileID: 2871848954326510096}
-    cooldown: 0.2
+    timeoutAfter: 0
     startTime: 0
   - attack: {fileID: 7535649719867759211, guid: db621ac3383a11c4da08f04278f3d5f1,
       type: 3}
+    attacks: []
     patternSpawn: {fileID: 1859400726094651597}
-    cooldown: 0.2
+    timeoutAfter: 0
     startTime: 0
   - attack: {fileID: 7535649719867759211, guid: 5ec9ac63664824740b5f1f5a9de07ea5,
       type: 3}
+    attacks: []
     patternSpawn: {fileID: 2871848954326510096}
-    cooldown: 0.1
+    timeoutAfter: 0
     startTime: 0
   - attack: {fileID: 7535649719867759211, guid: db621ac3383a11c4da08f04278f3d5f1,
       type: 3}
+    attacks: []
     patternSpawn: {fileID: 2871848954326510096}
-    cooldown: 0.1
+    timeoutAfter: 0
     startTime: 0
   - attack: {fileID: 7535649719867759211, guid: db621ac3383a11c4da08f04278f3d5f1,
       type: 3}
+    attacks: []
     patternSpawn: {fileID: 2871848954326510096}
-    cooldown: 0.1
+    timeoutAfter: 0
     startTime: 0
   - attack: {fileID: 7535649719867759211, guid: db621ac3383a11c4da08f04278f3d5f1,
       type: 3}
+    attacks: []
     patternSpawn: {fileID: 2871848954326510096}
-    cooldown: 0.1
+    timeoutAfter: 0
     startTime: 0
   - attack: {fileID: 3164132647910671957, guid: 76182aa88d77c774189e76dde47c58b3,
       type: 3}
+    attacks: []
     patternSpawn: {fileID: 2871848954326510096}
-    cooldown: 0.5
+    timeoutAfter: 0
     startTime: 0
   - attack: {fileID: 7535649719867759211, guid: db621ac3383a11c4da08f04278f3d5f1,
       type: 3}
+    attacks: []
     patternSpawn: {fileID: 2871848954326510096}
-    cooldown: 0.1
+    timeoutAfter: 0
     startTime: 0
   - attack: {fileID: 7535649719867759211, guid: db621ac3383a11c4da08f04278f3d5f1,
       type: 3}
+    attacks: []
     patternSpawn: {fileID: 2871848954326510096}
-    cooldown: 0.1
+    timeoutAfter: 0
     startTime: 0
   - attack: {fileID: 4530020378320582419, guid: 8a618f48d88528949be01f185260da6f,
       type: 3}
+    attacks: []
     patternSpawn: {fileID: 8365207585346295421}
-    cooldown: 0.5
+    timeoutAfter: 0
     startTime: 0
   - attack: {fileID: 7535649719867759211, guid: db621ac3383a11c4da08f04278f3d5f1,
       type: 3}
+    attacks: []
     patternSpawn: {fileID: 2871848954326510096}
-    cooldown: 0.1
+    timeoutAfter: 0
     startTime: 0
   - attack: {fileID: 7535649719867759211, guid: db621ac3383a11c4da08f04278f3d5f1,
       type: 3}
+    attacks: []
     patternSpawn: {fileID: 2871848954326510096}
-    cooldown: 0.1
+    timeoutAfter: 0
     startTime: 0
   - attack: {fileID: 8458616472822595085, guid: 4a3cde4bc1626964a8f7a1a2600ca65b,
       type: 3}
+    attacks: []
     patternSpawn: {fileID: 7283342436027465815}
-    cooldown: 0.1
+    timeoutAfter: 0
     startTime: 0
   - attack: {fileID: 7535649719867759211, guid: db621ac3383a11c4da08f04278f3d5f1,
       type: 3}
+    attacks: []
     patternSpawn: {fileID: 7283342436027465815}
-    cooldown: 0.1
+    timeoutAfter: 0
     startTime: 0
   - attack: {fileID: 8458616472822595085, guid: 4a3cde4bc1626964a8f7a1a2600ca65b,
       type: 3}
+    attacks: []
     patternSpawn: {fileID: 5939309242170464220}
-    cooldown: 0.1
+    timeoutAfter: 0
     startTime: 0
   - attack: {fileID: 7535649719867759211, guid: db621ac3383a11c4da08f04278f3d5f1,
       type: 3}
+    attacks: []
     patternSpawn: {fileID: 2871848954326510096}
-    cooldown: 0.1
+    timeoutAfter: 0
     startTime: 0
   - attack: {fileID: 8458616472822595085, guid: 4a3cde4bc1626964a8f7a1a2600ca65b,
       type: 3}
+    attacks: []
     patternSpawn: {fileID: 5939309242170464220}
-    cooldown: 0.1
+    timeoutAfter: 0
     startTime: 0
   - attack: {fileID: 8458616472822595085, guid: 4a3cde4bc1626964a8f7a1a2600ca65b,
       type: 3}
+    attacks: []
     patternSpawn: {fileID: 7283342436027465815}
-    cooldown: 0.1
+    timeoutAfter: 0
     startTime: 0
   - attack: {fileID: 8458616472822595085, guid: 4a3cde4bc1626964a8f7a1a2600ca65b,
       type: 3}
+    attacks: []
     patternSpawn: {fileID: 5939309242170464220}
-    cooldown: 0.1
+    timeoutAfter: 0
     startTime: 0
   - attack: {fileID: 8458616472822595085, guid: 4a3cde4bc1626964a8f7a1a2600ca65b,
       type: 3}
+    attacks: []
     patternSpawn: {fileID: 2871848954326510096}
-    cooldown: 0.1
+    timeoutAfter: 0
     startTime: 0
-  phaseTimer: 7
+  _phasesCollection: []
+  bee: 0
+  HpPercentage: 0
 --- !u!114 &5811443956384535958
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1188,10 +1214,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c92354a5c7e0a9c43b05900fa2908486, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _OnReload: 0
   _laserList: {fileID: 0}
   _laserAttackDuration: 10
   _laserAttackChargeDuration: 3
   _laserTimeout: 5
+  _laserCooldown: 0
   _pointOfAttack: {fileID: 8428125516161721118}
   _laserFollowDistance: 7
   _laserDamage: 2
@@ -1203,6 +1231,7 @@ MonoBehaviour:
   _damageTimePattern: 5
   _chargeTimePattern: 5
   _reloadTimePattern: 5
+  bee: 0
 --- !u!114 &7020275082239285982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1233,6 +1262,11 @@ MonoBehaviour:
     m_Bits: 576
   _detectionRadius: 150
   _timeToForgets: 100000
+  _sphereCastMaxDist: 0
+  _castPoint: {fileID: 0}
+  _isShotByPlayer: 0
+  _isBee: 0
+  _isInstantlyAggred: 0
 --- !u!114 &2368834376488813695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1283,6 +1317,7 @@ MonoBehaviour:
     type: 3}
   healDropPrefab: {fileID: 0}
   _idEnemy: 0
+  _audioSource: {fileID: 0}
 --- !u!114 &6097781742018688182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1310,16 +1345,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74edee027a7a316449c3e94c834da0ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stats:
-    _hp: 100
-    _timeBeforeReposition: 2
+  healthPercentageChangePhase: 0
   _attacksCollection:
   - attack: {fileID: 3164132647910671957, guid: 74cdc0788015a1d4cb9f50dbf641cd14,
       type: 3}
+    attacks: []
     patternSpawn: {fileID: 1859400726094651597}
-    cooldown: 3
+    timeoutAfter: 0
     startTime: 0
-  phaseTimer: 2
+  _phasesCollection: []
+  bee: 0
+  HpPercentage: 0
 --- !u!1 &1001326250040256759
 GameObject:
   m_ObjectHideFlags: 0
@@ -2157,6 +2193,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _healthSlider: {fileID: 7494189082610230789, guid: 18a26458d772ebe4cad39eef0d264f27,
     type: 3}
+  _enemyHealthPrefab: {fileID: 0}
 --- !u!1 &2587713402954118730
 GameObject:
   m_ObjectHideFlags: 0

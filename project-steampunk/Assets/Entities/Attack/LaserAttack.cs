@@ -11,7 +11,8 @@ namespace Enemies.Attacks.Attacks
         public ITarget _target;
 
         public int _followDistance;
-        public float _damage = 1;
+        public float _damage = 1f;
+        public float _damageReload = 0.1f;
         public float _attackDuration = 4f;
         public float _chargeDuration = 1.3f;
         
@@ -38,6 +39,11 @@ namespace Enemies.Attacks.Attacks
         [SerializeField]
         private bool _damageCooldown = false;
 
+        [SerializeField]
+        private bool _alternativeCharge = false;
+        [SerializeField]
+        private GameObject _laserStartEffect;
+
         [SerializeField] private EnemyAudioCollection _audioSource;
 
         void Awake()
@@ -51,9 +57,10 @@ namespace Enemies.Attacks.Attacks
         {
             _target = target;
             patternSpawnPoint = attackSpot;
+            if(!Activated)
+                StartCoroutine(Charge());
             Activated = true;
             _damageCooldown = false;
-            StartCoroutine(Charge());
 
         }
 
@@ -67,7 +74,7 @@ namespace Enemies.Attacks.Attacks
         private IEnumerator DamageReload()
         {
             _damageCooldown= true;
-            yield return new WaitForSeconds(0.4f);
+            yield return new WaitForSeconds(_damageReload);
             _damageCooldown = false;
         }
 
@@ -83,18 +90,40 @@ namespace Enemies.Attacks.Attacks
 
         private IEnumerator Charge()
         {
-
-            transform.eulerAngles = new Vector3(90, 0, 0);
             var rend = _particle.GetComponent<ParticleSystemRenderer>();
-            rend.material = _chargeMat;
+            if (!_alternativeCharge)
+            {
+                transform.eulerAngles = new Vector3(90, 0, 0);
+                
+                rend.material = _chargeMat;
 
-            yield return new WaitForSeconds(_chargeDuration);
+                yield return new WaitForSeconds(_chargeDuration);
+            }
+            else {
+                _audioSource = transform.parent.gameObject.transform.parent.gameObject.transform.parent.GetComponentInChildren<EnemyAudioCollection>();
+                _particle.enableEmission = false;
+                foreach (Transform segment in gameObject.transform)
+                {
+                    segment.gameObject.SetActive(false);
+                }
+
+                _laserStartEffect.SetActive(true);
+                yield return new WaitForSeconds(_chargeDuration);
+
+                foreach (Transform segment in gameObject.transform)
+                {
+                    segment.gameObject.SetActive(true);
+                }
+                _laserStartEffect.SetActive(false);
+                _particle.enableEmission = true;
+            }
             rend.material = _targetMat;
             _isAttacking = true;
             yield return new WaitForSeconds(_attackDuration);
             _isAttacking = false;
             Activated = false;
 
+            _laserStartEffect.SetActive(false);
             _audioSource.sfxSource.loop = false;
             _audioSource.sfxSource.Stop();
             gameObject.SetActive(false);
@@ -102,7 +131,7 @@ namespace Enemies.Attacks.Attacks
 
         void Update()
         {
-            if (Activated)
+            if (Activated && Time.deltaTime>0)
             {
                 _audioSource.sfxSource.loop = true;
                 _audioSource.PlaySfxEnemy("EnemyAttackLaser");
@@ -138,7 +167,6 @@ namespace Enemies.Attacks.Attacks
                                     closestHit = hits[i];
                                 }
                             }
-                            Debug.Log("suqa " + closestHit.collider.gameObject.layer);
                             if (closestHit.collider.gameObject.layer == 7 && !_damageCooldown)
                                 DealDamage(closestHit.collider.gameObject);
                         }

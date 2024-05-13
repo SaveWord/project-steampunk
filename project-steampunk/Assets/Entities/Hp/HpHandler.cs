@@ -14,20 +14,20 @@ public class HpHandler : MonoBehaviour, IHealth
     [SerializeField]
     public bool _invulnerable = false;
 
-    public float CurrentHp { get { return (float)_currentHp; }}
+    public float CurrentHp { get { return (float)_currentHp; } }
     public float MaxHp { get { return (float)_maxHp; } }
 
     public event Action<float> OnHPChanged = delegate { };
     public event Action<float> OnTakenDamage = delegate { };
     public event Action<float> OnHealedDamage = delegate { };
     public event Action OnDied = delegate { };
-    public event Action <Vector3>ChangeVfxImpact;
+    public event Action<Vector3> ChangeVfxImpact;
 
     private void Start()
     {
         _currentHp = _maxHp;
     }
-    
+
     public void TakeDamage(float amount)//TODO: specify damage maker
     {
         //gameObject.TryGetComponent(out TargetDetector _targetDetector);
@@ -48,6 +48,7 @@ public class HpHandler : MonoBehaviour, IHealth
                 Die();
         }
     }
+
     public void ChangeTransformVFXImpact(Vector3 position)
     {
         ChangeVfxImpact?.Invoke(position);
@@ -62,14 +63,14 @@ public class HpHandler : MonoBehaviour, IHealth
             _currentHp = _maxHp;
         else
             _currentHp += amount;
-        Debug.Log("Healed "+amount);
+        Debug.Log("Healed " + amount);
         OnHPChanged(CurrentHp);
         OnHealedDamage(amount);
     }
 
     public bool HandlePercentage(int percentage)
     {
-        if ( percentage >= (int)((100 * _currentHp) / _maxHp))
+        if (percentage >= (int)((100 * _currentHp) / _maxHp))
             return true;
         else
             return false;
@@ -80,17 +81,4 @@ public class HpHandler : MonoBehaviour, IHealth
         OnDied();
         Debug.Log("died");
     }
-
-    //if needed blood particle
-
-    /*[SerializeField] private ParticleSystem deathParticlePrefab;
-    private void Start()
-    {
-        GetComponent<IHealth>().OnDied += PlayDeathParticle;
-    }
-    private void PlayDeathParticle()
-    {
-        var deathparticle = Instantiate(deathParticlePrefab, transform.position, transform.rotation);
-        Destroy(deathparticle, 4f);
-    }*/
 }

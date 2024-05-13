@@ -28,12 +28,12 @@ public class HpEnemy : MonoBehaviour
     [SerializeField] private EnemyAudioCollection _audioSource ;
 
     private void OnTriggerStay(Collider other)
-     {
+    {
           if (immovable)
           {
               transform.position = playerPosition;
           }
-     } 
+    } 
 
     private void Start()
     {
@@ -76,7 +76,6 @@ public class HpEnemy : MonoBehaviour
         Debug.Log("Healed num " +healCount);
         for (int i=0; i <= healCount; i++)
         {
-
             var position = new Vector3(transform.position.x+ UnityEngine.Random.Range(-10, 10), transform.position.y+2, transform.position.z+ UnityEngine.Random.Range(-10, 10));
 
             Instantiate(healDropPrefab, position, Quaternion.identity);

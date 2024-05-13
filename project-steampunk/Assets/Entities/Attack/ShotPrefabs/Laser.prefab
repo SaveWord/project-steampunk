@@ -37457,7 +37457,7 @@ ParticleSystem:
     radiusScale: 0.01
     collidesWith:
       serializedVersion: 2
-      m_Bits: 4294967295
+      m_Bits: 1912610743
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
@@ -38524,9 +38524,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   patternSpawnPoint: {fileID: 0}
-  patternSpawnPoint: {fileID: 0}
   _followDistance: 15
-  _damage: 3
+  _damage: 0.75
+  _damageReload: 0.1
   _attackDuration: 7
   _chargeDuration: 3
   _laserCooldown: 0
@@ -38535,3 +38535,7 @@ MonoBehaviour:
     m_Bits: 536872547
   _chargeMat: {fileID: 2100000, guid: 8043c4c9f35a7e647ae8669c48ca4487, type: 2}
   _targetMat: {fileID: 2100000, guid: dee19067b69aea849a8d363ec19d6b3d, type: 2}
+  _damageCooldown: 0
+  _alternativeCharge: 0
+  _laserStartEffect: {fileID: 0}
+  _audioSource: {fileID: 0}
