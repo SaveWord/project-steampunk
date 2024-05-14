@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb7d20424549e4d02882c90a6614c0da, type: 3}
   m_Name: FogOfWar 1
   m_EditorClassIdentifier: 
-  baseAltitude: -101.9
+  baseAltitude: -453.42
   densityLinear: 0.05
   densityExponential: 0.925
   maxHeight: 10000
   distanceMax: 100000
-  tintColor: {r: 0.7647059, g: 0.7647059, b: 0.78431374, a: 1}
+  tintColor: {r: 0.9622642, g: 0.59595394, b: 0.5855287, a: 0}
   verticalGradient:
     serializedVersion: 2
-    key0: {r: 0.990566, g: 0.601666, b: 0.28502133, a: 1}
-    key1: {r: 0.99215686, g: 0.7910301, b: 0.7058824, a: 1}
+    key0: {r: 0.990566, g: 0.601666, b: 0.28502133, a: 0.32941177}
+    key1: {r: 0.99215686, g: 0.7910301, b: 0.7058824, a: 0.30980393}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -36,7 +36,7 @@ MonoBehaviour:
     ctime5: 0
     ctime6: 0
     ctime7: 0
-    atime0: 0
+    atime0: 386
     atime1: 65535
     atime2: 0
     atime3: 0
@@ -45,16 +45,16 @@ MonoBehaviour:
     atime6: 0
     atime7: 0
     m_Mode: 0
-    m_ColorSpace: -1
+    m_ColorSpace: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   boxProjection: 0
   depthClip: 0
   noiseColorBlend: 0.927
-  noiseColor: {r: 0.40370238, g: 0.4387937, b: 0.4528302, a: 1}
+  noiseColor: {r: 1, g: 0.13486794, b: 0, a: 0.36078432}
   scale: 2
-  shift: 0
-  noiseDistanceAtten: 0
+  shift: -0.1
+  noiseDistanceAtten: 0.07
   turbulence: 1
   speed: 0.73
   direction: {x: 0.02, y: 0, z: 0}

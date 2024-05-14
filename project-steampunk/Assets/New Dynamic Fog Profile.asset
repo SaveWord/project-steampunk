@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb7d20424549e4d02882c90a6614c0da, type: 3}
   m_Name: New Dynamic Fog Profile
   m_EditorClassIdentifier: 
-  baseAltitude: 1237
-  densityLinear: 0.64
-  densityExponential: 1.45
-  maxHeight: 10000.52
-  distanceMax: 100083
-  tintColor: {r: 0.7647059, g: 0.7647059, b: 0.78431374, a: 0.62352943}
+  baseAltitude: 0
+  densityLinear: 0.55
+  densityExponential: 0.94
+  maxHeight: 10000
+  distanceMax: 100000
+  tintColor: {r: 0.7647059, g: 0.7647059, b: 0.78431374, a: 1}
   verticalGradient:
     serializedVersion: 2
     key0: {r: 0.7647059, g: 0.7647059, b: 0.78431374, a: 1}
@@ -50,7 +50,7 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   boxProjection: 0
   depthClip: 0
-  noiseColorBlend: 0.34
+  noiseColorBlend: 0.1
   noiseColor: {r: 0.6862745, g: 0.7058824, b: 0.7137255, a: 1}
   scale: 50
   shift: 0
