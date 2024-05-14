@@ -81,7 +81,10 @@ public class SaveSystem : MonoBehaviour
             //playerData.health = 100;
             playerData.sceneID = 1;
             if (SceneManager.GetActiveScene().buildIndex != 0)
+            {
                 playerData.position = GetComponentInChildren<CheckPoint>().gameObject.transform.position;
+                playerData.rotation = GetComponentInChildren<CheckPoint>().gameObject.transform.eulerAngles;
+            }
             Debug.Log("File not found");
         }
     }
