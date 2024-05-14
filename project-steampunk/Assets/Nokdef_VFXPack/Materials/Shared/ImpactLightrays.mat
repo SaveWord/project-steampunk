@@ -41,7 +41,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 03104c0d65dff2e4289b86f23e99a32e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8a9454539c332624d913cbe273db08b1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTexture:
@@ -68,9 +68,9 @@ Material:
     - _DstBlend: 1
     - _EnableFogOnTransparent: 0
     - _Fresnel: 0
-    - _FresnelPower: 0
-    - _FresnelScale: 0
-    - _MiddlePointPos: 1
+    - _FresnelPower: 1
+    - _FresnelScale: 1
+    - _MiddlePointPos: 0.5
     - _MultiplyNoiseDesaturation: 1
     - _ReceivesSSR: 0
     - _RenderQueueType: 4
@@ -79,15 +79,15 @@ Material:
     - _SourceBlendRGB: 1
     - _SrcBlend: 1
     - _StencilRef: 0
-    - _StencilRefDepth: 0
+    - _StencilRefDepth: 1
     - _StencilRefDistortionVec: 4
     - _StencilRefGBuffer: 2
-    - _StencilRefMV: 32
+    - _StencilRefMV: 33
     - _StencilWriteMask: 6
-    - _StencilWriteMaskDepth: 8
+    - _StencilWriteMaskDepth: 9
     - _StencilWriteMaskDistortionVec: 4
-    - _StencilWriteMaskGBuffer: 14
-    - _StencilWriteMaskMV: 40
+    - _StencilWriteMaskGBuffer: 15
+    - _StencilWriteMaskMV: 41
     - _SurfaceType: 1
     - _TransparentBackfaceEnable: 0
     - _TransparentCullMode: 2
