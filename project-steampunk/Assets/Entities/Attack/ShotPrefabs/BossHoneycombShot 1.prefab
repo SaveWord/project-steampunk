@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9216014200678551931}
-  - component: {fileID: 7535649719867759211}
+  - component: {fileID: 5785332119524234771}
   m_Layer: 0
-  m_Name: BossTriangleRange
+  m_Name: BossHoneycombShot 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7535649719867759211
+--- !u!114 &5785332119524234771
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -47,29 +47,36 @@ MonoBehaviour:
   patternSpawnPoint: {fileID: 0}
   _shotQueue:
   - _key:
-      SpotPoint: {x: 0, y: -1, z: 0}
+      SpotPoint: {x: 1.01, y: 0.43, z: 0.34}
       ShotDirection: {x: 0, y: 0, z: 0}
       ShotDelay: 0
       LookAtTarget: 1
     _value: {fileID: 7718402993339949998, guid: da464612630388342a8097a9dd22feda,
       type: 3}
   - _key:
-      SpotPoint: {x: 0, y: 1, z: 0}
+      SpotPoint: {x: 9.6, y: 1.83, z: 2.32}
       ShotDirection: {x: 0, y: 0, z: 0}
       ShotDelay: 0
       LookAtTarget: 1
     _value: {fileID: 7718402993339949998, guid: da464612630388342a8097a9dd22feda,
       type: 3}
   - _key:
-      SpotPoint: {x: 0, y: 0, z: 1}
-      ShotDirection: {x: -1, y: 0, z: 0}
+      SpotPoint: {x: 1.8, y: -1.02, z: 1.76}
+      ShotDirection: {x: 0, y: 0, z: 0}
       ShotDelay: 0
       LookAtTarget: 1
     _value: {fileID: 7718402993339949998, guid: da464612630388342a8097a9dd22feda,
       type: 3}
   - _key:
-      SpotPoint: {x: 1, y: 0, z: 0}
-      ShotDirection: {x: 0, y: 0, z: -1}
+      SpotPoint: {x: -0.26, y: 1.89, z: 1.81}
+      ShotDirection: {x: 0, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 7718402993339949998, guid: da464612630388342a8097a9dd22feda,
+      type: 3}
+  - _key:
+      SpotPoint: {x: 6.26, y: 6.4, z: 4.67}
+      ShotDirection: {x: -1.41, y: 0, z: 0}
       ShotDelay: 0
       LookAtTarget: 1
     _value: {fileID: 7718402993339949998, guid: da464612630388342a8097a9dd22feda,

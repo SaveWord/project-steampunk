@@ -117,6 +117,13 @@ namespace Enemies.Attacks.Attacks
                 _laserStartEffect.SetActive(false);
                 _particle.enableEmission = true;
             }
+
+            if (_audioSource != null && Time.deltaTime > 0)
+            {
+                _audioSource.sfxSource.loop = true;
+                _audioSource.PlaySfxEnemy("EnemyAttackLaser");
+            }
+
             rend.material = _targetMat;
             _isAttacking = true;
             yield return new WaitForSeconds(_attackDuration);
@@ -133,8 +140,6 @@ namespace Enemies.Attacks.Attacks
         {
             if (Activated && Time.deltaTime>0)
             {
-                _audioSource.sfxSource.loop = true;
-                _audioSource.PlaySfxEnemy("EnemyAttackLaser");
                 transform.position = patternSpawnPoint.position;
                 _storedPositions.Enqueue(_target.GetPosition());
                 if (_lastPos != null)

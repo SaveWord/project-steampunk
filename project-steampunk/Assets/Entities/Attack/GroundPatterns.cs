@@ -8,95 +8,99 @@ namespace Enemies.Bullets
     public class GroundPatterns : AttackBaseClass
     {
         public List<GameObject> _patternPartsList;
+        public bool Activated = false;
 
-        //Instructions: add children colliders to this object with no render,and for each collider a child object for visual representation
+        //Instructions: add children parts to this object with collider somewhere in each. use flipangle to kill player
 
-        [Header("Materials")]
+        [Header("Visuals")]
         [SerializeField]
-        private Material _materialNone;
+        private Animator _bossAnimator;
         [SerializeField]
-        private Material _materialCharge;
+        private EnemyAudioCollection _audioSource;
         [SerializeField]
-        private Material _materialDamage;
+        private GameObject _bossObject;
 
-        private Color groundColor;
-
-        [SerializeField]
-        [Range (0f,1f)]
-        private float _transparency;
-
-        [Header("No need")]
+        [Header("Parametres")]
         public float _damageTime;
         public float _chargeTime;
         public float _damage;
+        [SerializeField]
+        private float _flipAngle = 0f;
 
+        private bool _setUp=false;
         private void Awake()
         {
+            _bossObject = transform.parent.gameObject.transform.parent.gameObject;
+            _audioSource = _bossObject.GetComponentInChildren<EnemyAudioCollection>();
+            _bossObject = _bossObject.GetComponentInChildren<Boss>().gameObject;
+            _bossAnimator = GameObject.FindGameObjectWithTag("animated").GetComponent<Animator>();
+            SetUpAttack();
+        }
+
+        private void SetUpAttack()
+        {
+            //each zone
             foreach (Transform segment in gameObject.transform)
             {
                 _patternPartsList.Add(segment.gameObject);
+
             }
-            foreach (GameObject child in _patternPartsList)
+
+            //searching for collider
+            foreach (GameObject patternPart in _patternPartsList)
             {
-                child.AddComponent<GroundComponent>();
-                child.GetComponent<GroundComponent>()._damage = _damage;
-                child.SetActive(false);
+                foreach (Transform effect in patternPart.transform)
+                {
+                    var meshCollider = effect.gameObject.GetComponent<MeshCollider>();
+                    if (meshCollider != null)
+                    {
+                        effect.gameObject.AddComponent<GroundComponent>();
+                        effect.gameObject.GetComponent<GroundComponent>()._damage = _damage;
+                        patternPart.SetActive(false);
+                    }
+                }
             }
+            _setUp = true;
+            Activated = false;
             gameObject.SetActive(false);
         }
 
         public override void Activate(ITarget target, Transform attackSpot)
         {
-            foreach (GameObject child in _patternPartsList)
-            {
-                child.SetActive(true);
-                StartCoroutine(ChargeCoroutine(child));
-            }
+            gameObject.transform.rotation = Quaternion.Euler(0, _bossObject.transform.rotation.y - _flipAngle, 0);
+            //play animator
+            //_audioSource.PlaySfxEnemy("EnemyGroundPattern");
+            if (_setUp)
+                StartCoroutine(ChargeCoroutine());
+            else SetUpAttack();
         }
 
-        private IEnumerator ChargeCoroutine(GameObject gameObject)
+        private IEnumerator ChargeCoroutine()
         {
+            if (!Activated)
+            {
+                Activated = true;
+                _bossAnimator.SetBool("isGroundPattern", true);
+                yield return new WaitForSeconds(_chargeTime);
 
-            gameObject.GetComponent<MeshRenderer>().materials[0] = _materialCharge;
-            groundColor = gameObject.GetComponent<MeshRenderer>().materials[1].color;
-            groundColor.a = 0f;
-            gameObject.GetComponent<MeshRenderer>().materials[1].color = groundColor;
-            yield return new WaitForSeconds(_chargeTime/5);
-            groundColor.a = 0.2f;
-            gameObject.GetComponent<MeshRenderer>().materials[1].color = groundColor;
-
-            yield return new WaitForSeconds(_chargeTime / 5);
-            groundColor.a = 0.4f;
-            gameObject.GetComponent<MeshRenderer>().materials[1].color = groundColor;
-
-            yield return new WaitForSeconds(_chargeTime / 5);
-            groundColor.a = 0.6f;
-            gameObject.GetComponent<MeshRenderer>().materials[1].color = groundColor;
-
-            yield return new WaitForSeconds(_chargeTime / 5);
-            groundColor.a = 0.8f;
-            gameObject.GetComponent<MeshRenderer>().materials[1].color = groundColor;
-
-            yield return new WaitForSeconds(_chargeTime / 5);
-            groundColor.a = 1f;
-            gameObject.GetComponent<MeshRenderer>().materials[1].color = groundColor;
-
-
-
-            gameObject.GetComponent<GroundComponent>().isDamaging = true;
-
-            gameObject.GetComponent<MeshRenderer>().materials[0] = _materialDamage;
-            
-            // damage dealing time frame
-            yield return new WaitForSeconds(_damageTime);
-
-            gameObject.GetComponent<GroundComponent>().isDamaging = false;
-
-            gameObject.GetComponent<MeshRenderer>().materials[0] = _materialNone;
-            
-            gameObject.SetActive(false);
-           
-            //StartCoroutine(CooldownCoroutine());
+                _bossAnimator.SetBool("isGroundPattern", false);
+                foreach (GameObject partPattern in _patternPartsList)
+                {
+                    partPattern.SetActive(true);
+                    partPattern.GetComponentInChildren<GroundComponent>().isDamaging = true;
+                }
+                // damage dealing time frame
+                yield return new WaitForSeconds(_damageTime);
+                foreach (GameObject partPattern in _patternPartsList)
+                {
+                    partPattern.GetComponentInChildren<GroundComponent>().isDamaging = false;
+                    partPattern.SetActive(false);
+                }
+                Activated = false;
+                gameObject.SetActive(false);
+                //StartCoroutine(CooldownCoroutine());
+        
+            }
         }
 
         private IEnumerator CooldownCoroutine()

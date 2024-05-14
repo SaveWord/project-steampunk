@@ -91,8 +91,11 @@ namespace Enemies.Bullets
                     var rad = Mathf.Deg2Rad * (i * 360f / _subdivision);
                     points[i] = new Vector3(Mathf.Sin(rad) * _startingRadius, 0, Mathf.Cos(rad) * _startingRadius);
                 }
-                var shapeModule = _particleRing.shape;
-                shapeModule.donutRadius = _startingRadius-0.5f;
+                if (_particleRing != null)
+                {
+                    var shapeModule = _particleRing.shape;
+                    shapeModule.donutRadius = _startingRadius - _startingRadius * 0.01f;
+                }
 
                 //var mainModule = _particleFlames.main;
                 //mainModule.startSize = 0.45f* _startingRadius;
