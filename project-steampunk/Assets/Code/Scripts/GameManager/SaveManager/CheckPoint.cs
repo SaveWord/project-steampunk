@@ -28,10 +28,10 @@ public class CheckPoint : MonoBehaviour
           
             int sceneId = SceneManager.GetActiveScene().buildIndex;
             int wepUnlock = other.GetComponentInChildren<SwitchWeapon>().weaponUnlock;
-            Vector3 position = this.transform.position;
-            Vector3 rotation = other.transform.rotation.eulerAngles;
-            //Vector3 position = transform.GetChild(0).position;
-            //Vector3 rotation = transform.GetChild(0).rotation.eulerAngles;
+            //Vector3 position = this.transform.position;
+            //Vector3 rotation = other.transform.rotation.eulerAngles;
+            Vector3 position = transform.GetChild(0).position;
+            Vector3 rotation = transform.GetChild(0).rotation.eulerAngles;
             GameManagerSingleton.Instance.SaveSystem.SaveData(position,sceneId, rotation);
             GameManagerSingleton.Instance.SaveSystem.SaveSwitchWeapon(wepUnlock);
             GameManagerSingleton.Instance.SaveSystem.SaveCheckPoint(1);

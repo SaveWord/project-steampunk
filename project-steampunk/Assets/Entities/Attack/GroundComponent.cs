@@ -19,19 +19,11 @@ public class GroundComponent : MonoBehaviour
 
     private void Damage(Collider collision)
     {
-        Debug.Log("shosh " + collision.gameObject.GetInstanceID());
-
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player") && isDamaging && !_damageCooldown)
         {
-            if (isDamaging)
-            {
-                DealDamage(collision.gameObject, _damage);
-                isDamaging = false;
-            }
-            else
-            {
-                //DealDamage(collision.gameObject, _damage / 2);
-            }
+            DealDamage(collision.gameObject, _damage);
+            //isDamaging = false;
+            
             DamageReload();
         }
     }

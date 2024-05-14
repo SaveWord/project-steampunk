@@ -44,24 +44,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0709ddf791f9a5a4398a74fe5e245a66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  patternSpawnPoint: {fileID: 0}
   _shotQueue:
   - _key:
-      SpotPoint: {x: 0, y: 0, z: 0}
+      SpotPoint: {x: 0, y: -1, z: 0}
       ShotDirection: {x: 0, y: 0, z: 0}
       ShotDelay: 0
       LookAtTarget: 1
     _value: {fileID: 7718402993339949998, guid: da464612630388342a8097a9dd22feda,
       type: 3}
   - _key:
-      SpotPoint: {x: 0, y: 0, z: 0}
-      ShotDirection: {x: 0, y: 0, z: 3}
+      SpotPoint: {x: 0, y: 1, z: 0}
+      ShotDirection: {x: 0, y: 0, z: 0}
       ShotDelay: 0
       LookAtTarget: 1
     _value: {fileID: 7718402993339949998, guid: da464612630388342a8097a9dd22feda,
       type: 3}
   - _key:
-      SpotPoint: {x: 0, y: 0, z: 0}
-      ShotDirection: {x: 0, y: 0, z: -3}
+      SpotPoint: {x: 0, y: 0, z: 1}
+      ShotDirection: {x: -1, y: 0, z: 0}
+      ShotDelay: 0
+      LookAtTarget: 1
+    _value: {fileID: 7718402993339949998, guid: da464612630388342a8097a9dd22feda,
+      type: 3}
+  - _key:
+      SpotPoint: {x: 1, y: 0, z: 0}
+      ShotDirection: {x: 0, y: 0, z: -1}
       ShotDelay: 0
       LookAtTarget: 1
     _value: {fileID: 7718402993339949998, guid: da464612630388342a8097a9dd22feda,
@@ -75,3 +83,5 @@ MonoBehaviour:
   largeRadius: 10
   smallRadius: 3
   axis: y
+  _listOfAllBullets: []
+  _audioSource: {fileID: 0}

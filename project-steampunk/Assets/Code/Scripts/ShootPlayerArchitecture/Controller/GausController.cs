@@ -50,7 +50,7 @@ public class GausController : WeaponController
             weaponParametrs.enemyLayer,
             vfxShootPrefab, weaponParametrs.vfxImpactMetalProps, weaponParametrs.vfxImpactOtherProps,
             patronsText, gausePatronsImages,
-            animatorArms, animatorWeapon, recoilCinemachine, afterFireSmoke, lineRenderers,dotLine);
+            animatorArms, animatorWeapon, recoilCinemachine, afterFireSmoke, lineRenderers, dotLine);
         weapon.Switch = false;
         startSwitchInisialise = true;
     }
@@ -83,8 +83,8 @@ public class GausController : WeaponController
         if (context.performed)
         {
             //Debug.Log(this.GetType().Name);
-            if (weapon.Patrons != 0)
-                CancelInvoke("ReloadInvoke");
+            //if (weapon.Patrons != 0)
+            CancelInvoke("ReloadInvoke");
             isPressedContext = context;
             isPressed = true;
         }

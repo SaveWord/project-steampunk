@@ -57,11 +57,12 @@ namespace Enemies.Attacks.Attacks
         {
             _target = target;
             patternSpawnPoint = attackSpot;
-            if(!Activated)
+            if (!Activated)
+            {
                 StartCoroutine(Charge());
-            Activated = true;
-            _damageCooldown = false;
-
+                Activated = true;
+                _damageCooldown = false;
+            }
         }
 
         protected void DealDamage(GameObject target)
@@ -117,13 +118,21 @@ namespace Enemies.Attacks.Attacks
                 _laserStartEffect.SetActive(false);
                 _particle.enableEmission = true;
             }
-            rend.material = _targetMat;
+
+            if (_audioSource != null && Time.deltaTime > 0)
+            {
+                _audioSource.sfxSource.loop = true;
+                _audioSource.PlaySfxEnemy("EnemyAttackLaser");
+            }
+
+            if (!_alternativeCharge)
+                rend.material = _targetMat;
             _isAttacking = true;
             yield return new WaitForSeconds(_attackDuration);
             _isAttacking = false;
             Activated = false;
-
-            _laserStartEffect.SetActive(false);
+            if(_alternativeCharge)
+                _laserStartEffect.SetActive(false);
             _audioSource.sfxSource.loop = false;
             _audioSource.sfxSource.Stop();
             gameObject.SetActive(false);
@@ -133,8 +142,6 @@ namespace Enemies.Attacks.Attacks
         {
             if (Activated && Time.deltaTime>0)
             {
-                _audioSource.sfxSource.loop = true;
-                _audioSource.PlaySfxEnemy("EnemyAttackLaser");
                 transform.position = patternSpawnPoint.position;
                 _storedPositions.Enqueue(_target.GetPosition());
                 if (_lastPos != null)
