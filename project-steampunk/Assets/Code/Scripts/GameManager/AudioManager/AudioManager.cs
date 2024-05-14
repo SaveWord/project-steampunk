@@ -26,7 +26,19 @@ public class AudioManager : MonoBehaviour
         musicSource.Stop();
         sfxSource.Stop();
         sfxWeaponSource.Stop();
-        musicSource.Play();
+        int scene = SceneManager.GetActiveScene().buildIndex;
+        switch (scene)
+        {
+            case 0:
+                PlayMusic("Menu", true);
+                break;
+            case 1:
+                PlayMusic("Embient1", true);
+                break;
+            case 2:
+                PlayMusic("Embient2", true);
+                break;
+        }
         mixer.SetFloat("MuteParam", Mathf.Log10(0) * 20);
     }
     public void PlaySfxWeapon(string name)
