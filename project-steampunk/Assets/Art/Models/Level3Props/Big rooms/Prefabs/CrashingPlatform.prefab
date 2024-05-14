@@ -119,6 +119,7 @@ GameObject:
   - component: {fileID: 3923372573679402639}
   - component: {fileID: 5528725928697188173}
   - component: {fileID: 1100774325084179654}
+  - component: {fileID: 8380373831624701759}
   m_Layer: 8
   m_Name: CrashingPlatform
   m_TagString: stoppableEnv
@@ -215,7 +216,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
@@ -274,7 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e74fcf0d3b01364684a146eeb7fd2e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: 0.75
+  offset: 0.5
   speed: 1.5
   Damage: 100
   upPlatform: {fileID: 8300000, guid: 8cc03466060862647b1030a24cc3d3f0, type: 3}
@@ -376,6 +377,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!65 &8380373831624701759
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7468651527919367109}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 40.346176, y: 87.64737, z: 40.346176}
+  m_Center: {x: 0, y: 43.823685, z: -0.0000019073486}
 --- !u!1001 &896444156135844742
 PrefabInstance:
   m_ObjectHideFlags: 0

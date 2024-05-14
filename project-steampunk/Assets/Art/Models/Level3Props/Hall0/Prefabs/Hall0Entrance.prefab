@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 2311824284608263425}
   - component: {fileID: 3271950587427901274}
   - component: {fileID: 5703266720372550725}
+  - component: {fileID: 1625520040221338630}
+  - component: {fileID: 8741918947916780608}
   m_Layer: 8
   m_Name: Hall0Entrance
   m_TagString: Untagged
@@ -109,4 +111,46 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: -6197299661721377960, guid: 7e61f0b65baf63f40adc9e958dd88bea, type: 3}
+  m_Mesh: {fileID: -6991257465847851692, guid: 7e61f0b65baf63f40adc9e958dd88bea, type: 3}
+--- !u!65 &1625520040221338630
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3819602283086230153}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 10.999995, y: 80.82099, z: 24.626743}
+  m_Center: {x: -4.49999, y: 0.49857712, z: 27.68663}
+--- !u!65 &8741918947916780608
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3819602283086230153}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 10.999995, y: 80.82099, z: 24.626743}
+  m_Center: {x: -4.49999, y: 0.49857712, z: -27.686628}
