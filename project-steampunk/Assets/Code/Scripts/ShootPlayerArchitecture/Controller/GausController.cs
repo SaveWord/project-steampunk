@@ -83,8 +83,8 @@ public class GausController : WeaponController
         if (context.performed)
         {
             //Debug.Log(this.GetType().Name);
-            //if (weapon.Patrons != 0)
-            CancelInvoke("ReloadInvoke");
+            if (weapon.Patrons != 0)
+                CancelInvoke("ReloadInvoke");
             isPressedContext = context;
             isPressed = true;
         }
@@ -95,6 +95,7 @@ public class GausController : WeaponController
             isPressed = false;
             animatorArms.SetBool("shoot", false);
             animatorWeapon.SetBool("shoot", false);
+            CancelInvoke("ReloadInvoke");
             InvokeRepeating("ReloadInvoke", 3f, weapon.ReloadSpeed);
         }
     }
