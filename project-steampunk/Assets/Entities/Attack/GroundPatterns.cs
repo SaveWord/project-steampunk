@@ -8,6 +8,7 @@ namespace Enemies.Bullets
     public class GroundPatterns : AttackBaseClass
     {
         public List<GameObject> _patternPartsList;
+        public List<GroundComponent> _collidersList;
         public bool Activated = false;
 
         //Instructions: add children parts to this object with collider somewhere in each. use flipangle to kill player
@@ -55,8 +56,9 @@ namespace Enemies.Bullets
                     if (meshCollider != null)
                     {
                         effect.gameObject.AddComponent<GroundComponent>();
+                        _collidersList.Add(effect.gameObject.GetComponent<GroundComponent>());
                         effect.gameObject.GetComponent<GroundComponent>()._damage = _damage;
-                        patternPart.SetActive(false);
+                       // patternPart.SetActive(false);
                     }
                 }
             }
@@ -67,7 +69,7 @@ namespace Enemies.Bullets
 
         public override void Activate(ITarget target, Transform attackSpot)
         {
-            gameObject.transform.rotation = Quaternion.Euler(0, _bossObject.transform.rotation.y - _flipAngle, 0);
+            
             //play animator
             //_audioSource.PlaySfxEnemy("EnemyGroundPattern");
             if (_setUp)
@@ -80,21 +82,22 @@ namespace Enemies.Bullets
             if (!Activated)
             {
                 Activated = true;
+                gameObject.transform.rotation = Quaternion.Euler(0, _bossObject.transform.rotation.y - _flipAngle, 0);
+                foreach (GameObject partPattern in _patternPartsList)
+                   // partPattern.SetActive(true);
                 _bossAnimator.SetBool("isGroundPattern", true);
                 yield return new WaitForSeconds(_chargeTime);
 
                 _bossAnimator.SetBool("isGroundPattern", false);
-                foreach (GameObject partPattern in _patternPartsList)
-                {
-                    partPattern.SetActive(true);
-                    partPattern.GetComponentInChildren<GroundComponent>().isDamaging = true;
-                }
+                foreach (GroundComponent partPattern in _collidersList)
+                    partPattern.isDamaging = true;
+                
                 // damage dealing time frame
                 yield return new WaitForSeconds(_damageTime);
-                foreach (GameObject partPattern in _patternPartsList)
+                foreach (GroundComponent partPattern in _collidersList)
                 {
-                    partPattern.GetComponentInChildren<GroundComponent>().isDamaging = false;
-                    partPattern.SetActive(false);
+                    partPattern.isDamaging = false;
+                    //partPattern.SetActive(false);
                 }
                 Activated = false;
                 gameObject.SetActive(false);
