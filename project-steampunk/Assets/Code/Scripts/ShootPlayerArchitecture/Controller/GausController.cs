@@ -29,7 +29,7 @@ public class GausController : WeaponController
     {
         ParticleSystem[] particle = GetComponentsInChildren<ParticleSystem>();
         afterFireSmoke = particle[particle.Length - 2];
-        
+
         lineRenderers = new List<LineRenderer>();
         LineRenderer tmp;
         for (int i = 0; i < 10; i++)
@@ -50,7 +50,7 @@ public class GausController : WeaponController
             weaponParametrs.enemyLayer,
             vfxShootPrefab, weaponParametrs.vfxImpactMetalProps, weaponParametrs.vfxImpactOtherProps,
             patronsText, gausePatronsImages,
-            animatorArms, animatorWeapon, recoilCinemachine, afterFireSmoke,lineRenderers);
+            animatorArms, animatorWeapon, recoilCinemachine, afterFireSmoke, lineRenderers,dotLine);
         weapon.Switch = false;
         startSwitchInisialise = true;
     }
@@ -65,9 +65,10 @@ public class GausController : WeaponController
                 isPressed = false;
                 animatorArms.SetBool("shoot", false);
                 animatorWeapon.SetBool("shoot", false);
+                InvokeRepeating("ReloadInvoke", 3f, weapon.ReloadSpeed);
             }
         }
-        if(weapon.Patrons == 0) animatorArms.SetBool("reload", true); 
+        if (weapon.Patrons == 0) animatorArms.SetBool("reload", true);
         else animatorArms.SetBool("reload", false);
     }
     public override void Shoot(InputAction.CallbackContext context)
@@ -82,7 +83,8 @@ public class GausController : WeaponController
         if (context.performed)
         {
             //Debug.Log(this.GetType().Name);
-            CancelInvoke("ReloadInvoke");
+            if (weapon.Patrons != 0)
+                CancelInvoke("ReloadInvoke");
             isPressedContext = context;
             isPressed = true;
         }

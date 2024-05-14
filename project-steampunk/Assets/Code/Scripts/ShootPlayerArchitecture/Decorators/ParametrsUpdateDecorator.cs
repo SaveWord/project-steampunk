@@ -15,6 +15,7 @@ public class ParametrsUpdateDecorator : MainDecorator
     protected CancellationToken _cancellationToken;
     protected RaycastHit raycastHit;
     protected List<LineRenderer> _lineRenderers;
+    protected Transform _dotLine;
 
     protected bool _updateSwitchWeapon; // stop animation and reload if switch
     protected Transform _distanceTarget;
@@ -50,7 +51,7 @@ public class ParametrsUpdateDecorator : MainDecorator
         ParticleSystem vfxShootPrefab, ParticleSystem vfxImpactMetalProps, ParticleSystem vfxImpactOtherProps,
         TextMeshProUGUI patronsText,
         Animator animator, Animator animatorWeapon, CinemachineImpulseSource recoil,
-        List<LineRenderer> lineRenderers) : base(weapon)
+        List<LineRenderer> lineRenderers,Transform dotLine) : base(weapon)
     {
 
         _updateFireRate = updateFireRate;
@@ -77,6 +78,7 @@ public class ParametrsUpdateDecorator : MainDecorator
         _animatorWeapon = animatorWeapon;
         _recoil = recoil;
         _lineRenderers = lineRenderers;
+        _dotLine = dotLine;
     }
 
     //properties
@@ -211,7 +213,7 @@ public class ParametrsUpdateDecorator : MainDecorator
         LineRenderer lineTmp = GetPooledObject();
         if (lineTmp != null)
         {
-            lineTmp.SetPosition(0, _vfxShootPrefab.transform.position);
+            lineTmp.SetPosition(0, _dotLine.position);
             
             if (hitLine.point == Vector3.zero)
             {

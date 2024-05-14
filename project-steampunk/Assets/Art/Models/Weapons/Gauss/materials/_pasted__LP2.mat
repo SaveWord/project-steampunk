@@ -28,7 +28,6 @@ Material:
   - _HALFTONESHAPE_DOT
   - _METALLICSPECGLOSSMAP
   - _NORMALMAP
-  - _OUTLINE
   - _TOON_SHADING_ON
   m_InvalidKeywords:
   - _SURFACE_TYPE_TRANSPARENT
@@ -110,7 +109,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RampTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: bb45d1ac2ec12be498503b28837d8988, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -185,7 +184,7 @@ Material:
     - _NoiseScale: 1
     - _NoiseStrength: 0.1
     - _OcclusionStrength: 1
-    - _OutlineEnabled: 1
+    - _OutlineEnabled: 0
     - _OutlineMode: 0
     - _OutlineWidth: 6
     - _Parallax: 0.02
@@ -209,7 +208,7 @@ Material:
     - _SrcBlendAlpha: 1
     - _StencilComp: 0
     - _StencilRef: 0
-    - _StepViaRampTexture: 0
+    - _StepViaRampTexture: 1
     - _Surface: 1
     - _ToonBlending: 0.5
     - _ToonEnabled: 1

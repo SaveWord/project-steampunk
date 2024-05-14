@@ -22,10 +22,10 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
          ParticleSystem vfxShootPrefab, ParticleSystem vfxImpactMetalProps, ParticleSystem vfxImpactOtherProps,
          TextMeshProUGUI patronsText, List<Image> updateGausePatronsImage,
          Animator animator, Animator animatorWeapon, CinemachineImpulseSource recoil, 
-         ParticleSystem afterFireParticle, List<LineRenderer> lineRenderers)
+         ParticleSystem afterFireParticle, List<LineRenderer> lineRenderers,Transform dotLine)
          : base(distanceTarget, weapon, updateFireRate, distanceAndDamage, updateReload, updatePatrons, updateWeaponType,
              mask, vfxShootPrefab, vfxImpactMetalProps, vfxImpactOtherProps, patronsText, 
-             animator, animator, recoil,lineRenderers)
+             animator, animator, recoil,lineRenderers,dotLine)
     {
         _updateFireRate = updateFireRate;
 
@@ -52,6 +52,7 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
         _recoil = recoil;
         _afterFireParticle = afterFireParticle;
         _lineRenderers = lineRenderers;
+        _dotLine = dotLine;
     }
 
     //properties

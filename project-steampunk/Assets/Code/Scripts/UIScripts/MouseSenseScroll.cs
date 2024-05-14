@@ -6,6 +6,7 @@ using UnityEngine.Audio;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class MouseSenseScroll : MonoBehaviour
 {
@@ -16,6 +17,11 @@ public class MouseSenseScroll : MonoBehaviour
     [SerializeField] private Slider sliderVolume;
     [SerializeField] private Slider sliderVolumeMusic;
     [SerializeField] private Slider sliderVolumeSFX;
+
+    [Header("Video Player and Credits(CatScene)")]
+    [SerializeField] private VideoPlayer video;
+    [SerializeField] private GameObject screenCredits;
+    [SerializeField] private GameObject rawImage;
 
     const string _mixerMusic = "MusicParam";
     const string _mixerSfx = "SFXParam";
@@ -45,6 +51,20 @@ public class MouseSenseScroll : MonoBehaviour
         sliderVolumeSFX.onValueChanged.AddListener(OnSFXChanged);
         sliderVolumeMusic.onValueChanged.AddListener(OnMusicChanged);
 
+        if (SceneManager.GetActiveScene().buildIndex == 0) {
+            video.loopPointReached += WaitNewGame;
+            inputActionsUI.UI.CatSceneSkip.started += SkipVideoNewGame;
+        }
+        if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            //add ivent boss death    +=  FinalWinScene;
+            HpBoss.OnBossDefeated += FinalWinScene;
+            CreditsFinal.CreditsFinalEnd += LoadMainMenuAfterCredits;
+            video.loopPointReached += WaitFinalCredits;
+            inputActionsUI.UI.CatSceneSkip.started += SkipFinalScene;
+        }
+
+
     }
     private void CreateDirectoriesIfNotExist()
     {
@@ -66,6 +86,20 @@ public class MouseSenseScroll : MonoBehaviour
         if (SceneManager.GetActiveScene().buildIndex != 0)
             player.MouseSense = sliderSense.value;
         //inputActionsUI.UICustom.SenseESCBuild.started -= context => ActiveSlider(context);
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            video.loopPointReached -= WaitNewGame;
+            inputActionsUI.UI.CatSceneSkip.started -= SkipVideoNewGame;
+        }
+        if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            //add ivent boss death     -= FinalWinScene
+            HpBoss.OnBossDefeated -= FinalWinScene;
+            CreditsFinal.CreditsFinalEnd -= LoadMainMenuAfterCredits;
+            video.loopPointReached -= WaitFinalCredits;
+            inputActionsUI.UI.CatSceneSkip.started -= SkipFinalScene;
+        }
+
         SaveSense();
 
     }
@@ -140,11 +174,66 @@ public class MouseSenseScroll : MonoBehaviour
             Cursor.visible = false;
         }
     }
+    //new game and video frames сюжет
     public void NewGame()
     {
+        video.Play();
+        mixer.SetFloat("MuteParam", Mathf.Log10(1) * 20);
+    }
+    private void WaitNewGame(VideoPlayer source)
+    {
+        mixer.SetFloat("MuteParam", Mathf.Log10(0) * 20);
         SceneManager.LoadScene(1);
         GameManagerSingleton.Instance.SaveSystem.DeleteAllSave();
     }
+    private void SkipVideoNewGame(InputAction.CallbackContext context)
+    {
+        if(video.isPlaying)
+        {
+            mixer.SetFloat("MuteParam", Mathf.Log10(0) * 20);
+            SceneManager.LoadScene(1);
+            GameManagerSingleton.Instance.SaveSystem.DeleteAllSave();
+        }
+    }
+    // final video scene if boss die
+    private void FinalWinScene()
+    {
+        inputActionsUI.Player.Disable();
+        inputActionsUI.UICustom.Disable();
+        inputActionsUI.UI.Enable();
+        Time.timeScale = 0;
+        video.Play();
+        rawImage.SetActive(true);
+        mixer.SetFloat("MuteParam", Mathf.Log10(1) * 20);
+    }
+    private void WaitFinalCredits(VideoPlayer source)
+    {
+        Time.timeScale = 1;
+        screenCredits.SetActive(true); rawImage.SetActive(false);
+        mixer.SetFloat("MuteParam", Mathf.Log10(0) * 20);
+        AudioManager.InstanceAudio.PlayMusic("Credits", true);
+
+    }
+    public void LoadMainMenuAfterCredits()
+    {
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
+        SceneManager.LoadScene(0);
+    }
+    private void SkipFinalScene(InputAction.CallbackContext context)
+    {
+        if (video.isPlaying || screenCredits.activeSelf == true)
+        {
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
+            mixer.SetFloat("MuteParam", Mathf.Log10(0) * 20);
+            SceneManager.LoadScene(0);
+        }
+    }
+
+
+
+    //--------------------------------------------------------------------------------
     public void LevelLoad(int level)
     {
         //transform.root.SetParent(null);

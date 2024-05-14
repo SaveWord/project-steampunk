@@ -368,6 +368,15 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CatSceneSkip"",
+                    ""type"": ""Button"",
+                    ""id"": ""c03e6339-b3ec-428d-807e-ed6fa3c71517"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -788,6 +797,17 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
                     ""action"": ""TrackedDeviceOrientation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""26e7c114-293b-48ca-a2b0-50b92d480ca5"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CatSceneSkip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -846,6 +866,7 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
         m_UI_RightClick = m_UI.FindAction("RightClick", throwIfNotFound: true);
         m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
+        m_UI_CatSceneSkip = m_UI.FindAction("CatSceneSkip", throwIfNotFound: true);
         // UICustom
         m_UICustom = asset.FindActionMap("UICustom", throwIfNotFound: true);
         m_UICustom_SenseESCBuild = m_UICustom.FindAction("SenseESCBuild", throwIfNotFound: true);
@@ -1038,6 +1059,7 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
     private readonly InputAction m_UI_RightClick;
     private readonly InputAction m_UI_TrackedDevicePosition;
     private readonly InputAction m_UI_TrackedDeviceOrientation;
+    private readonly InputAction m_UI_CatSceneSkip;
     public struct UIActions
     {
         private @ActionPrototypePlayer m_Wrapper;
@@ -1052,6 +1074,7 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
         public InputAction @RightClick => m_Wrapper.m_UI_RightClick;
         public InputAction @TrackedDevicePosition => m_Wrapper.m_UI_TrackedDevicePosition;
         public InputAction @TrackedDeviceOrientation => m_Wrapper.m_UI_TrackedDeviceOrientation;
+        public InputAction @CatSceneSkip => m_Wrapper.m_UI_CatSceneSkip;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1091,6 +1114,9 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
             @TrackedDeviceOrientation.started += instance.OnTrackedDeviceOrientation;
             @TrackedDeviceOrientation.performed += instance.OnTrackedDeviceOrientation;
             @TrackedDeviceOrientation.canceled += instance.OnTrackedDeviceOrientation;
+            @CatSceneSkip.started += instance.OnCatSceneSkip;
+            @CatSceneSkip.performed += instance.OnCatSceneSkip;
+            @CatSceneSkip.canceled += instance.OnCatSceneSkip;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -1125,6 +1151,9 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
             @TrackedDeviceOrientation.started -= instance.OnTrackedDeviceOrientation;
             @TrackedDeviceOrientation.performed -= instance.OnTrackedDeviceOrientation;
             @TrackedDeviceOrientation.canceled -= instance.OnTrackedDeviceOrientation;
+            @CatSceneSkip.started -= instance.OnCatSceneSkip;
+            @CatSceneSkip.performed -= instance.OnCatSceneSkip;
+            @CatSceneSkip.canceled -= instance.OnCatSceneSkip;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -1213,6 +1242,7 @@ public partial class @ActionPrototypePlayer: IInputActionCollection2, IDisposabl
         void OnRightClick(InputAction.CallbackContext context);
         void OnTrackedDevicePosition(InputAction.CallbackContext context);
         void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
+        void OnCatSceneSkip(InputAction.CallbackContext context);
     }
     public interface IUICustomActions
     {

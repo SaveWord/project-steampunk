@@ -15,10 +15,10 @@ public class ParametrsUpdateMachineGun : ParametrsUpdateDecorator
         ParticleSystem vfxShootPrefab, ParticleSystem vfxImpactMetalProps, ParticleSystem vfxImpactOtherProps,
         TextMeshProUGUI patronsText, Animator animator, Animator animatorWeapon,
         CinemachineImpulseSource recoil, RecoilMachineGun recoilMachineGun, 
-        List<LineRenderer> lineRenderers)
+        List<LineRenderer> lineRenderers,Transform dotLine)
         : base(distanceTarget,weapon, updateFireRate, updateDamage, updateReload, updatePatrons, updateWeaponType,
           mask, vfxShootPrefab, vfxImpactMetalProps, vfxImpactOtherProps, patronsText, 
-          animator, animatorWeapon, recoil, lineRenderers)
+          animator, animatorWeapon, recoil, lineRenderers, dotLine)
     {
         _updateFireRate = updateFireRate;
 
@@ -46,6 +46,7 @@ public class ParametrsUpdateMachineGun : ParametrsUpdateDecorator
         _animator = animator;
         _animatorWeapon = animatorWeapon;
         _lineRenderers = lineRenderers;
+        _dotLine = dotLine;
     }
     public override void Shoot(InputAction.CallbackContext context)
     {

@@ -21,6 +21,7 @@ public class WeaponController : MonoBehaviour
     //visual
     protected ParticleSystem vfxShootPrefab;
     protected List<LineRenderer> lineRenderers;
+    [SerializeField]protected Transform dotLine;
     [SerializeField]protected LineRenderer lineRenderer;
 
     protected CinemachineImpulseSource recoilCinemachine;
@@ -55,13 +56,16 @@ public class WeaponController : MonoBehaviour
             weapon.Switch = false;
         }
         SubscriptionInput();
-        
 
     }
     protected void OnDisable()
     {
+        inputShoot.Player.Shoot.Reset();
+        inputShoot.Player.Reload.Reset();
         animatorWeapon.SetBool("reload", false);
         animatorArms.SetBool("reload", false);
+        animatorArms.SetBool("shoot", false);
+        animatorWeapon.SetBool("shoot", false);
         weapon.Switch = true;
         weapon.CancelToken();
         //inputShoot.Disable();
@@ -95,7 +99,7 @@ public class WeaponController : MonoBehaviour
             weaponParametrs.patrons, weaponParametrs.attackType,
             weaponParametrs.enemyLayer,
             vfxShootPrefab, weaponParametrs.vfxImpactMetalProps, weaponParametrs.vfxImpactOtherProps,
-            patronsText, animatorArms, animatorWeapon, recoilCinemachine,lineRenderers);
+            patronsText, animatorArms, animatorWeapon, recoilCinemachine,lineRenderers,dotLine);
         weapon.Switch = false;
         startSwitchInisialise = true;
     }
