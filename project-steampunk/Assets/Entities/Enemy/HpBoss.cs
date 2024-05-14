@@ -8,8 +8,6 @@ using Enemies;
 
 public class HpBoss : MonoBehaviour
 {
-    private Animator _animator;
-
     [SerializeField] private GameObject deathParticlePrefab;
     [SerializeField] private GameObject healDropPrefab;
 
@@ -21,6 +19,7 @@ public class HpBoss : MonoBehaviour
     public event Action<int> DeleteList;
 
     [SerializeField] private EnemyAudioCollection _audioSource;
+    [SerializeField] private Animator _animator;
 
     public static event Action OnBossDefeated = delegate { };
 
@@ -29,7 +28,6 @@ public class HpBoss : MonoBehaviour
         GetComponent<IHealth>().OnDied += HandleEnemyDied;
         GetComponent<IHealth>().ChangeVfxImpact += HandleVfxPos;
 
-        _animator = GetComponentInChildren<Animator>();
         enemyDamageImpact = GetComponentInChildren<VisualEffect>();
         healDropPrefab = Resources.Load<GameObject>("HealDrop");
 
@@ -57,6 +55,7 @@ public class HpBoss : MonoBehaviour
     {
         //var deathparticle = Instantiate(deathParticlePrefab, transform.position, transform.rotation);
         //animation of death
+        _animator.enabled = true;
         _animator.SetBool("isDead", true);
 
         // GameObject.Destroy(this.gameObject, 0.5f);

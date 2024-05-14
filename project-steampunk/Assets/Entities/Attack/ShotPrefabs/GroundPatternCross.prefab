@@ -50,13 +50,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   patternSpawnPoint: {fileID: 0}
   _patternPartsList: []
-  _materialNone: {fileID: 10758, guid: 0000000000000000f000000000000000, type: 0}
-  _materialCharge: {fileID: 2100000, guid: 4ef3689d961e6054bbec00eb6d8b0c9b, type: 2}
-  _materialDamage: {fileID: 2100000, guid: c0b79d153c9947944b1da6b9d7ffe034, type: 2}
-  _transparency: 0
-  _damageTime: 3
-  _chargeTime: 5
+  Activated: 1
+  _bossAnimator: {fileID: 0}
+  _audioSource: {fileID: 0}
+  _bossObject: {fileID: 0}
+  _damageTime: 5
+  _chargeTime: 2
   _damage: 0.2
+  _flipAngle: 0
 --- !u!1001 &3701717909478361495
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -66,12 +66,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   patternSpawnPoint: {fileID: 0}
   _patternPartsList: []
+  _collidersList: []
   Activated: 1
   _bossAnimator: {fileID: 0}
   _audioSource: {fileID: 0}
   _bossObject: {fileID: 0}
-  _damageTime: 1.5
-  _chargeTime: 5
+  _damageTime: 5
+  _chargeTime: 2
   _damage: 0.2
   _flipAngle: 0
 --- !u!1001 &364437048434180162
@@ -86,6 +87,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Purple Jija (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 509561439605205998, guid: a67b7d6eacbf3084b81c3ce1783c1174,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6692500142899512228, guid: a67b7d6eacbf3084b81c3ce1783c1174,
         type: 3}
@@ -171,6 +177,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Purple Jija (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 509561439605205998, guid: a67b7d6eacbf3084b81c3ce1783c1174,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6692500142899512228, guid: a67b7d6eacbf3084b81c3ce1783c1174,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -254,6 +265,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Purple Jija (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 509561439605205998, guid: a67b7d6eacbf3084b81c3ce1783c1174,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6692500142899512228, guid: a67b7d6eacbf3084b81c3ce1783c1174,
         type: 3}
@@ -339,6 +355,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Purple Jija (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 509561439605205998, guid: a67b7d6eacbf3084b81c3ce1783c1174,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6692500142899512228, guid: a67b7d6eacbf3084b81c3ce1783c1174,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -423,6 +444,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Purple Jija (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 509561439605205998, guid: a67b7d6eacbf3084b81c3ce1783c1174,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6692500142899512228, guid: a67b7d6eacbf3084b81c3ce1783c1174,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -506,6 +532,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Purple Jija
+      objectReference: {fileID: 0}
+    - target: {fileID: 509561439605205998, guid: a67b7d6eacbf3084b81c3ce1783c1174,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6692500142899512228, guid: a67b7d6eacbf3084b81c3ce1783c1174,
         type: 3}
@@ -596,6 +627,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Purple Jija (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 509561439605205998, guid: a67b7d6eacbf3084b81c3ce1783c1174,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6692500142899512228, guid: a67b7d6eacbf3084b81c3ce1783c1174,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -679,6 +715,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Purple Jija (18)
+      objectReference: {fileID: 0}
+    - target: {fileID: 509561439605205998, guid: a67b7d6eacbf3084b81c3ce1783c1174,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6692500142899512228, guid: a67b7d6eacbf3084b81c3ce1783c1174,
         type: 3}
@@ -764,6 +805,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Purple Jija (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 509561439605205998, guid: a67b7d6eacbf3084b81c3ce1783c1174,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6692500142899512228, guid: a67b7d6eacbf3084b81c3ce1783c1174,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -847,6 +893,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Purple Jija (17)
+      objectReference: {fileID: 0}
+    - target: {fileID: 509561439605205998, guid: a67b7d6eacbf3084b81c3ce1783c1174,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6692500142899512228, guid: a67b7d6eacbf3084b81c3ce1783c1174,
         type: 3}
@@ -932,6 +983,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Purple Jija (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 509561439605205998, guid: a67b7d6eacbf3084b81c3ce1783c1174,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6692500142899512228, guid: a67b7d6eacbf3084b81c3ce1783c1174,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -1015,6 +1071,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Purple Jija (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 509561439605205998, guid: a67b7d6eacbf3084b81c3ce1783c1174,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6692500142899512228, guid: a67b7d6eacbf3084b81c3ce1783c1174,
         type: 3}
@@ -1100,6 +1161,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Purple Jija (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 509561439605205998, guid: a67b7d6eacbf3084b81c3ce1783c1174,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6692500142899512228, guid: a67b7d6eacbf3084b81c3ce1783c1174,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -1183,6 +1249,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Purple Jija (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 509561439605205998, guid: a67b7d6eacbf3084b81c3ce1783c1174,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6692500142899512228, guid: a67b7d6eacbf3084b81c3ce1783c1174,
         type: 3}
@@ -1268,6 +1339,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Purple Jija (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 509561439605205998, guid: a67b7d6eacbf3084b81c3ce1783c1174,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6692500142899512228, guid: a67b7d6eacbf3084b81c3ce1783c1174,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -1351,6 +1427,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Purple Jija (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 509561439605205998, guid: a67b7d6eacbf3084b81c3ce1783c1174,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6692500142899512228, guid: a67b7d6eacbf3084b81c3ce1783c1174,
         type: 3}
@@ -1436,6 +1517,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Purple Jija (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 509561439605205998, guid: a67b7d6eacbf3084b81c3ce1783c1174,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6692500142899512228, guid: a67b7d6eacbf3084b81c3ce1783c1174,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -1519,6 +1605,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Purple Jija (19)
+      objectReference: {fileID: 0}
+    - target: {fileID: 509561439605205998, guid: a67b7d6eacbf3084b81c3ce1783c1174,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6692500142899512228, guid: a67b7d6eacbf3084b81c3ce1783c1174,
         type: 3}
@@ -1604,6 +1695,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Purple Jija (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 509561439605205998, guid: a67b7d6eacbf3084b81c3ce1783c1174,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6692500142899512228, guid: a67b7d6eacbf3084b81c3ce1783c1174,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -1687,6 +1783,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Purple Jija (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 509561439605205998, guid: a67b7d6eacbf3084b81c3ce1783c1174,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6692500142899512228, guid: a67b7d6eacbf3084b81c3ce1783c1174,
         type: 3}
