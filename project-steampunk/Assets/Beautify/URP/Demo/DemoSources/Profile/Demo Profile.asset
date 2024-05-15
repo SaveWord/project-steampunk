@@ -144,7 +144,7 @@ MonoBehaviour:
     m_Value: 1
   sharpenIntensity:
     m_OverrideState: 1
-    m_Value: 8
+    m_Value: 4
   sharpenDepthThreshold:
     m_OverrideState: 1
     m_Value: 0.035
@@ -184,23 +184,23 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 1
   tonemapMaxInputBrightness:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 1000
   tonemapExposurePre:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 1
   tonemapBrightnessPost:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 1
   saturate:
     m_OverrideState: 1
     m_Value: 0
   brightness:
     m_OverrideState: 1
-    m_Value: 1.6
+    m_Value: 1.2
   contrast:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0.98
   daltonize:
     m_OverrideState: 0
     m_Value: 0
@@ -228,10 +228,10 @@ MonoBehaviour:
     dimension: 1
   bloomIntensity:
     m_OverrideState: 1
-    m_Value: 0.5
+    m_Value: 0.32
   bloomThreshold:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 1.77
   bloomConservativeThreshold:
     m_OverrideState: 0
     m_Value: 0
@@ -251,18 +251,18 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 0
   bloomExcludeLayers:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 1
   bloomLayersFilterMethod:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 0
   bloomExclusionLayerMask:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value:
       serializedVersion: 2
       m_Bits: 512
   bloomAntiflicker:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 1
   bloomResolution:
     m_OverrideState: 0
@@ -658,7 +658,7 @@ MonoBehaviour:
     m_Value: 0
   vignettingFade:
     m_OverrideState: 1
-    m_Value: 0.12
+    m_Value: 0.06
   vignettingCircularShape:
     m_OverrideState: 0
     m_Value: 1
