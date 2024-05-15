@@ -127,19 +127,23 @@ public class Spawner : MonoBehaviour
                     enemy = Instantiate(enemyBeePrefab, dot.gameObject.transform);
                     break;
                 case EnemyTypeSpawn.BeeDouble1:
-                    enemy = enemy = Instantiate(enemyBeeDoubleVar1, dot.gameObject.transform);
+                    enemy = Instantiate(enemyBeeDoubleVar1, dot.gameObject.transform);
                     break;
                 case EnemyTypeSpawn.BeeDouble2:
-                    enemy = enemy = Instantiate(enemyBeeDoubleVar2, dot.gameObject.transform);
+                    enemy = Instantiate(enemyBeeDoubleVar2, dot.gameObject.transform);
                     break;
                 case EnemyTypeSpawn.LaBoss:
-                    enemy = enemy = Instantiate(enemyBossPrefab, dot.gameObject.transform);
+                    enemy = Instantiate(enemyBossPrefab, dot.gameObject.transform);
                     break;
             }
             enemy.transform.localPosition = Vector3.zero;
             enemies.Add(j, enemy);
-            enemies[j].GetComponent<HpEnemy>()._idEnemy = j;
-            enemies[j].GetComponent<HpEnemy>().DeleteList += DeleteList;
+            if (spawnerBoss != true)
+            {
+                enemies[j].GetComponent<HpEnemy>()._idEnemy = j;
+                enemies[j].GetComponent<HpEnemy>().DeleteList += DeleteList;
+            }
+            else enemies[j].GetComponentInChildren<HpBoss>()._idEnemy = j;
             enemies[j].SetActive(false);
             j++;
         }
