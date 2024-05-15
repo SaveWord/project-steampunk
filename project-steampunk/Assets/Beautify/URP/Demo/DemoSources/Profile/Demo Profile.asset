@@ -144,7 +144,7 @@ MonoBehaviour:
     m_Value: 1
   sharpenIntensity:
     m_OverrideState: 1
-    m_Value: 4
+    m_Value: 8
   sharpenDepthThreshold:
     m_OverrideState: 1
     m_Value: 0.035
@@ -182,39 +182,39 @@ MonoBehaviour:
     m_Value: 0
   tonemap:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1
   tonemapMaxInputBrightness:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 1000
   tonemapExposurePre:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 1
   tonemapBrightnessPost:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 1
   saturate:
     m_OverrideState: 1
     m_Value: 0
   brightness:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 1.6
   contrast:
     m_OverrideState: 1
     m_Value: 1
   daltonize:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 0
   sepia:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 0
   tintColor:
     m_OverrideState: 1
     m_Value: {r: 1, g: 1, b: 1, a: 0}
   colorTemp:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 6550
   colorTempBlend:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 0
   lut:
     m_OverrideState: 0
@@ -251,19 +251,19 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 0
   bloomExcludeLayers:
-    m_OverrideState: 0
-    m_Value: 0
-  bloomLayersFilterMethod:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 1
+  bloomLayersFilterMethod:
+    m_OverrideState: 1
+    m_Value: 0
   bloomExclusionLayerMask:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value:
       serializedVersion: 2
-      m_Bits: 0
+      m_Bits: 512
   bloomAntiflicker:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 1
   bloomResolution:
     m_OverrideState: 0
     m_Value: 1
@@ -652,13 +652,13 @@ MonoBehaviour:
     m_Value: 0.15
   vignettingOuterRing:
     m_OverrideState: 0
-    m_Value: 0
+    m_Value: 0.48
   vignettingInnerRing:
     m_OverrideState: 0
     m_Value: 0
   vignettingFade:
     m_OverrideState: 1
-    m_Value: 0.06
+    m_Value: 0.12
   vignettingCircularShape:
     m_OverrideState: 0
     m_Value: 1
@@ -730,7 +730,7 @@ MonoBehaviour:
     m_Value: 0
   nightVision:
     m_OverrideState: 0
-    m_Value: 0
+    m_Value: 1
   nightVisionColor:
     m_OverrideState: 0
     m_Value: {r: 0.5, g: 1, b: 0.5, a: 0.5}
@@ -742,7 +742,7 @@ MonoBehaviour:
     m_Value: 1
   thermalVision:
     m_OverrideState: 0
-    m_Value: 0
+    m_Value: 1
   thermalVisionScanLines:
     m_OverrideState: 0
     m_Value: 1
@@ -750,7 +750,7 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 9
   ditherIntensity:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 0.01
   frame:
     m_OverrideState: 0
