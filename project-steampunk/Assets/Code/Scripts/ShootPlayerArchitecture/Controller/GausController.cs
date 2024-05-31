@@ -27,6 +27,7 @@ public class GausController : WeaponController
     }
     protected override void Start()
     {
+        GameManagerSingleton.Instance.StopReload += OnPause;
         ParticleSystem[] particle = GetComponentsInChildren<ParticleSystem>();
         afterFireSmoke = particle[particle.Length - 2];
 

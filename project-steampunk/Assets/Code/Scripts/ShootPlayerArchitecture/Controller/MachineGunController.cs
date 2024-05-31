@@ -14,6 +14,7 @@ public class MachineGunController : WeaponController
     Vector3 current;
     protected override void Start()
     {
+        GameManagerSingleton.Instance.StopReload += OnPause;
         lineRenderers = new List<LineRenderer>();
         LineRenderer tmp;
         for (int i = 0; i < 10; i++)

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManagerSingleton : MonoBehaviour
 {
+    public event Action StopReload;
     public static GameManagerSingleton Instance { get; private set; }
     public List<CheckPoint> checkPointsID = new List<CheckPoint>();
     public List<Spawner> spawnerID = new List<Spawner>();
@@ -37,6 +39,7 @@ public class GameManagerSingleton : MonoBehaviour
     }
     public void PauseGame()
     {
+        StopReload?.Invoke();
         SingletonActionPlayer.Instance.inputActions.Player.Disable();
         SingletonActionPlayer.Instance.inputActions.UICustom.Enable();
         _mixer.SetFloat("MuteParam", Mathf.Log10(1) * 20);

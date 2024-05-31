@@ -71,6 +71,16 @@ public class WeaponController : MonoBehaviour
         //inputShoot.Disable();
         UnSubscribeInput();
     }
+    protected void OnPause()//weapon.CancelToken - cancel reload in Pause game
+    {
+        inputShoot.Player.Shoot.Reset();
+        inputShoot.Player.Reload.Reset();
+        animatorWeapon.SetBool("reload", false);
+        animatorArms.SetBool("reload", false);
+        animatorArms.SetBool("shoot", false);
+        animatorWeapon.SetBool("shoot", false);
+        weapon.CancelToken();
+    }
     protected virtual void Update()
     {
         if (isPressed)
@@ -80,6 +90,7 @@ public class WeaponController : MonoBehaviour
     }
     protected virtual void Start()
     {
+        GameManagerSingleton.Instance.StopReload += OnPause;
         lineRenderers = new List<LineRenderer>();
         LineRenderer tmp;
         for (int i = 0; i < 10; i++)
