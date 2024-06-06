@@ -27,8 +27,8 @@ public class LiftToBossArena : MonoBehaviour
         if (other.CompareTag("Player") && transform.position != points[lastPoint].position)
         {
             inLift = true;
-            //player = other.transform;
-            other.gameObject.transform.SetParent(transform);
+            player = other.transform;
+            //other.gameObject.transform.SetParent(transform);
             source.Play();
         }
     }
@@ -37,32 +37,60 @@ public class LiftToBossArena : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             inLift = false;
-            other.gameObject.transform.SetParent(null);
+            //other.gameObject.transform.SetParent(null);
             source.Stop();
         }
     }
-    private void FixedUpdate()
+    private void LateUpdate()
     {
         if (inLift && transform.position != points[lastPoint].position)
         {
             transform.position = Vector3.MoveTowards(transform.position, points[lastPoint].position, speed * Time.deltaTime);
-            //playerposition = new Vector3(player.position.x, transform.position.y + 1, player.position.z);
-           // player.position = playerposition;
+            player.GetComponent<CharacterControllerMove>().gravityDownForce = 0f;
+            playerposition = new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z);
+            player.position = playerposition;
+        }
+        else
+        {
+            player.GetComponent<CharacterControllerMove>().gravityDownForce = 20f;
         }
         if (!inLift && transform.position != points[lastPoint].position)
         {
             transform.position = Vector3.MoveTowards(transform.position, points[curPoint].position, speed * Time.deltaTime);
         }
     }
+    //private void FixedUpdate()
+    //{
+    //    if (inLift && transform.position != points[lastPoint].position)
+    //    {
+    //        transform.position = Vector3.MoveTowards(transform.position, points[lastPoint].position, speed * Time.deltaTime);
+    //        player.GetComponent<CharacterControllerMove>().gravityDownForce = 0f;
+    //        playerposition = new Vector3(player.position.x, transform.position.y + 1, player.position.z);
+    //        player.position = playerposition;
+    //    }
+    //    else
+    //    {
+    //        player.GetComponent<CharacterControllerMove>().gravityDownForce = 20f;
+    //    }
+    //    if (!inLift && transform.position != points[lastPoint].position)
+    //    {
+    //        transform.position = Vector3.MoveTowards(transform.position, points[curPoint].position, speed * Time.deltaTime);
+    //    }
+    //}
     //void Update()
     //{
     //    if (inLift && transform.position != points[lastPoint].position)
     //    {
     //        transform.position = Vector3.MoveTowards(transform.position, points[lastPoint].position, speed * Time.deltaTime);
-    //        playerposition = new Vector3(player.position.x, transform.position.y+1,player.position.z);
+    //        player.GetComponent<CharacterControllerMove>().gravityDownForce = 0f;
+    //        playerposition = new Vector3(player.position.x, transform.position.y + 1, player.position.z);
     //        player.position = playerposition;
     //    }
-    //    if(!inLift&& transform.position != points[lastPoint].position)
+    //    else
+    //    {
+    //        player.GetComponent<CharacterControllerMove>().gravityDownForce = 20f;
+    //    }
+    //    if (!inLift && transform.position != points[lastPoint].position)
     //    {
     //        transform.position = Vector3.MoveTowards(transform.position, points[curPoint].position, speed * Time.deltaTime);
     //    }

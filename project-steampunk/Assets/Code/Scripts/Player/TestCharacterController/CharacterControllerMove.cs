@@ -45,7 +45,7 @@ public class CharacterControllerMove : MonoBehaviour
     [SerializeField] private Transform dotGround;
     [SerializeField] private float sphereRadius;
 
-    [SerializeField] private float gravityDownForce = 20f;
+    [SerializeField] public float gravityDownForce = 20f;
 
     //jump
     [Header("Гравитация и переменные прыжка")]
