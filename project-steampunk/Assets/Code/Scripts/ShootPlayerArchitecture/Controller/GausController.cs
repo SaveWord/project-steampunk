@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class GausController : WeaponController
 {
     InputAction.CallbackContext context;//null context
+    [SerializeField] private float fillAmountImageSpeed;
     [SerializeField] private List<Image> gausePatronsImages;
     private ParticleSystem afterFireSmoke;
 
@@ -71,6 +72,8 @@ public class GausController : WeaponController
         }
         if (weapon.Patrons == 0) animatorArms.SetBool("reload", true);
         else animatorArms.SetBool("reload", false);
+        gausePatronsImages[0].fillAmount = Mathf.Lerp(gausePatronsImages[0].fillAmount,
+            weapon.Patrons/ 3, fillAmountImageSpeed);
     }
     public override void Shoot(InputAction.CallbackContext context)
     {

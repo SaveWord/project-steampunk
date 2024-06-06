@@ -173,8 +173,8 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
             PoolActive();
         }
 
-        indexPatron = Mathf.Clamp((int)Patrons, 0, _updateGausePatronsImage.Count - 1);
-        _updateGausePatronsImage[indexPatron].enabled = false;
+        //indexPatron = Mathf.Clamp((int)Patrons, 0, _updateGausePatronsImage.Count - 1);
+        //_updateGausePatronsImage[indexPatron].enabled = false;
        
     }
     protected override void ShowAnimatorAndInternalImpact()
@@ -196,8 +196,8 @@ public class ParametrsUpdateGaus : ParametrsUpdateDecorator
         {
             //if (Patrons <= 0)
             ReloadSound();
-            indexPatron = Mathf.Clamp((int)Patrons, 0, _updateGausePatronsImage.Count - 1);
-            _updateGausePatronsImage[indexPatron].enabled = true;
+            //indexPatron = Mathf.Clamp((int)Patrons, 0, _updateGausePatronsImage.Count - 1);
+            //_updateGausePatronsImage[indexPatron].enabled = true;
             Patrons++;
             //_patronsText.text = Patrons.ToString();
         }
